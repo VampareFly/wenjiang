@@ -1,0 +1,16 @@
+# Generated output
+articles/
+assets/
+
+# macOS
+.DS_Store
+
+# Claude Code local settings (machine-specific permissions)
+.claude/settings.local.json
+
+# Node
+node_modules/
+
+# Temporary files
+*.tmp
+*.log
