@@ -2,6 +2,10 @@
 articles/
 assets/
 
+# Input subtitle files (temporary, don't sync)
+inputs/*
+!inputs/.gitkeep
+
 # macOS
 .DS_Store
 
