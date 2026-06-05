@@ -6,6 +6,32 @@
 
 整个流程在 Claude Code 内闭环完成，不需要手动干预。
 
+## 重要：Reasonix 权限配置
+
+本项目包含 `reasonix.toml`，用于让 Reasonix 在沙箱中运行文章生成、HTML 转换和 Codex 生图流程。
+
+注意：`reasonix.toml` 里有本机硬编码路径，其他设备拉取项目后必须先改成自己的路径，否则 Reasonix 可能无法写入项目目录、Codex 会话目录或生图锁目录。
+
+当前需要检查的路径：
+
+```toml
+[sandbox]
+workspace_root = "/Users/weak/Documents/github/wechat"
+allow_write = [
+  "/tmp",
+  "/private/tmp",
+  "/Users/weak/.codex",
+  "/Users/weak/.cache/baoyu-codex-imagegen",
+]
+```
+
+迁移到其他设备时：
+
+- `workspace_root` 改成该设备上的项目绝对路径
+- `/Users/weak/.codex` 改成该设备用户的 Codex 配置目录
+- `/Users/weak/.cache/baoyu-codex-imagegen` 改成该设备用户的 baoyu Codex 生图锁/缓存目录
+- 修改后运行 `reasonix doctor --json`，确认 `sandbox.write_roots` 包含这些路径
+
 ## 它能做什么
 
 | 能力 | 说明 |
@@ -52,6 +78,7 @@ articles/YYYYMMDD/
 ```
 .
 ├── AGENTS.md           # Agent 核心配置（写作规则、工作流定义）
+├── reasonix.toml       # Reasonix 沙箱权限配置（含本机硬编码路径，迁移设备需修改）
 ├── .claude/
 │   └── CLAUDE.md       # Claude Code 角色与引用配置
 ├── docs/

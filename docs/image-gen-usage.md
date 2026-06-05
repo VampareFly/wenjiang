@@ -9,7 +9,7 @@ Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 ## 前提条件
 
 - `codex` CLI 已安装且已登录（`codex login`）
-- 沙箱允许写入 `~/.codex/`（Reasonix 需在 `config.toml` 中配置 `[sandbox] allow_write = ["~/.codex"]`）
+- Reasonix 沙箱允许写入当前项目、`/tmp`、`/private/tmp`、`/Users/weak/.codex` 和 `/Users/weak/.cache/baoyu-codex-imagegen`。当前项目使用根目录的 `reasonix.toml` 配置。
 
 ## 完整流程
 
