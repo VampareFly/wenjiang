@@ -70,7 +70,7 @@ articles/YYYYMMDD/
 ### 前置依赖
 
 - [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — 驱动整个工作流的 Agent
-- [md2wechat](https://github.com/nicepkg/md2wechat) — Markdown 转公众号 HTML + 图片上传 + 草稿推送
+- [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — Markdown 转公众号 HTML + 图片上传 + 草稿推送
 - [Playwright](https://playwright.dev/) — 小红书卡片截图
 
 ### 使用
