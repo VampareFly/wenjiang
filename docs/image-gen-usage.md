@@ -13,6 +13,44 @@ Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 
 ## 完整流程
 
+### 0. codex-cli 锁文件预检
+
+每次执行 Step 6 前，先检查 `codex-cli` 图片生成锁，避免上一次失败留下的陈旧锁阻断重新生图。
+
+锁文件路径：
+
+```bash
+LOCK="$HOME/.cache/baoyu-codex-imagegen/codex-exec.lock"
+```
+
+预检规则：
+
+1. 如果锁文件不存在，直接继续。
+2. 如果锁文件存在，先检查是否有正在运行的图片生成进程：
+
+   ```bash
+   ps -axo pid,etime,command | rg 'codex-imagegen|codex exec|baoyu-image-gen|scripts/main.ts'
+   ```
+
+3. 如果只有当前检查命令本身，没有真实的 `codex-imagegen` / `codex exec` / `baoyu-image-gen` 进程，说明是陈旧锁，删除后再继续：
+
+   ```bash
+   rm "$LOCK"
+   ```
+
+4. 如果存在真实运行中的图片生成进程，不要删除锁；等待该进程结束，或先确认是否需要中断旧任务。
+5. 如果检查进程或删除锁被沙箱拦截，按 Codex 权限流程申请沙箱外执行，不要直接重跑生成命令。
+
+常见失败特征：
+
+```text
+Invalid codex-cli result (lock_busy)
+Failed to acquire lock at ~/.cache/baoyu-codex-imagegen/codex-exec.lock
+EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.lock'
+```
+
+遇到以上错误时，按本节预检规则处理后，用 `--jobs 1` 重跑，避免并发调度再次等待锁。
+
 ### 1. 从 cover_prompt.md 提取提示词
 
 读取 `articles/<YYYYMMDD>/cover_prompt.md`，提取每个 section 的英文 prompt。

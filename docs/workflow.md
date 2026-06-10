@@ -167,6 +167,7 @@ AI 按内容类型自动匹配主题和色系，详见 `docs/baoyu-markdown-to-h
 
 使用 `/baoyu-image-gen` skill 从 `cover_prompt.md` 自动批量出图：
 
+- 生成前先执行 `docs/image-gen-usage.md` 中的 `codex-cli` 锁文件预检；如果上次失败留下陈旧锁，先确认无活跃生成进程再删除锁文件
 - 提取 `cover_prompt.md` 中各 section 的英文提示词
 - 组装临时 batch file，调用 `baoyu-image-gen` 批量生成
 - 封面 `cover.png`（16:9）、配图 `配图N.png`（按 `cover_prompt.md` 指定的比例）
