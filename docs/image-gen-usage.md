@@ -17,7 +17,7 @@ Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 
 读取 `articles/<YYYYMMDD>/cover_prompt.md`，提取每个 section 的英文 prompt。
 
-### 2. 组装 batch.json
+### 2. 组装临时 batch.json
 
 在 `articles/<YYYYMMDD>/` 目录下创建 `batch.json`：
 
@@ -68,6 +68,15 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 将 `article.html` 中的图片占位符（如 `配图1.jpg`）替换为实际文件名（如 `配图1.png`）。
 
+### 6. 清理临时文件
+
+确认图片文件存在、尺寸合理，且 `article.html` 中的图片路径已经替换完成后，删除：
+
+- `articles/<YYYYMMDD>/batch.json`
+- `articles/<YYYYMMDD>/cover_prompt.md`
+- `articles/<YYYYMMDD>/prompts/`
+- `articles/<YYYYMMDD>/*.backup-*`
+
 ## batch.json 模板
 
 每次生成图片时，按以下结构创建 batch.json，将 prompt 替换为 cover_prompt.md 中的实际内容：
@@ -105,4 +114,4 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 - batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612/cover.png`），不要用绝对路径
 - 如果图片被保存到嵌套目录（如 `articles/20260612/articles/20260612/`），需要手动移动到正确位置
-- 生成后清理 batch.json 不是必须的，但建议保留以便排查问题
+- batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片生成和 HTML 替换完成后必须删除

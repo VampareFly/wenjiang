@@ -87,7 +87,7 @@ WeChat HTML 技术约束：
 - 标题不放在卡片内，单独作为顶部元素或由公众号后台自动处理
 - 在适合配图位置标注【配图N：标题】，N为编号，标题6-12字
 - 配图编号与 cover_prompt.md 中的提示词 section 一一对应
-- 配图2-4张为宜，封面1张，总计 N+1 条提示词输出到 cover_prompt.md
+- 配图2-4张为宜，封面1张，总计 N+1 条提示词临时输出到 cover_prompt.md，图片生成完成后删除该文件
 - 封面图必须为横向 16:9，与正文配图比例一致；主体完整居中，关键元素不要贴边，避免公众号封面裁切后展示不完整
 
 ### 关注引导（紧跟免责声明之后，独立段落）
@@ -116,7 +116,7 @@ WeChat HTML 技术约束：
 ## 输出规范
 
 - 输出为 markdown 文件
-- 同时输出 cover_prompt.md，并由 AI 图片生成工具根据提示词生成 cover.png 和所有 配图N.png
+- 同时临时输出 cover_prompt.md，并由 AI 图片生成工具根据提示词生成 cover.png 和所有 配图N.png；图片生成完成后删除 cover_prompt.md
 - 生成 HTML 时使用 md2wechat 或 baoyu-markdown-to-html 生成，禁止手动拼接 HTML
 - 全中文，英文术语附中文解释
 - 忠实原内容，不夸大、不捏造数据

@@ -70,6 +70,7 @@ md2wechat convert articles/<YYYYMMDD>/article.md \
 2. AI 读取 prompt.txt 中的设计规范（主色调、字体、卡片间距、分割线等）
 3. AI 根据这些规范自动生成 `article.html`
 4. HTML 中图片先用本地路径占位（`配图1.jpg`），后续上传后替换为 CDN 地址
+5. `article.html` 生成完成后删除 `article.prompt.txt`，不要作为最终文章产物保留
 
 ## 工作流程
 
