@@ -48,22 +48,26 @@ allow_write = [
 字幕文件 (.srt)
   │
   ▼
-Step 1  生成文章 (article.md) + 配图提示词 (cover_prompt.md)
-Step 2  自动选定最优标题
-Step 3  格式化 Markdown
-Step 4  转换为公众号 HTML (article.html)
-Step 5  AI 生成封面和配图
-Step 6  预览确认
-Step 7  上传图片，替换 CDN 地址
-Step 8  上传微信草稿箱
-Step 9  生成小红书卡片
-Step 10 生成小红书文案
+Step 1  本地清洗字幕 (source.cleaned.txt)
+Step 2  生成文章 (article.md) + 配图提示词 (cover_prompt.md)
+Step 3  自动选定最优标题
+Step 4  格式化 Markdown
+Step 5  转换为公众号 HTML (article.html)
+Step 6  AI 生成封面和配图
+Step 7  预览确认
+Step 8  上传图片，替换 CDN 地址
+Step 9  上传微信草稿箱
+Step 10 生成小红书卡片
+Step 11 生成小红书文案
+Step 12 手动发布小红书
 ```
 
 ## 每篇文章产出
 
 ```
 articles/YYYYMMDD/
+├── source.srt          # 原始字幕，仅用于必要时回查
+├── source.cleaned.txt  # 清洗后的字幕，AI 默认读取
 ├── article.md          # Markdown 文章
 ├── cover_prompt.md     # 配图提示词
 ├── article.html        # 公众号 HTML
@@ -79,6 +83,8 @@ articles/YYYYMMDD/
 .
 ├── AGENTS.md           # Agent 核心配置（写作规则、工作流定义）
 ├── reasonix.toml       # Reasonix 沙箱权限配置（含本机硬编码路径，迁移设备需修改）
+├── scripts/
+│   └── clean_subtitle.py   # 本地字幕清洗脚本
 ├── .claude/
 │   └── CLAUDE.md       # Claude Code 角色与引用配置
 ├── docs/
@@ -105,7 +111,7 @@ articles/YYYYMMDD/
 1. 将字幕文件（.srt）放入 `inputs/` 目录
 2. 在 Claude Code 中打开本项目
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
-4. Agent 自动执行全流程，最终产出在 `articles/YYYYMMDD/`
+4. Agent 先本地清洗字幕，再自动执行全流程，最终产出在 `articles/YYYYMMDD/`
 
 ## 配置
 
