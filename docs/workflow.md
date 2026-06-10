@@ -202,10 +202,12 @@ AI 按内容类型自动匹配主题和色系，详见 `docs/baoyu-markdown-to-h
 
 使用 `md2wechat test-draft` 上传 `article.html` 和封面到微信草稿箱。
 
-获得草稿 ID 后告知用户：
+获得草稿 ID 后，必须在文章目录输出 `公众号草稿信息.txt`，并告知用户该文件路径。文件内容包括：
+- 草稿 `media_id`
 - 标题（从 frontmatter 提取）
 - 作者
 - 摘要
+- 后台操作说明：`md2wechat test-draft` 上传草稿后，标题、作者、摘要需要在微信公众号后台手动核对或填写
 
 让用户在微信公众号后台手动设置标题/作者/摘要后发布。
 
