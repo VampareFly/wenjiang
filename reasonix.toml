@@ -2,9 +2,10 @@
 workspace_root = "/Users/weak/Documents/github/wechat"
 allow_write = [
   "/tmp",
-  "/private/tmp",
-  "/Users/weak/.codex",
-  "/Users/weak/.cache/baoyu-codex-imagegen",
+  "~/.codex",
+  "~/.cache/baoyu-codex-imagegen",
+  "articles",
+  "scripts",
 ]
-bash = "enforce"
+bash = "allow"
 network = true

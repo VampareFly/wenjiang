@@ -2,7 +2,7 @@
 
 ## 角色定位
 
-baoyu-markdown-to-html 是备选 HTML 生成工具，当 `md2wechat` 不可用时（配置/网络问题）使用。
+baoyu-markdown-to-html 将 Markdown 转换为微信公众号兼容的带样式 HTML。
 
 AI 根据内容类型自动匹配主题和色系，无需用户指定。
 
