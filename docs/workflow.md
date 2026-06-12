@@ -102,46 +102,15 @@ AI 根据引流、曝光量和搜索量目标，从 5 个候选标题中自动�
 
 ### Step 5：生成配图
 
-使用 `/baoyu-image-gen` skill 从 `cover_prompt.md` 自动批量出图：
+使用 `/baoyu-image-gen` skill 从 `cover_prompt.md` 自动批量出图，provider 为 `codex-cli`。**禁止降级到其他图片生成方式**，codex 失败则直接告知用户。
 
-- 生成前先执行 `docs/image-guide.md` 中的 `codex-cli` 锁文件预检；如果上次失败留下陈旧锁，先确认无活跃生成进程再删除锁文件
-- 提取 `cover_prompt.md` 中各 section 的英文提示词
-- 组装临时 batch file，调用 `baoyu-image-gen` 批量生成
-- 封面 `cover.png`（16:9）、配图 `配图N.png`（按 `cover_prompt.md` 指定的比例）
-- 图片保存到 `articles/<YYYYMMDD>/` 目录
-
-详细流程见 `docs/image-guide.md`。**禁止降级到其他图片生成方式**，codex 失败则直接告知用户。
-
-**覆盖与备份规则：**
-如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
-
-确认图片文件存在且尺寸合理后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件。
+详细流程、备份规则和清理规则见 `docs/image-guide.md`。
 
 ### Step 6：生成公众号 HTML（自动）
 
-**随机选择**（`baoyu-markdown-to-html` 60% / `md2wechat --mode ai` 40%）将 `article.md` 转为 `article.html`：
+随机选择 `baoyu-markdown-to-html`（60%）或 `md2wechat --mode ai`（40%）将 `article.md` 转为 `article.html`。图片已在 Step 5 生成完毕，HTML 中直接使用实际图片文件名。
 
-- 方案：`baoyu-markdown-to-html`（AI 按内容类型自动匹配主题和色系）或 `md2wechat --mode ai`
-- 输出到 `articles/<YYYYMMDD>/article.html`
-- 图片已在 Step 5 生成完毕，HTML 中直接使用实际图片文件名（`cover.png`、`配图N.png`）
-- 选定方案后直接执行，**不需要用户指定**
-
-工具参数和 HTML 兼容性规则详见 `docs/tool-reference.md`。
-
-**方案一 — baoyu-markdown-to-html**
-
-AI 按内容类型自动匹配主题和色系。输出文件名与输入文件名一致（`article.md` → `article.html`），直接生成 `article.html`。
-
-**方案二 — md2wechat AI 模式**
-
-运行 `md2wechat convert --mode ai` 获得 `article.prompt.txt`，AI 读取其中的设计规范后生成匹配的 `article.html`。
-
-生成 `article.html` 后，立即删除 `article.prompt.txt`。
-
-**工作流规则（强制）：**
-- 生成 HTML 时，只使用基本参数（不加 `--draft` 和 `--upload`）
-- 等待用户预览确认后，再执行上传命令
-- `md2wechat` 同时负责图片上传（`upload_image`）和草稿上传（`test-draft`）
+工具参数、方案选择和 HTML 兼容性规则详见 `docs/tool-reference.md`。
 
 ### Step 7：预览确认
 
@@ -161,43 +130,15 @@ AI 按内容类型自动匹配主题和色系。输出文件名与输入文件�
 
 ### Step 9：上传公众号草稿
 
-使用 `md2wechat test-draft` 上传 `article.html` 和封面到微信草稿箱。
-
-获得草稿 ID 后，必须在文章目录输出 `公众号草稿信息.txt`，并告知用户该文件路径。文件内容包括：
-- 草稿 `media_id`
-- 标题（从 frontmatter 提取）
-- 作者
-- 摘要
-- 推荐话题（3-5个，基于文章内容和微信搜一搜高频词，用于微信公众号后台「话题标签」设置，提升搜索曝光和阅读量）
-- 后台操作说明：`md2wechat test-draft` 上传草稿后，标题、作者、摘要、话题标签需要在微信公众号后台手动核对或填写
+使用 `md2wechat test-draft` 上传 `article.html` 和封面到微信草稿箱。草稿信息文件格式见 `docs/tool-reference.md`。
 
 让用户在微信公众号后台手动设置标题/作者/摘要后发布。
 
 ### Step 10：生成小红书卡片
 
-**随机选择**（`guizang-social-card-skill` 60% / `claude-design-card` 40%）将 `article.md` 内容转为小红书图文笔记卡片：
+使用 `guizang-social-card-skill` 将 `article.md` 内容转为小红书图文笔记卡片（1080×1440，3:4）。主题/色系由 AI 根据内容类型自动匹配，不需要用户指定。
 
-- 格式：小红书图文笔记（1080×1440，3:4）
-- 数量：AI 根据内容自动决定（封面 + 若干内容卡片 + 收尾总结）
-- 输出到 `articles/<YYYYMMDD>/小红书卡片-{01-N}.png`
-- 选定 skill 后，其内部的主题/色系由 AI 根据内容类型自动匹配，**不需要用户指定**
-- **skill 内的图片来源由 AI 自动决策**：评估已有配图（`cover.png`, `配图1-N.png`）是否适合卡片设计，决定使用本地图片还是从网络获取更适合的素材
-- **skill 内的风格模式由 AI 根据文章内容自动选择**（Editorial 或 Swiss），不询问用户
-
-**截图脚本规则：**
-
-- Playwright 依赖在 `scripts/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
-  ```bash
-  NODE_PATH=scripts/node_modules node screenshot.js
-  ```
-- 使用 `element.screenshot()` 而非 `page.screenshot({clip})` — 自动将目标元素滚入视口
-- 脚本文件先用 Write 工具创建，再用 Bash 执行（避免 sandbox 拦截）
-- viewport 高度设大（≥所有卡片高度总和 + 间距）
-- `names` 数组和选择器根据实际卡片动态调整
-- 生成小红书卡片和文案后，删除截图脚本、临时 HTML、preview/debug 文件，只保留 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`
-
-**claude-design-card**：按技能指引生成标准化信息卡片。
-**guizang-social-card-skill**：按技能指引生成杂志风社交卡片，具体流程参考其 Style Mode 和 Layout Recipes。
+截图脚本规则和临时文件清理规则见 `docs/image-guide.md`。
 
 ### Step 11：生成小红书文案
 

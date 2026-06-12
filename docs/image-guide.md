@@ -91,6 +91,10 @@ Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 - 如果生成超时，可以增加 `--timeout` 参数延长等待时间重试，但仍然必须使用 `codex-cli`
 - 如果重试后仍然失败，停止图片生成，向用户报告具体错误，由用户决定下一步操作
 
+### 覆盖与备份规则
+
+如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
+
 ### 前提条件
 
 - `codex` CLI 已安装且已登录（`codex login`）
@@ -235,3 +239,24 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 - batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612/cover.png`），不要用绝对路径
 - 如果图片被保存到嵌套目录（如 `articles/20260612/articles/20260612/`），需要手动移动到正确位置
 - batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片生成和 HTML 替换完成后必须删除
+
+---
+
+## 小红书卡片截图规则
+
+小红书卡片使用 `guizang-social-card-skill` 生成，格式为 1080×1440（3:4）。
+
+### 截图脚本规则
+
+- Playwright 依赖在 `scripts/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
+  ```bash
+  NODE_PATH=scripts/node_modules node screenshot.js
+  ```
+- 使用 `element.screenshot()` 而非 `page.screenshot({clip})` — 自动将目标元素滚入视口
+- 脚本文件先用 Write 工具创建，再用 Bash 执行（避免 sandbox 拦截）
+- viewport 高度设大（≥所有卡片高度总和 + 间距）
+- `names` 数组和选择器根据实际卡片动态调整
+
+### 临时文件清理
+
+生成小红书卡片和文案后，删除截图脚本、临时 HTML、preview/debug 文件，只保留 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`

@@ -175,3 +175,31 @@ bun <skill-path>/scripts/main.ts article.md --cite
 - 禁止使用 `<style>` 标签，所有样式必须为 inline style。
 - 禁止使用 flex `gap` 属性，卡片间距用 `margin-bottom` 实现。
 - 微信编辑器会剥掉 `<ul>` / `<li>` 标签，导致列表换行失效。正文中的列举内容统一使用独立 `<p>` 段落 + `margin-bottom` 控制间距，不用 `<ul><li>`。
+
+---
+
+## HTML 生成阶段规则
+
+生成公众号 HTML 时遵循以下规则：
+
+- 生成阶段只使用基本参数，**不加 `--draft` 和 `--upload`**
+- 等待用户预览确认后，再执行上传命令
+- 随机选择方案：`baoyu-markdown-to-html`（60%）/ `md2wechat --mode ai`（40%），不需要用户指定
+- 图片已在生图步骤生成完毕，HTML 中直接使用实际图片文件名
+
+---
+
+## 公众号草稿信息文件格式
+
+使用 `md2wechat test-draft` 上传草稿后，必须在文章目录输出 `公众号草稿信息.txt`，内容包括：
+
+```text
+草稿 media_id：{media_id}
+标题：{从 frontmatter 提取}
+作者：{作者名}
+摘要：{摘要}
+推荐话题：{3-5 个，基于文章内容和微信搜一搜高频词}
+
+后台操作说明：
+md2wechat test-draft 上传草稿后，标题、作者、摘要、话题标签需要在微信公众号后台手动核对或填写。
+```
