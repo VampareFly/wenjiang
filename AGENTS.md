@@ -8,3 +8,4 @@
 @docs/content-types.md
 @docs/workflow.md
 @docs/md2wechat-usage.md
+@docs/baoyu-markdown-to-html-usage.md

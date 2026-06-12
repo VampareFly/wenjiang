@@ -2,35 +2,9 @@
 
 > 字幕进去，爆款出来。一条流水线，从视频字幕到公众号发布。
 
-文匠是一个基于 Claude Code Agent 的内容生产工作流。丢进一段字幕，Agent 自动完成内容分析、风格化写作、排版优化、配图生成、HTML 转换，直到上传微信草稿箱。
+文匠是一个基于 Code Agent 的内容生产工作流。丢进一段字幕，Agent 自动完成内容分析、风格化写作、排版优化、配图生成、HTML 转换，直到上传微信草稿箱。
 
-整个流程在 Claude Code 内闭环完成，不需要手动干预。
-
-## 重要：Reasonix 权限配置
-
-本项目包含 `reasonix.toml`，用于让 Reasonix 在沙箱中运行文章生成、HTML 转换和 Codex 生图流程。
-
-注意：`reasonix.toml` 里有本机硬编码路径，其他设备拉取项目后必须先改成自己的路径，否则 Reasonix 可能无法写入项目目录、Codex 会话目录或生图锁目录。
-
-当前需要检查的路径：
-
-```toml
-[sandbox]
-workspace_root = "/Users/weak/Documents/github/wechat"
-allow_write = [
-  "/tmp",
-  "/private/tmp",
-  "/Users/weak/.codex",
-  "/Users/weak/.cache/baoyu-codex-imagegen",
-]
-```
-
-迁移到其他设备时：
-
-- `workspace_root` 改成该设备上的项目绝对路径
-- `/Users/weak/.codex` 改成该设备用户的 Codex 配置目录
-- `/Users/weak/.cache/baoyu-codex-imagegen` 改成该设备用户的 baoyu Codex 生图锁/缓存目录
-- 修改后运行 `reasonix doctor --json`，确认 `sandbox.write_roots` 包含这些路径
+整个流程在 AI Code 内闭环完成，不需要手动干预。
 
 ## 它能做什么
 
@@ -81,11 +55,9 @@ articles/YYYYMMDD/
 ```
 .
 ├── AGENTS.md           # Agent 核心配置（写作规则、工作流定义）
-├── reasonix.toml       # Reasonix 沙箱权限配置（含本机硬编码路径，迁移设备需修改）
+├── opencode.json       # OpenCode 权限配置（bash、skill、外部目录访问）
 ├── scripts/
 │   └── clean_subtitle.py   # 本地字幕清洗脚本
-├── .claude/
-│   └── CLAUDE.md       # Claude Code 角色与引用配置
 ├── docs/
 │   ├── workflow.md     # 完整工作流文档
 │   ├── writing-style.md    # 写作风格准则
@@ -101,26 +73,29 @@ articles/YYYYMMDD/
 
 ### 前置依赖
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) — 驱动整个工作流的 Agent
+- [OpenCode](https://github.com/anomalyco/opencode) — 驱动整个工作流的 Agent
 - [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — Markdown 转公众号 HTML + 图片上传 + 草稿推送
 - [Playwright](https://playwright.dev/) — 小红书卡片截图
 
 ### 使用
 
 1. 将字幕文件（.srt）放入 `inputs/` 目录
-2. 在 Claude Code 中打开本项目
+2. 在 OpenCode 中打开本项目
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
 4. Agent 先本地清洗字幕，再自动执行全流程，最终产出在 `articles/YYYYMMDD/`
 5. 流程结束前清理字幕、提示词、batch、截图脚本和调试文件，只保留正式发布资产
 
 ## 配置
 
-所有写作规则和工作流定义都在 `AGENTS.md` 中。如果你想调整：
-
-- **写作风格** — 修改 `docs/writing-style.md`
-- **内容类型判断** — 修改 `docs/content-types.md`
-- **工作流步骤** — 修改 `docs/workflow.md`
-- **公众号主题** — 修改 `docs/md2wechat-usage.md`
+| 文件 | 用途 |
+|------|------|
+| `AGENTS.md` | Agent 角色定义、写作风格、工作流引用 |
+| `opencode.json` | OpenCode 权限配置（bash 命令、skill 加载、外部目录访问） |
+| `docs/writing-style.md` | 写作风格准则 |
+| `docs/content-types.md` | 内容类型识别 |
+| `docs/workflow.md` | 工作流步骤 |
+| `docs/md2wechat-usage.md` | 公众号 HTML 主题与色系 |
+| `docs/baoyu-markdown-to-html-usage.md` | Markdown 转 HTML 工具指南 |
 
 配置修改后立即生效，下次运行自动应用。
 
