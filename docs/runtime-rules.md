@@ -24,8 +24,8 @@
 
 **清理时机：**
 - Step 4 完成后：删除 `article-formatted.md`，只保留覆盖后的 `article.md`
-- Step 5 完成后：如果使用 `md2wechat --mode ai`，删除 `article.prompt.txt`
-- Step 6 完成后：确认图片存在且 `article.html` 图片路径已替换后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件
+- Step 5 完成后：确认图片文件存在且尺寸合理后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件
+- Step 6 完成后：如果使用 `md2wechat --mode ai`，删除 `article.prompt.txt`
 - Step 11 完成后：删除小红书卡片生成过程中的临时 HTML、临时 JS、preview/debug 文件
 - Step 12 前：删除原始字幕和 `source.cleaned.txt`，最终目录只保留正式发布资产
 

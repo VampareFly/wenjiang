@@ -34,8 +34,8 @@ articles/<YYYYMMDD>/
 | `source.srt` / `source.vtt` | 用户输入 | 原始字幕，仅用于必要时回查时间点或核对原文，流程结束前删除 |
 | `source.cleaned.txt` | Step 1 | 移除时间轴和字幕元数据后的本地清洗文本，**AI 默认只读取此文件生成文章**，流程结束前删除 |
 | `article.md` | Step 2 → Step 4 覆盖 | 原始 markdown → 经 `/baoyu-format-markdown` 排版优化后覆盖自身。**后续所有步骤基于此文件操作** |
-| `article.html` | Step 5 | 公众号文章 HTML，用于上传微信草稿 |
-| `cover_prompt.md` | Step 2 → Step 6 | 配图提示词，图片生成完成并替换 HTML 路径后删除 |
+| `article.html` | Step 6 | 公众号文章 HTML，用于上传微信草稿 |
+| `cover_prompt.md` | Step 2 → Step 5 | 配图提示词，图片生成完成后删除 |
 
 ---
 
@@ -100,13 +100,30 @@ AI 根据引流、曝光量和搜索量目标，从 5 个候选标题中自动�
 - 修复 CJK/英文间距、标点符号等排版问题
 - 后续步骤基于 `article.md` 操作
 
-### Step 5：生成公众号 HTML（自动）
+### Step 5：生成配图
+
+使用 `/baoyu-image-gen` skill 从 `cover_prompt.md` 自动批量出图：
+
+- 生成前先执行 `docs/image-guide.md` 中的 `codex-cli` 锁文件预检；如果上次失败留下陈旧锁，先确认无活跃生成进程再删除锁文件
+- 提取 `cover_prompt.md` 中各 section 的英文提示词
+- 组装临时 batch file，调用 `baoyu-image-gen` 批量生成
+- 封面 `cover.png`（16:9）、配图 `配图N.png`（按 `cover_prompt.md` 指定的比例）
+- 图片保存到 `articles/<YYYYMMDD>/` 目录
+
+详细流程见 `docs/image-guide.md`。**禁止降级到其他图片生成方式**，codex 失败则直接告知用户。
+
+**覆盖与备份规则：**
+如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
+
+确认图片文件存在且尺寸合理后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件。
+
+### Step 6：生成公众号 HTML（自动）
 
 **随机选择**（`baoyu-markdown-to-html` 60% / `md2wechat --mode ai` 40%）将 `article.md` 转为 `article.html`：
 
 - 方案：`baoyu-markdown-to-html`（AI 按内容类型自动匹配主题和色系）或 `md2wechat --mode ai`
 - 输出到 `articles/<YYYYMMDD>/article.html`
-- HTML 中图片先用本地路径占位，后续 Step 6 生成后替换为实际路径
+- 图片已在 Step 5 生成完毕，HTML 中直接使用实际图片文件名（`cover.png`、`配图N.png`）
 - 选定方案后直接执行，**不需要用户指定**
 
 工具参数和 HTML 兼容性规则详见 `docs/tool-reference.md`。
@@ -125,26 +142,6 @@ AI 按内容类型自动匹配主题和色系。输出文件名与输入文件�
 - 生成 HTML 时，只使用基本参数（不加 `--draft` 和 `--upload`）
 - 等待用户预览确认后，再执行上传命令
 - `md2wechat` 同时负责图片上传（`upload_image`）和草稿上传（`test-draft`）
-
-### Step 6：生成配图
-
-使用 `/baoyu-image-gen` skill 从 `cover_prompt.md` 自动批量出图：
-
-- 生成前先执行 `docs/image-guide.md` 中的 `codex-cli` 锁文件预检；如果上次失败留下陈旧锁，先确认无活跃生成进程再删除锁文件
-- 提取 `cover_prompt.md` 中各 section 的英文提示词
-- 组装临时 batch file，调用 `baoyu-image-gen` 批量生成
-- 封面 `cover.png`（16:9）、配图 `配图N.png`（按 `cover_prompt.md` 指定的比例）
-- 图片保存到 `articles/<YYYYMMDD>/` 目录
-
-详细流程见 `docs/image-guide.md`。**禁止降级到其他图片生成方式**，codex 失败则直接告知用户。
-
-**覆盖与备份规则：**
-如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
-
-**图片路径替换：**
-配图生成完成后，立即将 `article.html` 中的占位路径（如 `配图1.jpg`）替换为实际生成的图片文件名（如 `配图1.png`）。确保 Step 7 预览时图片能正确显示。
-
-确认图片路径替换完成后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件。
 
 ### Step 7：预览确认
 

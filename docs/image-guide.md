@@ -45,6 +45,16 @@
 - section 标题为 `【配图N：标题】`，与正文编号完全一致
 - 封面始终横向 16:9
 
+### 中文文字要求（强制）
+
+图片面向中文读者，提示词中必须明确要求中文文字渲染：
+
+- 如果图片包含文字标注、标题、数据标签、图例等，提示词中必须加 `all text labels in Simplified Chinese` 或 `Chinese text annotations`
+- 封面图如果含标题文字，必须注明 `title text in Simplified Chinese`
+- 信息图、图表类配图，必须注明 `all chart labels, legends, and annotations in Simplified Chinese`
+- 如果图片不需要任何文字（纯视觉插图），则不需要加中文要求
+- **禁止生成含英文标注的科普/信息图给中文读者看**
+
 ### 配图提示词安全规范
 
 #### 明确禁止的词汇类
@@ -176,18 +186,16 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 - 文件是否存在：`ls articles/<YYYYMMDD>/*.png`
 - 尺寸是否合理（公众号配图建议 > 800px 宽）
 
-#### 5. 替换 HTML 中的占位路径
+#### 5. 清理临时文件
 
-将 `article.html` 中的图片占位符（如 `配图1.jpg`）替换为实际文件名（如 `配图1.png`）。
-
-#### 6. 清理临时文件
-
-确认图片文件存在、尺寸合理，且 `article.html` 中的图片路径已经替换完成后，删除：
+确认图片文件存在、尺寸合理后，删除：
 
 - `articles/<YYYYMMDD>/batch.json`
 - `articles/<YYYYMMDD>/cover_prompt.md`
 - `articles/<YYYYMMDD>/prompts/`
 - `articles/<YYYYMMDD>/*.backup-*`
+
+图片生成完成后，下一步由 `docs/workflow.md` 的 Step 6 生成公众号 HTML，直接使用已生成的图片文件名。
 
 ### batch.json 模板
 
