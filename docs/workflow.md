@@ -2,7 +2,7 @@
 
 收到字幕文件后，先在本地清洗字幕，再按以下步骤依次执行。
 
-所有内容集中在 `articles/<YYYYMMDD>/` 单一目录，不分散存放。
+所有内容集中在 `articles/<YYYYMMDD-HHMMSS>/` 单一目录，不分散存放。
 
 ---
 
@@ -20,7 +20,7 @@
 最终目录只保留可发布、可复用的正式资产。原始字幕、清洗字幕、提示词、batch、截图脚本和调试文件都属于临时文件，完成对应步骤后删除。完整清理规则见 `docs/runtime-rules.md`。
 
 ```
-articles/<YYYYMMDD>/
+articles/<YYYYMMDD-HHMMSS>/
 ├── article.md
 ├── article.html
 ├── cover.png + 配图{1-N}.png
@@ -46,7 +46,7 @@ articles/<YYYYMMDD>/
 用户触发工作流时，AI 必须主动扫描 `inputs/` 目录，查找字幕文件（`.srt`、`.vtt`、字幕 `.txt`）：
 
 1. 扫描 `inputs/` 目录，列出所有字幕文件
-2. 如果找到字幕文件，创建 `articles/<YYYYMMDD>/` 目录（以当天日期命名），将字幕文件复制进去作为 `source.srt`（或 `source.vtt`）
+2. 如果找到字幕文件，创建 `articles/<YYYYMMDD-HHMMSS>/` 目录（以日期+时间命名，如 `20260612-143052`，防止同一天多次生成覆盖），将字幕文件复制进去作为 `source.srt`（或 `source.vtt`）
 3. 如果 `inputs/` 为空，提示用户先将字幕文件放入 `inputs/` 目录
 4. 字幕文件就位后，进入 Step 1
 
@@ -55,7 +55,7 @@ articles/<YYYYMMDD>/
 在 AI 读取字幕内容前，先用本地脚本移除字幕时间轴和格式元数据，输出压缩后的纯字幕文本。
 
 ```bash
-python3 scripts/clean_subtitle.py articles/<YYYYMMDD>/source.srt \
+python3 scripts/clean_subtitle.py articles/<YYYYMMDD-HHMMSS>/source.srt \
   --stats \
   --verify \
   --preview 20
@@ -64,7 +64,7 @@ python3 scripts/clean_subtitle.py articles/<YYYYMMDD>/source.srt \
 默认输出同目录的 `source.cleaned.txt`。如果原始文件是 `.vtt` 或字幕 `.txt`，命令相同：
 
 ```bash
-python3 scripts/clean_subtitle.py articles/<YYYYMMDD>/source.vtt --stats --verify
+python3 scripts/clean_subtitle.py articles/<YYYYMMDD-HHMMSS>/source.vtt --stats --verify
 ```
 
 **强制规则：**
@@ -145,7 +145,7 @@ AI 根据引流、曝光量和搜索量目标，从 5 个候选标题中自动�
 基于 `article.md` 内容生成小红书发布文案：
 - 标题（第一行，小红书自动识别为标题，**≤20字**）
 - 正文（短句、emoji 点缀、话题标签）
-- 输出到 `articles/<YYYYMMDD>/小红书文案.txt`
+- 输出到 `articles/<YYYYMMDD-HHMMSS>/小红书文案.txt`
 
 ### Step 12：手动发布小红书
 

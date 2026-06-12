@@ -39,14 +39,14 @@ md2wechat 是主路径工具，覆盖 HTML 生成、图片上传、草稿上传�
 #### 上传图片到微信素材库
 
 ```bash
-md2wechat upload_image articles/<YYYYMMDD>/cover.jpg
-md2wechat upload_image articles/<YYYYMMDD>/配图1.jpg
+md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/cover.jpg
+md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/配图1.jpg
 ```
 
 #### 上传草稿
 
 ```bash
-md2wechat test-draft articles/<YYYYMMDD>/article.html articles/<YYYYMMDD>/cover.jpg
+md2wechat test-draft articles/<YYYYMMDD-HHMMSS>/article.html articles/<YYYYMMDD-HHMMSS>/cover.jpg
 ```
 
 `test-draft` 不支持设置标题、作者、摘要，这些需要在微信公众号后台手动填写。
@@ -58,7 +58,7 @@ md2wechat AI 模式产出的是设计提示词 `article.prompt.txt`，**不直�
 #### 转换命令
 
 ```bash
-md2wechat convert articles/<YYYYMMDD>/article.md \
+md2wechat convert articles/<YYYYMMDD-HHMMSS>/article.md \
   --mode ai \
   --theme <AI按内容类型自动匹配> \
   --title "标题" \

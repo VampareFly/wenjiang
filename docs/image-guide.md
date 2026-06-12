@@ -141,11 +141,11 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 
 #### 1. 从 cover_prompt.md 提取提示词
 
-读取 `articles/<YYYYMMDD>/cover_prompt.md`，提取每个 section 的英文 prompt。
+读取 `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`，提取每个 section 的英文 prompt。
 
 #### 2. 组装临时 batch.json
 
-在 `articles/<YYYYMMDD>/` 目录下创建 `batch.json`：
+在 `articles/<YYYYMMDD-HHMMSS>/` 目录下创建 `batch.json`：
 
 ```json
 {
@@ -154,14 +154,14 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
     {
       "id": "cover",
       "prompt": "从 cover_prompt.md Cover section 提取的英文提示词",
-      "image": "articles/<YYYYMMDD>/cover.png",
+      "image": "articles/<YYYYMMDD-HHMMSS>/cover.png",
       "ar": "16:9",
       "quality": "2k"
     },
     {
       "id": "img1",
       "prompt": "从 cover_prompt.md 配图1 section 提取的英文提示词",
-      "image": "articles/<YYYYMMDD>/配图1.png",
+      "image": "articles/<YYYYMMDD-HHMMSS>/配图1.png",
       "ar": "16:9",
       "quality": "2k"
     }
@@ -180,24 +180,24 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 
 ```bash
 bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
-  --batchfile articles/<YYYYMMDD>/batch.json \
+  --batchfile articles/<YYYYMMDD-HHMMSS>/batch.json \
   --provider codex-cli --jobs 2
 ```
 
 #### 4. 验证输出
 
 生成完成后检查：
-- 文件是否存在：`ls articles/<YYYYMMDD>/*.png`
+- 文件是否存在：`ls articles/<YYYYMMDD-HHMMSS>/*.png`
 - 尺寸是否合理（公众号配图建议 > 800px 宽）
 
 #### 5. 清理临时文件
 
 确认图片文件存在、尺寸合理后，删除：
 
-- `articles/<YYYYMMDD>/batch.json`
-- `articles/<YYYYMMDD>/cover_prompt.md`
-- `articles/<YYYYMMDD>/prompts/`
-- `articles/<YYYYMMDD>/*.backup-*`
+- `articles/<YYYYMMDD-HHMMSS>/batch.json`
+- `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`
+- `articles/<YYYYMMDD-HHMMSS>/prompts/`
+- `articles/<YYYYMMDD-HHMMSS>/*.backup-*`
 
 图片生成完成后，下一步由 `docs/workflow.md` 的 Step 6 生成公众号 HTML，直接使用已生成的图片文件名。
 
@@ -212,21 +212,21 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
     {
       "id": "cover",
       "prompt": "<Cover section prompt>",
-      "image": "articles/<YYYYMMDD>/cover.png",
+      "image": "articles/<YYYYMMDD-HHMMSS>/cover.png",
       "ar": "16:9",
       "quality": "2k"
     },
     {
       "id": "img1",
       "prompt": "<配图1 section prompt>",
-      "image": "articles/<YYYYMMDD>/配图1.png",
+      "image": "articles/<YYYYMMDD-HHMMSS>/配图1.png",
       "ar": "16:9",
       "quality": "2k"
     },
     {
       "id": "img2",
       "prompt": "<配图2 section prompt>",
-      "image": "articles/<YYYYMMDD>/配图2.png",
+      "image": "articles/<YYYYMMDD-HHMMSS>/配图2.png",
       "ar": "16:9",
       "quality": "2k"
     }
@@ -236,8 +236,8 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 ### 注意事项
 
-- batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612/cover.png`），不要用绝对路径
-- 如果图片被保存到嵌套目录（如 `articles/20260612/articles/20260612/`），需要手动移动到正确位置
+- batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612-143052/cover.png`），不要用绝对路径
+- 如果图片被保存到嵌套目录（如 `articles/20260612-143052/articles/20260612-143052/`），需要手动移动到正确位置
 - batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片生成和 HTML 替换完成后必须删除
 
 ---

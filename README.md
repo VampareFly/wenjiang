@@ -41,7 +41,7 @@ Step 12 手动发布小红书
 文章目录最终只保留正式发布资产。字幕、提示词、batch、截图脚本、调试文件等中间产物会在流程中清理。
 
 ```
-articles/YYYYMMDD/
+articles/YYYYMMDD-HHMMSS/
 ├── article.md          # Markdown 文章
 ├── article.html        # 公众号 HTML
 ├── cover.png           # 封面 (16:9)
@@ -82,7 +82,7 @@ articles/YYYYMMDD/
 1. 将字幕文件（.srt）放入 `inputs/` 目录
 2. 在 OpenCode 中打开本项目
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
-4. Agent 先本地清洗字幕，再自动执行全流程，最终产出在 `articles/YYYYMMDD/`
+4. Agent 先本地清洗字幕，再自动执行全流程，最终产出在 `articles/YYYYMMDD-HHMMSS/`
 5. 流程结束前清理字幕、提示词、batch、截图脚本和调试文件，只保留正式发布资产
 
 ## 配置
