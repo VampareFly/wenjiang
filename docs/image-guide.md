@@ -74,10 +74,16 @@
 
 Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 
+### 生成策略（强制）
+
+- **唯一 provider：`codex-cli`**，禁止切换到其他图片生成方式（DALL-E、Midjourney、Stable Diffusion 等）
+- 如果 codex 生图失败（超时、锁冲突、API 错误等），**不要自动降级到其他 provider**，应直接告知用户生图失败并输出错误信息
+- 如果生成超时，可以增加 `--timeout` 参数延长等待时间重试，但仍然必须使用 `codex-cli`
+- 如果重试后仍然失败，停止图片生成，向用户报告具体错误，由用户决定下一步操作
+
 ### 前提条件
 
 - `codex` CLI 已安装且已登录（`codex login`）
-- Reasonix 沙箱允许写入当前项目、`/tmp`、`/private/tmp`、`/Users/weak/.codex` 和 `/Users/weak/.cache/baoyu-codex-imagegen`。当前项目使用根目录的 `reasonix.toml` 配置。
 
 ### 完整流程
 

@@ -136,7 +136,7 @@ AI 按内容类型自动匹配主题和色系。输出文件名与输入文件�
 - 封面 `cover.png`（16:9）、配图 `配图N.png`（按 `cover_prompt.md` 指定的比例）
 - 图片保存到 `articles/<YYYYMMDD>/` 目录
 
-详细流程见 `docs/image-guide.md`。
+详细流程见 `docs/image-guide.md`。**禁止降级到其他图片生成方式**，codex 失败则直接告知用户。
 
 **覆盖与备份规则：**
 如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
