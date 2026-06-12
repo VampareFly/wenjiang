@@ -67,7 +67,7 @@ md2wechat convert articles/<YYYYMMDD-HHMMSS>/article.md \
 ```
 
 - `--theme` 按内容类型自动匹配（见上方主题选择表）
-- 此时图片未生成，`--cover` 暂不填写
+- 如果图片已在 Step 5 生成，`--cover` 可填写封面路径
 - `-o` 参数不传；AI 模式仅输出 `article.prompt.txt`，不产出真实 HTML
 
 #### 流程
@@ -75,7 +75,7 @@ md2wechat convert articles/<YYYYMMDD-HHMMSS>/article.md \
 1. 运行 `md2wechat convert --mode ai` 获得 `article.prompt.txt`
 2. AI 读取 prompt.txt 中的设计规范（主色调、字体、卡片间距、分割线等）
 3. AI 根据这些规范自动生成 `article.html`
-4. HTML 中图片先用本地路径占位（`配图1.jpg`），后续上传后替换为 CDN 地址
+4. HTML 中直接使用实际图片文件名（`cover.png`、`配图1.png`），后续上传后替换为 CDN 地址
 5. `article.html` 生成完成后删除 `article.prompt.txt`，不要作为最终文章产物保留
 
 ### 工作流程
@@ -137,7 +137,7 @@ AI 根据内容类型自动匹配主题和色系，无需用户指定。
 - **输出文件名**与输入文件名一致（`article.md` → `article.html`）
 - **输出目录**与输入文件同级
 - 如果 HTML 已存在，自动备份：`article.html.bak-YYYYMMDDHHMMSS`
-- HTML 中图片先用本地路径占位（`配图1.jpg`），后续上传后替换为 CDN 地址
+- HTML 中直接使用实际图片文件名，后续上传后替换为 CDN 地址
 
 ### 使用示例
 

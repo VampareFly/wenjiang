@@ -26,8 +26,8 @@ Step 1  本地清洗字幕 (source.cleaned.txt)
 Step 2  生成文章 (article.md) + 配图提示词 (cover_prompt.md)
 Step 3  自动选定最优标题
 Step 4  格式化 Markdown
-Step 5  转换为公众号 HTML (article.html)
-Step 6  AI 生成封面和配图
+Step 5  AI 生成封面和配图
+Step 6  转换为公众号 HTML (article.html)
 Step 7  预览确认
 Step 8  上传图片，替换 CDN 地址
 Step 9  上传微信草稿箱
