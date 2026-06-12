@@ -81,7 +81,7 @@ python3 scripts/clean_subtitle.py articles/<YYYYMMDD>/source.vtt --stats --verif
   2. 正文内容
   3. 免责声明（`>` 引用格式，2句以内）
   4. 关注引导（50-80字，独立段落）
-- **cover_prompt.md** — 封面 + 配图提示词（格式见 `docs/image-guide.md`），属于临时文件，Step 6 完成后删除
+- **cover_prompt.md** — 封面 + 配图提示词（格式见 `docs/image-guide.md`），属于临时文件，Step 5 完成后删除
 
 ### Step 3：选定标题（AI 自动）
 
@@ -186,6 +186,10 @@ AI 按内容类型自动匹配主题和色系。输出文件名与输入文件�
 
 **截图脚本规则：**
 
+- Playwright 依赖在 `scripts/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
+  ```bash
+  NODE_PATH=scripts/node_modules node screenshot.js
+  ```
 - 使用 `element.screenshot()` 而非 `page.screenshot({clip})` — 自动将目标元素滚入视口
 - 脚本文件先用 Write 工具创建，再用 Bash 执行（避免 sandbox 拦截）
 - viewport 高度设大（≥所有卡片高度总和 + 间距）
