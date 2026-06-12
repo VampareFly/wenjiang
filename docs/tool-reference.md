@@ -1,0 +1,177 @@
+# 工具参考
+
+本文件定义 Markdown 转公众号 HTML、微信图片上传、草稿上传相关工具的使用方式。
+
+---
+
+## md2wechat 使用指南
+
+### 角色定位
+
+md2wechat 是主路径工具，覆盖 HTML 生成、图片上传、草稿上传三个环节。
+
+**注意**：AI 模式（`--mode ai`）只输出设计提示词 `article.prompt.txt`，不直接产出真实 HTML。AI 读取 prompt.txt 中的样式规范（色彩、排版、卡片间距等），生成匹配该主题的 `article.html`。
+
+### 主题选择（根据内容类型自动匹配）
+
+| 内容类型 | 主题参数 |
+|---------|---------|
+| 健康科普、财经商业、科技前沿 | `--theme ocean-calm` |
+| 个人成长、访谈对话 | `--theme autumn-warm` |
+| 生活技能、实用技巧、教育学习方法、心理健康情绪管理 | `--theme spring-fresh` |
+
+### 参数说明
+
+| 参数 | 说明 | 限制 |
+|------|------|------|
+| `--mode ai` | 使用 AI 模式生成 HTML（内置主题样式） | 必填 |
+| `--theme` | 选择主题，必须与内容类型匹配 | 必填 |
+| `--title` | 文章标题 | 最多 32 字符 |
+| `--author` | 作者名 | 最多 16 字符 |
+| `--digest` | 文章摘要 | 最多 128 字符 |
+| `--cover` | 封面图片路径 | - |
+| `--draft` | 自动创建微信草稿 | 可选 |
+| `--upload` | 上传图片到微信并替换 URL | 可选 |
+| `-o` | 输出 HTML 文件路径 | - |
+
+### 使用示例
+
+#### 上传图片到微信素材库
+
+```bash
+md2wechat upload_image articles/<YYYYMMDD>/cover.jpg
+md2wechat upload_image articles/<YYYYMMDD>/配图1.jpg
+```
+
+#### 上传草稿
+
+```bash
+md2wechat test-draft articles/<YYYYMMDD>/article.html articles/<YYYYMMDD>/cover.jpg
+```
+
+`test-draft` 不支持设置标题、作者、摘要，这些需要在微信公众号后台手动填写。
+
+### AI 模式生成 HTML
+
+md2wechat AI 模式产出的是设计提示词 `article.prompt.txt`，**不直接生成 HTML**。AI 读取 prompt.txt 中的样式规范后，生成匹配的 `article.html`。
+
+#### 转换命令
+
+```bash
+md2wechat convert articles/<YYYYMMDD>/article.md \
+  --mode ai \
+  --theme <AI按内容类型自动匹配> \
+  --title "标题" \
+  --author "身心漫游" \
+  --digest "摘要"
+```
+
+- `--theme` 按内容类型自动匹配（见上方主题选择表）
+- 此时图片未生成，`--cover` 暂不填写
+- `-o` 参数不传；AI 模式仅输出 `article.prompt.txt`，不产出真实 HTML
+
+#### 流程
+
+1. 运行 `md2wechat convert --mode ai` 获得 `article.prompt.txt`
+2. AI 读取 prompt.txt 中的设计规范（主色调、字体、卡片间距、分割线等）
+3. AI 根据这些规范自动生成 `article.html`
+4. HTML 中图片先用本地路径占位（`配图1.jpg`），后续上传后替换为 CDN 地址
+5. `article.html` 生成完成后删除 `article.prompt.txt`，不要作为最终文章产物保留
+
+### 工作流程
+
+1. **生成阶段**：使用 `md2wechat convert --mode ai` 生成设计提示词，AI 据此生成 HTML
+2. **预览阶段**：用户打开 article.html 预览效果
+3. **上传图片**：`md2wechat upload_image` → 替换 HTML 中的 CDN 地址
+4. **上传草稿**：`md2wechat test-draft`
+5. **后台发布**：手动设置标题/作者/摘要后发布
+
+---
+
+## baoyu-markdown-to-html 使用指南
+
+### 角色定位
+
+baoyu-markdown-to-html 将 Markdown 转换为微信公众号兼容的带样式 HTML。
+
+AI 根据内容类型自动匹配主题和色系，无需用户指定。
+
+### 主题 & 色系选择（根据内容类型自动匹配）
+
+| 内容类型 | 推荐主题 | 推荐色系 |
+|---------|---------|---------|
+| 健康科普 | modern | green / blue |
+| 科技前沿 | modern | blue / sky |
+| 财经商业 | default | blue / black |
+| 个人成长 | grace | orange / rose |
+| 访谈对话 | grace | purple / orange |
+| 生活技能 | simple | green / orange |
+| 教育学习方法 | grace | purple / blue |
+| 心理健康情绪管理 | grace | rose / purple |
+
+### 主题说明
+
+| 主题 | 描述 |
+|------|------|
+| `default` | 经典布局，居中标题带底边，H2 白字彩色背景 |
+| `grace` | 优雅风格，文字阴影、圆角卡片、精致引用 |
+| `simple` | 简约现代，非对称圆角，干净留白 |
+| `modern` | 现代风格，大圆角、药丸标题、宽松行高（配 `--color red` 即传统红金风格） |
+
+### 色系预设
+
+| 名称 | Hex | 说明 |
+|------|-----|------|
+| blue | #0F4C81 | 经典蓝 |
+| green | #009874 | 翡翠绿 |
+| vermilion | #FA5151 | 朱红 |
+| purple | #92617E | 薰衣草紫 |
+| sky | #55C9EA | 天蓝 |
+| rose | #B76E79 | 玫瑰金 |
+| orange | #D97757 | 暖橙（modern 默认） |
+| red | #A93226 | 中国红 |
+| black | #333333 | 石墨黑 |
+
+### 输出规则
+
+- **输出文件名**与输入文件名一致（`article.md` → `article.html`）
+- **输出目录**与输入文件同级
+- 如果 HTML 已存在，自动备份：`article.html.bak-YYYYMMDDHHMMSS`
+- HTML 中图片先用本地路径占位（`配图1.jpg`），后续上传后替换为 CDN 地址
+
+### 使用示例
+
+```bash
+# 基本转换（当前目录）
+bun <skill-path>/scripts/main.ts article.md
+
+# 指定主题和色系
+bun <skill-path>/scripts/main.ts article.md --theme modern --color blue
+
+# 指定主题、色系、标题
+bun <skill-path>/scripts/main.ts article.md --theme grace --color orange --title "文章标题"
+
+# 微信外链转底部引用
+bun <skill-path>/scripts/main.ts article.md --cite
+```
+
+### 详细参数
+
+| 参数 | 说明 | 默认值 |
+|------|------|--------|
+| `--theme <name>` | 主题：default, grace, simple, modern | default |
+| `--color <name\|hex>` | 主色：预设名或 hex | 主题默认 |
+| `--font-size <N>` | 字号：14-18px | 16px |
+| `--title <title>` | 覆盖 frontmatter 标题 | - |
+| `--cite` | 外链转底部引用 | false |
+| `--keep-title` | 保留内容中的第一个标题 | false（删除） |
+
+---
+
+## 微信 HTML 兼容性约束
+
+公众号 HTML 必须遵守以下约束：
+
+- 禁止使用 `<style>` 标签，所有样式必须为 inline style。
+- 禁止使用 flex `gap` 属性，卡片间距用 `margin-bottom` 实现。
+- 微信编辑器会剥掉 `<ul>` / `<li>` 标签，导致列表换行失效。正文中的列举内容统一使用独立 `<p>` 段落 + `margin-bottom` 控制间距，不用 `<ul><li>`。

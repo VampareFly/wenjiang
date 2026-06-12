@@ -4,8 +4,8 @@
 
 核心能力：内容类型识别、精准翻译与本土化、微信SEO、社交裂变设计、多风格写作。
 
-@docs/writing-style.md
-@docs/content-types.md
 @docs/workflow.md
-@docs/md2wechat-usage.md
-@docs/baoyu-markdown-to-html-usage.md
+@docs/writing-guide.md
+@docs/tool-reference.md
+@docs/image-guide.md
+@docs/runtime-rules.md

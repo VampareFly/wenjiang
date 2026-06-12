@@ -54,18 +54,18 @@ articles/YYYYMMDD/
 
 ```
 .
-├── AGENTS.md           # Agent 核心配置（写作规则、工作流定义）
-├── opencode.json       # OpenCode 权限配置（bash、skill、外部目录访问）
+├── AGENTS.md           # Agent 角色定义和文档入口
+├── opencode.json       # OpenCode 权限配置
+├── mimocode.json       # MimoCode 权限配置
 ├── scripts/
-│   └── clean_subtitle.py   # 本地字幕清洗脚本
+│   ├── clean_subtitle.py   # 本地字幕清洗脚本
+│   └── package.json        # Playwright 依赖
 ├── docs/
-│   ├── workflow.md     # 完整工作流文档
-│   ├── writing-style.md    # 写作风格准则
-│   ├── content-types.md    # 内容类型识别
-│   ├── md2wechat-usage.md  # md2wechat 工具指南
-│   ├── baoyu-markdown-to-html-usage.md
-│   ├── cover-prompt-format.md
-│   └── image-gen-usage.md
+│   ├── workflow.md     # 主流程和步骤
+│   ├── writing-guide.md    # 内容类型、写作策略、去 AI 味规则
+│   ├── tool-reference.md   # md2wechat 和 baoyu-markdown-to-html 使用说明
+│   ├── image-guide.md      # 封面、配图、图片生成规则
+│   └── runtime-rules.md    # 临时文件清理、上下文压缩、Agent 执行约束
 └── inputs/             # 字幕文件输入目录
 ```
 
@@ -75,7 +75,7 @@ articles/YYYYMMDD/
 
 - [OpenCode](https://github.com/anomalyco/opencode) — 驱动整个工作流的 Agent
 - [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — Markdown 转公众号 HTML + 图片上传 + 草稿推送
-- [Playwright](https://playwright.dev/) — 小红书卡片截图
+- [Playwright](https://playwright.dev/) — 小红书卡片截图（依赖定义在 `scripts/package.json`，首次使用前在 `scripts/` 目录执行 `npm install && npx playwright install chromium`）
 
 ### 使用
 
@@ -89,13 +89,16 @@ articles/YYYYMMDD/
 
 | 文件 | 用途 |
 |------|------|
-| `AGENTS.md` | Agent 角色定义、写作风格、工作流引用 |
-| `opencode.json` | OpenCode 权限配置（bash 命令、skill 加载、外部目录访问） |
-| `docs/writing-style.md` | 写作风格准则 |
-| `docs/content-types.md` | 内容类型识别 |
-| `docs/workflow.md` | 工作流步骤 |
-| `docs/md2wechat-usage.md` | 公众号 HTML 主题与色系 |
-| `docs/baoyu-markdown-to-html-usage.md` | Markdown 转 HTML 工具指南 |
+| `AGENTS.md` | Agent 角色定义和文档入口 |
+| `opencode.json` | OpenCode 权限配置 |
+| `mimocode.json` | MimoCode 权限配置 |
+| `docs/workflow.md` | 主流程和步骤 |
+| `docs/writing-guide.md` | 内容类型、写作策略、去 AI 味规则 |
+| `docs/tool-reference.md` | md2wechat 和 baoyu-markdown-to-html 使用说明 |
+| `docs/image-guide.md` | 封面、配图、图片生成规则 |
+| `docs/runtime-rules.md` | 临时文件清理、上下文压缩、Agent 执行约束 |
+
+本项目可能被 OpenCode 和 MimoCode 两个工具使用，因此保留 `opencode.json` 和 `mimocode.json` 两份配置文件。修改权限配置时，需要同步检查两份文件是否一致。
 
 配置修改后立即生效，下次运行自动应用。
 

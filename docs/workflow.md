@@ -6,9 +6,18 @@
 
 ---
 
+## 相关文档
+
+- 写作规则：`docs/writing-guide.md`
+- HTML 和微信工具：`docs/tool-reference.md`
+- 图片提示词和生成：`docs/image-guide.md`
+- Agent 运行规则：`docs/runtime-rules.md`
+
+---
+
 ## 目录结构
 
-最终目录只保留可发布、可复用的正式资产。原始字幕、清洗字幕、提示词、batch、截图脚本和调试文件都属于临时文件，完成对应步骤后删除。
+最终目录只保留可发布、可复用的正式资产。原始字幕、清洗字幕、提示词、batch、截图脚本和调试文件都属于临时文件，完成对应步骤后删除。完整清理规则见 `docs/runtime-rules.md`。
 
 ```
 articles/<YYYYMMDD>/
@@ -27,58 +36,6 @@ articles/<YYYYMMDD>/
 | `article.md` | Step 2 → Step 4 覆盖 | 原始 markdown → 经 `/baoyu-format-markdown` 排版优化后覆盖自身。**后续所有步骤基于此文件操作** |
 | `article.html` | Step 5 | 公众号文章 HTML，用于上传微信草稿 |
 | `cover_prompt.md` | Step 2 → Step 6 | 配图提示词，图片生成完成并替换 HTML 路径后删除 |
-
----
-
-## 临时文件清理规则
-
-**最终只保留：**
-- `article.md`
-- `article.html`
-- `cover.png`
-- `配图{1-N}.png`
-- `小红书卡片-{01-N}.png`
-- `小红书文案.txt`
-
-**必须删除的临时文件：**
-- 原始字幕和清洗字幕：`source.srt`、`source.vtt`、`source.cleaned.txt`
-- 中间提示词：`cover_prompt.md`、`article.prompt.txt`
-- 图片生成临时文件：`batch.json`、`prompts/`
-- 截图和卡片生成临时文件：临时 HTML、临时 JS、preview/debug 文件
-- 格式化中间文件：`article-formatted.md`
-- 备份文件：`*.backup-*`
-
-**清理时机：**
-- Step 4 完成后：删除 `article-formatted.md`，只保留覆盖后的 `article.md`
-- Step 5 完成后：如果使用 `md2wechat --mode ai`，删除 `article.prompt.txt`
-- Step 6 完成后：确认图片存在且 `article.html` 图片路径已替换后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件
-- Step 11 完成后：删除小红书卡片生成过程中的临时 HTML、临时 JS、preview/debug 文件
-- Step 12 前：删除原始字幕和 `source.cleaned.txt`，最终目录只保留正式发布资产
-
----
-
-## 上下文压缩策略
-
-每步完成后压缩上下文以优化 token 使用。各步产出已保存在文件中，下一步直接读文件即可。
-
-**关键原则：** 压缩时必须保留当前步骤号、用户决策（标题选择、配图删除等）和文件路径。压缩的是对话过程，不是文件内容。
-
-| 时机 | 动作 | 原因 |
-|------|------|------|
-| Step 2-4 期间 | **不压缩** | 文章仍在打磨中，需要上下文连贯 |
-| Step 4 完成后 | 压缩一次 | 文章已定稿，后续步骤全部基于文件操作 |
-| Step 6 完成后 | 可压缩 | 图片已生成，Step 7-9 是机械操作 |
-| Step 9 完成后 | 可压缩 | 草稿已上传，Step 10-11 独立于前序步骤 |
-
-**自动压缩触发规则：**
-
-每步执行完成后，AI 必须主动触发上下文压缩（通过 `/compact` 或等效机制），不要等待用户提醒。压缩是工作流的一部分，不是可选操作。
-
-**压缩时必须保留的信息：**
-- 当前执行到第几步
-- 用户确认的标题
-- 用户的特殊要求或修改（如删除配图、修改工作流规则等）
-- `articles/<YYYYMMDD>/` 目录路径
 
 ---
 
@@ -110,12 +67,12 @@ python3 scripts/clean_subtitle.py articles/<YYYYMMDD>/source.vtt --stats --verif
 
 ### Step 2：生成文章和配图提示词
 
-- **article.md** — 按 `docs/content-types.md` 生成，正文尾部含：
+- **article.md** — 按 `docs/writing-guide.md` 的内容类型识别和写作策略生成，正文尾部含：
   1. 5个爆款标题（备选）
   2. 正文内容
   3. 免责声明（`>` 引用格式，2句以内）
   4. 关注引导（50-80字，独立段落）
-- **cover_prompt.md** — 封面 + 配图提示词（格式见 `docs/cover-prompt-format.md`），属于临时文件，Step 6 完成后删除
+- **cover_prompt.md** — 封面 + 配图提示词（格式见 `docs/image-guide.md`），属于临时文件，Step 6 完成后删除
 
 ### Step 3：选定标题（AI 自动）
 
@@ -143,13 +100,15 @@ AI 根据引流、曝光量和搜索量目标，从 5 个候选标题中自动�
 - HTML 中图片先用本地路径占位，后续 Step 6 生成后替换为实际路径
 - 选定方案后直接执行，**不需要用户指定**
 
+工具参数和 HTML 兼容性规则详见 `docs/tool-reference.md`。
+
 **方案一 — baoyu-markdown-to-html**
 
-AI 按内容类型自动匹配主题和色系，详见 `docs/baoyu-markdown-to-html-usage.md`。输出文件名与输入文件名一致（`article.md` → `article.html`），直接生成 `article.html`。
+AI 按内容类型自动匹配主题和色系。输出文件名与输入文件名一致（`article.md` → `article.html`），直接生成 `article.html`。
 
 **方案二 — md2wechat AI 模式**
 
-运行 `md2wechat convert --mode ai` 获得 `article.prompt.txt`，AI 读取其中的设计规范后生成匹配的 `article.html`。详细命令参数、主题选择表见 `docs/md2wechat-usage.md`。
+运行 `md2wechat convert --mode ai` 获得 `article.prompt.txt`，AI 读取其中的设计规范后生成匹配的 `article.html`。
 
 生成 `article.html` 后，立即删除 `article.prompt.txt`。
 
@@ -158,22 +117,17 @@ AI 按内容类型自动匹配主题和色系，详见 `docs/baoyu-markdown-to-h
 - 等待用户预览确认后，再执行上传命令
 - `md2wechat` 同时负责图片上传（`upload_image`）和草稿上传（`test-draft`）
 
-**微信 HTML 兼容性（生成 HTML 后必须检查）：**
-- 微信编辑器会剥掉 `<ul>` / `<li>` 标签，导致列表换行失效。正文中的列举内容统一使用独立 `<p>` 段落 + `margin-bottom` 控制间距，不用 `<ul><li>`
-- 禁止使用 `<style>` 标签，所有样式必须为 inline style
-- 禁止使用 flex `gap` 属性（公众号不支持），卡片间距用 `margin-bottom` 实现
-
 ### Step 6：生成配图
 
 使用 `/baoyu-image-gen` skill 从 `cover_prompt.md` 自动批量出图：
 
-- 生成前先执行 `docs/image-gen-usage.md` 中的 `codex-cli` 锁文件预检；如果上次失败留下陈旧锁，先确认无活跃生成进程再删除锁文件
+- 生成前先执行 `docs/image-guide.md` 中的 `codex-cli` 锁文件预检；如果上次失败留下陈旧锁，先确认无活跃生成进程再删除锁文件
 - 提取 `cover_prompt.md` 中各 section 的英文提示词
 - 组装临时 batch file，调用 `baoyu-image-gen` 批量生成
 - 封面 `cover.png`（16:9）、配图 `配图N.png`（按 `cover_prompt.md` 指定的比例）
 - 图片保存到 `articles/<YYYYMMDD>/` 目录
 
-详细流程见 `docs/image-gen-usage.md`。
+详细流程见 `docs/image-guide.md`。
 
 **覆盖与备份规则：**
 如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
@@ -197,7 +151,7 @@ AI 按内容类型自动匹配主题和色系，详见 `docs/baoyu-markdown-to-h
 
 用户确认后，用 `md2wechat upload_image` 逐张上传封面和配图，将 HTML 中的本地路径替换为返回的 CDN 地址。
 
-详细命令见 `docs/md2wechat-usage.md`。
+详细命令见 `docs/tool-reference.md`。
 
 ### Step 9：上传公众号草稿
 
@@ -244,6 +198,6 @@ AI 按内容类型自动匹配主题和色系，详见 `docs/baoyu-markdown-to-h
 
 ### Step 12：手动发布小红书
 
-发布前执行最终目录清理，删除原始字幕、清洗字幕和所有中间文件，确保文章目录只保留正式发布资产。
+发布前执行最终目录清理，删除原始字幕、清洗字幕和所有中间文件，确保文章目录只保留正式发布资产。完整清理规则见 `docs/runtime-rules.md`。
 
 用户将 `小红书卡片-{01-N}.png` + `小红书文案.txt` 的内容手动发布到小红书平台。

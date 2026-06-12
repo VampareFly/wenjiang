@@ -1,21 +1,89 @@
-# 图片生成使用指南
+# 图片指南
 
-## 工具
+本文件定义封面图、正文配图、小红书卡片相关的提示词格式、图片生成流程和临时文件清理要求。
+
+---
+
+## cover_prompt.md 格式规范
+
+### 配图标记规范
+
+正文中标记配图位置：
+
+```
+【配图1：光照抑制食欲通路】
+【配图2：饥饿素节律】
+```
+
+- 编号与 `cover_prompt.md` 中的提示词 section 一一对应
+- 封面不计入编号
+
+### cover_prompt.md 文件格式
+
+```
+# 封面图提示词
+
+## 英文提示词（Codex 文生图使用）
+[英文提示词，适合封面横向 16:9，主体完整居中]
+
+## 中文说明
+[关键元素、风格、氛围说明]
+
+---
+
+## 【配图1：标题】
+
+### 英文提示词（Codex 文生图使用）
+[英文提示词]
+
+### 中文说明
+[内容描述、风格、配色建议]
+```
+
+- 封面+配图提示词在同一个文件
+- 每个配图一个独立 section，用 `---` 分隔
+- section 标题为 `【配图N：标题】`，与正文编号完全一致
+- 封面始终横向 16:9
+
+### 配图提示词安全规范
+
+#### 明确禁止的词汇类
+- 人体器官/解剖学写实描述 → 改为抽象/隐喻表达
+- 医疗场景写实 → 改为 medical illustration / diagram / scientific visualization
+- 真实人物姓名/肖像 → 改为泛化描述（a scientist in lab coat）
+- 疾病症状写实 → 改为 cellular process / biological mechanism
+- 血液/创伤/暴力暗示
+- 药品/毒品/成瘾物质
+- 年龄暗示的孤立描述 → 改为 diverse age group
+
+#### 具体改写规则
+- 科学内容统一加 safety modifier：medical illustration / diagram / infographic
+- 解剖学概念使用 schematic / cross-section / abstract representation
+- 人体部位使用 silhouette / outline / icon 风格
+- 健康数据使用 chart / graph / data visualization
+- 提示词偏 educational / textbook-style / classroom diagram
+- 正文配图优先 isometric view / flat illustration
+
+---
+
+## 图片生成使用指南
+
+### 工具
 
 `baoyu-image-gen` skill，通过 batch 模式批量生成封面和配图。
 
 Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 
-## 前提条件
+### 前提条件
 
 - `codex` CLI 已安装且已登录（`codex login`）
 - Reasonix 沙箱允许写入当前项目、`/tmp`、`/private/tmp`、`/Users/weak/.codex` 和 `/Users/weak/.cache/baoyu-codex-imagegen`。当前项目使用根目录的 `reasonix.toml` 配置。
 
-## 完整流程
+### 完整流程
 
-### 0. codex-cli 锁文件预检
+#### 0. codex-cli 锁文件预检
 
-每次执行 Step 6 前，先检查 `codex-cli` 图片生成锁，避免上一次失败留下的陈旧锁阻断重新生图。
+每次执行图片生成前，先检查 `codex-cli` 图片生成锁，避免上一次失败留下的陈旧锁阻断重新生图。
 
 锁文件路径：
 
@@ -51,11 +119,11 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 
 遇到以上错误时，按本节预检规则处理后，用 `--jobs 1` 重跑，避免并发调度再次等待锁。
 
-### 1. 从 cover_prompt.md 提取提示词
+#### 1. 从 cover_prompt.md 提取提示词
 
 读取 `articles/<YYYYMMDD>/cover_prompt.md`，提取每个 section 的英文 prompt。
 
-### 2. 组装临时 batch.json
+#### 2. 组装临时 batch.json
 
 在 `articles/<YYYYMMDD>/` 目录下创建 `batch.json`：
 
@@ -88,7 +156,7 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 - `ar`：宽高比，封面和正文配图统一用 `16:9`
 - `quality`：`2k`（默认，适合公众号）
 
-### 3. 调用生成
+#### 3. 调用生成
 
 ```bash
 bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
@@ -96,17 +164,17 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
   --provider codex-cli --jobs 2
 ```
 
-### 4. 验证输出
+#### 4. 验证输出
 
 生成完成后检查：
 - 文件是否存在：`ls articles/<YYYYMMDD>/*.png`
 - 尺寸是否合理（公众号配图建议 > 800px 宽）
 
-### 5. 替换 HTML 中的占位路径
+#### 5. 替换 HTML 中的占位路径
 
 将 `article.html` 中的图片占位符（如 `配图1.jpg`）替换为实际文件名（如 `配图1.png`）。
 
-### 6. 清理临时文件
+#### 6. 清理临时文件
 
 确认图片文件存在、尺寸合理，且 `article.html` 中的图片路径已经替换完成后，删除：
 
@@ -115,7 +183,7 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 - `articles/<YYYYMMDD>/prompts/`
 - `articles/<YYYYMMDD>/*.backup-*`
 
-## batch.json 模板
+### batch.json 模板
 
 每次生成图片时，按以下结构创建 batch.json，将 prompt 替换为 cover_prompt.md 中的实际内容：
 
@@ -148,7 +216,7 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 }
 ```
 
-## 注意事项
+### 注意事项
 
 - batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612/cover.png`），不要用绝对路径
 - 如果图片被保存到嵌套目录（如 `articles/20260612/articles/20260612/`），需要手动移动到正确位置

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": false,
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "md2wechat *": "allow",
+      "python3 *": "allow",
+      "git *": "allow",
+      "bun *": "allow",
+      "node *": "allow",
+      "npx *": "allow",
+      "bunx *": "allow"
+    },
+    "skill": {
+      "md2wechat": "allow"
+    },
+    "external_directory": {
+      "~/**": "allow"
+    }
+  },
+  "mcp": {
+    "codegraph": {
+        "enabled": false
+    },
+    "context7": {
+        "enabled": false
+    }
+  }
+}

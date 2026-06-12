@@ -1,8 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "lsp": false,
   "permission": {
     "bash": {
-      "*": "ask",
+      "*": "allow",
       "md2wechat *": "allow",
       "python3 *": "allow",
       "git *": "allow",
@@ -16,6 +17,14 @@
     },
     "external_directory": {
       "~/**": "allow"
+    }
+  },
+  "mcp": {
+    "codegraph": {
+        "enabled": false
+    },
+    "context7": {
+        "enabled": false
     }
   }
 }
