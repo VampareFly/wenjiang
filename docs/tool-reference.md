@@ -39,8 +39,8 @@ md2wechat 是主路径工具，覆盖 HTML 生成、图片上传、草稿上传�
 #### 上传图片到微信素材库
 
 ```bash
-md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/cover.jpg
-md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/配图1.jpg
+md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/cover.png
+md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/配图1.png
 ```
 
 #### 上传草稿
@@ -231,6 +231,8 @@ bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
 - 等待用户预览确认后，再执行上传命令
 - 随机选择方案：`baoyu-markdown-to-html`（60%）/ `md2wechat --mode ai`（40%），不需要用户指定
 - 图片已在生图步骤生成完毕，HTML 中直接使用实际图片文件名
+- 标题不放在卡片内，单独作为顶部元素或由公众号后台自动处理
+- 正文列表在 HTML 中优先转为独立段落，避免微信编辑器剥离 `<ul>` / `<li>` 后破坏换行
 
 ---
 

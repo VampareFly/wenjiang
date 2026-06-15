@@ -181,7 +181,7 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 ```bash
 bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
   --batchfile articles/<YYYYMMDD-HHMMSS>/batch.json \
-  --provider codex-cli --jobs 2
+  --provider codex-cli --jobs 1
 ```
 
 #### 4. 验证输出

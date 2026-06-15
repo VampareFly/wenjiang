@@ -6,12 +6,17 @@
 
 ---
 
-## 相关文档
+## 阶段文档路由
 
-- 写作规则：`docs/writing-guide.md`
-- HTML 和微信工具：`docs/tool-reference.md`
-- 图片提示词和生成：`docs/image-guide.md`
-- Agent 运行规则：`docs/runtime-rules.md`
+`AGENTS.md` 只常驻引用本工作流和 `docs/runtime-rules.md`。执行到具体步骤时，必须按需读取对应文档，不要把所有阶段文档长期塞进上下文。
+
+| 阶段 | 必读文档 | 用途 |
+| --- | --- | --- |
+| Step 1、Step 4、Step 12 | `docs/runtime-rules.md` | 字幕清洗、格式化覆盖和临时文件清理 |
+| Step 2、Step 3 | `docs/writing-guide.md` | 文章生成、标题选择、免责声明、关注引导和终稿检查 |
+| Step 2、Step 5、Step 10 | `docs/image-guide.md` | `cover_prompt.md`、封面、正文配图和小红书卡片 |
+| Step 4、Step 6、Step 8、Step 9 | `docs/tool-reference.md` | Markdown 格式化、HTML 生成、图片上传和微信草稿 |
+| Step 11 | `docs/xiaohongshu-guide.md` | 小红书发布文案 |
 
 ---
 
@@ -62,9 +67,9 @@ articles/<YYYYMMDD-HHMMSS>/
 Step 2 必须分两轮完成，不能一次性从字幕直接输出终稿：
 
 1. **内容初稿轮**：提炼主线、取舍素材、选择开头方式，生成结构完整且忠实字幕的初稿
-2. **真人化改写轮**：按 `docs/writing-guide.md` 的“去 AI 味写作准则”和“完稿自查”逐段改写，不新增事实、不改变结论，只优化开头、节奏、判断、细节和口语感
+2. **真人化改写轮**：按 `docs/writing-guide.md` 的“去 AI 味终稿检查”逐段改写，不新增事实、不改变结论，只优化开头、节奏、判断、细节和口语感
 
-只有完成真人化改写后，才能把内容写入最终 `article.md`。Step 4 的格式化 Markdown 只负责排版和标点，不负责补救文章的 AI 味。
+只有完成真人化改写后，才能把内容写入最终 `article.md`。
 
 ### Step 3：选定标题（AI 自动）
 
@@ -72,7 +77,7 @@ AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter�
 
 ### Step 4：格式化 Markdown（自动）
 
-自动调用 `/baoyu-format-markdown` 检查并格式化 `article.md`，格式化后覆盖原文件。具体调用模式、覆盖和清理规则见 `docs/tool-reference.md` 与 `docs/runtime-rules.md`。
+自动调用 `/baoyu-format-markdown` 检查并格式化 `article.md`，格式化后覆盖原文件。具体调用模式、覆盖和清理规则见 `docs/tool-reference.md` 与 `docs/runtime-rules.md`。只负责排版和标点，不负责补救文章的 AI 味。
 
 ### Step 5：生成配图
 
@@ -108,7 +113,7 @@ AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter�
 
 ### Step 11：生成小红书文案
 
-基于 `article.md` 内容生成小红书发布文案，输出到 `articles/<YYYYMMDD-HHMMSS>/小红书文案.txt`。文案格式和写作规则见 `docs/writing-guide.md`。
+基于 `article.md` 内容生成小红书发布文案，输出到 `articles/<YYYYMMDD-HHMMSS>/小红书文案.txt`。文案格式和写作规则见 `docs/xiaohongshu-guide.md`。
 
 ### Step 12：手动发布小红书
 
