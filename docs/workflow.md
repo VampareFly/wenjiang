@@ -59,6 +59,13 @@ articles/<YYYYMMDD-HHMMSS>/
 - **article.md** — 按 `docs/writing-guide.md` 生成文章、候选标题、免责声明和关注引导
 - **cover_prompt.md** — 按 `docs/image-guide.md` 生成封面和正文配图提示词
 
+Step 2 必须分两轮完成，不能一次性从字幕直接输出终稿：
+
+1. **内容初稿轮**：提炼主线、取舍素材、选择开头方式，生成结构完整且忠实字幕的初稿
+2. **真人化改写轮**：按 `docs/writing-guide.md` 的“去 AI 味写作准则”和“完稿自查”逐段改写，不新增事实、不改变结论，只优化开头、节奏、判断、细节和口语感
+
+只有完成真人化改写后，才能把内容写入最终 `article.md`。Step 4 的格式化 Markdown 只负责排版和标点，不负责补救文章的 AI 味。
+
 ### Step 3：选定标题（AI 自动）
 
 AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter，并移除候选标题列表。标题选择规则见 `docs/writing-guide.md`。
