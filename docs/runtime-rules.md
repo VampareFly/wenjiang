@@ -43,7 +43,7 @@ python3 scripts/clean_subtitle.py articles/<YYYYMMDD-HHMMSS>/source.vtt --stats 
 - 原始字幕和清洗字幕：`source.srt`、`source.vtt`、`source.cleaned.txt`
 - 中间提示词：`cover_prompt.md`、`article.prompt.txt`
 - 图片生成临时文件：`batch.json`、`prompts/`
-- 截图和卡片生成临时文件：临时 HTML、临时 JS、preview/debug 文件、`image-cards/` 任务目录和卡片生成中间产物（细则见 `docs/image-guide.md`）
+- 截图和卡片生成临时文件：临时 HTML、临时 JS、preview/debug 文件
 - 格式化中间文件：`article-formatted.md`
 - 备份文件：`*.backup-*`
 
@@ -51,7 +51,7 @@ python3 scripts/clean_subtitle.py articles/<YYYYMMDD-HHMMSS>/source.vtt --stats 
 - Step 4 完成后：删除 `article-formatted.md`，只保留覆盖后的 `article.md`
 - Step 5 完成后：确认图片文件存在且尺寸合理后，删除 `cover_prompt.md`、`batch.json`、`prompts/` 和图片备份文件
 - Step 6 完成后：如果使用 `md2wechat --mode ai`，删除 `article.prompt.txt`
-- Step 11 完成后：按 `docs/image-guide.md` 删除小红书卡片生成过程中的临时文件，只保留文章目录中的正式 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`
+- Step 11 完成后：删除小红书卡片生成过程中的临时 HTML、临时 JS、preview/debug 文件，只保留文章目录中的正式 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`
 - Step 12 前：删除原始字幕和 `source.cleaned.txt`，最终目录只保留正式发布资产
 
 ---

@@ -45,11 +45,7 @@ md2wechat upload_image articles/<YYYYMMDD-HHMMSS>/配图1.jpg
 
 #### 上传草稿
 
-```bash
-md2wechat test-draft articles/<YYYYMMDD-HHMMSS>/article.html articles/<YYYYMMDD-HHMMSS>/cover.jpg
-```
-
-`test-draft` 不支持设置标题、作者、摘要，这些需要在微信公众号后台手动填写。
+草稿上传使用 `baoyu-post-to-wechat` API 方法，支持自动设置标题、摘要和作者。详见下方 `baoyu-post-to-wechat 使用指南`。
 
 ### AI 模式生成 HTML
 
@@ -83,8 +79,8 @@ md2wechat convert articles/<YYYYMMDD-HHMMSS>/article.md \
 1. **生成阶段**：使用 `md2wechat convert --mode ai` 生成设计提示词，AI 据此生成 HTML
 2. **预览阶段**：用户打开 article.html 预览效果
 3. **上传图片**：`md2wechat upload_image` → 替换 HTML 中的 CDN 地址
-4. **上传草稿**：`md2wechat test-draft`
-5. **后台发布**：手动设置标题/作者/摘要后发布
+4. **上传草稿**：使用 `baoyu-post-to-wechat` API 方法，自动设置标题、摘要和作者
+5. **后台发布**：在微信公众号后台「内容管理」→「草稿箱」中核对后发布
 
 ---
 
@@ -181,6 +177,42 @@ Step 4 自动调用 `/baoyu-format-markdown` skill 检查并格式化 `article.m
 
 ---
 
+## baoyu-post-to-wechat 使用指南
+
+Step 9 使用 `baoyu-post-to-wechat` 的 API 方法上传草稿到微信公众号，支持自动设置标题、摘要、作者等元数据。
+
+### 前置条件
+
+- 微信公众号 API 凭据已配置（`~/.baoyu-skills/.env` 中设置 `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET`）
+- 本机 IP 已加入微信公众号后台的 IP 白名单
+
+### 使用方式
+
+```bash
+bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
+  articles/<YYYYMMDD-HHMMSS>/article.html \
+  --theme default \
+  --title "文章标题" \
+  --summary "文章摘要" \
+  --author "作者名" \
+  --cover articles/<YYYYMMDD-HHMMSS>/cover.png
+```
+
+### 元数据来源
+
+| 字段 | 优先级 |
+|------|--------|
+| 标题 | CLI `--title` → frontmatter `title` → 自动生成 |
+| 摘要 | CLI `--summary` → frontmatter `description` → 自动生成 |
+| 作者 | CLI `--author` → EXTEND.md `default_author` |
+| 封面 | CLI `--cover` → frontmatter `cover` → `imgs/cover.png` → 首张内联图 |
+
+### 输出
+
+上传成功后返回 `media_id`，需记录到 `公众号草稿信息.txt`。
+
+---
+
 ## 微信 HTML 兼容性约束
 
 公众号 HTML 必须遵守以下约束：
@@ -204,7 +236,7 @@ Step 4 自动调用 `/baoyu-format-markdown` skill 检查并格式化 `article.m
 
 ## 公众号草稿信息文件格式
 
-使用 `md2wechat test-draft` 上传草稿后，必须在文章目录输出 `公众号草稿信息.txt`，内容包括：
+使用 `baoyu-post-to-wechat` API 方法上传草稿后，必须在文章目录输出 `公众号草稿信息.txt`，内容包括：
 
 ```text
 草稿 media_id：{media_id}
@@ -214,5 +246,5 @@ Step 4 自动调用 `/baoyu-format-markdown` skill 检查并格式化 `article.m
 推荐话题：{3-5 个，基于文章内容和微信搜一搜高频词}
 
 后台操作说明：
-md2wechat test-draft 上传草稿后，标题、作者、摘要、话题标签需要在微信公众号后台手动核对或填写。
+草稿已自动设置标题、作者和摘要，请在微信公众号后台「内容管理」→「草稿箱」中核对后发布。
 ```

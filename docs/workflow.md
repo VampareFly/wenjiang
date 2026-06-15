@@ -93,13 +93,11 @@ AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter�
 
 ### Step 9：上传公众号草稿
 
-使用 `md2wechat test-draft` 上传 `article.html` 和封面到微信草稿箱。草稿信息文件格式见 `docs/tool-reference.md`。
-
-让用户在微信公众号后台手动设置标题/作者/摘要后发布。
+使用 `baoyu-post-to-wechat` 的 API 方法上传 `article.html` 和封面到微信草稿箱，自动设置标题、摘要和作者。工具使用方式和草稿信息文件格式见 `docs/tool-reference.md`。
 
 ### Step 10：生成小红书卡片
 
-将 `article.md` 转为小红书图文笔记卡片。两种卡片生成方式、随机比例、截图脚本和产物命名规则见 `docs/image-guide.md`。
+使用 `guizang-social-card-skill` 将 `article.md` 转为小红书图文笔记卡片。截图脚本和产物命名规则见 `docs/image-guide.md`。
 
 ### Step 11：生成小红书文案
 

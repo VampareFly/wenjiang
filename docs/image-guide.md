@@ -244,16 +244,9 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 ## 小红书卡片截图规则
 
-小红书卡片生成阶段随机选择两种方式之一：
-
-- `guizang-social-card-skill`（50%）：生成 1080×1440（3:4）卡片，需要按下方截图脚本规则导出 PNG
-- `baoyu-xhs-images`（50%）：使用 skill 自带的文章拆解和图片卡片生成流程，生成后将正式图片统一整理/重命名为 `小红书卡片-{01-N}.png`
-
-两种方式的选择不需要用户指定；如果当前方式因工具缺失、依赖失败或图片生成失败而无法继续，停止并告知用户，不要自动切换到另一种方式。
+使用 `guizang-social-card-skill` 生成 1080×1440（3:4）卡片，格式为 PNG。主题/色系由 AI 根据内容类型自动匹配，不需要用户指定。
 
 ### 截图脚本规则
-
-以下规则仅适用于 `guizang-social-card-skill` 生成 HTML 后需要截图导出的路径。
 
 - Playwright 依赖在 `scripts/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
   ```bash
@@ -266,7 +259,4 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 ### 临时文件清理
 
-生成小红书卡片和文案后，只保留 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`。
-
-- `guizang-social-card-skill` 路径：删除截图脚本、临时 HTML、临时 JS、preview/debug 文件
-- `baoyu-xhs-images` 路径：删除 `image-cards/` 任务目录中的 `analysis.md`、`outline*.md`、`prompts/`、`refs/`、source 副本和失败/备份图片；只把最终正式 PNG 复制或移动到文章目录并按 `小红书卡片-{01-N}.png` 命名
+生成小红书卡片和文案后，只保留 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`。删除截图脚本、临时 HTML、临时 JS、preview/debug 文件。
