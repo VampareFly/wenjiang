@@ -12,11 +12,11 @@
 
 | 阶段 | 必读文档 | 用途 |
 | --- | --- | --- |
-| Step 1、Step 4、Step 12 | `docs/runtime-rules.md` | 字幕清洗、格式化覆盖和临时文件清理 |
+| Step 1、Step 4、Step 11 | `docs/runtime-rules.md` | 字幕清洗、格式化覆盖和临时文件清理 |
 | Step 2、Step 3 | `docs/writing-guide.md` | 文章生成、标题选择、免责声明、关注引导和终稿检查 |
-| Step 2、Step 5、Step 10 | `docs/image-guide.md` | `cover_prompt.md`、封面、正文配图和小红书卡片 |
-| Step 4、Step 6、Step 8、Step 9 | `docs/tool-reference.md` | Markdown 格式化、HTML 生成、图片上传和微信草稿 |
-| Step 11 | `docs/xiaohongshu-guide.md` | 小红书发布文案 |
+| Step 2、Step 5、Step 9 | `docs/image-guide.md` | `cover_prompt.md`、封面、正文配图和小红书卡片 |
+| Step 4、Step 6、Step 8 | `docs/tool-reference.md` | Markdown 格式化、HTML 生成、微信图片上传和草稿 |
+| Step 10 | `docs/xiaohongshu-guide.md` | 小红书发布文案 |
 
 ---
 
@@ -97,25 +97,27 @@ AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter�
 
 确认后进入下一步。如需修改，返回 Step 2-6 对应环节。
 
-### Step 8：上传图片并替换 CDN 地址
+### Step 8：上传图片并创建公众号草稿
 
-用户确认后，用 `md2wechat upload_image` 逐张上传封面和配图，将 HTML 中的本地路径替换为返回的 CDN 地址。
+用户确认后，使用 `baoyu-post-to-wechat` 的 API 方法上传 `article.html` 和封面到微信草稿箱。
 
-详细命令见 `docs/tool-reference.md`。
+`baoyu-post-to-wechat` 在发布过程中自动完成：
 
-### Step 9：上传公众号草稿
+- 上传正文 `<img src="配图N.png">` 本地图片，替换为微信 CDN URL
+- 上传封面图为微信素材，获取草稿所需的 `thumb_media_id`
+- 创建公众号草稿，设置标题、摘要和作者
 
-使用 `baoyu-post-to-wechat` 的 API 方法上传 `article.html` 和封面到微信草稿箱，自动设置标题、摘要和作者。工具使用方式和草稿信息文件格式见 `docs/tool-reference.md`。
+本流程只关心最终草稿箱内容，不要求把 CDN URL 回写到本地 `article.html`。工具使用方式和草稿信息文件格式见 `docs/tool-reference.md`。
 
-### Step 10：生成小红书卡片
+### Step 9：生成小红书卡片
 
 将 `article.md` 转为小红书图文笔记卡片。截图脚本和产物命名规则见 `docs/image-guide.md`。
 
-### Step 11：生成小红书文案
+### Step 10：生成小红书文案
 
 基于 `article.md` 内容生成小红书发布文案，输出到 `articles/<YYYYMMDD-HHMMSS>/小红书文案.txt`。文案格式和写作规则见 `docs/xiaohongshu-guide.md`。
 
-### Step 12：手动发布小红书
+### Step 11：手动发布小红书
 
 发布前执行最终目录清理，删除原始字幕、清洗字幕和所有中间文件，确保文章目录只保留正式发布资产。完整清理规则见 `docs/runtime-rules.md`。
 

@@ -145,29 +145,7 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 
 #### 2. 组装临时 batch.json
 
-在 `articles/<YYYYMMDD-HHMMSS>/` 目录下创建 `batch.json`：
-
-```json
-{
-  "jobs": 4,
-  "tasks": [
-    {
-      "id": "cover",
-      "prompt": "从 cover_prompt.md Cover section 提取的英文提示词",
-      "image": "articles/<YYYYMMDD-HHMMSS>/cover.png",
-      "ar": "16:9",
-      "quality": "2k"
-    },
-    {
-      "id": "img1",
-      "prompt": "从 cover_prompt.md 配图1 section 提取的英文提示词",
-      "image": "articles/<YYYYMMDD-HHMMSS>/配图1.png",
-      "ar": "16:9",
-      "quality": "2k"
-    }
-  ]
-}
-```
+在 `articles/<YYYYMMDD-HHMMSS>/` 目录下创建 `batch.json`，结构见下方模板。
 
 字段说明：
 - `id`：任务标识，与 cover_prompt.md 中的 section 对应
@@ -238,7 +216,7 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 - batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612-143052/cover.png`），不要用绝对路径
 - 如果图片被保存到嵌套目录（如 `articles/20260612-143052/articles/20260612-143052/`），需要手动移动到正确位置
-- batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片生成和 HTML 替换完成后必须删除
+- batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片文件存在且尺寸合理后必须删除
 
 ---
 
