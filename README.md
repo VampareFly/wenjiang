@@ -75,7 +75,7 @@ articles/YYYYMMDD-HHMMSS/
 
 - [OpenCode](https://github.com/anomalyco/opencode) — 驱动整个工作流的 Agent
 - [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — Markdown 转公众号 HTML + 图片上传 + 草稿推送
-- [Playwright](https://playwright.dev/) — 仅在小红书卡片随机选中 `guizang-social-card-skill` 并需要 HTML 截图导出时使用（依赖定义在 `scripts/package.json`，首次使用前在 `scripts/` 目录执行 `npm install && npx playwright install chromium`）
+- [Playwright](https://playwright.dev/) — 小红书卡片截图导出使用（依赖定义在 `scripts/package.json`，首次使用前在 `scripts/` 目录执行 `npm install && npx playwright install chromium`）
 
 ### 使用
 

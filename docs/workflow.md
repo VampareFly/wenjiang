@@ -97,7 +97,7 @@ AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter�
 
 ### Step 10：生成小红书卡片
 
-使用 `guizang-social-card-skill` 将 `article.md` 转为小红书图文笔记卡片。截图脚本和产物命名规则见 `docs/image-guide.md`。
+将 `article.md` 转为小红书图文笔记卡片。截图脚本和产物命名规则见 `docs/image-guide.md`。
 
 ### Step 11：生成小红书文案
 
