@@ -114,20 +114,31 @@ LOCK="$HOME/.cache/baoyu-codex-imagegen/codex-exec.lock"
 预检规则：
 
 1. 如果锁文件不存在，直接继续。
-2. 如果锁文件存在，先检查是否有正在运行的图片生成进程：
+2. 如果锁文件存在，**不要扫描系统进程列表**。只检查锁文件本身：
 
    ```bash
-   ps -axo pid,etime,command | rg 'codex-imagegen|codex exec|baoyu-image-gen|scripts/main.ts'
+   ls -l "$LOCK"
+   stat "$LOCK"
    ```
 
-3. 如果只有当前检查命令本身，没有真实的 `codex-imagegen` / `codex exec` / `baoyu-image-gen` 进程，说明是陈旧锁，删除后再继续：
+3. 如果锁文件内容是明确的 PID，只允许检查这个 PID 是否仍然存在，不要使用 `ps -axo` 这类全局进程扫描命令：
+
+   ```bash
+   read -r PID < "$LOCK"
+   case "$PID" in
+     ''|*[!0-9]*) exit 2 ;;
+     *) kill -0 "$PID" ;;
+   esac
+   ```
+
+4. 如果能确认锁文件对应的 PID 已不存在，或用户确认这是上一次失败留下的陈旧锁，删除后再继续：
 
    ```bash
    rm "$LOCK"
    ```
 
-4. 如果存在真实运行中的图片生成进程，不要删除锁；等待该进程结束，或先确认是否需要中断旧任务。
-5. 如果检查进程或删除锁被沙箱拦截，按 Codex 权限流程申请沙箱外执行，不要直接重跑生成命令。
+5. 如果无法从锁文件确认是否陈旧，不要自动删除锁；向用户报告 `lock_busy`，由用户决定等待、删除锁，或中断旧任务。
+6. 如果检查锁文件或删除锁被沙箱拦截，按 Codex 权限流程申请对锁文件路径的沙箱外执行，不要直接重跑生成命令。
 
 常见失败特征：
 
