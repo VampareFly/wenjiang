@@ -220,9 +220,24 @@ bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
 - 等待用户预览确认后，再执行 `baoyu-post-to-wechat` API 发布命令
 - 随机选择方案：`baoyu-markdown-to-html`（60%）/ `md2wechat --mode ai`（40%），不需要用户指定
 - 图片已在生图步骤生成完毕，HTML 中必须用 `<img src="配图N.png" alt="标题">` 标签插入正文配图，不能只输出图片文件名文本
-- 生成后检查 HTML：`<img` 数量必须等于 `article.md` 中 `【配图N：...】` 数量，且 HTML 中不得残留 `【配图`
 - 标题不放在卡片内，单独作为顶部元素或由公众号后台自动处理
 - 正文列表在 HTML 中优先转为独立段落，避免微信编辑器剥离 `<ul>` / `<li>` 后破坏换行
+
+生成后必须执行 HTML 图片硬检查，失败即停止，不得进入预览确认：
+
+- `article.html` 中 `<img` 数量必须等于 `article.md` 中 `【配图N：...】` 数量
+- `article.html` 中不得残留 `【配图`
+- 每个正文图片必须使用本地相对路径：`src="配图N.png"`
+- 每个正文图片必须包含 `alt`
+- 如果 `<img` 数量为 0，且 `article.md` 中存在配图标记，必须停止并修复
+
+推荐检查命令：
+
+```bash
+rg -n "【配图[0-9]+：" articles/<YYYYMMDD-HHMMSS>/article.md
+rg -n "<img" articles/<YYYYMMDD-HHMMSS>/article.html
+rg -n "【配图" articles/<YYYYMMDD-HHMMSS>/article.html
+```
 
 ---
 

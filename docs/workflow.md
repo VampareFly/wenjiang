@@ -71,6 +71,14 @@ Step 2 必须分两轮完成，不能一次性从字幕直接输出终稿：
 
 只有完成真人化改写后，才能把内容写入最终 `article.md`。
 
+Step 2 完成后必须执行正文配图硬检查：
+
+- `article.md` 中必须包含正文配图标记：`【配图N：标题】`
+- `cover_prompt.md` 中每个正文配图 section 必须与 `article.md` 中的配图标记一一对应
+- 配图编号必须连续，从 `配图1` 开始，不得跳号
+- 配图标题必须完全一致，例如 `article.md` 中的 `【配图1：脂肪膜结构】` 对应 `cover_prompt.md` 中的 `## 【配图1：脂肪膜结构】`
+- 如果 `article.md` 中没有任何正文配图标记，不得进入 Step 4，必须先补充配图标记
+
 ### Step 3：选定标题（AI 自动）
 
 AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter，并移除候选标题列表。标题选择规则见 `docs/writing-guide.md`。
@@ -86,6 +94,14 @@ AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter�
 ### Step 6：生成公众号 HTML（自动）
 
 将 `article.md` 转为 `article.html`。工具随机选择、参数和 HTML 兼容性规则详见 `docs/tool-reference.md`。
+
+Step 6 完成后必须执行 HTML 图片硬检查：
+
+- `article.html` 中 `<img` 数量必须等于 `article.md` 中 `【配图N：...】` 数量
+- `article.html` 中不得残留 `【配图`
+- 每个正文图片必须使用本地相对路径：`src="配图N.png"`
+- 每个正文图片必须包含 `alt`
+- 如果检查失败，不得进入 Step 7，必须先修复 HTML
 
 ### Step 7：预览确认
 
