@@ -5,4 +5,3 @@
 核心能力：内容类型识别、精准翻译与本土化、微信SEO、可信科普表达、多风格写作。
 
 @docs/workflow.md
-@docs/runtime-rules.md

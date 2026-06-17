@@ -60,11 +60,16 @@ articles/YYYYMMDD-HHMMSS/
 │   ├── clean_subtitle.py   # 本地字幕清洗脚本
 │   └── package.json        # Playwright 依赖
 ├── docs/
-│   ├── workflow.md     # 主流程和步骤
-│   ├── writing-guide.md    # 内容类型、写作策略、去 AI 味规则
-│   ├── tool-reference.md   # HTML 生成和公众号草稿上传说明
-│   ├── image-guide.md      # 封面、配图、图片生成规则
-│   └── runtime-rules.md    # 临时文件清理、上下文压缩、Agent 执行约束
+│   ├── workflow.md              # 主流程和步骤
+│   ├── subtitle-guide.md        # 字幕清洗规则
+│   ├── writing-guide.md         # 内容类型、写作策略、去 AI 味规则
+│   ├── image-prompt-guide.md     # 封面和正文配图提示词规则
+│   ├── markdown-guide.md         # Markdown 格式化规则
+│   ├── image-generation-guide.md # 图片生成执行规则
+│   ├── html-guide.md             # 公众号 HTML 生成参数和兼容性规则
+│   ├── wechat-guide.md           # 公众号草稿上传说明
+│   ├── xiaohongshu-guide.md      # 小红书卡片和发布文案规则
+│   └── final-cleanup-guide.md    # 发布前最终目录清理规则
 └── inputs/             # 字幕文件输入目录
 ```
 
@@ -93,10 +98,15 @@ articles/YYYYMMDD-HHMMSS/
 | `opencode.json` | OpenCode 权限配置 |
 | `mimocode.json` | MimoCode 权限配置 |
 | `docs/workflow.md` | 主流程和步骤 |
+| `docs/subtitle-guide.md` | 字幕清洗规则 |
 | `docs/writing-guide.md` | 内容类型、写作策略、去 AI 味规则 |
-| `docs/tool-reference.md` | HTML 生成和公众号草稿上传说明 |
-| `docs/image-guide.md` | 封面、配图、图片生成规则 |
-| `docs/runtime-rules.md` | 临时文件清理、上下文压缩、Agent 执行约束 |
+| `docs/image-prompt-guide.md` | 封面和正文配图提示词规则 |
+| `docs/markdown-guide.md` | Markdown 格式化规则 |
+| `docs/image-generation-guide.md` | 图片生成执行规则 |
+| `docs/html-guide.md` | 公众号 HTML 生成参数和兼容性规则 |
+| `docs/wechat-guide.md` | 公众号草稿上传说明 |
+| `docs/xiaohongshu-guide.md` | 小红书卡片和发布文案规则 |
+| `docs/final-cleanup-guide.md` | 发布前最终目录清理规则 |
 
 本项目可能被 OpenCode 和 MimoCode 两个工具使用，因此保留 `opencode.json` 和 `mimocode.json` 两份配置文件。修改权限配置时，需要同步检查两份文件是否一致。
 

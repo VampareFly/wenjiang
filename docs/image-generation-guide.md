@@ -1,0 +1,170 @@
+# 图片生成指南
+
+本文件定义 Step 5 使用 `cover_prompt.md` 生成公众号封面和正文配图的执行规则。只有实际调用图片生成工具时才需要读取本文件。
+
+---
+
+## 工具
+
+`baoyu-image-gen` skill，通过 batch 模式批量生成封面和配图。
+
+Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
+
+---
+
+## 生成策略（强制）
+
+- 唯一 provider：`codex-cli`，禁止切换到其他图片生成方式（DALL-E、Midjourney、Stable Diffusion 等）。
+- 如果 codex 生图失败（超时、锁冲突、API 错误等），不要自动降级到其他 provider，应直接告知用户生图失败并输出错误信息。
+- 如果生成超时，可以增加 `--timeout` 参数延长等待时间重试，但仍然必须使用 `codex-cli`。
+- 如果重试后仍然失败，停止图片生成，向用户报告具体错误，由用户决定下一步操作。
+
+---
+
+## 覆盖与备份规则
+
+如果文章目录里已存在同名图片，先备份旧图再保存新文件（文件名追加 `.backup-YYYYMMDD-HHMMSS`）。
+
+---
+
+## 前提条件
+
+- `codex` CLI 已安装且已登录（`codex login`）。
+
+---
+
+## 完整流程
+
+### 0. codex-cli 锁文件预检
+
+每次执行图片生成前，先检查 `codex-cli` 图片生成锁，避免上一次失败留下的陈旧锁阻断重新生图。
+
+锁文件路径：
+
+```bash
+LOCK="$HOME/.cache/baoyu-codex-imagegen/codex-exec.lock"
+```
+
+预检规则：
+
+1. 如果锁文件不存在，直接继续。
+2. 如果锁文件存在，不要扫描系统进程列表。只检查锁文件本身：
+
+   ```bash
+   ls -l "$LOCK"
+   stat "$LOCK"
+   ```
+
+3. 如果锁文件内容是明确的 PID，只允许检查这个 PID 是否仍然存在，不要使用 `ps -axo` 这类全局进程扫描命令：
+
+   ```bash
+   read -r PID < "$LOCK"
+   case "$PID" in
+     ''|*[!0-9]*) exit 2 ;;
+     *) kill -0 "$PID" ;;
+   esac
+   ```
+
+4. 如果能确认锁文件对应的 PID 已不存在，或用户确认这是上一次失败留下的陈旧锁，删除后再继续：
+
+   ```bash
+   rm "$LOCK"
+   ```
+
+5. 如果无法从锁文件确认是否陈旧，不要自动删除锁；向用户报告 `lock_busy`，由用户决定等待、删除锁，或中断旧任务。
+6. 如果检查锁文件或删除锁被沙箱拦截，按 Codex 权限流程申请对锁文件路径的沙箱外执行，不要直接重跑生成命令。
+
+常见失败特征：
+
+```text
+Invalid codex-cli result (lock_busy)
+Failed to acquire lock at ~/.cache/baoyu-codex-imagegen/codex-exec.lock
+EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.lock'
+```
+
+遇到以上错误时，按本节预检规则处理后，用 `--jobs 1` 重跑，避免并发调度再次等待锁。
+
+### 1. 从 cover_prompt.md 提取提示词
+
+读取 `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`，提取每个 section 的英文 prompt。
+
+### 2. 组装临时 batch.json
+
+在 `articles/<YYYYMMDD-HHMMSS>/` 目录下创建 `batch.json`，结构见下方模板。
+
+字段说明：
+
+- `id`：任务标识，与 cover_prompt.md 中的 section 对应。
+- `prompt`：英文提示词，直接从 cover_prompt.md 复制。
+- `image`：输出路径，使用项目相对路径。
+- `ar`：宽高比，封面和正文配图统一用 `16:9`。
+- `quality`：`2k`（默认，适合公众号）。
+
+### 3. 调用生成
+
+```bash
+bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
+  --batchfile articles/<YYYYMMDD-HHMMSS>/batch.json \
+  --provider codex-cli --jobs 1
+```
+
+### 4. 验证输出
+
+生成完成后检查：
+
+- 文件是否存在：`ls articles/<YYYYMMDD-HHMMSS>/*.png`
+- 尺寸是否合理（公众号配图建议 > 800px 宽）
+
+### 5. 清理临时文件
+
+确认图片文件存在、尺寸合理后，删除：
+
+- `articles/<YYYYMMDD-HHMMSS>/batch.json`
+- `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`
+- `articles/<YYYYMMDD-HHMMSS>/prompts/`
+- `articles/<YYYYMMDD-HHMMSS>/*.backup-*`
+
+图片生成完成后，下一步由 `docs/workflow.md` 的 Step 6 生成公众号 HTML，直接使用已生成的图片文件名。
+
+---
+
+## batch.json 模板
+
+每次生成图片时，按以下结构创建 batch.json，将 prompt 替换为 cover_prompt.md 中的实际内容：
+
+```json
+{
+  "jobs": 4,
+  "tasks": [
+    {
+      "id": "cover",
+      "prompt": "<Cover section prompt>",
+      "image": "articles/<YYYYMMDD-HHMMSS>/cover.png",
+      "ar": "16:9",
+      "quality": "2k"
+    },
+    {
+      "id": "img1",
+      "prompt": "<配图1 section prompt>",
+      "image": "articles/<YYYYMMDD-HHMMSS>/配图1.png",
+      "ar": "16:9",
+      "quality": "2k"
+    },
+    {
+      "id": "img2",
+      "prompt": "<配图2 section prompt>",
+      "image": "articles/<YYYYMMDD-HHMMSS>/配图2.png",
+      "ar": "16:9",
+      "quality": "2k"
+    }
+  ]
+}
+```
+
+---
+
+## 注意事项
+
+- batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612-143052/cover.png`），不要用绝对路径。
+- 如果图片被保存到嵌套目录（如 `articles/20260612-143052/articles/20260612-143052/`），需要手动移动到正确位置。
+- batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片文件存在且尺寸合理后必须删除。
