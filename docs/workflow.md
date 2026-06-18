@@ -14,6 +14,7 @@
 | --- | --- | --- |
 | Step 1 | `docs/subtitle-guide.md` | 字幕清洗、读取和校验 |
 | Step 2、Step 3 | `docs/writing-guide.md` | 文章生成、标题选择、免责声明、关注引导和终稿检查 |
+| Step 2 真人化改写轮 | `docs/ai-humanizer-guide.md` | 逐段识别并去除 AI 写作痕迹、套话、机械结构和宣传腔 |
 | Step 2 | `docs/image-prompt-guide.md` | `cover_prompt.md`、封面提示词和正文配图提示词 |
 | Step 4 | `docs/markdown-guide.md` | Markdown 格式化、覆盖和中间文件清理 |
 | Step 5 | `docs/image-generation-guide.md` | 图片生成、provider、失败处理、备份和清理 |
@@ -71,7 +72,7 @@ articles/<YYYYMMDD-HHMMSS>/
 Step 2 必须分两轮完成，不能一次性从字幕直接输出终稿：
 
 1. **内容初稿轮**：提炼主线、取舍素材、选择开头方式，生成结构完整且忠实字幕的初稿
-2. **真人化改写轮**：按 `docs/writing-guide.md` 的“去 AI 味终稿检查”逐段改写，不新增事实、不改变结论，只优化开头、节奏、判断、细节和口语感
+2. **真人化改写轮**：先按 `docs/writing-guide.md` 的“去 AI 味终稿检查”做硬检查，再按 `docs/ai-humanizer-guide.md` 逐段识别和改写 AI 写作痕迹。不新增事实、不改变结论，只优化开头、节奏、判断、细节、口语感和作者判断。
 
 只有完成真人化改写后，才能把内容写入最终 `article.md`。
 
