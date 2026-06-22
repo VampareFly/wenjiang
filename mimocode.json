@@ -12,9 +12,6 @@
       "npx *": "allow",
       "bunx *": "allow"
     },
-    "skill": {
-      "md2wechat": "allow"
-    },
     "external_directory": {
       "~/**": "allow"
     }

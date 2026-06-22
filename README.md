@@ -54,6 +54,8 @@ articles/YYYYMMDD-HHMMSS/
 ```
 .
 ├── AGENTS.md           # Agent 角色定义和文档入口
+├── .agents/
+│   └── skills/         # 项目级 Agent Skills，避免污染全局上下文
 ├── opencode.json       # OpenCode 权限配置
 ├── mimocode.json       # MimoCode 权限配置
 ├── scripts/
@@ -92,9 +94,36 @@ articles/YYYYMMDD-HHMMSS/
 
 ## 配置
 
+### 项目 Skills
+
+本项目使用 `.agents/skills/` 存放项目级 skill 替身。公众号生产相关 skill 只服务当前项目，不应放在全局 `~/.agents/skills/`，否则会让其他项目加载不必要的上下文，也会增加误触发概率。
+
+`.agents/skills/` 是通用 Agent Skills 目录，不绑定某一个 AI Agent 工具。切换 OpenCode、MimoCode 或其他兼容 Agent Skills 的工具时，也可以继续复用这一套项目级入口。
+
+当前项目需要以下 skills：
+
+| Skill | 用途 |
+|------|------|
+| `baoyu-article-illustrator` | 分析文章结构，判断正文哪里需要配图 |
+| `baoyu-format-markdown` | 格式化 `article.md`，优化公众号 Markdown 排版 |
+| `baoyu-image-gen` | 根据 `cover_prompt.md` 生成封面和正文配图 |
+| `baoyu-markdown-to-html` | 将 Markdown 转换为微信公众号兼容 HTML |
+| `baoyu-post-to-wechat` | 上传正文图片和封面，创建微信公众号草稿 |
+| `guizang-social-card-skill` | 生成小红书图文卡片、公众号封面等社交传播图片 |
+| `md2wechat` | 使用 `md2wechat` CLI 做预览、转换、草稿等公众号流程 |
+
+这些 skill 应保留在：
+
+```text
+.agents/skills/<skill-name>/SKILL.md
+```
+
+不要同时维护 `.opencode/skills/` 和 `.agents/skills/` 两套同名 skill，避免重复发现和触发混乱。
+
 | 文件 | 用途 |
 |------|------|
 | `AGENTS.md` | Agent 角色定义和文档入口 |
+| `.agents/skills/` | 项目级 Agent Skills |
 | `opencode.json` | OpenCode 权限配置 |
 | `mimocode.json` | MimoCode 权限配置 |
 | `docs/workflow.md` | 主流程和步骤 |

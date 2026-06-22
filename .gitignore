@@ -18,3 +18,5 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.log
+.agents
+.baoyu-skills
