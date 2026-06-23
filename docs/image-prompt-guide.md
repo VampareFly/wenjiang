@@ -54,13 +54,12 @@
 
 ## 中文文字要求（强制）
 
-图片面向中文读者，提示词中必须明确要求中文文字渲染：
+图片面向中文读者，含文字的图片必须在提示词中注明中文渲染：
 
-- 如果图片包含文字标注、标题、数据标签、图例等，提示词中必须加 `all text labels in Simplified Chinese` 或 `Chinese text annotations`。
-- 封面图如果含标题文字，必须注明 `title text in Simplified Chinese`。
-- 信息图、图表类配图，必须注明 `all chart labels, legends, and annotations in Simplified Chinese`。
-- 如果图片不需要任何文字（纯视觉插图），则不需要加中文要求。
-- 禁止生成含英文标注的科普/信息图给中文读者看。
+- 封面/一般图片含文字 → 加 `all text labels in Simplified Chinese`
+- 信息图/图表类 → 加 `all chart labels, legends, and annotations in Simplified Chinese`
+- 纯视觉插图（无文字）→ 不需要加
+- 禁止生成含英文标注的科普/信息图
 
 ---
 

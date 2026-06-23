@@ -14,10 +14,7 @@ Provider：`codex-cli`（使用 Codex 订阅，无需额外 API key）。
 
 ## 生成策略（强制）
 
-- 唯一 provider：`codex-cli`，禁止切换到其他图片生成方式（DALL-E、Midjourney、Stable Diffusion 等）。
-- 如果 codex 生图失败（超时、锁冲突、API 错误等），不要自动降级到其他 provider，应直接告知用户生图失败并输出错误信息。
-- 如果生成超时，可以增加 `--timeout` 参数延长等待时间重试，但仍然必须使用 `codex-cli`。
-- 如果重试后仍然失败，停止图片生成，向用户报告具体错误，由用户决定下一步操作。
+- 唯一 provider：`codex-cli`，禁止降级到 DALL-E、Midjourney 等其他方式。失败时可增加 `--timeout` 重试，仍失败则停止并报告错误，由用户决定。
 
 ---
 
@@ -165,6 +162,4 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 
 ## 注意事项
 
-- batch.json 中的 `image` 路径使用项目相对路径（如 `articles/20260612-143052/cover.png`），不要用绝对路径。
 - 如果图片被保存到嵌套目录（如 `articles/20260612-143052/articles/20260612-143052/`），需要手动移动到正确位置。
-- batch.json、cover_prompt.md、prompts/ 和图片备份文件都是临时文件，确认图片文件存在且尺寸合理后必须删除。

@@ -76,9 +76,8 @@ md2wechat convert articles/<YYYYMMDD-HHMMSS>/article.md \
 1. 运行 `md2wechat convert --mode ai` 获得 `article.prompt.txt`
 2. AI 读取 prompt.txt 中的设计规范（主色调、字体、卡片间距、分割线等）
 3. AI 根据这些规范自动生成 `article.html`
-4. HTML 中必须把正文里的 `【配图N：标题】` 占位符替换为本地图片标签：`<img src="配图N.png" alt="标题" style="width:100%;...">`
-5. 图片路径使用相对路径和实际文件名（如 `配图1.png`），不要只保留文件名文本，也不要继续保留 `【配图N：标题】` 占位符；后续由 `baoyu-post-to-wechat` 发布脚本上传并替换为微信 CDN
-6. `article.html` 生成完成后删除 `article.prompt.txt`，不要作为最终文章产物保留
+4. 图片替换规则见下方"输出规则"
+5. `article.html` 生成完成后删除 `article.prompt.txt`，不要作为最终文章产物保留
 
 ---
 
