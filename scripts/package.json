@@ -1,7 +1,0 @@
-{
-  "name": "wenjiang-scripts",
-  "private": true,
-  "dependencies": {
-    "playwright": "^1.60.0"
-  }
-}
