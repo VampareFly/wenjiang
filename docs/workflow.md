@@ -13,9 +13,12 @@
 | 阶段 | 必读文档 | 用途 |
 | --- | --- | --- |
 | Step 1 | `docs/subtitle-guide.md` | 字幕清洗、读取和校验 |
-| Step 2、Step 3 | `docs/writing-guide.md` | 文章生成、标题选择、免责声明、关注引导和终稿检查 |
-| Step 2 真人化改写轮 | `docs/ai-humanizer-guide.md` | 逐段识别并去除 AI 写作痕迹、套话、机械结构和宣传腔 |
-| Step 2 | `docs/image-prompt-guide.md` | `cover_prompt.md`、封面提示词和正文配图提示词 |
+| Step 2 内容初稿轮 | `docs/writing-guide.md` | 内容识别、事实边界、主线组织、开头正文写法和配图标记 |
+| Step 2 标题与导语轮 | `docs/title-guide.md` | 基于初稿生成标题和导语，为终稿一致性检查提供上下文 |
+| Step 2 真人化改写轮 | `docs/final-writing-check.md`、`docs/ai-humanizer-guide.md` | 终稿硬检查、逐段识别并去除 AI 写作痕迹、套话、机械结构和宣传腔 |
+| Step 2 收尾 | `docs/ending-guide.md` | 免责声明、关注引导和结尾边界 |
+| Step 2 配图提示词 | `docs/image-prompt-guide.md` | 基于稳定终稿生成 `cover_prompt.md`、封面提示词、正文配图提示词和配图硬检查 |
+| Step 3 | `docs/title-guide.md`、`docs/final-writing-check.md` | 标题和导语最终复核；如有改动，回到终稿一致性检查 |
 | Step 4 | `docs/markdown-guide.md` | Markdown 格式化、覆盖和中间文件清理 |
 | Step 5 | `docs/image-generation-guide.md` | 图片生成、provider、失败处理、备份和清理 |
 | Step 6 | `docs/html-guide.md` | 公众号 HTML 生成、主题参数、兼容性约束和图片硬检查 |
@@ -66,21 +69,27 @@ articles/<YYYYMMDD-HHMMSS>/
 
 ### Step 2：生成文章和配图提示词
 
-- **article.md** — 按 `docs/writing-guide.md` 生成文章、候选标题、免责声明和关注引导
-- **cover_prompt.md** — 按 `docs/image-prompt-guide.md` 生成封面和正文配图提示词
+- **article.md** — 按 `docs/writing-guide.md` 生成文章初稿，按 `docs/title-guide.md` 生成标题和导语，按 `docs/final-writing-check.md` 和 `docs/ai-humanizer-guide.md` 完成真人化改写，按 `docs/ending-guide.md` 处理免责声明和关注引导
+- **cover_prompt.md** — 在终稿正文稳定后，按 `docs/image-prompt-guide.md` 生成封面和正文配图提示词
 
-Step 2 必须分两轮完成，不能一次性从字幕直接输出终稿：
+Step 2 的文章写作必须分轮完成，不能一次性从字幕直接输出终稿。标题和导语必须在终稿检查前生成，供开头、结尾和一致性检查使用：
 
-1. **内容初稿轮**：提炼主线、取舍素材、选择开头方式，生成结构完整且忠实字幕的初稿
-2. **真人化改写轮**：先按 `docs/writing-guide.md` 的“去 AI 味终稿检查”做硬检查，再按 `docs/ai-humanizer-guide.md` 逐段识别和改写 AI 写作痕迹。不新增事实、不改变结论，只优化开头、节奏、判断、细节、口语感和作者判断。
+1. **内容初稿轮**：先读取 `docs/writing-guide.md`，提炼主线、取舍素材、选择开头方式，生成结构完整且忠实字幕的初稿。
+2. **标题与导语轮**：读取 `docs/title-guide.md`，基于初稿生成候选标题并自动选择最优标题，同时生成导语；把标题和导语写入 `article.md` frontmatter，并从正文中移除候选标题列表。
+3. **真人化改写轮**：先读取 `docs/final-writing-check.md` 做硬检查，再读取 `docs/ai-humanizer-guide.md` 逐段识别和改写 AI 写作痕迹。不新增事实、不改变结论，只优化开头、节奏、判断、细节、口语感和作者判断。改写时必须让开头承接已选标题，并确认标题、导语、开头、结尾指向同一个核心判断。
+4. **收尾轮**：读取 `docs/ending-guide.md`，按内容类型和证据边界处理免责声明、关注引导和结尾。
 
-只有完成真人化改写后，才能把内容写入最终 `article.md`。
+只有完成真人化改写和收尾后，才能把内容写入最终 `article.md`。
+
+5. **配图提示词轮**：读取 `docs/image-prompt-guide.md`，基于稳定后的 `article.md` 配图标记生成 `cover_prompt.md`，并执行正文配图硬检查。
 
 Step 2 完成后必须按 `docs/image-prompt-guide.md` 执行正文配图硬检查。检查失败不得进入 Step 4，必须先修复 `article.md` 或 `cover_prompt.md`。
 
-### Step 3：选定标题（AI 自动）
+### Step 3：复核标题与导语（AI 自动）
 
-AI 从候选标题中自动选择最优标题，写入 `article.md` frontmatter，并移除候选标题列表。标题选择规则见 `docs/writing-guide.md`。
+AI 按 `docs/title-guide.md` 复核已写入 frontmatter 的标题和导语，确认它们仍然能被终稿正文支撑。若复核后修改了标题或导语，必须重新按 `docs/final-writing-check.md` 检查“标题、导语、开头、结尾指向同一个核心判断”，通过后才能进入 Step 4。
+
+如果 Step 3 的复核导致正文内容、开头、结尾或任何 `【配图N：标题】` 标记发生变化，必须重新读取 `docs/image-prompt-guide.md`，更新或复核 `cover_prompt.md`，并再次通过正文配图硬检查，确保 `article.md` 与 `cover_prompt.md` 一一对应。
 
 ### Step 4：格式化 Markdown（自动）
 
