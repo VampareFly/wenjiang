@@ -81,15 +81,15 @@ Step 2 的文章写作必须分轮完成，不能一次性从字幕直接输出�
 
 只有完成真人化改写和收尾后，才能把内容写入最终 `article.md`。
 
-5. **配图提示词轮**：读取 `docs/image-prompt-guide.md`，基于稳定后的 `article.md` 配图标记生成 `cover_prompt.md`，并执行正文配图硬检查。
+5. **配图提示词轮**：读取 `docs/image-prompt-guide.md`，基于稳定后的 `article.md` 配图标记生成 `cover_prompt.md`，并执行封面与正文配图硬检查。
 
-Step 2 完成后必须按 `docs/image-prompt-guide.md` 执行正文配图硬检查。检查失败不得进入 Step 4，必须先修复 `article.md` 或 `cover_prompt.md`。
+Step 2 完成后必须按 `docs/image-prompt-guide.md` 执行封面与正文配图硬检查。检查失败不得进入 Step 4，必须先修复 `article.md` 或 `cover_prompt.md`。
 
 ### Step 3：复核标题与导语（AI 自动）
 
 AI 按 `docs/title-guide.md` 复核已写入 frontmatter 的标题和导语，确认它们仍然能被终稿正文支撑。若复核后修改了标题或导语，必须重新按 `docs/final-writing-check.md` 检查“标题、导语、开头、结尾指向同一个核心判断”，通过后才能进入 Step 4。
 
-如果 Step 3 的复核导致正文内容、开头、结尾或任何 `【配图N：标题】` 标记发生变化，必须重新读取 `docs/image-prompt-guide.md`，更新或复核 `cover_prompt.md`，并再次通过正文配图硬检查，确保 `article.md` 与 `cover_prompt.md` 一一对应。
+如果 Step 3 的复核导致正文内容、开头、结尾或任何 `【配图N：标题】` 标记发生变化，必须重新读取 `docs/image-prompt-guide.md`，更新或复核 `cover_prompt.md`，并再次通过封面与正文配图硬检查，确保 `article.md` 与 `cover_prompt.md` 一一对应。
 
 ### Step 4：格式化 Markdown（自动）
 

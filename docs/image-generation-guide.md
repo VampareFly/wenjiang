@@ -94,7 +94,7 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 - `id`：任务标识，与 cover_prompt.md 中的 section 对应。
 - `prompt`：英文提示词，直接从 cover_prompt.md 复制。
 - `image`：输出路径，使用项目相对路径。
-- `ar`：宽高比，封面和正文配图统一用 `16:9`。
+- `ar`：宽高比，封面使用 `2.35:1`；正文配图默认使用 `16:9`。
 - `quality`：`2k`（默认，适合公众号）。
 
 ### 3. 调用生成
@@ -110,11 +110,10 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
 生成完成后检查：
 
 - 文件是否存在：`ls articles/<YYYYMMDD-HHMMSS>/*.png`
-- 尺寸是否合理（公众号配图建议 > 800px 宽）
 
 ### 5. 清理临时文件
 
-确认图片文件存在、尺寸合理后，删除：
+确认图片文件存在后，删除：
 
 - `articles/<YYYYMMDD-HHMMSS>/batch.json`
 - `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`
@@ -137,7 +136,7 @@ bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
       "id": "cover",
       "prompt": "<Cover section prompt>",
       "image": "articles/<YYYYMMDD-HHMMSS>/cover.png",
-      "ar": "16:9",
+      "ar": "2.35:1",
       "quality": "2k"
     },
     {

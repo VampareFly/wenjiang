@@ -43,7 +43,7 @@ Step 11 手动发布小红书
 articles/YYYYMMDD-HHMMSS/
 ├── article.md          # Markdown 文章
 ├── article.html        # 公众号 HTML
-├── cover.png           # 封面 (16:9)
+├── cover.png           # 公众号封面 (2.35:1)
 ├── 配图1~N.png         # 正文配图
 ├── 小红书卡片-01~N.png  # 小红书图文
 └── 小红书文案.txt       # 小红书发布文案
