@@ -18,6 +18,8 @@ npm-debug.log*
 # Temporary files
 *.tmp
 *.log
+__pycache__/
+*.pyc
 .agents
 .baoyu-skills
 .worktrees/

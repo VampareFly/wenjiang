@@ -8,6 +8,8 @@
 
 Step 8 使用 `baoyu-post-to-wechat` 的 API 方法上传草稿到微信公众号，支持自动上传正文图片、上传封面素材，并设置标题、摘要、作者等元数据。
 
+Step 8 会产生外部副作用，必须同时满足：用户已在当前对话明确确认 Step 7；确认绑定的文章、HTML 和图片此后没有变化；状态文件中的 Step 7 为 `passed`。
+
 本项目传入 Step 7 已预览确认的 `article.html`，而不是重新传 `article.md` 让发布脚本渲染。这样可以保留 Step 6 生成并确认过的版式。`wechat-api.ts` 支持 HTML 输入，会读取同目录 `article.md` 的 frontmatter，并扫描 HTML 中的 `<img src="...">` 处理本地正文图片。
 
 ### 前置条件
@@ -16,6 +18,15 @@ Step 8 使用 `baoyu-post-to-wechat` 的 API 方法上传草稿到微信公众�
 - 本机 IP 已加入微信公众号后台的 IP 白名单。
 
 ### 使用方式
+
+调用微信 API 前先执行，任一命令失败都必须停止：
+
+```bash
+python3 scripts/validate_workflow.py approval articles/<YYYYMMDD-HHMMSS>
+python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_8
+```
+
+不得把用户最初的“生成文章”请求解释为上传授权，也不得沿用文件修改前的旧确认。
 
 ```bash
 bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
@@ -51,6 +62,14 @@ bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
 
 草稿创建成功后返回草稿 `media_id`，需记录到 `公众号草稿信息.txt`。
 
+记录完成后运行：
+
+```bash
+python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_8
+```
+
+该命令会检查信息文件存在、非空且包含 `media_id`。上传失败时保留本地文件，将 Step 8 标记为 `blocked`，不得进入最终清理。
+
 ---
 
 ## 公众号草稿信息文件格式
@@ -67,3 +86,5 @@ bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
 后台操作说明：
 草稿已自动设置标题、作者和摘要，请在微信公众号后台「内容管理」→「草稿箱」中核对后发布。
 ```
+
+`公众号草稿信息.txt` 是正式审计资产，Step 11 必须保留，不属于临时文件。

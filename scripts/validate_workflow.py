@@ -1,0 +1,448 @@
+#!/usr/bin/env python3
+"""Validate objective gates in the article production workflow."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import struct
+import sys
+from html.parser import HTMLParser
+from pathlib import Path
+from typing import Iterable
+
+
+REQUIRED_FRONTMATTER = ("title", "description", "author")
+TITLE_MAX_LENGTH = 32
+TITLE_BANNED_WORDS = (
+    "一文读懂",
+    "揭秘",
+    "真相",
+    "密码",
+    "底层逻辑",
+    "颠覆认知",
+)
+TITLE_BANNED_PATTERNS = (
+    re.compile(r"为什么.+[？?].*(问题不在|靠的是)"),
+    re.compile(r"真正的?.+[，,:：]?(是|在于)"),
+    re.compile(r".+骗不了你的.+"),
+)
+MARKER_RE = re.compile(r"【配图(\d+)：([^】]+)】")
+PROMPT_MARKER_RE = re.compile(r"^##\s+【配图(\d+)：([^】]+)】\s*$", re.MULTILINE)
+FINAL_FIXED = {
+    "article.md",
+    "article.html",
+    "cover.png",
+    "公众号草稿信息.txt",
+    "小红书文案.txt",
+    "workflow-state.json",
+}
+FINAL_PATTERNS = (
+    re.compile(r"配图\d+\.png"),
+    re.compile(r"小红书卡片-\d{2}\.png"),
+)
+
+
+def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
+    """Parse the flat YAML subset used by article frontmatter."""
+    lines = text.splitlines()
+    if not lines or lines[0].strip() != "---":
+        return {}, text
+    try:
+        end = next(index for index in range(1, len(lines)) if lines[index].strip() == "---")
+    except StopIteration:
+        return {}, text
+
+    metadata: dict[str, str] = {}
+    for line in lines[1:end]:
+        if not line.strip() or line.lstrip().startswith("#") or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
+            value = value[1:-1]
+        metadata[key.strip()] = value
+    return metadata, "\n".join(lines[end + 1 :])
+
+
+def extract_markers(text: str) -> list[tuple[int, str]]:
+    return [(int(number), title.strip()) for number, title in MARKER_RE.findall(text)]
+
+
+def _read_text(path: Path, label: str) -> tuple[str | None, list[str]]:
+    if not path.is_file():
+        return None, [f"缺少{label}：{path.name}"]
+    try:
+        return path.read_text(encoding="utf-8"), []
+    except UnicodeDecodeError:
+        return None, [f"{label}不是有效 UTF-8：{path.name}"]
+
+
+def validate_article(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    text, errors = _read_text(article_dir / "article.md", "终稿")
+    if text is None:
+        return errors
+
+    metadata, body = parse_frontmatter(text)
+    for field in REQUIRED_FRONTMATTER:
+        if not metadata.get(field, "").strip():
+            errors.append(f"article.md frontmatter 缺少 {field}")
+
+    title = metadata.get("title", "").strip()
+    if len(title) > TITLE_MAX_LENGTH:
+        errors.append(f"标题超过 {TITLE_MAX_LENGTH} 字：{len(title)}")
+    for word in TITLE_BANNED_WORDS:
+        if word in title:
+            errors.append(f"标题包含 AI/营销高风险词：{word}")
+    if any(pattern.search(title) for pattern in TITLE_BANNED_PATTERNS):
+        errors.append("标题命中高频 AI 模板，必须重新生成")
+    if "候选标题" in body:
+        errors.append("正文残留候选标题列表")
+
+    markers = extract_markers(body)
+    if not markers:
+        errors.append("article.md 缺少正文配图标记")
+    else:
+        numbers = [number for number, _ in markers]
+        expected = list(range(1, len(markers) + 1))
+        if numbers != expected:
+            errors.append(f"配图编号必须从 1 连续递增，当前为 {numbers}")
+        if len(set(markers)) != len(markers):
+            errors.append("article.md 存在重复配图标记")
+    return errors
+
+
+def validate_prompts(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    article_text, errors = _read_text(article_dir / "article.md", "终稿")
+    prompt_text, prompt_errors = _read_text(article_dir / "cover_prompt.md", "配图提示词")
+    errors.extend(prompt_errors)
+    if article_text is None or prompt_text is None:
+        return errors
+
+    _, body = parse_frontmatter(article_text)
+    article_markers = extract_markers(body)
+    prompt_markers = [
+        (int(number), title.strip())
+        for number, title in PROMPT_MARKER_RE.findall(prompt_text)
+    ]
+    if article_markers != prompt_markers:
+        errors.append(
+            "article.md 与 cover_prompt.md 的配图编号或标题不一致："
+            f"article={article_markers}, prompts={prompt_markers}"
+        )
+    if "WeChat Official Account article cover, primary crop 2.35:1" not in prompt_text:
+        errors.append("封面提示词缺少公众号 2.35:1 主裁剪要求")
+    return errors
+
+
+def _png_dimensions(path: Path) -> tuple[int, int] | None:
+    try:
+        data = path.read_bytes()[:24]
+    except OSError:
+        return None
+    if len(data) < 24 or data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR":
+        return None
+    return struct.unpack(">II", data[16:24])
+
+
+def _validate_png(path: Path, target_ratio: float, ratio_label: str) -> list[str]:
+    if not path.is_file():
+        return [f"缺少图片：{path.name}"]
+    dimensions = _png_dimensions(path)
+    if dimensions is None:
+        return [f"图片不是可识别的 PNG：{path.name}"]
+    width, height = dimensions
+    if width <= 0 or height <= 0:
+        return [f"图片尺寸无效：{path.name} ({width}×{height})"]
+    if abs(width / height - target_ratio) > 0.08:
+        return [f"图片比例不是 {ratio_label}：{path.name} ({width}×{height})"]
+    return []
+
+
+def validate_images(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    article_text, errors = _read_text(article_dir / "article.md", "终稿")
+    if article_text is None:
+        return errors
+    _, body = parse_frontmatter(article_text)
+    markers = extract_markers(body)
+
+    errors.extend(_validate_png(article_dir / "cover.png", 2.35, "2.35:1"))
+    for number, _ in markers:
+        errors.extend(
+            _validate_png(article_dir / f"配图{number}.png", 16 / 9, "16:9")
+        )
+    actual_numbers = sorted(
+        int(match.group(1))
+        for path in article_dir.glob("配图*.png")
+        if (match := re.fullmatch(r"配图(\d+)\.png", path.name))
+    )
+    expected_numbers = [number for number, _ in markers]
+    if actual_numbers != expected_numbers:
+        errors.append(
+            f"正文图片文件与配图标记不一致：expected={expected_numbers}, actual={actual_numbers}"
+        )
+    return errors
+
+
+class _ImageParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.images: list[dict[str, str]] = []
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag.lower() == "img":
+            self.images.append({key.lower(): value or "" for key, value in attrs})
+
+
+def validate_html(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    article_text, errors = _read_text(article_dir / "article.md", "终稿")
+    html_text, html_errors = _read_text(article_dir / "article.html", "公众号 HTML")
+    errors.extend(html_errors)
+    if article_text is None or html_text is None:
+        return errors
+
+    _, body = parse_frontmatter(article_text)
+    markers = extract_markers(body)
+    if "【配图" in html_text:
+        errors.append("article.html 残留配图占位符")
+
+    parser = _ImageParser()
+    try:
+        parser.feed(html_text)
+    except Exception as exc:  # HTMLParser may expose malformed entity errors.
+        errors.append(f"article.html 无法解析：{exc}")
+        return errors
+    if len(parser.images) != len(markers):
+        errors.append(
+            f"HTML 图片数量与正文标记不一致：expected={len(markers)}, actual={len(parser.images)}"
+        )
+
+    for index, (number, title) in enumerate(markers):
+        if index >= len(parser.images):
+            break
+        image = parser.images[index]
+        expected_src = f"配图{number}.png"
+        if image.get("src") != expected_src:
+            errors.append(f"HTML 图片必须使用相对路径 {expected_src}")
+        if not image.get("alt", "").strip():
+            errors.append(f"HTML 图片 {expected_src} 缺少 alt")
+        elif image["alt"].strip() != title:
+            errors.append(
+                f"HTML 图片 {expected_src} 的 alt 与配图标题不一致：{image['alt']}"
+            )
+    return errors
+
+
+def _is_final_asset(name: str) -> bool:
+    return name in FINAL_FIXED or any(pattern.fullmatch(name) for pattern in FINAL_PATTERNS)
+
+
+def validate_final(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    errors: list[str] = []
+    for name in sorted(FINAL_FIXED):
+        path = article_dir / name
+        if not path.is_file() or path.stat().st_size == 0:
+            errors.append(f"缺少或为空的最终资产：{name}")
+
+    body_images = sorted(article_dir.glob("配图*.png"))
+    cards = sorted(article_dir.glob("小红书卡片-*.png"))
+    if not body_images:
+        errors.append("缺少正文配图最终资产")
+    if not cards:
+        errors.append("缺少小红书卡片最终资产")
+
+    for path in article_dir.iterdir() if article_dir.is_dir() else ():
+        if not path.is_file() or not _is_final_asset(path.name):
+            errors.append(f"发现非最终资产：{path.name}")
+    return errors
+
+
+def validate_cleaned_subtitle(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    text, errors = _read_text(article_dir / "source.cleaned.txt", "清洗字幕")
+    if text is None:
+        return errors
+    if not text.strip():
+        errors.append("source.cleaned.txt 为空")
+    timecode = re.compile(
+        r"(?:\d{1,2}:)?\d{2}:\d{2}[,.]\d{3}\s*-->\s*"
+        r"(?:\d{1,2}:)?\d{2}:\d{2}[,.]\d{3}"
+    )
+    if timecode.search(text):
+        errors.append("source.cleaned.txt 仍包含字幕时间轴")
+    return errors
+
+
+def validate_draft_record(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    text, errors = _read_text(article_dir / "公众号草稿信息.txt", "公众号草稿信息")
+    if text is None:
+        return errors
+    if not re.search(r"media_id\s*[：:]\s*\S+", text):
+        errors.append("公众号草稿信息.txt 缺少有效 media_id")
+    return errors
+
+
+def validate_cards(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    cards = sorted(article_dir.glob("小红书卡片-*.png"))
+    if not cards:
+        return ["缺少小红书卡片"]
+    errors: list[str] = []
+    numbers: list[int] = []
+    for path in cards:
+        match = re.fullmatch(r"小红书卡片-(\d{2})\.png", path.name)
+        if not match:
+            errors.append(f"小红书卡片命名不符合两位编号规则：{path.name}")
+            continue
+        numbers.append(int(match.group(1)))
+        if path.stat().st_size == 0:
+            errors.append(f"小红书卡片为空：{path.name}")
+    expected = list(range(1, len(numbers) + 1))
+    if numbers != expected:
+        errors.append(f"小红书卡片编号必须从 01 连续递增，当前为 {numbers}")
+    return errors
+
+
+def validate_xiaohongshu_copy(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    text, errors = _read_text(article_dir / "小红书文案.txt", "小红书文案")
+    if text is None:
+        return errors
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        return ["小红书文案.txt 为空"]
+    if len(lines[0]) > 20:
+        errors.append(f"小红书标题超过 20 字：{len(lines[0])}")
+    topics = re.findall(r"(?<!\w)#[^\s#]+", text)
+    if not 3 <= len(topics) <= 6:
+        errors.append(f"小红书文案应包含 3-6 个话题，当前为 {len(topics)}")
+    return errors
+
+
+def _frontmatter_version(text: str) -> str | None:
+    metadata, _ = parse_frontmatter(text)
+    return metadata.get("version")
+
+
+def validate_skills(
+    lock_path: Path | str,
+    *,
+    warnings: list[str] | None = None,
+) -> list[str]:
+    lock_path = Path(lock_path)
+    warnings = warnings if warnings is not None else []
+    if not lock_path.is_file():
+        return [f"缺少 Skill 锁文件：{lock_path}"]
+    try:
+        lock = json.loads(lock_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeDecodeError, json.JSONDecodeError) as exc:
+        return [f"Skill 锁文件无效：{exc}"]
+
+    errors: list[str] = []
+    for name, expected in lock.get("skills", {}).items():
+        skill_dir = Path(expected.get("path", ""))
+        if not skill_dir.is_absolute():
+            skill_dir = lock_path.parent / skill_dir
+        skill_file = skill_dir / "SKILL.md"
+        if not skill_file.is_file():
+            errors.append(f"Skill {name} 缺少 SKILL.md：{skill_file}")
+            continue
+        try:
+            text = skill_file.read_text(encoding="utf-8")
+        except (OSError, UnicodeDecodeError) as exc:
+            errors.append(f"Skill {name} 无法读取：{exc}")
+            continue
+
+        actual_version = _frontmatter_version(text)
+        expected_version = expected.get("version")
+        if expected_version is None and actual_version is not None:
+            warnings.append(
+                f"Skill {name} 版本漂移：verified=unversioned, actual={actual_version}"
+            )
+        elif expected_version is not None and actual_version != str(expected_version):
+            warnings.append(
+                f"Skill {name} 版本漂移：verified={expected_version}, actual={actual_version or 'unknown'}"
+            )
+        for entrypoint in expected.get("entrypoints", []):
+            if not (skill_dir / entrypoint).is_file():
+                errors.append(f"Skill {name} 缺少入口：{entrypoint}")
+        for required_text in expected.get("required_text", []):
+            if required_text not in text:
+                errors.append(f"Skill {name} 缺少关键能力文本：{required_text}")
+    return errors
+
+
+def run_checks(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    errors = validate_article(article_dir)
+    if (article_dir / "cover_prompt.md").exists():
+        errors.extend(validate_prompts(article_dir))
+    if (article_dir / "cover.png").exists():
+        errors.extend(validate_images(article_dir))
+    if (article_dir / "article.html").exists():
+        errors.extend(validate_html(article_dir))
+    state_path = article_dir / "workflow-state.json"
+    if state_path.is_file():
+        try:
+            state = json.loads(state_path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError):
+            errors.append("workflow-state.json 无效")
+        else:
+            if state.get("steps", {}).get("step_11", {}).get("status") in {"running", "passed"}:
+                errors.extend(validate_final(article_dir))
+    return errors
+
+
+def _print_result(errors: Iterable[str], warnings: Iterable[str] = ()) -> int:
+    for warning in warnings:
+        print(f"WARNING: {warning}", file=sys.stderr)
+    errors = list(errors)
+    if errors:
+        for error in errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    print("OK")
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "check",
+        choices=("article", "prompts", "images", "html", "skills", "approval", "final", "all"),
+    )
+    parser.add_argument("path", type=Path, help="Article directory or skills.lock.json")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
+    if args.check == "skills":
+        warnings: list[str] = []
+        return _print_result(validate_skills(args.path, warnings=warnings), warnings)
+    if args.check == "approval":
+        try:
+            from scripts.workflow_state import validate_approval
+        except ImportError:
+            return _print_result(["工作流状态模块尚未安装"])
+        return _print_result(validate_approval(args.path))
+    checks = {
+        "article": validate_article,
+        "prompts": validate_prompts,
+        "images": validate_images,
+        "html": validate_html,
+        "final": validate_final,
+        "all": run_checks,
+    }
+    return _print_result(checks[args.check](args.path))
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

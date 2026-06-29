@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "skills": {
+    "baoyu-format-markdown": {
+      "path": ".agents/skills/baoyu-format-markdown",
+      "version": "1.57.0",
+      "entrypoints": [
+        "scripts/main.ts"
+      ],
+      "required_text": [
+        "Optimize formatting"
+      ]
+    },
+    "baoyu-image-gen": {
+      "path": ".agents/skills/baoyu-image-gen",
+      "version": "2.1.0",
+      "entrypoints": [
+        "scripts/main.ts"
+      ],
+      "required_text": [
+        "--batchfile",
+        "codex-cli",
+        "EXTEND.md",
+        "BAOYU_CODEX_IMAGEGEN_TIMEOUT_MS"
+      ]
+    },
+    "baoyu-markdown-to-html": {
+      "path": ".agents/skills/baoyu-markdown-to-html",
+      "version": "1.117.3",
+      "entrypoints": [
+        "scripts/main.ts"
+      ],
+      "required_text": [
+        "--theme",
+        "--color"
+      ]
+    },
+    "baoyu-post-to-wechat": {
+      "path": ".agents/skills/baoyu-post-to-wechat",
+      "version": "1.118.2",
+      "entrypoints": [
+        "scripts/wechat-api.ts"
+      ],
+      "required_text": [
+        "wechat-api.ts"
+      ]
+    },
+    "baoyu-article-illustrator": {
+      "path": ".agents/skills/baoyu-article-illustrator",
+      "version": "1.117.4",
+      "entrypoints": [],
+      "required_text": [
+        "Prompt file requirement (hard)"
+      ]
+    },
+    "guizang-social-card-skill": {
+      "path": ".agents/skills/guizang-social-card-skill",
+      "version": null,
+      "entrypoints": [
+        "validate-social-deck.mjs"
+      ],
+      "required_text": [
+        "validate-social-deck.mjs"
+      ]
+    },
+    "md2wechat": {
+      "path": ".agents/skills/md2wechat",
+      "version": null,
+      "entrypoints": [],
+      "required_text": [
+        "Discovery First"
+      ]
+    }
+  }
+}

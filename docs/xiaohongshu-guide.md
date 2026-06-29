@@ -14,6 +14,8 @@ articles/<YYYYMMDD-HHMMSS>/小红书卡片-{01-N}.png
 
 使用 `guizang-social-card-skill` 生成卡片。主题/色系由 AI 根据内容类型自动匹配，不需要用户指定。
 
+生成完成后运行 `python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_9`，检查卡片存在、非空且从 `01` 连续编号。
+
 ### 截图脚本规则
 
 - Playwright 依赖在 `~/.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
@@ -77,11 +79,14 @@ articles/<YYYYMMDD-HHMMSS>/小红书文案.txt
 
 ### 写作规则
 
+- 字幕和 `article.md` 是唯一事实基准，不新增个人经历、粉丝反馈、数据、疗效或外部结论。
 - 第一行为标题，小红书会自动识别为标题，控制在 20 字以内。
 - 正文使用短句，保留文章最强观点、反差或实用结论。
 - 不复述长文全文，只提炼最适合小红书传播的切口。
 - 可用少量 emoji 点缀，但不要堆砌。
 - 文末添加与主题相关的话题标签。
+
+生成完成后运行 `python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_10`，检查标题长度和 3-6 个话题标签。
 
 ---
 

@@ -2,7 +2,7 @@
 
 > 字幕进去，爆款出来。一条流水线，从视频字幕到公众号发布。
 
-文匠是一个基于 Code Agent 的内容生产工作流。丢进一段字幕，Agent 自动完成内容分析、风格化写作、排版优化、配图生成、HTML 转换，直到上传微信草稿箱。
+文匠是一个基于 Code Agent 的内容生产工作流。丢进一段字幕，Agent 以字幕为唯一事实基准，依次完成内容分析、分轮写作、排版、配图、HTML 和平台资产生成。
 
 公众号草稿创建前的主体流程在 AI Code 内闭环完成；Step 7 需要用户预览确认，Step 11 仍由用户手动发布小红书。
 
@@ -11,7 +11,7 @@
 | 能力 | 说明 |
 |------|------|
 | 内容类型识别 | 自动判断科普 / 财经 / 科技 / 成长等类型，匹配对应写法 |
-| 去 AI 味写作 | 两轮写作：先重组内容，再逐段真人化改写，口语化、有立场、带细节 |
+| 去 AI 味写作 | 五轮写作：初稿、标题导语、真人化改写、收尾、配图提示词 |
 | 微信 SEO | 标题和正文覆盖搜一搜高频关键词 |
 | 多格式输出 | 公众号 HTML、小红书图文卡片、封面和配图 |
 | 一键发布 | 通过 baoyu-post-to-wechat API 自动上传正文图片和封面，推送到草稿箱 |
@@ -23,8 +23,8 @@
   │
   ▼
 Step 1  本地清洗字幕 (source.cleaned.txt)
-Step 2  两轮写作生成文章 (article.md) + 配图提示词 (cover_prompt.md)
-Step 3  自动选定最优标题
+Step 2  五轮生成文章 (article.md) + 配图提示词 (cover_prompt.md)
+Step 3  标题与导语复核
 Step 4  格式化 Markdown
 Step 5  AI 生成封面和配图
 Step 6  转换为公众号 HTML (article.html)
@@ -34,6 +34,8 @@ Step 9  生成小红书卡片
 Step 10 生成小红书文案
 Step 11 手动发布小红书
 ```
+
+每个任务使用 `workflow-state.json` 记录步骤和校验状态。Step 7 是用户确认硬门禁；确认后的文章、HTML 或图片发生变化时，必须重新确认才能创建微信草稿。
 
 ## 每篇文章产出
 
@@ -45,8 +47,10 @@ articles/YYYYMMDD-HHMMSS/
 ├── article.html        # 公众号 HTML
 ├── cover.png           # 公众号封面 (2.35:1)
 ├── 配图1~N.png         # 正文配图
+├── 公众号草稿信息.txt   # 微信草稿 media_id 和后台核对信息
 ├── 小红书卡片-01~N.png  # 小红书图文
-└── 小红书文案.txt       # 小红书发布文案
+├── 小红书文案.txt       # 小红书发布文案
+└── workflow-state.json # 步骤、校验和确认摘要审计记录
 ```
 
 ## 项目结构
@@ -58,8 +62,11 @@ articles/YYYYMMDD-HHMMSS/
 │   └── skills/         # 项目级 Agent Skills，避免污染全局上下文
 ├── opencode.json       # OpenCode 权限配置
 ├── mimocode.json       # MimoCode 权限配置
+├── skills.lock.json    # 已验证 Skill 版本、入口和关键能力
 ├── scripts/
 │   ├── clean_subtitle.py   # 本地字幕清洗脚本
+│   ├── validate_workflow.py # 文章、图片、HTML、发布和最终资产校验
+│   ├── workflow_state.py    # 工作流状态与用户确认门禁
 │   └── package.json        # Playwright 依赖
 ├── docs/
 │   ├── workflow.md              # 主流程和步骤
@@ -89,16 +96,16 @@ articles/YYYYMMDD-HHMMSS/
 1. 将字幕文件（.srt）放入 `inputs/` 目录
 2. 在 OpenCode 中打开本项目
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
-4. Agent 先本地清洗字幕，再自动执行全流程，最终产出在 `articles/YYYYMMDD-HHMMSS/`
+4. Agent 先本地清洗字幕，再按 `workflow-state.json` 顺序执行；Step 7 等待用户明确预览确认
 5. 流程结束前清理字幕、提示词、batch、截图脚本和调试文件，只保留正式发布资产
 
 ## 配置
 
 ### 项目 Skills
 
-本项目使用 `.agents/skills/` 存放项目级 skill 替身。公众号生产相关 skill 只服务当前项目，不应放在全局 `~/.agents/skills/`，否则会让其他项目加载不必要的上下文，也会增加误触发概率。
+本项目使用 `.agents/skills/` 作为项目级 Skill 入口；当前入口可能链接到用户目录中的已安装 Skill。`skills.lock.json` 记录已验证版本、入口和关键能力，执行外部 Skill 前必须运行兼容性检查，避免全局升级后静默漂移。
 
-`.agents/skills/` 是通用 Agent Skills 目录，不绑定某一个 AI Agent 工具。切换 OpenCode、MimoCode 或其他兼容 Agent Skills 的工具时，也可以继续复用这一套项目级入口。
+`.agents/skills/` 不绑定某一个 AI Agent 工具，但换机器或升级 Skill 后必须重新建立入口并验证 `skills.lock.json`；符号链接本身不等于依赖已经随仓库分发。
 
 当前项目需要以下 skills：
 

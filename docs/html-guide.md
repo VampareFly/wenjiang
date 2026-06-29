@@ -14,7 +14,9 @@ Step 6 只负责把 `article.md` 转为可预览、可上传的 `article.html`�
 - 标题不放在卡片内，单独作为顶部元素或由公众号后台自动处理。
 - 正文列表在 HTML 中优先转为独立段落，避免微信编辑器剥离 `<ul>` / `<li>` 后破坏换行。
 
-工具选择由 AI 自动完成：`baoyu-markdown-to-html`（60%）/ `md2wechat --mode ai`（40%），不需要用户指定。
+Step 6 固定使用 `baoyu-markdown-to-html`，不随机选择工具。文章已在 Step 4 完成格式化并通过回归校验，因此调用时明确使用当前 `article.md`，不重复触发格式化轮。
+
+如果 `baoyu-markdown-to-html` 执行失败，先报告具体错误并停止。只有用户明确选择后，才可把 `md2wechat --mode ai` 作为备选；不得自动降级，也不得在两个工具之间随机切换。
 
 ---
 
@@ -32,7 +34,7 @@ Step 6 只负责把 `article.md` 转为可预览、可上传的 `article.html`�
 
 ### 角色定位
 
-md2wechat 仅作为 HTML 生成的可选工具之一。公众号图片上传和草稿创建统一由 Step 8 的 `baoyu-post-to-wechat` API 方法完成，详见 `docs/wechat-guide.md`。
+md2wechat 仅作为主工具失败后、由用户明确选择的备选。它不参与自动工具选择。公众号图片上传和草稿创建统一由 Step 8 的 `baoyu-post-to-wechat` API 方法完成，详见 `docs/wechat-guide.md`。
 
 **注意**：AI 模式（`--mode ai`）只输出设计提示词 `article.prompt.txt`，不直接产出真实 HTML。AI 读取 prompt.txt 中的样式规范（色彩、排版、卡片间距等），生成匹配该主题的 `article.html`。
 
@@ -178,3 +180,12 @@ rg -n "【配图[0-9]+：" articles/<YYYYMMDD-HHMMSS>/article.md
 rg -n "<img" articles/<YYYYMMDD-HHMMSS>/article.html
 rg -n "【配图" articles/<YYYYMMDD-HHMMSS>/article.html
 ```
+
+以上人工命令只用于定位问题，阶段门禁统一执行：
+
+```bash
+python3 scripts/validate_workflow.py html articles/<YYYYMMDD-HHMMSS>
+python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_6
+```
+
+校验失败不得进入 Step 7。
