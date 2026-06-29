@@ -112,13 +112,6 @@ articles/YYYYMMDD-HHMMSS/
 | `guizang-social-card-skill` | 生成小红书图文卡片、公众号封面等社交传播图片 |
 | `md2wechat` | 使用 `md2wechat` CLI 做预览、转换、草稿等公众号流程 |
 
-这些 skill 应保留在：
-
-```text
-.agents/skills/<skill-name>/SKILL.md
-```
-
-不要同时维护 `.opencode/skills/` 和 `.agents/skills/` 两套同名 skill，避免重复发现和触发混乱。
 
 | 文件 | 用途 |
 |------|------|
