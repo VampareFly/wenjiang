@@ -14,7 +14,7 @@ Step 8 会产生外部副作用，必须同时满足：用户已在当前对话�
 
 ### 前置条件
 
-- 微信公众号 API 凭据已配置（`~/.baoyu-skills/.env` 中设置 `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET`）。
+- 微信公众号 API 凭据已配置（`.baoyu-skills/.env` 中设置 `WECHAT_APP_ID` 和 `WECHAT_APP_SECRET`）。
 - 本机 IP 已加入微信公众号后台的 IP 白名单。
 
 ### 使用方式
@@ -29,7 +29,7 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_8
 不得把用户最初的“生成文章”请求解释为上传授权，也不得沿用文件修改前的旧确认。
 
 ```bash
-bun ~/.agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
+bun .agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
   articles/<YYYYMMDD-HHMMSS>/article.html \
   --theme default \
   --title "文章标题" \

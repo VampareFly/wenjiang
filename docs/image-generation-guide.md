@@ -114,7 +114,7 @@ EPERM: operation not permitted, open '~/.cache/baoyu-codex-imagegen/codex-exec.l
 ### 3. 调用生成
 
 ```bash
-bun ~/.agents/skills/baoyu-image-gen/scripts/main.ts \
+bun .agents/skills/baoyu-image-gen/scripts/main.ts \
   --batchfile articles/<YYYYMMDD-HHMMSS>/batch.json \
   --provider codex-cli --jobs 1
 ```

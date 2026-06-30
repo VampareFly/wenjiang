@@ -20,9 +20,9 @@ articles/<YYYYMMDD-HHMMSS>/小红书卡片-{01-N}.png
 
 ### 截图脚本规则
 
-- Playwright 依赖在 `~/.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
+- Playwright 依赖在 `.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
   ```bash
-  NODE_PATH=~/.agents/skills/guizang-social-card-skill/node_modules node screenshot.js
+  NODE_PATH=.agents/skills/guizang-social-card-skill/node_modules node screenshot.js
   ```
 - 使用 `element.screenshot()` 而非 `page.screenshot({clip})`，自动将目标元素滚入视口。
 - 脚本文件先用 Write 工具创建，再用 Bash 执行，避免 sandbox 拦截。

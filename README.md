@@ -125,7 +125,6 @@ articles/YYYYMMDD-HHMMSS/
 | `AGENTS.md` | Agent 角色定义和文档入口 |
 | `.agents/skills/` | 项目级 Agent Skills |
 | `opencode.json` | OpenCode 权限配置 |
-| `mimocode.json` | MimoCode 权限配置 |
 | `docs/workflow.md` | 主流程和步骤 |
 | `docs/subtitle-guide.md` | 字幕清洗规则 |
 | `docs/writing-guide.md` | 内容类型、写作策略、去 AI 味规则 |
@@ -137,7 +136,6 @@ articles/YYYYMMDD-HHMMSS/
 | `docs/xiaohongshu-guide.md` | 小红书卡片和发布文案规则 |
 | `docs/final-cleanup-guide.md` | 发布前最终目录清理规则 |
 
-本项目可能被 OpenCode 和 MimoCode 两个工具使用，因此保留 `opencode.json` 和 `mimocode.json` 两份配置文件。修改权限配置时，需要同步检查两份文件是否一致。
 
 配置修改后立即生效，下次运行自动应用。
 
