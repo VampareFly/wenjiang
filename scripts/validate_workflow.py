@@ -431,7 +431,10 @@ def main(argv: list[str] | None = None) -> int:
         try:
             from scripts.workflow_state import validate_approval
         except ImportError:
-            return _print_result(["工作流状态模块尚未安装"])
+            try:
+                from workflow_state import validate_approval  # type: ignore[no-redef]
+            except ImportError:
+                return _print_result(["工作流状态模块尚未安装"])
         return _print_result(validate_approval(args.path))
     checks = {
         "article": validate_article,

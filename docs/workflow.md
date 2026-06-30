@@ -14,6 +14,7 @@
 4. 每一步开始前运行 `workflow_state.py start`，完成产物后运行 `workflow_state.py pass`。校验失败时不得手工把状态改成 `passed`。
 5. Step 7 是用户确认硬门禁；没有用户在当前对话中的明确确认，不得执行 `approve`，更不得进入 Step 8。
 6. 任一已确认资产发生变化，Step 7 确认立即失效，必须重新预览确认。
+7. 图片和小红书卡片生成后的默认检查只做客观门禁：文件存在、编号、格式、尺寸、比例、HTML 引用和目录白名单。不得在生成后用 AI 读图、目检图片内容、评价构图或因主观质量判断重生成；图片内容质量必须在生成前通过提示词、卡片 HTML/CSS 和布局测量控制。只有用户明确要求、客观校验失败、文件落错目录或发布接口失败时，才允许重跑生成。
 
 状态命令：
 
@@ -193,6 +194,8 @@ python3 scripts/validate_workflow.py images articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 ```
 
+Step 5 生成后不得使用 `view_image` 或其他 AI 读图方式检查图片内容，也不得因构图、文字、风格等主观判断重生成图片。除非上面的客观校验失败、图片落到错误目录、上传接口失败或用户明确要求，否则生成一次即进入 Step 6。
+
 备份保留到 Step 7 用户确认通过后，不在生图完成时提前删除。
 
 ### Step 6：生成公众号 HTML
@@ -256,6 +259,8 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_9
 # 生成小红书卡片
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_9
 ```
+
+Step 9 生成后不得用 AI 读图目检或主观评价卡片内容；只运行状态机的客观校验。布局、防溢出、图片盒高度、footer 安全区等问题必须在截图前通过 HTML/CSS 约束和 Playwright 数值测量解决。除非客观校验失败或用户明确要求，不重渲染、不重生成。
 
 ### Step 10：生成小红书文案
 

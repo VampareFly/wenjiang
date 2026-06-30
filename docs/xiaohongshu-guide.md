@@ -16,6 +16,8 @@ articles/<YYYYMMDD-HHMMSS>/小红书卡片-{01-N}.png
 
 生成完成后运行 `python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_9`，检查卡片存在、非空且从 `01` 连续编号。
 
+默认禁止生成后视觉复查。Step 9 不使用 `view_image` 或其他 AI 读图方式检查卡片内容，不因排版观感、文案视觉效果、风格偏好等主观判断重渲染。卡片质量控制必须前置到 HTML/CSS 设计和截图前的数值测量；生成后只运行状态机客观校验。只有客观校验失败、截图脚本报错、输出尺寸错误、文件编号缺失或用户明确要求时，才允许重新截图或调整卡片。
+
 ### 截图脚本规则
 
 - Playwright 依赖在 `~/.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本必须设置 `NODE_PATH` 指向该目录，否则 `require('playwright')` 会报 `MODULE_NOT_FOUND`：
@@ -58,6 +60,8 @@ const rows = await page.$$eval('.poster.xhs', posters => posters.map(p => {
 }));
 if (rows.some(r => r.gap < 24)) throw new Error('content overlaps footer safe zone');
 ```
+
+以上测量必须发生在截图前或截图脚本执行过程中，属于数值门禁，不属于生成后 AI 读图复查。测量失败时修 HTML/CSS 后重新截图；测量通过且状态机校验通过时，不再额外目检图片内容。
 
 ### 临时文件清理
 
