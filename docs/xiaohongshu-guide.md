@@ -24,6 +24,11 @@ articles/<YYYYMMDD-HHMMSS>/小红书卡片-{01-N}.png
   ```bash
   NODE_PATH=.agents/skills/guizang-social-card-skill/node_modules node screenshot.js
   ```
+- 本机没有 Playwright 托管的 Chromium binary，启动浏览器时必须使用系统 Chrome：
+  ```js
+  const browser = await chromium.launch({ channel: "chrome" });
+  ```
+  禁止使用 `chromium.launch()` 不带 `channel` 参数——那会去查找不存在的 `ms-playwright` 托管路径。
 - 使用 `element.screenshot()` 而非 `page.screenshot({clip})`，自动将目标元素滚入视口。
 - 脚本文件先用 Write 工具创建，再用 Bash 执行，避免 sandbox 拦截。
 - viewport 高度设大（≥所有卡片高度总和 + 间距）。
