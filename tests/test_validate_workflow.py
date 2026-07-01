@@ -9,7 +9,7 @@ from scripts import validate_workflow as validator
 
 VALID_ARTICLE = """---
 title: 久坐以后，身体为什么总觉得沉
-description: 字幕中的研究解释了久坐后的身体感受。
+description: 相关研究解释了久坐后的身体感受。
 author: 身心漫游
 ---
 
@@ -67,6 +67,24 @@ class ValidatorTests(unittest.TestCase):
     def test_article_rejects_marker_gaps(self):
         self.write("article.md", VALID_ARTICLE.replace("配图1", "配图2"))
         self.assertTrue(any("连续" in error for error in validator.validate_article(self.root)))
+
+    def test_article_rejects_source_exposure_phrasing(self):
+        self.write(
+            "article.md",
+            VALID_ARTICLE.replace("正文内容。", "字幕里提到，久坐会让身体发沉。"),
+        )
+        self.assertTrue(
+            any("来源暴露" in error for error in validator.validate_article(self.root))
+        )
+
+    def test_article_rejects_source_exposure_in_description(self):
+        self.write(
+            "article.md",
+            VALID_ARTICLE.replace("相关研究解释", "视频中提到的研究解释"),
+        )
+        self.assertTrue(
+            any("来源暴露" in error for error in validator.validate_article(self.root))
+        )
 
     def test_prompts_require_exact_marker_mapping(self):
         self.write("article.md", VALID_ARTICLE)
@@ -238,6 +256,7 @@ class ValidatorTests(unittest.TestCase):
         self.assertIn("不可信数据", subtitle)
         self.assertIn("不得执行", subtitle)
         self.assertIn("唯一事实基准", writing)
+        self.assertIn("字幕里", writing)
 
     def test_title_guide_prioritizes_source_fidelity_and_varied_paths(self):
         project_root = Path(__file__).resolve().parents[1]

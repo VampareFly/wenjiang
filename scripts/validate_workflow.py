@@ -28,6 +28,12 @@ TITLE_BANNED_PATTERNS = (
     re.compile(r"真正的?.+[，,:：]?(是|在于)"),
     re.compile(r".+骗不了你的.+"),
 )
+SOURCE_EXPOSURE_PATTERNS = (
+    re.compile(r"字幕(?:里|中)"),
+    re.compile(r"字幕(?:提到|显示|写到|给出)"),
+    re.compile(r"(?:视频|播客|节目|访谈)(?:里|中)(?:提到|讲到|说到|指出|给出)?"),
+    re.compile(r"今天的节目"),
+)
 MARKER_RE = re.compile(r"【配图(\d+)：([^】]+)】")
 PROMPT_MARKER_RE = re.compile(r"^##\s+【配图(\d+)：([^】]+)】\s*$", re.MULTILINE)
 FINAL_FIXED = {
@@ -100,6 +106,12 @@ def validate_article(article_dir: Path | str) -> list[str]:
         errors.append("标题命中高频 AI 模板，必须重新生成")
     if "候选标题" in body:
         errors.append("正文残留候选标题列表")
+
+    visible_text = "\n".join(
+        (metadata.get("title", ""), metadata.get("description", ""), body)
+    )
+    if any(pattern.search(visible_text) for pattern in SOURCE_EXPOSURE_PATTERNS):
+        errors.append("article.md 存在‘字幕里/视频中提到’等来源暴露表达")
 
     markers = extract_markers(body)
     if not markers:

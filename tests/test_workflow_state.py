@@ -24,7 +24,7 @@ class WorkflowStateTests(unittest.TestCase):
     def write_approval_artifacts(self) -> None:
         (self.root / "article.md").write_text(
             "---\ntitle: 久坐以后，身体为什么总觉得沉\n"
-            "description: 字幕解释了久坐后的身体感受。\n"
+            "description: 相关研究解释了久坐后的身体感受。\n"
             "author: 身心漫游\n---\n正文\n【配图1：久坐后的身体变化】\n",
             encoding="utf-8",
         )
