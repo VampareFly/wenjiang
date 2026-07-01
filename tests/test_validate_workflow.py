@@ -113,6 +113,62 @@ class ValidatorTests(unittest.TestCase):
         )
         self.assertEqual([], validator.validate_html(self.root))
 
+    def test_fix_html_images_replaces_existing_style(self):
+        self.write(
+            "article.html",
+            '<p><img src="配图1.png" alt="标题" style="width: 100%;"></p>',
+        )
+        self.assertEqual([], validator.fix_html_images(self.root))
+        content = (self.root / "article.html").read_text(encoding="utf-8")
+        self.assertIn('max-width: 100%;', content)
+        self.assertNotIn('; width: 100%;', content)
+
+    def test_fix_html_images_adds_style_when_missing(self):
+        self.write(
+            "article.html",
+            '<p><img src="配图1.png" alt="标题"></p>',
+        )
+        self.assertEqual([], validator.fix_html_images(self.root))
+        content = (self.root / "article.html").read_text(encoding="utf-8")
+        self.assertIn(validator.IMG_STYLE, content)
+
+    def test_fix_html_images_handles_self_closing_tag(self):
+        self.write(
+            "article.html",
+            '<img src="配图1.png" alt="标题"/>',
+        )
+        self.assertEqual([], validator.fix_html_images(self.root))
+        content = (self.root / "article.html").read_text(encoding="utf-8")
+        self.assertIn('style="', content)
+        self.assertIn(' />', content)
+
+    def test_fix_html_images_handles_style_at_different_position(self):
+        self.write(
+            "article.html",
+            '<img style="width: 100%;" src="配图1.png" alt="标题">',
+        )
+        self.assertEqual([], validator.fix_html_images(self.root))
+        content = (self.root / "article.html").read_text(encoding="utf-8")
+        self.assertIn('max-width: 100%;', content)
+
+    def test_fix_html_images_fixes_multiple_images(self):
+        self.write(
+            "article.html",
+            '<img src="a.png" alt="1"><img src="b.png" alt="2" style="width:50%">',
+        )
+        self.assertEqual([], validator.fix_html_images(self.root))
+        self.assertEqual(2, (self.root / "article.html").read_text(encoding="utf-8").count(validator.IMG_STYLE))
+
+    def test_fix_html_images_no_images_is_noop(self):
+        self.write("article.html", "<p>无图片</p>")
+        self.assertEqual([], validator.fix_html_images(self.root))
+
+    def test_fix_html_images_missing_file_returns_error(self):
+        html_path = self.root / "article.html"
+        if html_path.exists():
+            html_path.unlink()
+        self.assertTrue(validator.fix_html_images(self.root))
+
     def test_images_require_cover_and_expected_dimensions(self):
         self.write("article.md", VALID_ARTICLE)
         self.write_png("cover.png", 235, 100)

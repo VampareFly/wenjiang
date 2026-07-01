@@ -250,6 +250,40 @@ def validate_html(article_dir: Path | str) -> list[str]:
     return errors
 
 
+IMG_STYLE = 'display: block; max-width: 100%; height: auto; margin: 1.5em auto;'
+
+
+def fix_html_images(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    html_path = article_dir / "article.html"
+    text, errors = _read_text(html_path, "公众号 HTML")
+    if text is None:
+        return errors
+
+    fixed_count = 0
+
+    def _fix_img_style(m: re.Match[str]) -> str:
+        nonlocal fixed_count
+        fixed_count += 1
+        tag = m[0]
+        tag = re.sub(r'\s+style=["\'][^"\']*["\']', "", tag)
+        if tag.rstrip().endswith("/>"):
+            tag = tag.rstrip()[:-2] + f' style="{IMG_STYLE}" />'
+        else:
+            tag = tag.rstrip()[:-1] + f' style="{IMG_STYLE}">'
+        return tag
+
+    updated = re.sub(r'<img\b[^>]*/?>', _fix_img_style, text, flags=re.IGNORECASE)
+    if fixed_count == 0:
+        if "<img" in text:
+            errors.append("article.html 存在 <img 标签但正则未能匹配")
+        return errors
+
+    html_path.write_text(updated, encoding="utf-8")
+    print(f"[fix-html-images] 已修正 {fixed_count} 个 <img> 标签的 style", file=sys.stderr)
+    return errors
+
+
 def _is_final_asset(name: str) -> bool:
     return name in FINAL_FIXED or any(pattern.fullmatch(name) for pattern in FINAL_PATTERNS)
 
@@ -428,7 +462,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "check",
-        choices=("article", "prompts", "images", "html", "skills", "approval", "final", "all"),
+        choices=("article", "prompts", "images", "html", "fix-html-images", "skills", "approval", "final", "all"),
     )
     parser.add_argument("path", type=Path, help="Article directory or skills.lock.json")
     return parser
@@ -453,6 +487,7 @@ def main(argv: list[str] | None = None) -> int:
         "prompts": validate_prompts,
         "images": validate_images,
         "html": validate_html,
+        "fix-html-images": fix_html_images,
         "final": validate_final,
         "all": run_checks,
     }

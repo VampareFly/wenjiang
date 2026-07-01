@@ -181,6 +181,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_6
 # 调用 baoyu-markdown-to-html
+python3 scripts/validate_workflow.py fix-html-images articles/<YYYYMMDD-HHMMSS>
 python3 scripts/validate_workflow.py html articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_6
 ```
