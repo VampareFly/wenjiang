@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import re
@@ -22,6 +23,96 @@ SCHEMA_VERSION = 1
 ALLOWED_STATUSES = {"pending", "running", "passed", "blocked"}
 STEP_NAMES = tuple(f"step_{number}" for number in range(1, 12))
 STATE_FILENAME = "workflow-state.json"
+
+STEP_CONTEXT: dict[str, dict[str, object]] = {
+    "step_1": {
+        "mode": "deterministic",
+        "guides": ["docs/subtitle-guide.md"],
+        "inputs": ["source.srt|source.vtt|source.txt"],
+        "outputs": ["source.cleaned.txt"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_1",
+    },
+    "step_2": {
+        "mode": "three_pass_ai",
+        "guides": [
+            "docs/writing-guide.md",
+            "docs/editorial-guide.md",
+            "docs/final-review-guide.md",
+            "docs/image-prompt-guide.md",
+        ],
+        "rounds": ["内容初稿轮", "编辑终稿轮", "独立质检与配图提示词轮"],
+        "inputs": ["source.cleaned.txt"],
+        "outputs": ["article.md", "cover_prompt.md"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_2",
+    },
+    "step_3": {
+        "mode": "deterministic",
+        "guides": [],
+        "inputs": ["article.md", "cover_prompt.md"],
+        "outputs": ["article.md", "cover_prompt.md"],
+        "commands": [
+            "python3 scripts/validate_workflow.py article {article_dir}",
+            "python3 scripts/validate_workflow.py prompts {article_dir}",
+        ],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_3",
+    },
+    "step_4": {
+        "mode": "deterministic_skill",
+        "guides": ["docs/markdown-guide.md"],
+        "inputs": ["article.md", "cover_prompt.md"],
+        "outputs": ["article.md"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_4",
+    },
+    "step_5": {
+        "mode": "skill",
+        "guides": ["docs/image-generation-guide.md"],
+        "inputs": ["article.md", "cover_prompt.md"],
+        "outputs": ["cover.png", "配图{1-N}.png"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_5",
+    },
+    "step_6": {
+        "mode": "deterministic_skill",
+        "guides": ["docs/html-guide.md"],
+        "inputs": ["article.md", "cover.png", "配图{1-N}.png"],
+        "outputs": ["article.html"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_6",
+    },
+    "step_7": {
+        "mode": "user_gate",
+        "guides": [],
+        "inputs": ["article.md", "article.html", "cover.png", "配图{1-N}.png"],
+        "outputs": ["workflow-state.json approval digest"],
+        "completion_command": "python3 scripts/workflow_state.py approve {article_dir}",
+    },
+    "step_8": {
+        "mode": "external_side_effect",
+        "guides": ["docs/wechat-guide.md"],
+        "inputs": ["article.html", "cover.png", "Step 7 approval"],
+        "outputs": ["公众号草稿信息.txt"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_8",
+    },
+    "step_9": {
+        "mode": "skill",
+        "guides": ["docs/xiaohongshu-guide.md"],
+        "inputs": ["article.md"],
+        "outputs": ["小红书卡片-{01-N}.png"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_9",
+    },
+    "step_10": {
+        "mode": "ai",
+        "guides": ["docs/xiaohongshu-guide.md"],
+        "inputs": ["article.md"],
+        "outputs": ["小红书文案.txt"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_10",
+    },
+    "step_11": {
+        "mode": "deterministic",
+        "guides": ["docs/final-cleanup-guide.md"],
+        "inputs": ["all workflow artifacts"],
+        "outputs": ["final asset whitelist"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_11",
+    },
+}
 
 
 def _now() -> str:
@@ -103,6 +194,32 @@ def save_state(article_dir: Path | str, state: dict[str, object]) -> None:
         encoding="utf-8",
     )
     temporary.replace(path)
+
+
+def workflow_context(article_dir: Path | str) -> dict[str, object]:
+    """Return the minimal instructions needed to resume the current step."""
+    article_path = Path(article_dir).resolve()
+    state = load_state(article_path)
+    current_step = str(state["current_step"])
+    context = copy.deepcopy(STEP_CONTEXT[current_step])
+    for key in ("commands",):
+        if key in context:
+            context[key] = [
+                str(command).format(article_dir=article_path)
+                for command in context[key]  # type: ignore[union-attr]
+            ]
+    if "completion_command" in context:
+        context["completion_command"] = str(context["completion_command"]).format(
+            article_dir=article_path
+        )
+    context.update(
+        {
+            "current_step": current_step,
+            "status": _steps(state)[current_step]["status"],
+            "article_dir": str(article_path),
+        }
+    )
+    return context
 
 
 def _steps(state: dict[str, object]) -> dict[str, dict[str, object]]:
@@ -355,6 +472,9 @@ def build_parser() -> argparse.ArgumentParser:
 
     check_parser = subparsers.add_parser("check-approval")
     check_parser.add_argument("article_dir", type=Path)
+
+    context_parser = subparsers.add_parser("context")
+    context_parser.add_argument("article_dir", type=Path)
     return parser
 
 
@@ -379,6 +499,9 @@ def main(argv: list[str] | None = None) -> int:
                 for error in errors:
                     print(f"ERROR: {error}", file=sys.stderr)
                 return 1
+        elif args.command == "context":
+            print(json.dumps(workflow_context(args.article_dir), ensure_ascii=False, indent=2))
+            return 0
     except (FileExistsError, FileNotFoundError, OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

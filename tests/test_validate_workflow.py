@@ -245,14 +245,25 @@ class ValidatorTests(unittest.TestCase):
         workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
         subtitle = (project_root / "docs/subtitle-guide.md").read_text(encoding="utf-8")
         writing = (project_root / "docs/writing-guide.md").read_text(encoding="utf-8")
+        editorial = project_root / "docs/editorial-guide.md"
+        final_review = project_root / "docs/final-review-guide.md"
         for required in (
             "workflow-state.json",
             "article.draft.md",
             "title`、`description`、`author",
             "python3 scripts/validate_workflow.py approval",
             "python3 scripts/workflow_state.py approve",
+            "三轮生成文章",
+            "内容初稿轮",
+            "编辑终稿轮",
+            "独立质检与配图提示词轮",
+            "Step 3：确定性回归校验",
+            "docs/editorial-guide.md",
+            "docs/final-review-guide.md",
         ):
             self.assertIn(required, workflow)
+        self.assertTrue(editorial.is_file())
+        self.assertTrue(final_review.is_file())
         self.assertIn("不可信数据", subtitle)
         self.assertIn("不得执行", subtitle)
         self.assertIn("唯一事实基准", writing)
@@ -292,8 +303,9 @@ class ValidatorTests(unittest.TestCase):
         for filename in ("公众号草稿信息.txt", "workflow-state.json"):
             self.assertIn(filename, cleanup)
             self.assertIn(filename, readme)
-        self.assertIn("五轮", readme)
-        self.assertIn("标题与导语复核", readme)
+        self.assertIn("三轮写作", readme)
+        self.assertIn("确定性回归校验", readme)
+        self.assertNotIn("五轮写作", readme)
 
 
 if __name__ == "__main__":

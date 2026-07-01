@@ -11,7 +11,7 @@
 | 能力 | 说明 |
 |------|------|
 | 内容类型识别 | 自动判断科普 / 财经 / 科技 / 成长等类型，匹配对应写法 |
-| 去 AI 味写作 | 五轮写作：初稿、标题导语、真人化改写、收尾、配图提示词 |
+| 去 AI 味写作 | 三轮写作：内容初稿、编辑终稿、独立质检与配图提示词 |
 | 微信 SEO | 标题和正文覆盖搜一搜高频关键词 |
 | 多格式输出 | 公众号 HTML、小红书图文卡片、封面和配图 |
 | 一键发布 | 通过 baoyu-post-to-wechat API 自动上传正文图片和封面，推送到草稿箱 |
@@ -23,8 +23,8 @@
   │
   ▼
 Step 1  本地清洗字幕 (source.cleaned.txt)
-Step 2  五轮生成文章 (article.md) + 配图提示词 (cover_prompt.md)
-Step 3  标题与导语复核
+Step 2  三轮生成文章 (article.md) + 配图提示词 (cover_prompt.md)
+Step 3  确定性回归校验
 Step 4  格式化 Markdown
 Step 5  AI 生成封面和配图
 Step 6  转换为公众号 HTML (article.html)
@@ -71,7 +71,9 @@ articles/YYYYMMDD-HHMMSS/
 ├── docs/
 │   ├── workflow.md              # 主流程和步骤
 │   ├── subtitle-guide.md        # 字幕清洗规则
-│   ├── writing-guide.md         # 内容类型、写作策略、去 AI 味规则
+│   ├── writing-guide.md         # 第一轮内容初稿规则
+│   ├── editorial-guide.md       # 第二轮标题、真人化和收尾规则
+│   ├── final-review-guide.md    # 第三轮独立质检规则
 │   ├── image-prompt-guide.md     # 封面和正文配图提示词规则
 │   ├── markdown-guide.md         # Markdown 格式化规则
 │   ├── image-generation-guide.md # 图片生成执行规则
@@ -127,7 +129,9 @@ articles/YYYYMMDD-HHMMSS/
 | `opencode.json` | OpenCode 权限配置 |
 | `docs/workflow.md` | 主流程和步骤 |
 | `docs/subtitle-guide.md` | 字幕清洗规则 |
-| `docs/writing-guide.md` | 内容类型、写作策略、去 AI 味规则 |
+| `docs/writing-guide.md` | 第一轮内容初稿规则 |
+| `docs/editorial-guide.md` | 第二轮标题、真人化和收尾规则 |
+| `docs/final-review-guide.md` | 第三轮独立质检规则 |
 | `docs/image-prompt-guide.md` | 封面和正文配图提示词规则 |
 | `docs/markdown-guide.md` | Markdown 格式化规则 |
 | `docs/image-generation-guide.md` | 图片生成执行规则 |

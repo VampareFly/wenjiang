@@ -1,6 +1,9 @@
+import struct
+import io
+import json
 import tempfile
 import unittest
-import struct
+from contextlib import redirect_stdout
 from pathlib import Path
 
 from scripts import workflow_state
@@ -78,6 +81,70 @@ class WorkflowStateTests(unittest.TestCase):
         self.assertEqual("passed", state["steps"]["step_1"]["status"])
         self.assertEqual("step_2", state["current_step"])
         self.assertIsNotNone(state["steps"]["step_1"]["validated_at"])
+
+    def test_context_routes_step_one_without_mutating_state(self):
+        workflow_state.init_state(self.root)
+
+        context = workflow_state.workflow_context(self.root)
+
+        self.assertEqual("step_1", context["current_step"])
+        self.assertEqual("pending", context["status"])
+        self.assertEqual("deterministic", context["mode"])
+        self.assertEqual(["docs/subtitle-guide.md"], context["guides"])
+        self.assertIn("source.cleaned.txt", context["outputs"])
+        self.assertEqual("pending", workflow_state.load_state(self.root)["steps"]["step_1"]["status"])
+
+    def test_context_routes_step_two_to_three_normal_passes(self):
+        workflow_state.init_state(self.root)
+        self.mark_passed_through(1)
+
+        context = workflow_state.workflow_context(self.root)
+
+        self.assertEqual("step_2", context["current_step"])
+        self.assertEqual("three_pass_ai", context["mode"])
+        self.assertEqual(
+            ["内容初稿轮", "编辑终稿轮", "独立质检与配图提示词轮"],
+            context["rounds"],
+        )
+        self.assertEqual(
+            [
+                "docs/writing-guide.md",
+                "docs/editorial-guide.md",
+                "docs/final-review-guide.md",
+                "docs/image-prompt-guide.md",
+            ],
+            context["guides"],
+        )
+        self.assertEqual(["article.md", "cover_prompt.md"], context["outputs"])
+
+    def test_context_routes_step_three_to_deterministic_validation(self):
+        workflow_state.init_state(self.root)
+        self.mark_passed_through(2)
+
+        context = workflow_state.workflow_context(self.root)
+
+        self.assertEqual("step_3", context["current_step"])
+        self.assertEqual("deterministic", context["mode"])
+        self.assertEqual([], context["guides"])
+        self.assertEqual(
+            [
+                f"python3 scripts/validate_workflow.py article {self.root.resolve()}",
+                f"python3 scripts/validate_workflow.py prompts {self.root.resolve()}",
+            ],
+            context["commands"],
+        )
+
+    def test_context_cli_prints_json_without_ok_suffix(self):
+        workflow_state.init_state(self.root)
+        output = io.StringIO()
+
+        with redirect_stdout(output):
+            exit_code = workflow_state.main(["context", str(self.root)])
+
+        self.assertEqual(0, exit_code)
+        payload = json.loads(output.getvalue())
+        self.assertEqual("step_1", payload["current_step"])
+        self.assertNotIn("OK", output.getvalue())
 
     def test_step_seven_can_only_pass_through_approve(self):
         workflow_state.init_state(self.root)
