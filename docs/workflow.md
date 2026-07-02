@@ -162,12 +162,16 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_4
 
 ### Step 5：生成配图
 
-图片生成策略不变。按 `docs/image-generation-guide.md` 调用 `baoyu-image-gen`：
+按 `docs/image-generation-guide.md` 先检测当前会话实际可用的图片生成能力：
+
+1. 当前会话明确暴露可调用的 Codex 原生图片工具时，按 `imagegen` skill 的规则逐张生成图片。
+2. 没有可调用的原生图片工具时，通过 `baoyu-image-gen --provider codex-cli --jobs 1` 生成。
+3. 两条路径都不可用时停止并报告，不静默切换其他 provider。
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_5
 python3 scripts/validate_workflow.py skills skills.lock.json
-# 调用 baoyu-image-gen
+# 检测生成路径：原生路径逐张调用；非原生路径调用 baoyu-image-gen --provider codex-cli --jobs 1
 python3 scripts/validate_workflow.py images articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 ```

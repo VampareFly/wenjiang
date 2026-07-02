@@ -111,11 +111,13 @@ articles/YYYYMMDD-HHMMSS/
 
 当前项目需要以下 skills：
 
+Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴露可调用的 Codex 原生图片工具；可调用时按 `imagegen` skill 的规则逐张生成。只有当前会话没有可调用的原生图片工具时，才使用下表中的 `baoyu-image-gen` 通过 `codex-cli` 回退生成。
+
 | Skill | 用途 |
 |------|------|
 | `baoyu-article-illustrator` | 分析文章结构，判断正文哪里需要配图 |
 | `baoyu-format-markdown` | 格式化 `article.md`，优化公众号 Markdown 排版 |
-| `baoyu-image-gen` | 根据 `cover_prompt.md` 生成封面和正文配图 |
+| `baoyu-image-gen` | 当前会话无可调用的原生图片工具时，通过 `codex-cli` 生成封面和正文配图（回退路径） |
 | `baoyu-markdown-to-html` | 将 Markdown 转换为微信公众号兼容 HTML |
 | `baoyu-post-to-wechat` | 上传正文图片和封面，创建微信公众号草稿 |
 | `guizang-social-card-skill` | 生成小红书图文卡片、公众号封面等社交传播图片 |

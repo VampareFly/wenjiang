@@ -363,6 +363,36 @@ class ValidatorTests(unittest.TestCase):
         self.assertIn("确定性回归校验", readme)
         self.assertNotIn("五轮写作", readme)
 
+    def test_step_five_keeps_skill_compatibility_check_as_common_gate(self):
+        project_root = Path(__file__).resolve().parents[1]
+        workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
+        images = (project_root / "docs/image-generation-guide.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn(
+            "python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_5\n"
+            "python3 scripts/validate_workflow.py skills skills.lock.json",
+            workflow,
+        )
+        self.assertNotIn(
+            "# python3 scripts/validate_workflow.py skills skills.lock.json",
+            workflow,
+        )
+        self.assertIn("两条路径共同要求", images)
+        self.assertIn("skills.lock.json", images)
+        self.assertNotIn("skills.lock.json`、`EXTEND.md`", images)
+
+    def test_native_image_route_requires_a_callable_native_tool(self):
+        project_root = Path(__file__).resolve().parents[1]
+        workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
+        images = (project_root / "docs/image-generation-guide.md").read_text(
+            encoding="utf-8"
+        )
+        readme = (project_root / "README.md").read_text(encoding="utf-8")
+        for text in (workflow, images, readme):
+            self.assertIn("可调用", text)
+        self.assertIn("仅列出 `imagegen` skill 不足以证明原生工具可用", images)
+
 
 if __name__ == "__main__":
     unittest.main()
