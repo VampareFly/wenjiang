@@ -17,10 +17,10 @@
 
 原有"Step 6 固定使用 baoyu-markdown-to-html"改为：
 
-1. **随机选择主工具**：AI 从 `baoyu-markdown-to-html` 和 `gzh-design-skill` 中均等概率随机抽取一个。选择结果不写入 state，AI 知道即可。
+1. **随机选择主工具**：AI 执行 `python3 -c "import random; print(random.choice(['baoyu-markdown-to-html','gzh-design-skill']))"` 得到选中结果。不写入 state。
 2. **独立随机**：每次 Step 6 独立随机，同篇文章重开 Step 6 可能换工具。
-4. **自动降级**：选中主工具执行失败（报错或校验不通过）时，自动降级到 `md2wechat --mode ai`，不再询问。md2wechat 也失败时，停止并报告错误，不再进一步回退。
-5. **主题推荐**：选定工具后，AI 读该工具的 theme 体系，根据文章气质自由推荐一套主题，用户一步确认。
+3. **自动降级**：选中主工具执行失败（报错或校验不通过）时，自动降级到 `md2wechat --mode ai`，不再询问。md2wechat 也失败时，停止并报告错误，不再进一步回退。
+4. **主题推荐**：选定工具后，AI 读该工具的 theme 体系，根据文章气质自由推荐一套主题，用户一步确认。
 
 ### 2. gzh-design-skill 使用指南
 
@@ -33,10 +33,7 @@
   3. AI 根据文章气质自由推荐最契合的主题，用户确认（取代 SKILL.md 原生的"展示全部主题列表让用户选"流程——这里改为 AI 先推荐、用户确认，不逐条展示全部主题）
   4. 按 gzh-design-skill 的 SKILL.md 完整工作流执行（章节编号、关键词下划线、引言卡片等）
 - **主题推荐机制**：不绑定内容类型。AI 读取 `theme-index.md` 获取主题清单后，自由判断当前文章最适合哪套。推荐时附简短理由，用户可以确认或换一套。
-- **产物路径**：输出强制重定向为 `article.html`（与 baoyu 一致），保持 `workflow-state.json` 中文件契约不破。gzh-design-skill 原生会生成 `{原文件名}_排版_{主题名}.html` 和 `{...}_预览.html` 两个文件，集成后：
-  - 将干净正文写入 `article.html`
-  - `{...}_预览.html` 可不生成（非必须）
-  - `<skill_path>/scripts/wrap_preview.py` 在此集成流程中跳过
+- **产物路径**：gzh-design-skill 原生生成 `{原文件名}_排版_{主题名}({英文标识}).html`（SKILL.md 第 90 行），且没有 `-o` 参数指定输出路径。集成后需在生成后手动重命名：`mv {原文件名}_排版_{主题名}({英文标识}).html article.html`。`{...}_预览.html` 可不生成（非必须），`<skill_path>/scripts/wrap_preview.py` 在此集成流程中跳过。
 - **校验**：生成后运行 `<skill_path>/scripts/validate_gzh_html.py article.html`，ERROR 清零且半角标点 WARNING 同样修到 0 才交付。
 
 ### 3. 输出规则统一
