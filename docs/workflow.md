@@ -180,11 +180,11 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 
 ### Step 6：生成公众号 HTML
 
-按 `docs/html-guide.md` 固定使用 `baoyu-markdown-to-html`：
+按 `docs/html-guide.md` 从 3 个工具随机选主工具生成公众号 HTML：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_6
-# 调用 baoyu-markdown-to-html
+# 随机选主工具后按其流程调用（baoyu-markdown-to-html / gzh-design-skill / md2wechat）
 python3 scripts/validate_workflow.py fix-html-images articles/<YYYYMMDD-HHMMSS>
 python3 scripts/validate_workflow.py html articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_6
