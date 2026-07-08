@@ -189,7 +189,7 @@ bun <skill-path>/scripts/main.ts article.md --cite
 
 ### 主题推荐机制
 
-不绑定内容类型。AI 读取 `theme-index.md` 获取主题清单后，自由判断当前文章最适合哪套，推荐时附简短理由，用户可确认或换一套。
+主题不绑定内容类型（区别于 baoyu/md2wechat 按内容类型匹配），AI 自由判断后推荐，用户可确认或换一套。
 
 ### 产物路径与目录
 
@@ -205,7 +205,7 @@ bun <skill-path>/scripts/main.ts article.md --cite
 
 ### 配图标记格式转换（关键前置）
 
-工作流的 `article.md` 使用 `【配图N：标题】` 占位符（Step 5 规范、html-guide.md 生成原则、validate_workflow.py 均依赖此格式），但 `gzh-design-skill` 只识别 Markdown 图片语法 `![说明](url)`。两者不兼容：若直接把含 `【配图N：标题】` 的 `article.md` 交给 gzh-design，它会跳过或残留占位符，导致生成的 `article.html` 缺图、`validate_workflow.py html` 因 `<img>` 数量不符而失败。
+工作流的 `article.md` 使用 `【配图N：标题】` 占位符（标准约定），但 `gzh-design-skill` 只识别 Markdown 图片语法 `![说明](url)`。两者不兼容：若直接把含 `【配图N：标题】` 的 `article.md` 交给 gzh-design，它会跳过或残留占位符，导致生成的 `article.html` 缺图、`validate_workflow.py html` 因 `<img>` 数量不符而失败。
 
 解决方案：调用 gzh-design 前，复制 `article.md` 为临时文件，把 `【配图N：标题】` 逐条替换为 `![标题](配图N.png)`；用临时文件驱动 gzh-design 生成，生成完删除临时文件，不污染原 `article.md`。
 
