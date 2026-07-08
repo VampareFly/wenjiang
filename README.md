@@ -27,7 +27,7 @@ Step 2  三轮生成文章 (article.md) + 配图提示词 (cover_prompt.md)
 Step 3  确定性回归校验
 Step 4  格式化 Markdown
 Step 5  AI 生成封面和配图
-Step 6  转换为公众号 HTML (article.html)
+Step 6  转换为公众号 HTML (article.html，3 个工具随机选主)
 Step 7  预览确认
 Step 8  上传图片并创建微信草稿箱
 Step 9  生成小红书卡片
@@ -119,6 +119,7 @@ Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴
 | `baoyu-format-markdown` | 格式化 `article.md`，优化公众号 Markdown 排版 |
 | `baoyu-image-gen` | 当前会话无可调用的原生图片工具时，通过 `codex-cli` 生成封面和正文配图（回退路径） |
 | `baoyu-markdown-to-html` | 将 Markdown 转换为微信公众号兼容 HTML |
+| `gzh-design-skill` | 将 Markdown 转为不掉样式的公众号 HTML（Step 6 随机主工具之一） |
 | `baoyu-post-to-wechat` | 上传正文图片和封面，创建微信公众号草稿 |
 | `guizang-social-card-skill` | 生成小红书图文卡片、公众号封面等社交传播图片 |
 | `md2wechat` | 使用 `md2wechat` CLI 做预览、转换、草稿等公众号流程 |

@@ -36,7 +36,7 @@ python3 scripts/workflow_state.py reopen articles/<YYYYMMDD-HHMMSS> step_4 --rea
 | --- | --- |
 | Step 1 | `docs/subtitle-guide.md` |
 | Step 2 内容初稿轮 | `docs/writing-guide.md` |
-| Step 2 编辑终稿轮 | `docs/editorial-guide.md` |
+| Step 2 编辑终稿轮 | `docs/editorial-guide.md`、`docs/title-guide.md` |
 | Step 2 独立质检与配图提示词轮 | `docs/final-review-guide.md`、`docs/image-prompt-guide.md` |
 | Step 3 | 无，运行确定性校验 |
 | Step 4 | `docs/markdown-guide.md` |
@@ -47,9 +47,8 @@ python3 scripts/workflow_state.py reopen articles/<YYYYMMDD-HHMMSS> step_4 --rea
 | Step 9、10 | `docs/xiaohongshu-guide.md` |
 | Step 11 | `docs/final-cleanup-guide.md` |
 
-异常参考：
+ 异常参考：
 
-- 标题候选无法去模板时读取 `docs/title-guide.md`。
 - 终稿仍有宣传腔、机械结构或假口语时读取 `docs/ai-humanizer-guide.md`。
 - 特殊免责声明或关注引导无法判断时读取 `docs/ending-guide.md`。
 - 独立质检遇到核心指南未覆盖的问题时读取 `docs/final-writing-check.md`。

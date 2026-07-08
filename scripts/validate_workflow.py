@@ -22,11 +22,25 @@ TITLE_BANNED_WORDS = (
     "密码",
     "底层逻辑",
     "颠覆认知",
+    "权威解读",
+    "终极指南",
+    "原来",
+    "竟然",
+    "没想到",
+    "悄悄",
+    "比你想象中",
 )
 TITLE_BANNED_PATTERNS = (
     re.compile(r"为什么.+[？?].*(问题不在|靠的是)"),
-    re.compile(r"真正的?.+[，,:：]?(是|在于)"),
+    re.compile(r"真正的?.+[，,:：]?(是|在于|不是|并非)"),
+    re.compile(r"真正.+不是"),
     re.compile(r".+骗不了你的.+"),
+    re.compile(r"身体比你更懂"),
+    re.compile(r"你的.+正在"),
+    re.compile(r"不是.+而是"),
+    re.compile(r"从.+到.+"),
+    re.compile(r"重新(理解|认识|定义|看待|思考)"),
+    re.compile(r"被偷走|被毁掉|正在被"),
 )
 SOURCE_EXPOSURE_PATTERNS = (
     re.compile(r"字幕(?:里|中)"),
