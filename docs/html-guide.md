@@ -34,7 +34,7 @@ Step 6 从 3 个工具中等概率随机选一个主工具：`baoyu-markdown-to-
 
 ### 角色定位
 
-md2wechat 仅作为主工具失败后、由用户明确选择的备选。它不参与自动工具选择。公众号图片上传和草稿创建统一由 Step 8 的 `baoyu-post-to-wechat` API 方法完成，详见 `docs/wechat-guide.md`。
+md2wechat 是 Step 6 三个平等随机主工具之一，与 `baoyu-markdown-to-html`、`gzh-design-skill` 等概率被选中。它不再作为"主工具失败后的备选"——失败统一走"生成原则"节定义的"重随机"逻辑（排除已失败工具重新抽取），不设固定降级链路。公众号图片上传和草稿创建统一由 Step 8 的 `baoyu-post-to-wechat` API 方法完成，详见 `docs/wechat-guide.md`。
 
 **注意**：AI 模式（`--mode ai`）只输出设计提示词 `article.prompt.txt`，不直接产出真实 HTML。AI 读取 prompt.txt 中的样式规范（色彩、排版、卡片间距等），生成匹配该主题的 `article.html`。
 
