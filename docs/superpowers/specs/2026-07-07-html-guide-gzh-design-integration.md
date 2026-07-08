@@ -8,7 +8,7 @@
 
 | 文件 | 变更 |
 |------|------|
-| `docs/html-guide.md` | Step 6 顶部改为随机选择主工具 + 新增 gzh-design-skill 使用指南 + md2wechat 改为自动降级 + 输出规则共享 |
+| `docs/html-guide.md` | Step 6 顶部改为从 3 个工具随机选主工具 + 新增 gzh-design-skill 使用指南 + md2wechat 改为平等随机主工具 + 输出规则共享 |
 | `docs/workflow.md` | Step 6 头部描述和注释从"固定使用 baoyu-markdown-to-html"改为"随机选择主工具" |
 
 ## 详细设计
@@ -17,10 +17,11 @@
 
 原有"Step 6 固定使用 baoyu-markdown-to-html"改为：
 
-1. **随机选择主工具**：AI 执行 `python3 -c "import random; print(random.choice(['baoyu-markdown-to-html','gzh-design-skill']))"` 得到选中结果。不写入 state。
+1. **随机选择主工具**：AI 执行 `python3 -c "import random; print(random.choice(['baoyu-markdown-to-html','gzh-design-skill','md2wechat']))"` 从 3 个工具中等概率抽取一个。不写入 state。
 2. **独立随机**：每次 Step 6 独立随机，同篇文章重开 Step 6 可能换工具。
-3. **自动降级**：选中主工具执行失败（报错或校验不通过）时，自动降级到 `md2wechat --mode ai`，不再询问。md2wechat 也失败时，停止并报告错误，不再进一步回退。
-4. **主题推荐**：选定工具后，AI 读该工具的 theme 体系，根据文章气质自由推荐一套主题，用户一步确认。
+3. **主题选择**：确认工具后，AI 按该工具自身的 theme 体系选主题——baoyu 用 `--theme/--color`，gzh-design 读 `theme-index.md`，md2wechat 用 `--theme`。根据文章气质自由推荐一套，用户一步确认。主题只在已选工具内选择，不存在跨工具主题不匹配问题。
+4. **生成与校验**：按选中工具的流程生成 `article.html`，再跑该工具专属校验（仅 gzh-design 需 `validate_gzh_html.py`；baoyu/md2wechat 无专属脚本则跳过）和 workflow 的 `validate_workflow.py html`。
+5. **失败重随机**：若生成或校验失败，排除已失败工具后重新执行步骤 1 随机选工具；若 3 个工具均已失败，停止并报告错误，不再尝试。不设固定降级链路。
 
 ### 2. gzh-design-skill 使用指南
 
@@ -28,13 +29,18 @@
 
 - **角色定位**：Step 6 的随机主工具之一。
 - **调用方式**：
-  1. 加载 gzh-design-skill
+  1. 加载 gzh-design-skill（通过 `skill load gzh-design-skill`；workflow.md「按需文档路由」表 Step 6 只指向 html-guide.md，选中 gzh-design 时须显式加载，否则 AI 可能漏掉）
   2. 读取 `<skill_path>/references/theme-index.md` 获取主题清单
   3. AI 根据文章气质自由推荐最契合的主题，用户确认（取代 SKILL.md 原生的"展示全部主题列表让用户选"流程——这里改为 AI 先推荐、用户确认，不逐条展示全部主题）
   4. 按 gzh-design-skill 的 SKILL.md 完整工作流执行（章节编号、关键词下划线、引言卡片等）
+- **标题去重（关键）**：`baoyu-markdown-to-html` 默认 `--keep-title false`，HTML 正文不含标题；但 gzh-design-skill 会从 frontmatter 读 `title` 并写入正文（SKILL.md:50）。而 WeChat 后台另从 frontmatter 设标题（wechat-guide.md:56）。若 gzh-design 把标题写进正文，预览时标题会出现两次（正文 H1 + 后台标题栏）。**解决**：gzh-design 生成后，从 article.html 正文剔除标题 H1/H2 节点，只保留后台标题；或装配时跳过标题章节，与 baoyu 行为对齐。
 - **主题推荐机制**：不绑定内容类型。AI 读取 `theme-index.md` 获取主题清单后，自由判断当前文章最适合哪套。推荐时附简短理由，用户可以确认或换一套。
 - **产物路径**：gzh-design-skill 原生生成 `{原文件名}_排版_{主题名}({英文标识}).html`（SKILL.md 第 90 行），且没有 `-o` 参数指定输出路径。集成后需在生成后手动重命名：`mv {原文件名}_排版_{主题名}({英文标识}).html article.html`。`{...}_预览.html` 可不生成（非必须），`<skill_path>/scripts/wrap_preview.py` 在此集成流程中跳过。
 - **校验**：生成后运行 `<skill_path>/scripts/validate_gzh_html.py article.html`，ERROR 清零且半角标点 WARNING 同样修到 0 才交付。
+- **配图标记格式转换（关键前置）**：工作流的 `article.md` 使用 `【配图N：标题】` 占位符（Step 5 规范、html-guide.md:135、validate_workflow.py:37 均依赖此格式），但 gzh-design-skill 只识别 Markdown 图片语法 `![说明](url)`（SKILL.md:56、common-components.md:60）。**两者不兼容**：若直接把含 `【配图N：标题】` 的 article.md 交给 gzh-design，它会跳过或残留占位符，导致生成的 article.html 缺图、`validate_workflow.py html` 因 `<img>` 数量不符而失败。
+  - 解决方案：调用 gzh-design 前，复制 article.md 为临时文件，把 `【配图N：标题】` 逐条替换为 `![标题](配图N.png)`；用临时文件驱动 gzh-design 生成，生成完删除临时文件，不污染原 article.md。
+  - 替换规则：`【配图(\d+)：(.+?)】` → `![\2](配图\1.png)`，标题作为 alt、文件名作为 src。
+  - 生成后仍需满足输出规则：`<img>` 数量 = `【配图N：...】` 数量、无残留 `【配图`、本地路径 `src="配图N.png"`、含 `alt`。
 
 ### 3. 输出规则统一
 
@@ -45,16 +51,17 @@
 - 兼容性约束：无 `<style>` / 全 inline / 无 `<ul><li>`（用 `<p>` 替代）
 - 门禁命令：`validate_workflow.py html` → `workflow_state.py pass`
 
-### 4. md2wechat 备选策略变更
+### 4. md2wechat 角色变更
 
-- 原：baoyu-markdown-to-html 失败后 + 用户明确选择才启用
-- 改：任意主工具失败后**自动降级**，不再询问用户
-- md2wechat 降级路径的具体步骤（保持现有的两步流程，AI 透明处理）：
+- 原：baoyu-markdown-to-html 失败后的备选（需用户明确选择）
+- 改：Step 6 三个平等随机主工具之一，与 baoyu-markdown-to-html、gzh-design-skill 等概率被选中
+- **取消固定降级链路**：不再有"主工具失败 → 自动降级 md2wechat"的写死逻辑，统一改为 §1.5 的"失败重随机"（排除已失败工具后重新抽取）
+- md2wechat 选中时的步骤（保持现有两步流程，AI 透明处理）：
   1. 运行 `md2wechat convert article.md --mode ai --theme <自动匹配> --title "..." --author "身心漫游" --digest "摘要"`
   2. 获得 `article.prompt.txt`
   3. AI 读取 prompt.txt 中的设计规范（主色调、字体、卡片间距等），按规范生成 `article.html`
   4. 删除 `article.prompt.txt`
-  5. 如果 md2wechat 也失败，停止并报告错误，不再进一步回退
+  5. 若 md2wechat 也失败，按 §1.5 重随机（不会再选 md2wechat，直到所有工具耗尽）
 
 ## 影响范围
 
