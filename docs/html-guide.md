@@ -14,9 +14,9 @@ Step 6 只负责把 `article.md` 转为可预览、可上传的 `article.html`�
 - 标题不放在卡片内，单独作为顶部元素或由公众号后台自动处理。
 - 正文列表在 HTML 中优先转为独立段落，避免微信编辑器剥离 `<ul>` / `<li>` 后破坏换行。
 
-Step 6 固定使用 `baoyu-markdown-to-html`，不随机选择工具。文章已在 Step 4 完成格式化并通过回归校验，因此调用时明确使用当前 `article.md`，不重复触发格式化轮。
+Step 6 从 3 个工具中等概率随机选一个主工具：`baoyu-markdown-to-html`、`gzh-design-skill`、`md2wechat`。文章已在 Step 4 完成格式化并通过回归校验，因此调用时明确使用当前 `article.md`，不重复触发格式化轮。每次 Step 6 独立随机，重开可能换工具；工具选择不写入状态文件。
 
-如果 `baoyu-markdown-to-html` 执行失败，先报告具体错误并停止。只有用户明确选择后，才可把 `md2wechat --mode ai` 作为备选；不得自动降级，也不得在两个工具之间随机切换。
+选中工具后按其流程生成 `article.html`；若生成或校验失败，排除已失败工具后重新随机选工具再生成。3 个工具均已失败时，调用 `python3 scripts/workflow_state.py block articles/<YYYYMMDD-HHMMSS> step_6 --reason "3 个 HTML 生成工具均失败"` 并停止，向用户报告具体原因。不设固定降级链路，不在工具间随机切换之外另行回退。
 
 ---
 
