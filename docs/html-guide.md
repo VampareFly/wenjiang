@@ -224,6 +224,8 @@ gzh-design 输出为纯 `<section>…</section>` 片段（SKILL.md 规定，无 
 
 ## HTML 图片硬检查
 
+> **fix-html-images 执行差异**：`baoyu-markdown-to-html` 与 `md2wechat` 路径在下方门禁前先运行 `validate_workflow.py fix-html-images`；`gzh-design-skill` 路径跳过此步（其图片组件样式由主题库决定，fix-html-images 会覆盖破坏，详见「gzh-design-skill 使用指南」）。
+
 生成后必须执行 HTML 图片硬检查，失败即停止，不得进入预览确认：
 
 - `article.html` 中 `<img` 数量必须等于 `article.md` 中 `【配图N：...】` 数量。
