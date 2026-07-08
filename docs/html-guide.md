@@ -173,7 +173,7 @@ bun <skill-path>/scripts/main.ts article.md --cite
 
 1. **加载 skill**：选中本工具时显式执行 `skill load gzh-design-skill`（workflow.md「按需文档路由」表 Step 6 只指向本文件，不会自动加载，须手动加载）。
 2. **读主题清单**：读取 `<skill_path>/references/theme-index.md` 获取主题清单（`<skill_path>` 即 `.agents/skills/gzh-design-skill`）。
-3. **推荐主题**：AI 根据文章气质自由推荐最契合的一套主题，用户一步确认。此步取代 SKILL.md 与 theme-index.md 原生的"展示全部主题列表让用户选"流程——AI 先推荐、用户确认，不逐条展示全部主题；theme-index.md 的"不替用户定"建议在本集成流程中同样放宽。
+3. **推荐主题**：AI 读取 `theme-index.md` 每套主题的"适用场景"列，据当前文章特征推荐最契合的一套（如教程/测评→摸鱼绿、深度分析→红白、禅意随笔→留白禅意），用户一步确认。此步取代 SKILL.md 与 theme-index.md 原生的"展示全部主题列表让用户选"流程——AI 先推荐、用户确认，不逐条展示全部主题；theme-index.md 的"不替用户定"建议在本集成流程中同样放宽。
 4. **按 SKILL.md 工作流装配**：读取所选主题的 `references/theme-{标识}.md` 与 `references/common-components.md`，按 SKILL.md 的"解析 Markdown → 按配方选组件 → 装配 HTML → 校验"完整流程生成。
 
 ### 标题去重（关键）
@@ -207,7 +207,7 @@ bun <skill-path>/scripts/main.ts article.md --cite
 
 工作流的 `article.md` 使用 `【配图N：标题】` 占位符（标准约定），但 `gzh-design-skill` 只识别 Markdown 图片语法 `![说明](url)`。两者不兼容：若直接把含 `【配图N：标题】` 的 `article.md` 交给 gzh-design，它会跳过或残留占位符，导致生成的 `article.html` 缺图、`validate_workflow.py html` 因 `<img>` 数量不符而失败。
 
-解决方案：调用 gzh-design 前，复制 `article.md` 为临时文件，把 `【配图N：标题】` 逐条替换为 `![标题](配图N.png)`；用临时文件驱动 gzh-design 生成，生成完删除临时文件，不污染原 `article.md`。
+解决方案：调用 gzh-design 前，复制 `article.md` 为临时文件，用脚本（sed 或 python 一行）把 `【配图N：标题】` 批量替换为 `![标题](配图N.png)`；用临时文件驱动 gzh-design 生成，生成完删除临时文件，不污染原 `article.md`。
 
 - 替换规则：`【配图(\d+)：(.+?)】` → `![\2](配图\1.png)`，标题作为 alt、文件名作为 src。
 - 生成后仍需满足输出规则：`<img>` 数量 = `【配图N：...】` 数量、无残留 `【配图`、本地路径 `src="配图N.png"`、含 `alt`。
