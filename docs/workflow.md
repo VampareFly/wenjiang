@@ -185,8 +185,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_6
 # 随机选主工具后按其流程调用（baoyu-markdown-to-html / gzh-design-skill / md2wechat）
-# gzh-design-skill 路径跳过 fix-html-images（详见 html-guide.md「gzh-design-skill 使用指南」）
-python3 scripts/validate_workflow.py fix-html-images articles/<YYYYMMDD-HHMMSS>
+# 图片预处理与校验门禁按 html-guide.md「gzh-design-skill 使用指南 / HTML 图片硬检查」执行
 python3 scripts/validate_workflow.py html articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_6
 ```
