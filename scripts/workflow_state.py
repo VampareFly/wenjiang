@@ -93,14 +93,14 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
     },
     "step_9": {
         "mode": "skill",
-        "guides": ["docs/steps/step9-10/xiaohongshu-guide.md"],
+        "guides": ["docs/steps/step9/xiaohongshu-guide.md"],
         "inputs": ["article.md"],
         "outputs": ["小红书卡片-{01-N}.png"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_9",
     },
     "step_10": {
         "mode": "ai",
-        "guides": ["docs/steps/step9-10/xiaohongshu-guide.md"],
+        "guides": ["docs/steps/step10/xiaohongshu-guide.md"],
         "inputs": ["article.md"],
         "outputs": ["小红书文案.txt"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_10",

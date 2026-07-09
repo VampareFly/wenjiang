@@ -79,7 +79,8 @@ articles/YYYYMMDD-HHMMSS/
 │   ├── image-generation-guide.md # 图片生成执行规则
 │   ├── html-guide.md             # 公众号 HTML 生成参数和兼容性规则
 │   ├── wechat-guide.md           # 公众号草稿上传说明
-│   ├── xiaohongshu-guide.md      # 小红书卡片和发布文案规则
+│   ├── xiaohongshu-guide.md      # 小红书卡片生成规则（step9/）
+│   ├── xiaohongshu-guide.md      # 小红书发布文案规则（step10/）
 │   └── final-cleanup-guide.md    # 发布前最终目录清理规则
 └── inputs/             # 字幕文件输入目录
 ```
@@ -140,7 +141,8 @@ Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴
 | `docs/steps/step5/image-generation-guide.md` | 图片生成执行规则 |
 | `docs/steps/step6/html-guide.md` | 公众号 HTML 生成参数和兼容性规则 |
 | `docs/steps/step8/wechat-guide.md` | 公众号草稿上传说明 |
-| `docs/steps/step9-10/xiaohongshu-guide.md` | 小红书卡片和发布文案规则 |
+| `docs/steps/step9/xiaohongshu-guide.md` | 小红书卡片生成规则 |
+| `docs/steps/step10/xiaohongshu-guide.md` | 小红书发布文案规则 |
 | `docs/steps/step11/final-cleanup-guide.md` | 发布前最终目录清理规则 |
 
 

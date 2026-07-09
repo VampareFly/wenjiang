@@ -44,7 +44,8 @@ python3 scripts/workflow_state.py reopen articles/<YYYYMMDD-HHMMSS> step_4 --rea
 | Step 6 | `docs/steps/step6/html-guide.md` |
 | Step 7 | 无，等待用户确认 |
 | Step 8 | `docs/steps/step8/wechat-guide.md` |
-| Step 9、10 | `docs/steps/step9-10/xiaohongshu-guide.md` |
+| Step 9 | `docs/steps/step9/xiaohongshu-guide.md` |
+| Step 10 | `docs/steps/step10/xiaohongshu-guide.md` |
 | Step 11 | `docs/steps/step11/final-cleanup-guide.md` |
 
  异常参考：
@@ -219,7 +220,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_8
 
 ### Step 9：生成小红书卡片
 
-按 `docs/steps/step9-10/xiaohongshu-guide.md` 生成连续编号卡片，生成后只做客观校验：
+按 `docs/steps/step9/xiaohongshu-guide.md` 生成连续编号卡片，生成后只做客观校验：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_9
