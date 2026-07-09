@@ -26,7 +26,7 @@
 发布前必须删除以下中间文件：
 
 - 原始字幕和清洗字幕：`source.srt`、`source.vtt`、`source.txt`、`source.cleaned.txt`
-- 写作草稿：`article.draft.md`
+- 写作草稿和蓝图：`article.draft.md`、`article.plan.md`
 - 中间提示词：`cover_prompt.md`、`article.prompt.txt`
 - 图片生成临时文件：`batch.json`、`prompts/`
 - 截图和卡片生成临时文件：临时 HTML、临时 JS、preview/debug 文件
