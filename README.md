@@ -70,18 +70,37 @@ articles/YYYYMMDD-HHMMSS/
 │   └── package.json        # Playwright 依赖
 ├── docs/
 │   ├── workflow.md              # 主流程和步骤
-│   ├── subtitle-guide.md        # 字幕清洗规则
-│   ├── writing-guide.md         # 第一轮内容初稿规则
-│   ├── editorial-guide.md       # 第二轮标题、真人化和收尾规则
-│   ├── final-review-guide.md    # 第三轮独立质检规则
-│   ├── image-prompt-guide.md     # 封面和正文配图提示词规则
-│   ├── markdown-guide.md         # Markdown 格式化规则
-│   ├── image-generation-guide.md # 图片生成执行规则
-│   ├── html-guide.md             # 公众号 HTML 生成参数和兼容性规则
-│   ├── wechat-guide.md           # 公众号草稿上传说明
-│   ├── xiaohongshu-guide.md      # 小红书卡片生成规则（step9/）
-│   ├── xiaohongshu-guide.md      # 小红书发布文案规则（step10/）
-│   └── final-cleanup-guide.md    # 发布前最终目录清理规则
+│   ├── steps/                  # 按工作流阶段组织的指南
+│   │   ├── step1/
+│   │   │   └── subtitle-guide.md        # 字幕清洗规则
+│   │   ├── step2/              # Step 2 多轮专属目录
+│   │   │   ├── writing-guide.md         # 第一轮内容初稿规则
+│   │   │   ├── editorial-guide.md       # 第二轮标题、真人化和收尾规则
+│   │   │   ├── title-guide.md           # 标题生成与去模板盲选
+│   │   │   ├── ai-humanizer-guide.md    # 真人化改写规则
+│   │   │   ├── final-review-guide.md    # 第三轮独立质检规则
+│   │   │   └── image-prompt-guide.md    # 封面和正文配图提示词规则
+│   │   ├── step4/
+│   │   │   └── markdown-guide.md        # Markdown 格式化规则
+│   │   ├── step5/
+│   │   │   └── image-generation-guide.md # 图片生成执行规则
+│   │   ├── step6/
+│   │   │   ├── html-guide.md            # 公众号 HTML 生成参数和兼容性规则
+│   │   │   └── html-tools/             # 三个 HTML 生成工具细则
+│   │   │       ├── md2wechat.md
+│   │   │       ├── baoyu-markdown-to-html.md
+│   │   │       └── gzh-design.md
+│   │   ├── step8/
+│   │   │   └── wechat-guide.md          # 公众号草稿上传说明
+│   │   ├── step9/
+│   │   │   └── xiaohongshu-guide.md    # 小红书卡片生成规则
+│   │   ├── step10/
+│   │   │   └── xiaohongshu-guide.md    # 小红书发布文案规则
+│   │   └── step11/
+│   │       └── final-cleanup-guide.md   # 发布前最终目录清理规则
+│   └── exceptions/             # 条件触发/异常参考
+│       ├── ending-guide.md             # 特殊免责声明或关注引导
+│       └── final-writing-check.md      # 独立质检未覆盖问题的输出规范
 └── inputs/             # 字幕文件输入目录
 ```
 
