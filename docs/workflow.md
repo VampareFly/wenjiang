@@ -30,13 +30,13 @@ python3 scripts/workflow_state.py reopen articles/<YYYYMMDD-HHMMSS> step_4 --rea
 
 ## 按需文档路由
 
-只读取当前步骤列出的文档。Step 2 的详细标题、真人化、收尾和旧终稿检查文档是异常参考，正常路径不读取。
+只读取当前步骤列出的文档。Step 2 的收尾和旧终稿检查文档是异常参考，正常路径不读取。
 
 | 阶段 | 正常路径必读文档 |
 | --- | --- |
 | Step 1 | `docs/subtitle-guide.md` |
 | Step 2 内容初稿轮 | `docs/writing-guide.md` |
-| Step 2 编辑终稿轮 | `docs/editorial-guide.md`、`docs/title-guide.md` |
+| Step 2 编辑终稿轮 | `docs/editorial-guide.md`、`docs/title-guide.md`、`docs/ai-humanizer-guide.md` |
 | Step 2 独立质检与配图提示词轮 | `docs/final-review-guide.md`、`docs/image-prompt-guide.md` |
 | Step 3 | 无，运行确定性校验 |
 | Step 4 | `docs/markdown-guide.md` |
@@ -49,7 +49,6 @@ python3 scripts/workflow_state.py reopen articles/<YYYYMMDD-HHMMSS> step_4 --rea
 
  异常参考：
 
-- 终稿仍有宣传腔、机械结构或假口语时读取 `docs/ai-humanizer-guide.md`。
 - 特殊免责声明或关注引导无法判断时读取 `docs/ending-guide.md`。
 - 独立质检遇到核心指南未覆盖的问题时读取 `docs/final-writing-check.md`。
 
@@ -126,7 +125,7 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_2
 Step 2 必须按三轮生成文章，不能从字幕一次直接输出终稿：
 
 1. **内容初稿轮**：读取 `docs/writing-guide.md` 和 `source.cleaned.txt`，生成事实可靠、结构完整的 `article.draft.md`。只标正文配图位置，不生成正式标题候选列表或配图提示词。
-2. **编辑终稿轮**：读取 `docs/editorial-guide.md`、字幕和草稿，一次完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。
+2. **编辑终稿轮**：读取 `docs/editorial-guide.md`、`docs/title-guide.md`、`docs/ai-humanizer-guide.md`、字幕和草稿，一次完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。
 3. **独立质检与配图提示词轮**：读取 `docs/final-review-guide.md`，重新用字幕审核草稿。合格时不得重写全文；有明确问题时只做最小局部修改。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/image-prompt-guide.md` 生成 `cover_prompt.md`。
 
 完成后：
