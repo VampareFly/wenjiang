@@ -124,21 +124,16 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_4
 
 ### Step 5：生成配图
 
-按 `docs/steps/step5/image-generation-guide.md` 先检测当前会话实际可用的图片生成能力：
-
-1. 当前会话明确暴露可调用的 Codex 原生图片工具时，按 `imagegen` skill 的规则逐张生成图片。
-2. 没有可调用的原生图片工具时，通过 `baoyu-image-gen --provider codex-cli --jobs 1` 生成。
-3. 两条路径都不可用时停止并报告，不静默切换其他 provider。
+按 `docs/steps/step5/image-generation-guide.md` 检测当前会话是否暴露可调用的原生图片工具，并固定本次生成路径，再生成封面与正文配图：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_5
 python3 scripts/validate_workflow.py skills skills.lock.json
-# 检测生成路径：原生路径逐张调用；非原生路径调用 baoyu-image-gen --provider codex-cli --jobs 1
 python3 scripts/validate_workflow.py images articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 ```
 
-备份保留到 Step 7 确认通过；生成后只做客观校验。
+路径选择、备份保留与生成后客观校验规则见该指南。
 
 ### Step 6：生成公众号 HTML
 
