@@ -1,6 +1,6 @@
 # 终稿检查指南
 
-本文件定义 Step 2 真人化改写轮把 `article.draft.md` 提升为最终 `article.md` 前的输出规范和去 AI 味入口检查。执行本文件前必须已经按 `docs/title-guide.md` 生成标题和导语，具体逐段改写模式和示例见 `docs/ai-humanizer-guide.md`。
+本文件定义 Step 2 真人化改写轮把 `article.draft.md` 提升为最终 `article.md` 前的输出规范和去 AI 味入口检查。执行本文件前必须已经按 `docs/steps/step2/title-guide.md` 生成标题和导语，具体逐段改写模式和示例见 `docs/steps/step2/ai-humanizer-guide.md`。
 
 ---
 
@@ -9,16 +9,16 @@
 - 输出为 markdown 文件。
 - 全中文，英文术语附中文解释。
 - 忠实原内容，不夸大、不捏造数据。
-- 终稿正文稳定后，再按 `docs/image-prompt-guide.md` 临时输出 `cover_prompt.md`；本检查只确认正文内容、边界和一致性。
+- 终稿正文稳定后，再按 `docs/steps/step2/image-prompt-guide.md` 临时输出 `cover_prompt.md`；本检查只确认正文内容、边界和一致性。
 - 读者读完后，应能用一句话复述“这篇文章在讲什么、为什么重要、我该怎么做”。
 
 ---
 
 ## 去 AI 味终稿检查
 
-真人化改写轮必须先按本节做硬检查，再按 `docs/ai-humanizer-guide.md` 做逐段改写。本文只保留主流程入口和高频问题清单，具体模式和改写示例以专项指南为准。
+真人化改写轮必须先按本节做硬检查，再按 `docs/steps/step2/ai-humanizer-guide.md` 做逐段改写。本文只保留主流程入口和高频问题清单，具体模式和改写示例以专项指南为准。
 
-进入本检查前，`article.draft.md` frontmatter 中必须已有 `title`、`description`、`author`；否则先回到 `docs/title-guide.md` 生成，再执行终稿检查。全部检查通过后才能将草稿原子替换为 `article.md`。
+进入本检查前，`article.draft.md` frontmatter 中必须已有 `title`、`description`、`author`；否则先回到 `docs/steps/step2/title-guide.md` 生成，再执行终稿检查。全部检查通过后才能将草稿原子替换为 `article.md`。
 
 核心原则：
 

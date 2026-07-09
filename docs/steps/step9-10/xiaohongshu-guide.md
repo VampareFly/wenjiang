@@ -70,7 +70,7 @@ if (rows.some(r => r.gap < 24)) throw new Error('content overlaps footer safe zo
 
 ### 临时文件清理
 
-生成小红书卡片后，删除截图脚本、临时 HTML、临时 JS、preview/debug 文件，只保留正式输出的 `小红书卡片-{01-N}.png`。最终发布资产复查见 `docs/final-cleanup-guide.md`。
+生成小红书卡片后，删除截图脚本、临时 HTML、临时 JS、preview/debug 文件，只保留正式输出的 `小红书卡片-{01-N}.png`。最终发布资产复查见 `docs/steps/step11/final-cleanup-guide.md`。
 
 ---
 

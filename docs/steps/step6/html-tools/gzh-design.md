@@ -1,6 +1,6 @@
 # gzh-design-skill 使用指南（Step 6 工具细则）
 
-> 本文件是 `docs/html-guide.md` 中 `gzh-design-skill` 路径的专属细则。仅在 Step 6 随机选中 `gzh-design-skill` 后读取。
+> 本文件是 `docs/steps/step6/html-guide.md` 中 `gzh-design-skill` 路径的专属细则。仅在 Step 6 随机选中 `gzh-design-skill` 后读取。
 
 ## 角色定位
 
@@ -8,7 +8,7 @@
 
 ## 调用方式
 
-1. **加载 skill**：选中本工具时显式执行 `skill load gzh-design-skill`（workflow.md「按需文档路由」表 Step 6 只指向 `docs/html-guide.md`，不会自动加载，须手动加载）。
+1. **加载 skill**：选中本工具时显式执行 `skill load gzh-design-skill`（workflow.md「按需文档路由」表 Step 6 只指向 `docs/steps/step6/html-guide.md`，不会自动加载，须手动加载）。
 2. **读主题清单**：读取 `<skill_path>/references/theme-index.md` 获取主题清单（`<skill_path>` 即 `.agents/skills/gzh-design-skill`）。
 3. **推荐主题**：AI 读取 `theme-index.md` 每套主题的"适用场景"列，据当前文章特征推荐最契合的一套（如教程/测评→摸鱼绿、深度分析→红白、禅意随笔→留白禅意），用户一步确认。此步取代 SKILL.md 与 theme-index.md 原生的"展示全部主题列表让用户选"流程——AI 先推荐、用户确认，不逐条展示全部主题；theme-index.md 的"不替用户定"建议在本集成流程中同样放宽。
 4. **按 SKILL.md 工作流装配**：读取所选主题的 `references/theme-{标识}.md` 与 `references/common-components.md`，按 SKILL.md 的"解析 Markdown → 按配方选组件 → 装配 HTML → 校验"完整流程生成。

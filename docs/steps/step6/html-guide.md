@@ -1,6 +1,6 @@
 # 公众号 HTML 指南
 
-本文件定义 Step 6 生成公众号 HTML 时的通用生成原则、微信兼容性约束和图片硬检查门禁。三个工具的**细则**拆到 `docs/html-tools/` 下独立文件，确定使用哪个工具后再按需读取，避免一次性加载全部上下文。
+本文件定义 Step 6 生成公众号 HTML 时的通用生成原则、微信兼容性约束和图片硬检查门禁。三个工具的**细则**拆到 `docs/steps/step6/html-tools/` 下独立文件，确定使用哪个工具后再按需读取，避免一次性加载全部上下文。
 
 ---
 
@@ -24,9 +24,9 @@ Step 6 从 3 个工具中等概率随机选一个主工具：`baoyu-markdown-to-
 
 | 主工具 | 细则文件 |
 |--------|----------|
-| `md2wechat` | `docs/html-tools/md2wechat.md` |
-| `baoyu-markdown-to-html` | `docs/html-tools/baoyu-markdown-to-html.md` |
-| `gzh-design-skill` | `docs/html-tools/gzh-design.md` |
+| `md2wechat` | `docs/steps/step6/html-tools/md2wechat.md` |
+| `baoyu-markdown-to-html` | `docs/steps/step6/html-tools/baoyu-markdown-to-html.md` |
+| `gzh-design-skill` | `docs/steps/step6/html-tools/gzh-design.md` |
 
 细则文件包含主题/色系选择、参数表、调用示例、配图标记转换、跳过项（如 fix-html-images）等工具专属规定；本文件不重复这些细节。
 
@@ -44,7 +44,7 @@ Step 6 从 3 个工具中等概率随机选一个主工具：`baoyu-markdown-to-
 
 ## HTML 图片硬检查
 
-> **fix-html-images 执行差异**：`baoyu-markdown-to-html` 与 `md2wechat` 路径在下方门禁前先运行 `validate_workflow.py fix-html-images`；`gzh-design-skill` 路径跳过此步（其图片组件样式由主题库决定，fix-html-images 会覆盖破坏，详见 `docs/html-tools/gzh-design.md`）。
+> **fix-html-images 执行差异**：`baoyu-markdown-to-html` 与 `md2wechat` 路径在下方门禁前先运行 `validate_workflow.py fix-html-images`；`gzh-design-skill` 路径跳过此步（其图片组件样式由主题库决定，fix-html-images 会覆盖破坏，详见 `docs/steps/step6/html-tools/gzh-design.md`）。
 
 生成后必须执行 HTML 图片硬检查，失败即停止，不得进入预览确认：
 

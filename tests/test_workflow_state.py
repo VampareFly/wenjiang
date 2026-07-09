@@ -90,7 +90,7 @@ class WorkflowStateTests(unittest.TestCase):
         self.assertEqual("step_1", context["current_step"])
         self.assertEqual("pending", context["status"])
         self.assertEqual("deterministic", context["mode"])
-        self.assertEqual(["docs/subtitle-guide.md"], context["guides"])
+        self.assertEqual(["docs/steps/step1/subtitle-guide.md"], context["guides"])
         self.assertIn("source.cleaned.txt", context["outputs"])
         self.assertEqual("pending", workflow_state.load_state(self.root)["steps"]["step_1"]["status"])
 
@@ -108,10 +108,10 @@ class WorkflowStateTests(unittest.TestCase):
         )
         self.assertEqual(
             [
-                "docs/writing-guide.md",
-                "docs/editorial-guide.md",
-                "docs/final-review-guide.md",
-                "docs/image-prompt-guide.md",
+                "docs/steps/step2/writing-guide.md",
+                "docs/steps/step2/editorial-guide.md",
+                "docs/steps/step2/final-review-guide.md",
+                "docs/steps/step2/image-prompt-guide.md",
             ],
             context["guides"],
         )

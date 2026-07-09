@@ -299,10 +299,10 @@ class ValidatorTests(unittest.TestCase):
     def test_workflow_documents_define_required_gates(self):
         project_root = Path(__file__).resolve().parents[1]
         workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
-        subtitle = (project_root / "docs/subtitle-guide.md").read_text(encoding="utf-8")
-        writing = (project_root / "docs/writing-guide.md").read_text(encoding="utf-8")
-        editorial = project_root / "docs/editorial-guide.md"
-        final_review = project_root / "docs/final-review-guide.md"
+        subtitle = (project_root / "docs/steps/step1/subtitle-guide.md").read_text(encoding="utf-8")
+        writing = (project_root / "docs/steps/step2/writing-guide.md").read_text(encoding="utf-8")
+        editorial = project_root / "docs/steps/step2/editorial-guide.md"
+        final_review = project_root / "docs/steps/step2/final-review-guide.md"
         for required in (
             "workflow-state.json",
             "article.draft.md",
@@ -314,8 +314,8 @@ class ValidatorTests(unittest.TestCase):
             "编辑终稿轮",
             "独立质检与配图提示词轮",
             "Step 3：确定性回归校验",
-            "docs/editorial-guide.md",
-            "docs/final-review-guide.md",
+            "docs/steps/step2/editorial-guide.md",
+            "docs/steps/step2/final-review-guide.md",
         ):
             self.assertIn(required, workflow)
         self.assertTrue(editorial.is_file())
@@ -327,7 +327,7 @@ class ValidatorTests(unittest.TestCase):
 
     def test_title_guide_prioritizes_source_fidelity_and_varied_paths(self):
         project_root = Path(__file__).resolve().parents[1]
-        guide = (project_root / "docs/title-guide.md").read_text(encoding="utf-8")
+        guide = (project_root / "docs/steps/step2/title-guide.md").read_text(encoding="utf-8")
         for required in (
             "字幕回指",
             "直接判断",
@@ -344,11 +344,11 @@ class ValidatorTests(unittest.TestCase):
 
     def test_docs_use_deterministic_tools_and_consistent_final_assets(self):
         project_root = Path(__file__).resolve().parents[1]
-        html = (project_root / "docs/html-guide.md").read_text(encoding="utf-8")
-        markdown = (project_root / "docs/markdown-guide.md").read_text(encoding="utf-8")
-        images = (project_root / "docs/image-generation-guide.md").read_text(encoding="utf-8")
-        wechat = (project_root / "docs/wechat-guide.md").read_text(encoding="utf-8")
-        cleanup = (project_root / "docs/final-cleanup-guide.md").read_text(encoding="utf-8")
+        html = (project_root / "docs/steps/step6/html-guide.md").read_text(encoding="utf-8")
+        markdown = (project_root / "docs/steps/step4/markdown-guide.md").read_text(encoding="utf-8")
+        images = (project_root / "docs/steps/step5/image-generation-guide.md").read_text(encoding="utf-8")
+        wechat = (project_root / "docs/steps/step8/wechat-guide.md").read_text(encoding="utf-8")
+        cleanup = (project_root / "docs/steps/step11/final-cleanup-guide.md").read_text(encoding="utf-8")
         readme = (project_root / "README.md").read_text(encoding="utf-8")
         self.assertNotIn("60%", html)
         self.assertNotIn("40%", html)
@@ -367,7 +367,7 @@ class ValidatorTests(unittest.TestCase):
     def test_step_five_keeps_skill_compatibility_check_as_common_gate(self):
         project_root = Path(__file__).resolve().parents[1]
         workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
-        images = (project_root / "docs/image-generation-guide.md").read_text(
+        images = (project_root / "docs/steps/step5/image-generation-guide.md").read_text(
             encoding="utf-8"
         )
         self.assertIn(
@@ -386,7 +386,7 @@ class ValidatorTests(unittest.TestCase):
     def test_native_image_route_requires_a_callable_native_tool(self):
         project_root = Path(__file__).resolve().parents[1]
         workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
-        images = (project_root / "docs/image-generation-guide.md").read_text(
+        images = (project_root / "docs/steps/step5/image-generation-guide.md").read_text(
             encoding="utf-8"
         )
         readme = (project_root / "README.md").read_text(encoding="utf-8")

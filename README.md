@@ -131,17 +131,17 @@ Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴
 | `.agents/skills/` | 项目级 Agent Skills |
 | `opencode.json` | OpenCode 权限配置 |
 | `docs/workflow.md` | 主流程和步骤 |
-| `docs/subtitle-guide.md` | 字幕清洗规则 |
-| `docs/writing-guide.md` | 第一轮内容初稿规则 |
-| `docs/editorial-guide.md` | 第二轮标题、真人化和收尾规则 |
-| `docs/final-review-guide.md` | 第三轮独立质检规则 |
-| `docs/image-prompt-guide.md` | 封面和正文配图提示词规则 |
-| `docs/markdown-guide.md` | Markdown 格式化规则 |
-| `docs/image-generation-guide.md` | 图片生成执行规则 |
-| `docs/html-guide.md` | 公众号 HTML 生成参数和兼容性规则 |
-| `docs/wechat-guide.md` | 公众号草稿上传说明 |
-| `docs/xiaohongshu-guide.md` | 小红书卡片和发布文案规则 |
-| `docs/final-cleanup-guide.md` | 发布前最终目录清理规则 |
+| `docs/steps/step1/subtitle-guide.md` | 字幕清洗规则 |
+| `docs/steps/step2/writing-guide.md` | 第一轮内容初稿规则 |
+| `docs/steps/step2/editorial-guide.md` | 第二轮标题、真人化和收尾规则 |
+| `docs/steps/step2/final-review-guide.md` | 第三轮独立质检规则 |
+| `docs/steps/step2/image-prompt-guide.md` | 封面和正文配图提示词规则 |
+| `docs/steps/step4/markdown-guide.md` | Markdown 格式化规则 |
+| `docs/steps/step5/image-generation-guide.md` | 图片生成执行规则 |
+| `docs/steps/step6/html-guide.md` | 公众号 HTML 生成参数和兼容性规则 |
+| `docs/steps/step8/wechat-guide.md` | 公众号草稿上传说明 |
+| `docs/steps/step9-10/xiaohongshu-guide.md` | 小红书卡片和发布文案规则 |
+| `docs/steps/step11/final-cleanup-guide.md` | 发布前最终目录清理规则 |
 
 
 配置修改后立即生效，下次运行自动应用。

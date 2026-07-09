@@ -1,6 +1,6 @@
 # baoyu-markdown-to-html 使用指南（Step 6 工具细则）
 
-> 本文件是 `docs/html-guide.md` 中 `baoyu-markdown-to-html` 路径的专属细则。仅在 Step 6 随机选中 `baoyu-markdown-to-html` 后读取。
+> 本文件是 `docs/steps/step6/html-guide.md` 中 `baoyu-markdown-to-html` 路径的专属细则。仅在 Step 6 随机选中 `baoyu-markdown-to-html` 后读取。
 
 ## 角色定位
 
@@ -80,4 +80,4 @@ bun <skill-path>/scripts/main.ts article.md --cite
 
 ## 图片硬检查前处理
 
-本路径在 `docs/html-guide.md`「HTML 图片硬检查」门禁前先运行 `validate_workflow.py fix-html-images`（与 `md2wechat` 一致；`gzh-design-skill` 跳过，详见 `docs/html-tools/gzh-design.md`）。
+本路径在 `docs/steps/step6/html-guide.md`「HTML 图片硬检查」门禁前先运行 `validate_workflow.py fix-html-images`（与 `md2wechat` 一致；`gzh-design-skill` 跳过，详见 `docs/steps/step6/html-tools/gzh-design.md`）。

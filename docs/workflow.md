@@ -34,23 +34,23 @@ python3 scripts/workflow_state.py reopen articles/<YYYYMMDD-HHMMSS> step_4 --rea
 
 | 阶段 | 正常路径必读文档 |
 | --- | --- |
-| Step 1 | `docs/subtitle-guide.md` |
-| Step 2 内容初稿轮 | `docs/writing-guide.md` |
-| Step 2 编辑终稿轮 | `docs/editorial-guide.md`、`docs/title-guide.md`、`docs/ai-humanizer-guide.md` |
-| Step 2 独立质检与配图提示词轮 | `docs/final-review-guide.md`、`docs/image-prompt-guide.md` |
+| Step 1 | `docs/steps/step1/subtitle-guide.md` |
+| Step 2 内容初稿轮 | `docs/steps/step2/writing-guide.md` |
+| Step 2 编辑终稿轮 | `docs/steps/step2/editorial-guide.md`、`docs/steps/step2/title-guide.md`、`docs/steps/step2/ai-humanizer-guide.md` |
+| Step 2 独立质检与配图提示词轮 | `docs/steps/step2/final-review-guide.md`、`docs/steps/step2/image-prompt-guide.md` |
 | Step 3 | 无，运行确定性校验 |
-| Step 4 | `docs/markdown-guide.md` |
-| Step 5 | `docs/image-generation-guide.md` |
-| Step 6 | `docs/html-guide.md` |
+| Step 4 | `docs/steps/step4/markdown-guide.md` |
+| Step 5 | `docs/steps/step5/image-generation-guide.md` |
+| Step 6 | `docs/steps/step6/html-guide.md` |
 | Step 7 | 无，等待用户确认 |
-| Step 8 | `docs/wechat-guide.md` |
-| Step 9、10 | `docs/xiaohongshu-guide.md` |
-| Step 11 | `docs/final-cleanup-guide.md` |
+| Step 8 | `docs/steps/step8/wechat-guide.md` |
+| Step 9、10 | `docs/steps/step9-10/xiaohongshu-guide.md` |
+| Step 11 | `docs/steps/step11/final-cleanup-guide.md` |
 
  异常参考：
 
-- 特殊免责声明或关注引导无法判断时读取 `docs/ending-guide.md`。
-- 独立质检遇到核心指南未覆盖的问题时读取 `docs/final-writing-check.md`。
+- 特殊免责声明或关注引导无法判断时读取 `docs/exceptions/ending-guide.md`。
+- 独立质检遇到核心指南未覆盖的问题时读取 `docs/exceptions/final-writing-check.md`。
 
 ## 文件契约
 
@@ -107,7 +107,7 @@ python3 scripts/workflow_state.py init articles/<YYYYMMDD-HHMMSS>
 
 ### Step 1：本地清洗字幕
 
-按 `docs/subtitle-guide.md` 执行：
+按 `docs/steps/step1/subtitle-guide.md` 执行：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_1
@@ -125,9 +125,9 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_2
 
 Step 2 必须按三轮生成文章，不能从字幕一次直接输出终稿：
 
-1. **内容初稿轮**：读取 `docs/writing-guide.md` 和 `source.cleaned.txt`，先生成可检查的 `article.plan.md` 写作蓝图，再按蓝图生成事实可靠、结构完整的 `article.draft.md`。只标正文配图位置，不生成正式标题候选列表或配图提示词。
-2. **编辑终稿轮**：读取 `docs/editorial-guide.md`、`docs/title-guide.md`、`docs/ai-humanizer-guide.md`、字幕、`article.plan.md` 和草稿，一次完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。
-3. **独立质检与配图提示词轮**：读取 `docs/final-review-guide.md`，重新用字幕和 `article.plan.md` 审核草稿。合格时不得重写全文；有明确问题时只做最小局部修改。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/image-prompt-guide.md` 生成 `cover_prompt.md`。
+1. **内容初稿轮**：读取 `docs/steps/step2/writing-guide.md` 和 `source.cleaned.txt`，先生成可检查的 `article.plan.md` 写作蓝图，再按蓝图生成事实可靠、结构完整的 `article.draft.md`。只标正文配图位置，不生成正式标题候选列表或配图提示词。
+2. **编辑终稿轮**：读取 `docs/steps/step2/editorial-guide.md`、`docs/steps/step2/title-guide.md`、`docs/steps/step2/ai-humanizer-guide.md`、字幕、`article.plan.md` 和草稿，一次完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。
+3. **独立质检与配图提示词轮**：读取 `docs/steps/step2/final-review-guide.md`，重新用字幕和 `article.plan.md` 审核草稿。合格时不得重写全文；有明确问题时只做最小局部修改。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/steps/step2/image-prompt-guide.md` 生成 `cover_prompt.md`。
 
 完成后：
 
@@ -150,7 +150,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_3
 
 ### Step 4：格式化 Markdown
 
-按 `docs/markdown-guide.md` 固定调用 `baoyu-format-markdown`，覆盖 `article.md` 后做回归校验：
+按 `docs/steps/step4/markdown-guide.md` 固定调用 `baoyu-format-markdown`，覆盖 `article.md` 后做回归校验：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_4
@@ -161,7 +161,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_4
 
 ### Step 5：生成配图
 
-按 `docs/image-generation-guide.md` 先检测当前会话实际可用的图片生成能力：
+按 `docs/steps/step5/image-generation-guide.md` 先检测当前会话实际可用的图片生成能力：
 
 1. 当前会话明确暴露可调用的 Codex 原生图片工具时，按 `imagegen` skill 的规则逐张生成图片。
 2. 没有可调用的原生图片工具时，通过 `baoyu-image-gen --provider codex-cli --jobs 1` 生成。
@@ -179,11 +179,11 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 
 ### Step 6：生成公众号 HTML
 
-按 `docs/html-guide.md` 从 3 个工具随机选主工具生成公众号 HTML：
+按 `docs/steps/step6/html-guide.md` 从 3 个工具随机选主工具生成公众号 HTML：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_6
-# 随机选主工具后，按 html-guide.md「工具细则路由」读取对应 docs/html-tools/<工具>.md 再调用
+# 随机选主工具后，按 html-guide.md「工具细则路由」读取对应 docs/steps/step6/html-tools/<工具>.md 再调用
 # （baoyu-markdown-to-html / gzh-design-skill / md2wechat 的细则拆到独立文件，确定工具后再读）
 # 通用图片预处理与校验门禁按 html-guide.md「HTML 图片硬检查」执行
 python3 scripts/validate_workflow.py html articles/<YYYYMMDD-HHMMSS>
@@ -206,7 +206,7 @@ python3 scripts/workflow_state.py approve articles/<YYYYMMDD-HHMMSS>
 
 ### Step 8：创建微信公众号草稿
 
-按 `docs/wechat-guide.md` 执行外部副作用：
+按 `docs/steps/step8/wechat-guide.md` 执行外部副作用：
 
 ```bash
 python3 scripts/validate_workflow.py approval articles/<YYYYMMDD-HHMMSS>
@@ -219,7 +219,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_8
 
 ### Step 9：生成小红书卡片
 
-按 `docs/xiaohongshu-guide.md` 生成连续编号卡片，生成后只做客观校验：
+按 `docs/steps/step9-10/xiaohongshu-guide.md` 生成连续编号卡片，生成后只做客观校验：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_9
@@ -238,7 +238,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_10
 
 ### Step 11：最终清理
 
-只有 Step 8、9、10 全部通过后，按 `docs/final-cleanup-guide.md` 清理临时资产：
+只有 Step 8、9、10 全部通过后，按 `docs/steps/step11/final-cleanup-guide.md` 清理临时资产：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_11

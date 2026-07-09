@@ -81,7 +81,7 @@
 - 发现问题时，先形成最多 8 条的简短问题清单，再直接对 `article.draft.md` 做最小局部修改。
 - 禁止为了“更好看”“更有文采”重排已合格全文。
 - 修改标题、导语或结论后，必须重新检查核心一致性和证据强度。
-- 只有核心指南无法解决具体异常时，才按需读取 `docs/final-writing-check.md`；正常流程不读取。
+- 只有核心指南无法解决具体异常时，才按需读取 `docs/exceptions/final-writing-check.md`；正常流程不读取。
 
 ## 原子交付
 
@@ -89,7 +89,7 @@
 
 1. 用完整、已通过审核的 `article.draft.md` 原子替换为 `article.md`。
 2. 确认 `article.md` 存在且非空后删除 `article.draft.md`，保留 `article.plan.md` 供 Step 7 前追溯；最终发布前由 Step 11 清理。
-3. 读取 `docs/image-prompt-guide.md`，基于稳定 `article.md` 生成 `cover_prompt.md`。
+3. 读取 `docs/steps/step2/image-prompt-guide.md`，基于稳定 `article.md` 生成 `cover_prompt.md`。
 4. 运行文章与提示词校验；失败时只修对应问题并重跑。
 
 ```bash
