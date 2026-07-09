@@ -1,4 +1,5 @@
 import json
+import re
 import struct
 import tempfile
 import unittest
@@ -382,6 +383,37 @@ class ValidatorTests(unittest.TestCase):
         self.assertIn("两条路径共同要求", images)
         self.assertIn("skills.lock.json", images)
         self.assertNotIn("skills.lock.json`、`EXTEND.md`", images)
+
+    def test_workflow_routing_references_resolve_to_existing_docs(self):
+        project_root = Path(__file__).resolve().parents[1]
+        workflow = (project_root / "docs/workflow.md").read_text(encoding="utf-8")
+        referenced = set(re.findall(r"docs/[A-Za-z0-9_/.-]+\.md", workflow))
+        for path in referenced:
+            if "<" in path or ">" in path:
+                continue
+            self.assertTrue(
+                (project_root / path).is_file(),
+                f"workflow.md 引用的文档不存在：{path}",
+            )
+        # step9 / step10 拆分后应分别引用独立文件
+        self.assertIn("docs/steps/step9/xiaohongshu-guide.md", workflow)
+        self.assertIn("docs/steps/step10/xiaohongshu-guide.md", workflow)
+        # 异常参考应指向 exceptions/
+        self.assertIn("docs/exceptions/ending-guide.md", workflow)
+        self.assertIn("docs/exceptions/final-writing-check.md", workflow)
+
+    def test_html_tools_nested_under_step_six_exist(self):
+        project_root = Path(__file__).resolve().parents[1]
+        for name in (
+            "docs/steps/step6/html-tools/md2wechat.md",
+            "docs/steps/step6/html-tools/baoyu-markdown-to-html.md",
+            "docs/steps/step6/html-tools/gzh-design.md",
+        ):
+            self.assertTrue((project_root / name).is_file(), f"HTML 工具细则缺失：{name}")
+        html = (project_root / "docs/steps/step6/html-guide.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("docs/steps/step6/html-tools/", html)
 
     def test_native_image_route_requires_a_callable_native_tool(self):
         project_root = Path(__file__).resolve().parents[1]

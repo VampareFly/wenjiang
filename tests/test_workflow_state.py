@@ -134,6 +134,25 @@ class WorkflowStateTests(unittest.TestCase):
             context["commands"],
         )
 
+    def test_all_step_context_guide_paths_exist(self):
+        project_root = Path(__file__).resolve().parents[1]
+        for step, cfg in workflow_state.STEP_CONTEXT.items():
+            for guide in cfg.get("guides", []):
+                self.assertTrue(
+                    (project_root / guide).is_file(),
+                    f"{step} 的指南路径不存在：{guide}",
+                )
+
+    def test_step_nine_and_ten_route_to_split_xiaohongshu_guides(self):
+        self.assertEqual(
+            workflow_state.STEP_CONTEXT["step_9"]["guides"],
+            ["docs/steps/step9/xiaohongshu-guide.md"],
+        )
+        self.assertEqual(
+            workflow_state.STEP_CONTEXT["step_10"]["guides"],
+            ["docs/steps/step10/xiaohongshu-guide.md"],
+        )
+
     def test_context_cli_prints_json_without_ok_suffix(self):
         workflow_state.init_state(self.root)
         output = io.StringIO()
