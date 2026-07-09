@@ -61,13 +61,11 @@ articles/YYYYMMDD-HHMMSS/
 ├── .agents/
 │   └── skills/         # 项目级 Agent Skills，避免污染全局上下文
 ├── opencode.json       # OpenCode 权限配置
-├── mimocode.json       # MimoCode 权限配置
 ├── skills.lock.json    # 已验证 Skill 版本、入口和关键能力
 ├── scripts/
 │   ├── clean_subtitle.py   # 本地字幕清洗脚本
 │   ├── validate_workflow.py # 文章、图片、HTML、发布和最终资产校验
-│   ├── workflow_state.py    # 工作流状态与用户确认门禁
-│   └── package.json        # Playwright 依赖
+│   └── workflow_state.py    # 工作流状态与用户确认门禁
 ├── docs/
 │   ├── workflow.md              # 主流程和步骤
 │   ├── steps/                  # 按工作流阶段组织的指南
@@ -111,7 +109,7 @@ articles/YYYYMMDD-HHMMSS/
 - [OpenCode](https://github.com/anomalyco/opencode) — 驱动整个工作流的 Agent
 - [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — 可选的公众号 HTML 生成工具
 - [baoyu-post-to-wechat](https://github.com/JimLiu/baoyu-skills#baoyu-post-to-wechat) — 上传正文图片、封面素材并创建公众号草稿
-- [Playwright](https://playwright.dev/) — 小红书卡片截图导出使用（依赖定义在 `scripts/package.json`，首次使用前在 `scripts/` 目录执行 `npm install && npx playwright install chromium`）
+- [Playwright](https://playwright.dev/) — 小红书卡片截图导出使用，依赖由 `guizang-social-card-skill` 提供（位于 `.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本通过 `NODE_PATH` 指向该目录）
 
 ### 使用
 
