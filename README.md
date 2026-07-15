@@ -60,7 +60,7 @@ articles/YYYYMMDD-HHMMSS/
 ├── AGENTS.md           # Agent 角色定义和文档入口
 ├── .agents/
 │   └── skills/         # 项目级 Agent Skills，避免污染全局上下文
-├── opencode.json       # OpenCode 权限配置
+├── opencode.json       # OpenCode 可选权限配置（其他 Agent 可忽略）
 ├── skills.lock.json    # 已验证 Skill 版本、入口和关键能力
 ├── scripts/
 │   ├── clean_subtitle.py   # 本地字幕清洗脚本
@@ -106,15 +106,17 @@ articles/YYYYMMDD-HHMMSS/
 
 ### 前置依赖
 
-- [OpenCode](https://github.com/anomalyco/opencode) — 驱动整个工作流的 Agent
+- 支持读取项目指令和调用项目 Skills 的 Code Agent — 例如 [Codex](https://openai.com/codex/) 或 [OpenCode](https://github.com/anomalyco/opencode)，用于执行工作流
 - [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — 可选的公众号 HTML 生成工具
 - [baoyu-post-to-wechat](https://github.com/JimLiu/baoyu-skills#baoyu-post-to-wechat) — 上传正文图片、封面素材并创建公众号草稿
 - [Playwright](https://playwright.dev/) — 小红书卡片截图导出使用，依赖由 `guizang-social-card-skill` 提供（位于 `.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本通过 `NODE_PATH` 指向该目录）
 
+不要求安装 OpenCode。使用其他 Agent 时，请按该工具的项目指令与 Skills 配置方式加载本仓库的 `AGENTS.md` 和 `.agents/skills/`；`opencode.json` 仅对 OpenCode 生效。
+
 ### 使用
 
 1. 将字幕文件（.srt）放入 `inputs/` 目录
-2. 在 OpenCode 中打开本项目
+2. 在你使用的 Code Agent 中打开本项目（例如 Codex 或 OpenCode）
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
 4. Agent 先本地清洗字幕，再按 `workflow-state.json` 顺序执行；Step 7 等待用户明确预览确认
 5. 流程结束前清理字幕、提示词、batch、截图脚本和调试文件，只保留正式发布资产
@@ -147,7 +149,7 @@ Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴
 |------|------|
 | `AGENTS.md` | Agent 角色定义和文档入口 |
 | `.agents/skills/` | 项目级 Agent Skills |
-| `opencode.json` | OpenCode 权限配置 |
+| `opencode.json` | OpenCode 的可选权限配置；使用其他 Agent 时可忽略 |
 | `docs/workflow.md` | 主流程和步骤 |
 | `docs/steps/step1/subtitle-guide.md` | 字幕清洗规则 |
 | `docs/steps/step2/writing-guide.md` | 第一轮内容初稿规则 |
