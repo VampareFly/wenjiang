@@ -58,9 +58,11 @@ FINAL_FIXED = {
     "小红书文案.txt",
     "workflow-state.json",
 }
+FINAL_OPTIONAL = {"source-link.txt", "source-map.json"}
 FINAL_PATTERNS = (
     re.compile(r"配图\d+\.png"),
     re.compile(r"小红书卡片-\d{2}\.png"),
+    re.compile(r"source\.(?:srt|vtt|txt)"),
 )
 
 
@@ -299,7 +301,7 @@ def fix_html_images(article_dir: Path | str) -> list[str]:
 
 
 def _is_final_asset(name: str) -> bool:
-    return name in FINAL_FIXED or any(pattern.fullmatch(name) for pattern in FINAL_PATTERNS)
+    return name in FINAL_FIXED or name in FINAL_OPTIONAL or any(pattern.fullmatch(name) for pattern in FINAL_PATTERNS)
 
 
 def validate_final(article_dir: Path | str) -> list[str]:
@@ -312,10 +314,19 @@ def validate_final(article_dir: Path | str) -> list[str]:
 
     body_images = sorted(article_dir.glob("配图*.png"))
     cards = sorted(article_dir.glob("小红书卡片-*.png"))
+    source_subtitles = [
+        path for path in article_dir.glob("source.*")
+        if path.suffix.lower() in {".srt", ".vtt", ".txt"}
+    ]
     if not body_images:
         errors.append("缺少正文配图最终资产")
     if not cards:
         errors.append("缺少小红书卡片最终资产")
+    if len(source_subtitles) != 1 or source_subtitles[0].stat().st_size == 0:
+        errors.append("必须保留且只能保留一个非空源字幕：source.srt/source.vtt/source.txt")
+    mapping_assets = [name for name in FINAL_OPTIONAL if (article_dir / name).is_file()]
+    if mapping_assets and len(mapping_assets) != len(FINAL_OPTIONAL):
+        errors.append("来源链接归档必须同时保留 source-link.txt 和 source-map.json")
 
     for path in article_dir.iterdir() if article_dir.is_dir() else ():
         if not path.is_file() or not _is_final_asset(path.name):

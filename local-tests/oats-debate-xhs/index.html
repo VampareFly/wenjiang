@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>燕麦争议 · 小红书画报</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <style>
+    :root, [data-theme="ink-classic"] {
+      --paper: #f3f0e8; --paper-2: #ebe6da; --ink: #0a0a0b; --muted: #68625a;
+      --line: rgba(10,10,11,.22); --accent: #111111; --accent-soft: #d8d2c6;
+    }
+    [data-theme="forest-ink"] {
+      --paper: #f5f1e8; --paper-2: #e8dfcf; --ink: #16251b; --muted: #5d665d;
+      --line: rgba(22,37,27,.22); --accent: #2e6b4f; --accent-soft: #d4dfd2;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #e0e0e0; font-family: 'Noto Sans SC', sans-serif; display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 40px 20px; }
+    .poster.xhs { width: 1080px; height: 1440px; position: relative; overflow: hidden; background: var(--paper); flex-shrink: 0; }
+    .grain { position: absolute; inset: 0; opacity: .35; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E"); background-size: 256px 256px; pointer-events: none; z-index: 2; }
+    .content { position: relative; z-index: 3; padding: 72px 80px 140px 80px; display: flex; flex-direction: column; min-height: 100%; }
+    .kicker { font-family: 'IBM Plex Mono', monospace; font-size: 20px; letter-spacing: .18em; color: var(--muted); text-transform: uppercase; margin: 0; }
+    .h-display { font-family: 'Noto Serif SC', serif; font-weight: 500; font-size: 82px; line-height: 1.18; letter-spacing: .06em; color: var(--ink); }
+    .h-xl { font-family: 'Noto Serif SC', serif; font-weight: 700; font-size: 52px; line-height: 1.22; letter-spacing: .04em; color: var(--ink); }
+    .h-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: 28px; color: var(--muted); }
+    .lead { font-family: 'Noto Sans SC', sans-serif; font-size: 24px; line-height: 1.6; color: var(--muted); }
+    .t-mono { font-family: 'IBM Plex Mono', monospace; font-size: 18px; letter-spacing: .12em; color: var(--muted); }
+    .issue-strip { position: absolute; bottom: 0; left: 0; right: 0; height: 72px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 80px; font-family: 'IBM Plex Mono', monospace; font-size: 18px; letter-spacing: .12em; color: var(--muted); z-index: 3; }
+    .stack { display: flex; flex-direction: column; }
+    .gap-2 { gap: 12px; } .gap-3 { gap: 18px; } .gap-4 { gap: 28px; } .gap-5 { gap: 36px; } .gap-6 { gap: 48px; }
+    .pipeline-v { display: flex; flex-direction: column; gap: 24px; }
+    .pipeline-v .step { display: flex; align-items: flex-start; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--line); }
+    .step-nb { font-family: 'IBM Plex Mono', monospace; font-size: 36px; font-weight: 500; color: var(--accent); min-width: 72px; }
+    .step-title { font-family: 'Noto Serif SC', serif; font-size: 30px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .step-desc { font-family: 'Noto Sans SC', sans-serif; font-size: 20px; line-height: 1.5; color: var(--muted); }
+    .ledger-list { display: flex; flex-direction: column; gap: 0; }
+    .ledger-row { display: flex; align-items: flex-start; gap: 28px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+    .ledger-nb { font-family: 'IBM Plex Mono', monospace; font-size: 28px; font-weight: 500; color: var(--accent); min-width: 48px; }
+    .ledger-title { font-family: 'Noto Serif SC', serif; font-size: 28px; font-weight: 700; color: var(--ink); }
+    .ledger-desc { font-family: 'Noto Sans SC', sans-serif; font-size: 20px; line-height: 1.5; color: var(--muted); margin-top: 4px; }
+    .data-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-soft); padding: 4px 16px; border-radius: 4px; font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 500; color: var(--accent); }
+    .pull-quote { font-family: 'Noto Serif SC', serif; font-size: 44px; font-weight: 500; line-height: 1.35; color: var(--ink); }
+    .quote-source { font-family: 'IBM Plex Mono', monospace; font-size: 18px; letter-spacing: .12em; color: var(--muted); margin-top: 16px; }
+    .flex-1 { flex: 1; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+    .tag { font-family: 'Noto Sans SC', sans-serif; font-size: 18px; padding: 6px 18px; background: var(--accent-soft); color: var(--ink); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- Page 1: Cover -->
+<section class="poster xhs" id="xhs-01">
+  <div class="grain"></div>
+  <div class="content" style="justify-content:space-between">
+    <div class="stack gap-2">
+      <p class="kicker">Nutrition · Evidence Check</p>
+    </div>
+    <div class="stack gap-4" style="flex:1;justify-content:center">
+      <h1 class="h-display">
+        燕麦<br>到底能不能吃
+      </h1>
+      <p class="h-sub">Two doctors. One debate. 30 minutes.</p>
+      <div class="lead" style="max-width:720px">
+        网上吵了好几年的燕麦争议——两位科普博主面对面把证据摆上了桌
+      </div>
+    </div>
+    <div class="issue-strip">
+      <span>Vol. 01 — 2026 — 饮食</span>
+      <span>—</span>
+      <span>5 页</span>
+    </div>
+  </div>
+</section>
+
+<!-- Page 2: Three key findings pipeline -->
+<section class="poster xhs" id="xhs-02">
+  <div class="grain"></div>
+  <div class="content stack gap-3">
+    <p class="kicker">Key Findings · 三项核心发现</p>
+    <h2 class="h-xl">双方在哪些事上<br>最后达成了共识</h2>
+    <div class="pipeline-v" style="margin-top:12px">
+      <div class="step">
+        <div class="step-nb">01</div>
+        <div>
+          <h3 class="step-title">血糖波动 ≠ 病理</h3>
+          <p class="step-desc">健康人吃完燕麦后的血糖上升是正常生理反应。运动也会造成程度相当的血糖波动。只有当血糖异常高或异常久时才需要关注。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-nb">02</div>
+        <div>
+          <h3 class="step-title">A1C 不升反降</h3>
+          <p class="step-desc">数十项随机对照试验显示，燕麦对 A1C 的影响要么无显著差异，要么轻微下降。两人都没见过燕麦让 A1C 上升的试验。</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-nb">03</div>
+        <div>
+          <h3 class="step-title">血压证据一致</h3>
+          <p class="step-desc">27 项随机试验，绝大多数血压无显著变化，少数下降，零项上升。机制推理说血压应该涨——但实测结果恰恰相反。</p>
+        </div>
+      </div>
+    </div>
+    <div class="issue-strip">
+      <span>Page 2 · Evidence</span>
+      <span>—</span>
+      <span>Forest Ink</span>
+    </div>
+  </div>
+</section>
+
+<!-- Page 3: What both agree on -->
+<section class="poster xhs" id="xhs-03">
+  <div class="grain"></div>
+  <div class="content stack gap-3">
+    <p class="kicker">Consensus · 双方同意的 5 件事</p>
+    <h2 class="h-xl">吵了半小时，<br>同意的比分歧多</h2>
+    <div class="ledger-list" style="margin-top:12px">
+      <div class="ledger-row">
+        <div class="ledger-nb">1</div>
+        <div>
+          <div class="ledger-title">燕麦不是超级食物</div>
+          <div class="ledger-desc">没有食物是。这是个营销词。不吃燕麦不会缺任何不可替代的营养。</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-nb">2</div>
+        <div>
+          <div class="ledger-title">糖尿病者暂避有理</div>
+          <div class="ledger-desc">对于血糖异常的人群，暂时绕开让血糖剧烈波动的食物，是合理策略。</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-nb">3</div>
+        <div>
+          <div class="ledger-title">健康人能正常代谢</div>
+          <div class="ledger-desc">代谢健康的个体，吃一碗钢切燕麦不会伤害你。正常生理，不是病理。</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-nb">4</div>
+        <div>
+          <div class="ledger-title">要反夸大，不是反方向夸大</div>
+          <div class="ledger-desc">不要为了反对"燕麦是万能药"，就说"燕麦是毒药"。两边夸大只会让观众更困惑。</div>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="ledger-nb">5</div>
+        <div>
+          <div class="ledger-title">自己的数据最可靠</div>
+          <div class="ledger-desc">两人都说同一句话：戴个 CGM，吃一碗，看血糖。比一百个小时的视频都有用。</div>
+        </div>
+      </div>
+    </div>
+    <div class="issue-strip">
+      <span>Page 3 · Consensus</span>
+      <span>—</span>
+      <span>Forest Ink</span>
+    </div>
+  </div>
+</section>
+
+<!-- Page 4: Evidence Deep-Dive -->
+<section class="poster xhs" id="xhs-04">
+  <div class="grain"></div>
+  <div class="content stack gap-3">
+    <p class="kicker">Deep Dive · 争论的底层逻辑</p>
+    <h2 class="h-xl">为什么两个<br>聪明人得出<br>相反的结论</h2>
+    <div class="pull-quote" style="margin-top:12px">
+      "对任何食物，你都能找到一套听起来合理的生理机制，让它在任意方向起作用。最终哪种机制占主导——不是推理，是测量。"
+    </div>
+    <div class="stack gap-3" style="margin-top:16px">
+      <div class="step" style="padding:20px 0">
+        <div class="step-nb" style="font-size:28px">A</div>
+        <div>
+          <h3 class="step-title" style="font-size:26px">机制推理派</h3>
+          <p class="step-desc">燕麦 → 胰岛素分泌 → 钠和液体滞留 → 血压上升。每步在生理学上都成立。</p>
+        </div>
+      </div>
+      <div class="step" style="padding:20px 0">
+        <div class="step-nb" style="font-size:28px">B</div>
+        <div>
+          <h3 class="step-title" style="font-size:26px">临床试验派</h3>
+          <p class="step-desc">27 项随机试验，没有一项发现血压上升。多个荟萃分析反而看到轻微下降。</p>
+        </div>
+      </div>
+    </div>
+    <div class="tag-row" style="margin-top:16px">
+      <span class="tag">27 项 RCT</span>
+      <span class="tag">0 项血压上升</span>
+      <span class="tag">数十项 A1C 无升</span>
+    </div>
+    <div class="issue-strip">
+      <span>Page 4 · Deep Dive</span>
+      <span>—</span>
+      <span>Forest Ink</span>
+    </div>
+  </div>
+</section>
+
+<!-- Page 5: Closing -->
+<section class="poster xhs" id="xhs-05">
+  <div class="grain"></div>
+  <div class="content" style="justify-content:space-between">
+    <div class="stack gap-2">
+      <p class="kicker">Takeaway · 最后一句话</p>
+    </div>
+    <div class="stack gap-4" style="flex:1;justify-content:center">
+      <h1 class="h-display" style="font-size:72px">
+        信自己的数据<br>不信博主
+      </h1>
+      <div class="lead" style="max-width:720px;margin-top:12px">
+        买个血糖监测仪、买个血压计，试一个星期——比看一百个小时的视频都可靠。
+      </div>
+      <div style="border-top:1px solid var(--line);padding-top:16px;margin-top:12px">
+        <p class="t-mono">如果你代谢正常，一碗钢切燕麦不会伤害你。</p>
+        <p class="t-mono" style="margin-top:6px">如果你有糖尿病，先处理根源，暂避异常血糖反应。</p>
+      </div>
+    </div>
+    <div class="issue-strip">
+      <span>Page 5 · Takeaway</span>
+      <span>—</span>
+      <span>本文不构成医疗建议</span>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

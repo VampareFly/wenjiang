@@ -16,7 +16,7 @@ python3 scripts/workflow_state.py context articles/<YYYYMMDD-HHMMSS>
 4. 每步先 `start`，产物完成后 `pass`；客观校验失败不得前进。
 5. Step 7 是用户确认硬门禁。没有当前对话中的明确确认，不得 `approve`，更不得进入 Step 8。
 6. 确认后的文章、HTML 或图片变化时，确认立即失效，必须重新预览。
-7. 图片和小红书卡片生成后只做文件、编号、格式、尺寸、比例、HTML 引用和目录白名单等客观检查。除非用户明确要求或客观门禁失败，不用 AI 读图，不主观重生成。
+7. 公众号图片生成后只做文件、格式、尺寸、比例、HTML 引用和目录白名单等客观检查；小红书卡片按 Step 9 例外执行：程序检查全部页面并只对首图做一次 AI 视觉复查，不默认逐张读图或重生成整套卡片。
 
 常用状态命令：
 
@@ -49,24 +49,26 @@ workflow-state.json
 ---
 title: 文章标题
 description: 30 字以内导语
-author: 身心漫游
+author: 食外
 ---
 ```
 
-## 准备：定位字幕并初始化
+## 准备：定位字幕、链接并初始化
 
-扫描 `inputs/` 中的 `.srt`、`.vtt` 和明确属于字幕的 `.txt`：
+`inputs/` 放置字幕文件，`links/links.txt` 常驻存放视频链接与文案：
 
-1. 没有字幕：提示用户放入字幕并停止。
-2. 只有一个：创建时间戳文章目录，复制为同扩展名的 `source.*`。
-3. 有多个：列出并要求用户指定，不得任选或拼接。
-4. 初始化：
+1. `links/links.txt` 必须包含恰好一个完整 HTTP/HTTPS 链接，可附带说明文案；字幕文件直接放在 `inputs/` 下，主文件名不限。
+2. 缺少字幕或 `links/links.txt` 为空/无链接时，列出问题并停止。
+3. 先查询 `link-registry.json`；已成功处理的规范化链接不得重复建任务。
+4. 创建时间戳文章目录，归档为 `source.*`、`source-link.txt` 和 `source-map.json`，暂不删除字幕或清空链接：
 
 ```bash
+python3 scripts/link_registry.py check "<待检查链接>"
+python3 scripts/link_registry.py prepare articles/<YYYYMMDD-HHMMSS> inputs/<字幕文件> links/links.txt
 python3 scripts/workflow_state.py init articles/<YYYYMMDD-HHMMSS>
 ```
 
-已有状态文件时不得覆盖，使用 `context` 从当前步骤继续。
+`check` 返回码为 0 表示已处理，1 表示未处理。规范化只在本地移除常见跟踪参数、片段和多余斜杠，不联网展开短链。已有状态文件时不得覆盖，使用 `context` 从当前步骤继续。
 
 ### Step 1：本地清洗字幕
 
@@ -89,8 +91,8 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_2
 Step 2 必须按三轮生成文章，不能从字幕一次直接输出终稿：
 
 1. **内容初稿轮**：读取 `docs/steps/step2/writing-guide.md` 和 `source.cleaned.txt`，先生成可检查的 `article.plan.md` 写作蓝图，再按蓝图生成事实可靠、结构完整的 `article.draft.md`。只标正文配图位置，不生成正式标题候选列表或配图提示词。
-2. **编辑终稿轮**：读取 `docs/steps/step2/editorial-guide.md`、`docs/steps/step2/title-guide.md`、`docs/steps/step2/ai-humanizer-guide.md`、字幕、`article.plan.md` 和草稿，一次完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。特殊免责声明或关注引导无法判断时，按需读取 `docs/exceptions/ending-guide.md`。
-3. **独立质检与配图提示词轮**：读取 `docs/steps/step2/final-review-guide.md`，重新用字幕和 `article.plan.md` 审核草稿。合格时不得重写全文；有明确问题时只做最小局部修改。独立质检遇到核心指南未覆盖的问题时，按需读取 `docs/exceptions/final-writing-check.md`。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/steps/step2/image-prompt-guide.md` 生成 `cover_prompt.md`。
+2. **编辑终稿轮**：读取 `docs/steps/step2/editorial-guide.md`、`docs/steps/step2/title-guide.md`、`docs/steps/step2/ai-humanizer-guide.md`、字幕、`article.plan.md` 和草稿，在同一轮内完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。标题候选和评分使用精简格式，只在 `article.plan.md` 保留不超过 250 字的质检记录，不新增独立生成轮次。特殊免责声明或关注引导无法判断时，按需读取 `docs/exceptions/ending-guide.md`。
+3. **独立质检与配图提示词轮**：读取 `docs/steps/step2/final-review-guide.md`，重新用字幕和 `article.plan.md` 审核草稿。事实与高风险表述仍按原规则完整回查；中文可读性先抽查每段首句、最长句和结论句，发现问题后才扩大到对应段落。合格时不得重写全文；有明确问题时只做最小局部修改。独立质检遇到核心指南未覆盖的问题时，按需读取 `docs/exceptions/final-writing-check.md`。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/steps/step2/image-prompt-guide.md` 生成 `cover_prompt.md`。
 
 完成后：
 
@@ -99,6 +101,8 @@ python3 scripts/validate_workflow.py article articles/<YYYYMMDD-HHMMSS>
 python3 scripts/validate_workflow.py prompts articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_2
 ```
+
+`pass step_2` 不清理输入文件。`inputs/` 中的字幕和 `links/links.txt` 必须一直保留到微信草稿创建成功。
 
 ### Step 3：确定性回归校验
 
@@ -170,11 +174,11 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_8
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_8
 ```
 
-失败时保留全部本地产物并标记 `blocked`，不得清理。
+`pass step_8` 确认 `media_id` 后，会更新本篇 `source-map.json` 和项目根目录 `link-registry.json`，再按文件名、目录和 SHA-256 精确删除字幕输入、清空 `links/links.txt`。缺少映射的历史任务仍按旧流程通过，但不写入链接总表。任一校验失败时保留输入文件并标记 `blocked`，不得清理。
 
 ### Step 9：生成小红书卡片
 
-按 `docs/steps/step9/xiaohongshu-guide.md` 生成连续编号卡片，生成后只做客观校验：
+按 `docs/steps/step9/xiaohongshu-guide.md` 生成连续编号卡片。不替换 `guizang-social-card-skill`；默认使用带纸纹、墨晕/等高线和主题色的 Editorial 分层背景，首图强背景、正文弱背景，不得交付纯白或单一扁平底色。优先复用公众号封面和正文配图；生成后只强制视觉复查 `小红书卡片-01.png`，其余页默认由程序检查溢出、字号、安全区、背景层和画布密度：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_9

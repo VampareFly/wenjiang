@@ -15,8 +15,10 @@ from typing import Callable
 
 try:
     from scripts import validate_workflow as validator
+    from scripts import link_registry
 except ImportError:  # Direct execution: python3 scripts/workflow_state.py
     import validate_workflow as validator  # type: ignore[no-redef]
+    import link_registry  # type: ignore[no-redef]
 
 
 SCHEMA_VERSION = 1
@@ -88,7 +90,7 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
         "mode": "external_side_effect",
         "guides": ["docs/steps/step8/wechat-guide.md"],
         "inputs": ["article.html", "cover.png", "Step 7 approval"],
-        "outputs": ["公众号草稿信息.txt"],
+        "outputs": ["公众号草稿信息.txt", "source-map.json", "link-registry.json"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_8",
     },
     "step_9": {
@@ -308,6 +310,8 @@ def pass_step(article_dir: Path | str, step: str) -> dict[str, object]:
     errors = _validate_step(article_dir, step)
     if errors:
         raise ValueError(f"{step} 校验失败：" + "；".join(errors))
+    if step == "step_8":
+        link_registry.finalize_mapping(article_dir)
     timestamp = _now()
     steps[step].update(
         {

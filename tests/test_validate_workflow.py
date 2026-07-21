@@ -11,7 +11,7 @@ from scripts import validate_workflow as validator
 VALID_ARTICLE = """---
 title: 久坐以后，身体为什么总觉得沉
 description: 相关研究解释了久坐后的身体感受。
-author: 身心漫游
+author: 食外
 ---
 
 正文内容。
@@ -45,14 +45,14 @@ class ValidatorTests(unittest.TestCase):
     def test_parse_frontmatter_handles_quoted_and_plain_values(self):
         metadata, _ = validator.parse_frontmatter(VALID_ARTICLE)
         self.assertEqual("久坐以后，身体为什么总觉得沉", metadata["title"])
-        self.assertEqual("身心漫游", metadata["author"])
+        self.assertEqual("食外", metadata["author"])
 
     def test_article_accepts_natural_title_and_continuous_markers(self):
         self.write("article.md", VALID_ARTICLE)
         self.assertEqual([], validator.validate_article(self.root))
 
     def test_article_requires_standard_frontmatter(self):
-        self.write("article.md", VALID_ARTICLE.replace("author: 身心漫游\n", ""))
+        self.write("article.md", VALID_ARTICLE.replace("author: 食外\n", ""))
         self.assertTrue(any("author" in error for error in validator.validate_article(self.root)))
 
     def test_article_rejects_ai_title_template(self):
@@ -192,6 +192,7 @@ class ValidatorTests(unittest.TestCase):
             "小红书卡片-01.png",
             "小红书文案.txt",
             "workflow-state.json",
+            "source.srt",
         )
         for name in names:
             (self.root / name).write_bytes(b"x")
@@ -201,6 +202,17 @@ class ValidatorTests(unittest.TestCase):
         self.test_final_keeps_draft_record_and_state()
         self.write("source.cleaned.txt", "残留")
         self.assertTrue(any("非最终资产" in error for error in validator.validate_final(self.root)))
+
+    def test_final_accepts_paired_source_mapping_assets(self):
+        self.test_final_keeps_draft_record_and_state()
+        self.write("source-link.txt", "https://example.com/video")
+        self.write("source-map.json", '{"schema_version": 1}')
+        self.assertEqual([], validator.validate_final(self.root))
+
+    def test_final_rejects_unpaired_source_mapping_assets(self):
+        self.test_final_keeps_draft_record_and_state()
+        self.write("source-link.txt", "https://example.com/video")
+        self.assertTrue(any("必须同时保留" in error for error in validator.validate_final(self.root)))
 
     def test_skill_lock_rejects_missing_capability(self):
         skill = self.root / "demo"

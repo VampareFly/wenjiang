@@ -19,7 +19,7 @@
 ## 工作流
 
 ```
-字幕文件 (.srt)
+同名字幕文件 (.srt) + 链接文件 (.txt)
   │
   ▼
 Step 1  本地清洗字幕 (source.cleaned.txt)
@@ -39,10 +39,13 @@ Step 11 手动发布小红书
 
 ## 每篇文章产出
 
-文章目录最终只保留正式发布资产。字幕、提示词、batch、截图脚本、调试文件等中间产物会在流程中清理。
+文章目录最终保留正式发布资产、本篇源字幕和来源链接映射。只有微信公众号草稿创建成功并取得 `media_id` 后，才会精确删除 `inputs/` 和 `links/` 中对应的一对输入；清洗字幕、提示词、batch、截图脚本和调试文件等中间产物会在流程中清理。
 
 ```
 articles/YYYYMMDD-HHMMSS/
+├── source.srt          # 本篇文章对应的源字幕（也可能是 .vtt/.txt）
+├── source-link.txt     # 本篇文章的原始来源链接
+├── source-map.json     # 输入文件、链接、文章和微信草稿映射
 ├── article.md          # Markdown 文章
 ├── article.html        # 公众号 HTML
 ├── cover.png           # 公众号封面 (2.35:1)
@@ -99,7 +102,9 @@ articles/YYYYMMDD-HHMMSS/
 │   └── exceptions/             # 条件触发/异常参考
 │       ├── ending-guide.md             # 特殊免责声明或关注引导
 │       └── final-writing-check.md      # 独立质检未覆盖问题的输出规范
-└── inputs/             # 字幕文件输入目录
+├── inputs/             # 字幕文件输入目录
+├── links/              # 与字幕同主文件名的链接文件输入目录
+└── link-registry.json  # 所有成功处理链接的永久汇总索引
 ```
 
 ## 快速开始
@@ -115,11 +120,17 @@ articles/YYYYMMDD-HHMMSS/
 
 ### 使用
 
-1. 将字幕文件（.srt）放入 `inputs/` 目录
+1. 将字幕放入 `inputs/`，并把只含一个来源链接的同名 `.txt/.url` 文件放入 `links/`，例如 `video.srt` + `video.txt`
 2. 在你使用的 Code Agent 中打开本项目（例如 Codex 或 OpenCode）
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
 4. Agent 先本地清洗字幕，再按 `workflow-state.json` 顺序执行；Step 7 等待用户明确预览确认
-5. 流程结束前清理字幕、提示词、batch、截图脚本和调试文件，只保留正式发布资产
+5. 微信草稿成功后自动登记链接并清理对应输入；流程结束前再清理提示词、batch、截图脚本和调试文件
+
+随时可检查一个链接是否处理过；命中时会返回文章目录、原字幕、`media_id` 和处理时间：
+
+```bash
+python3 scripts/link_registry.py check "https://example.com/video"
+```
 
 ## 配置
 

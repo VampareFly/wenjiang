@@ -35,7 +35,7 @@ md2wechat convert articles/<YYYYMMDD-HHMMSS>/article.md \
   --mode ai \
   --theme <AI按内容类型自动匹配> \
   --title "标题" \
-  --author "身心漫游" \
+  --author "食外" \
   --digest "摘要"
 ```
 

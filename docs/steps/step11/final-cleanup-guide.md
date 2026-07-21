@@ -18,6 +18,8 @@
 - `小红书卡片-{01-N}.png`
 - `小红书文案.txt`
 - `workflow-state.json`
+- `source.srt`、`source.vtt` 或 `source.txt`（本篇文章对应的一个源字幕）
+- `source-link.txt` 和 `source-map.json`（新任务必须成对保留；历史任务可没有）
 
 ---
 
@@ -25,7 +27,7 @@
 
 发布前必须删除以下中间文件：
 
-- 原始字幕和清洗字幕：`source.srt`、`source.vtt`、`source.txt`、`source.cleaned.txt`
+- 清洗字幕：`source.cleaned.txt`（原始 `source.*` 必须保留）
 - 写作草稿和蓝图：`article.draft.md`、`article.plan.md`
 - 中间提示词：`cover_prompt.md`、`article.prompt.txt`
 - 图片生成临时文件：`batch.json`、`prompts/`

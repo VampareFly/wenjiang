@@ -68,7 +68,13 @@ bun .agents/skills/baoyu-post-to-wechat/scripts/wechat-api.ts \
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_8
 ```
 
-该命令会检查信息文件存在、非空且包含 `media_id`。上传失败时保留本地文件，将 Step 8 标记为 `blocked`，不得进入最终清理。
+该命令会检查信息文件存在、非空且包含 `media_id`。对于带 `source-map.json` 的新任务，还会：
+
+1. 核对归档字幕、`source-link.txt` 和原输入文件没有被替换；
+2. 把链接、文章目录、原字幕名、`media_id`、标题和处理时间写入项目根目录 `link-registry.json`；
+3. 仅在核对通过后，精确删除 `inputs/` 和 `links/` 中本任务对应的两个输入文件。
+
+上传失败、信息文件无 `media_id`、映射不一致或输入内容发生变化时，保留输入文件，将 Step 8 标记为 `blocked`，不得进入最终清理。历史任务没有 `source-map.json` 时保持兼容，不执行链接登记和输入清理。
 
 ---
 
