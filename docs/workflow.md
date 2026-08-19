@@ -55,6 +55,20 @@ author: 食外
 
 ## 准备：定位字幕、链接并初始化
 
+支持两种输入准备方式：**方式 A（YouTube 自动化选题与接入，推荐）** 与 **方式 B（本地字幕手动输入）**。
+
+### 方式 A：YouTube 自动化选题与接入（推荐）
+
+1. **选题雷达扫描**（按需）：运行 `python3 scripts/discover_youtube.py`，根据 `config/sources.json` 自动扫描最新健康/饮食科普视频，生成带推荐理由的 `candidates.md` 看板。
+2. **单篇一键建档与清洗**：
+   ```bash
+   python3 scripts/fetch_youtube.py "<YouTube链接或Video ID>"
+   ```
+   脚本将自动完成：链接查重、秒级提取字幕与元数据、创建 `articles/<YYYYMMDD-HHMMSS>` 目录、本地清洗字幕输出 `source.cleaned.txt`、初始化 `workflow-state.json` 并直接通过 `step_1`。
+3. **批量全部生成**：运行 `python3 scripts/discover_youtube.py --ingest-all`，按看板顺序批量提取建档。
+
+### 方式 B：本地字幕手动输入
+
 `inputs/` 放置字幕文件，`links/links.txt` 常驻存放视频链接与文案：
 
 1. `links/links.txt` 必须包含恰好一个完整 HTTP/HTTPS 链接，可附带说明文案；字幕文件直接放在 `inputs/` 下，主文件名不限。
@@ -70,7 +84,7 @@ python3 scripts/workflow_state.py init articles/<YYYYMMDD-HHMMSS>
 
 `check` 返回码为 0 表示已处理，1 表示未处理。规范化只在本地移除常见跟踪参数、片段和多余斜杠，不联网展开短链。已有状态文件时不得覆盖，使用 `context` 从当前步骤继续。
 
-### Step 1：本地清洗字幕
+### Step 1：本地清洗字幕（方式 A 自动完成，方式 B 需手动执行）
 
 按 `docs/steps/step1/subtitle-guide.md` 执行：
 

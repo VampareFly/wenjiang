@@ -10,6 +10,8 @@
 
 | 能力 | 说明 |
 |------|------|
+| 选题雷达 | 自动扫描海外优质博主频道与关键词，输出 `candidates.md` 选题看板 |
+| 秒级字幕抓取 | 基于 `yt-dlp` 秒级提取原声/自动字幕与元数据，自动清洗建档过 Step 1 |
 | 内容类型识别 | 自动判断科普 / 财经 / 科技 / 成长等类型，匹配对应写法 |
 | 去 AI 味写作 | 三轮写作：内容初稿、编辑终稿、独立质检与配图提示词 |
 | 微信 SEO | 标题和正文覆盖搜一搜高频关键词 |
@@ -19,9 +21,10 @@
 ## 工作流
 
 ```
-同名字幕文件 (.srt) + 链接文件 (.txt)
+YouTube 链接 (或 inputs/ 本地字幕)
   │
   ▼
+Step 0  [可选] 选题雷达扫描 (candidates.md) ➔ 一键抓取建档 (fetch_youtube.py)
 Step 1  本地清洗字幕 (source.cleaned.txt)
 Step 2  三轮生成文章 (article.md) + 配图提示词 (cover_prompt.md)
 Step 3  确定性回归校验
@@ -65,13 +68,19 @@ articles/YYYYMMDD-HHMMSS/
 │   └── skills/         # 项目级 Agent Skills，避免污染全局上下文
 ├── opencode.json       # OpenCode 可选权限配置（其他 Agent 可忽略）
 ├── skills.lock.json    # 已验证 Skill 版本、入口和关键能力
+├── config/
+│   └── sources.json        # YouTube 频道订阅、关键词雷达与过滤配置
 ├── scripts/
+│   ├── discover_youtube.py # YouTube 选题雷达扫描与 candidates.md 生成
+│   ├── fetch_youtube.py    # YouTube 字幕提取、清洗与任务初始化
 │   ├── clean_subtitle.py   # 本地字幕清洗脚本
+│   ├── link_registry.py    # 链接查重与输入/草稿映射
 │   ├── validate_workflow.py # 文章、图片、HTML、发布和最终资产校验
-│   └── workflow_state.py    # 工作流状态与用户确认门禁
+│   └── workflow_state.py   # 工作流状态与用户确认门禁
 ├── docs/
-│   ├── workflow.md              # 主流程和步骤
-│   ├── steps/                  # 按工作流阶段组织的指南
+│   ├── workflow.md         # 主流程和步骤
+│   ├── youtube-workflow.md # YouTube 选题雷达与全自动工作流说明
+│   ├── steps/              # 按工作流阶段组织的指南
 │   │   ├── step1/
 │   │   │   └── subtitle-guide.md        # 字幕清洗规则
 │   │   ├── step2/              # Step 2 多轮专属目录
@@ -120,6 +129,13 @@ articles/YYYYMMDD-HHMMSS/
 
 ### 使用
 
+#### 方式 A：YouTube 一键抓取开工（推荐）
+1. **自动找视频（选题雷达）**：运行 `python3 scripts/discover_youtube.py`，查看生成的 `candidates.md` 选题看板。
+2. **一键建档与清洗**：运行 `python3 scripts/fetch_youtube.py "<YouTube链接>"`（或在对话框直接发链接：“写这篇视频：<链接>”）。
+3. 脚本自动完成查重、秒级提取字幕、本地清洗，并自动通过 Step 1。
+4. 随后直接运行 Step 2 启动文章生成。
+
+#### 方式 B：本地字幕手动输入
 1. 将字幕放入 `inputs/`，并把只含一个来源链接的同名 `.txt/.url` 文件放入 `links/`，例如 `video.srt` + `video.txt`
 2. 在你使用的 Code Agent 中打开本项目（例如 Codex 或 OpenCode）
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」

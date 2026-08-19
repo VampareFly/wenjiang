@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-18T09:36:36+00:00",
+  "updated_at": "2026-08-19T05:51:32+00:00",
   "entries": [
     {
       "url_original": "https://youtu.be/qB2PpDoUh30?si=RS8_k5gylkYajAjH",
@@ -403,16 +403,6 @@
       "processed_at": "2026-08-10T07:46:50+00:00"
     },
     {
-      "url_original": "https://youtu.be/-xTaAHSFHUU?si=xjaa8MuoCzwYzCyr",
-      "url_normalized": "https://youtu.be/-xTaAHSFHUU",
-      "article_dir": "articles/20260810-161917",
-      "subtitle_file": "[English] Are Seed Oils Inflammatory! (The Evidence No One Shows) [DownSub.com].srt",
-      "link_file": "links.txt",
-      "media_id": "HbIbdPKCxVEYs2lDI5JYjTftCABoxbhXo4T2QJ2QYqcrKjGr73g1bIpPYhDn0D6b",
-      "title": "种子油会引发炎症吗？别只看一个分子",
-      "processed_at": "2026-08-10T08:30:59+00:00"
-    },
-    {
       "url_original": "https://youtu.be/mBFe1QattAU?si=eyS-A452YLW17dwT",
       "url_normalized": "https://youtu.be/mBFe1QattAU",
       "article_dir": "articles/20260812-112901",
@@ -461,6 +451,36 @@
       "media_id": "HbIbdPKCxVEYs2lDI5JYjRDMK5SNf08VJcgGHF7udc_yhklXqBjClCjVBeNuAxLR",
       "title": "用菜籽油炒菜到底好不好？看几十项人体试验和50万人随访",
       "processed_at": "2026-08-18T09:36:36+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=n3b9QKo_VpM",
+      "url_normalized": "https://youtu.be/n3b9QKo_VpM",
+      "article_dir": "articles/20260819-110843",
+      "subtitle_file": "How to Use Caffeine & Coffee to Improve Focus ｜ Dr. Andrew Huberman.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjUupR-yAVNShvY8qiJTiSLpi4_XgEyPq5FDskhMxazfZ",
+      "title": "推迟90分钟喝早咖啡，避开下午的断崖式犯困",
+      "processed_at": "2026-08-19T03:22:00+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/-xTaAHSFHUU?si=xjaa8MuoCzwYzCyr",
+      "url_normalized": "https://youtu.be/-xTaAHSFHUU",
+      "article_dir": "articles/20260810-161917",
+      "subtitle_file": "[English] Are Seed Oils Inflammatory! (The Evidence No One Shows) [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjVQOXOAqXS9n2P-dHsb4MpCbwHR-T52wEtW0ZPBgavsF",
+      "title": "种子油真的会引发炎症吗？看几十项人体试验的真实数据",
+      "processed_at": "2026-08-19T03:40:52+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=rOYgjncjCYw",
+      "url_normalized": "https://youtu.be/rOYgjncjCYw",
+      "article_dir": "articles/20260819-133257",
+      "subtitle_file": "How You Gain Visceral Fat & How to Lose it ｜ Dr. Rhonda Patrick & Dr. Andrew Huberman.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjfB_CAuHUAwb_Kjds5wI7VFHsGtPI5qUzSUA3W35OwaC",
+      "title": "体重没变，为什么肚子还在长？看内脏脂肪与皮质醇的代谢循环",
+      "processed_at": "2026-08-19T05:51:32+00:00"
     }
   ]
 }

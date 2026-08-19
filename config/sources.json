@@ -1,0 +1,74 @@
+{
+  "channels": [
+    {
+      "name": "Huberman Lab (Andrew Huberman)",
+      "channel_id": "UC2D2197645-_dcG6KETOQcA",
+      "custom_url": "https://www.youtube.com/@hubermanlab",
+      "category": "神经科学与睡眠精力"
+    },
+    {
+      "name": "Peter Attia MD (The Drive)",
+      "channel_id": "UC8kGsMa0LygSX9nkBcBH1Sg",
+      "custom_url": "https://www.youtube.com/@PeterAttiaMD",
+      "category": "长寿医学与代谢抗衰"
+    },
+    {
+      "name": "Dr. Eric Berg DC",
+      "channel_id": "UC3w193751543",
+      "custom_url": "https://www.youtube.com/@DrEricBergDC",
+      "category": "饮食结构与控糖减脂"
+    },
+    {
+      "name": "Glucose Goddess (Jessie Inchauspé)",
+      "channel_id": "UCwkd2LpZqG1lC0k_a2jUv-w",
+      "custom_url": "https://www.youtube.com/@GlucoseGoddess",
+      "category": "控糖曲线与饮食顺序"
+    },
+    {
+      "name": "ZOE (Tim Spector)",
+      "channel_id": "UC_w7i2fK6uXo4y7A633Fk8g",
+      "custom_url": "https://www.youtube.com/@ZOE",
+      "category": "肠道微生态与超加工食品"
+    },
+    {
+      "name": "FoundMyFitness (Dr. Rhonda Patrick)",
+      "channel_id": "UCvYgmpt4P4P3X5wA5U_zYkg",
+      "custom_url": "https://www.youtube.com/@FoundMyFitness",
+      "category": "细胞自噬与延寿营养"
+    }
+  ],
+  "keywords": [
+    {
+      "query": "glucose spike hacks diet science",
+      "category": "控糖曲线与饮食顺序",
+      "max_results": 3
+    },
+    {
+      "query": "visceral fat loss diet evidence",
+      "category": "内脏脂肪与代谢逆转",
+      "max_results": 3
+    },
+    {
+      "query": "deep sleep optimization science protocol",
+      "category": "睡眠改善与精力管理",
+      "max_results": 3
+    },
+    {
+      "query": "gut microbiome inflammation foods",
+      "category": "肠道抗炎与免疫健康",
+      "max_results": 3
+    },
+    {
+      "query": "autophagy intermittent fasting longevity",
+      "category": "间歇性断食与细胞抗衰",
+      "max_results": 3
+    }
+  ],
+  "filters": {
+    "min_duration_seconds": 180,
+    "max_duration_seconds": 5400,
+    "published_within_days": 21,
+    "preferred_languages": ["en", "zh-Hans", "zh"],
+    "default_recommend_count": 4
+  }
+}
