@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-10T07:46:50+00:00",
+  "updated_at": "2026-08-18T09:36:36+00:00",
   "entries": [
     {
       "url_original": "https://youtu.be/qB2PpDoUh30?si=RS8_k5gylkYajAjH",
@@ -401,6 +401,66 @@
       "media_id": "HbIbdPKCxVEYs2lDI5JYjddqG1dfE4CRp3wnNuYnlj4fIRtvTlV46b7Nptpcb3wZ",
       "title": "“低胆固醇更危险”？先看懂那条死亡曲线",
       "processed_at": "2026-08-10T07:46:50+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/-xTaAHSFHUU?si=xjaa8MuoCzwYzCyr",
+      "url_normalized": "https://youtu.be/-xTaAHSFHUU",
+      "article_dir": "articles/20260810-161917",
+      "subtitle_file": "[English] Are Seed Oils Inflammatory! (The Evidence No One Shows) [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjTftCABoxbhXo4T2QJ2QYqcrKjGr73g1bIpPYhDn0D6b",
+      "title": "种子油会引发炎症吗？别只看一个分子",
+      "processed_at": "2026-08-10T08:30:59+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/mBFe1QattAU?si=eyS-A452YLW17dwT",
+      "url_normalized": "https://youtu.be/mBFe1QattAU",
+      "article_dir": "articles/20260812-112901",
+      "subtitle_file": "[English] The Truth about Saturated Fat  New Narrative Review [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjS7INHBEh6w3E2LQX_-5X42X70gB7GnnzAPtsd5UeTKU",
+      "title": "饱和脂肪“翻案”了吗？先看清这篇新综述说了什么",
+      "processed_at": "2026-08-12T03:37:00+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/aiKo5vyKv2Q?si=R8Aq7M6DCd-TJs80",
+      "url_normalized": "https://youtu.be/aiKo5vyKv2Q",
+      "article_dir": "articles/20260812-121524",
+      "subtitle_file": "[English] Best Diet to UNCLOG Arteries [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjRyEdQnXweyg0JJJ2Zmt9v6JPmGQKz8g-oHlGjrJ4nlp",
+      "title": "哪种饮食更可能改善动脉斑块？先看六项试验的共同点",
+      "processed_at": "2026-08-12T04:27:08+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/CjL41H_Dz4k?si=jnAQqUllt0823s08",
+      "url_normalized": "https://youtu.be/CjL41H_Dz4k",
+      "article_dir": "articles/20260812-134412",
+      "subtitle_file": "[English] New study compares Keto vs Mediterranean Diet! [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjRgrLL1rPnTaod8K4e-aKI8VhGEsr0yrtBlnVm1aZgqk",
+      "title": "Keto还是地中海饮食？一项对照试验的答案",
+      "processed_at": "2026-08-12T05:56:11+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/WlVbeXCMHRI?si=DzgnzgqE5_Ado8RQ",
+      "url_normalized": "https://youtu.be/WlVbeXCMHRI",
+      "article_dir": "articles/20260813-140141",
+      "subtitle_file": "[English] Simple At-Home Test to Measure Your Visceral Fat (Zero Cost!) [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjdebc6il3HLgj_sG3YqKOpoQVGqAxW-wDym4Tq2XHULG",
+      "title": "在家测内脏脂肪：只需要腰围和大腿围",
+      "processed_at": "2026-08-13T06:09:49+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/M8tzaXQH1G4?si=jybpK9BZWFNKs0fA",
+      "url_normalized": "https://youtu.be/M8tzaXQH1G4",
+      "article_dir": "articles/20260818-171935",
+      "subtitle_file": "[English] THIS is what Canola Oil does to Your Body (the EVIDENCE no one shows!!!) [DownSub.com].srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjRDMK5SNf08VJcgGHF7udc_yhklXqBjClCjVBeNuAxLR",
+      "title": "用菜籽油炒菜到底好不好？看几十项人体试验和50万人随访",
+      "processed_at": "2026-08-18T09:36:36+00:00"
     }
   ]
 }

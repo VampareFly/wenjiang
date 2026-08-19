@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import struct
@@ -213,6 +214,20 @@ def validate_images(article_dir: Path | str) -> list[str]:
         errors.append(
             f"正文图片文件与配图标记不一致：expected={expected_numbers}, actual={actual_numbers}"
         )
+    image_paths = [article_dir / "cover.png"] + [
+        article_dir / f"配图{number}.png" for number, _ in markers
+    ]
+    hashes: dict[str, list[str]] = {}
+    for path in image_paths:
+        if path.is_file():
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            hashes.setdefault(digest, []).append(path.name)
+    for duplicate_names in hashes.values():
+        if len(duplicate_names) > 1:
+            errors.append(
+                "公众号图片内容重复，禁止用同一张图代替多张配图："
+                + "、".join(duplicate_names)
+            )
     return errors
 
 
@@ -378,6 +393,17 @@ def validate_cards(article_dir: Path | str) -> list[str]:
     expected = list(range(1, len(numbers) + 1))
     if numbers != expected:
         errors.append(f"小红书卡片编号必须从 01 连续递增，当前为 {numbers}")
+    hashes: dict[str, list[str]] = {}
+    for path in cards:
+        if path.is_file() and path.stat().st_size > 0:
+            digest = hashlib.sha256(path.read_bytes()).hexdigest()
+            hashes.setdefault(digest, []).append(path.name)
+    for duplicate_names in hashes.values():
+        if len(duplicate_names) > 1:
+            errors.append(
+                "小红书卡片内容重复，禁止复制同一张图片充当多张卡片："
+                + "、".join(duplicate_names)
+            )
     return errors
 
 
