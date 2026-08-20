@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-19T05:51:32+00:00",
+  "updated_at": "2026-08-20T00:29:44+00:00",
   "entries": [
     {
       "url_original": "https://youtu.be/qB2PpDoUh30?si=RS8_k5gylkYajAjH",
@@ -481,6 +481,36 @@
       "media_id": "HbIbdPKCxVEYs2lDI5JYjfB_CAuHUAwb_Kjds5wI7VFHsGtPI5qUzSUA3W35OwaC",
       "title": "体重没变，为什么肚子还在长？看内脏脂肪与皮质醇的代谢循环",
       "processed_at": "2026-08-19T05:51:32+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=ndS1lreg7yw",
+      "url_normalized": "https://youtu.be/ndS1lreg7yw",
+      "article_dir": "articles/20260819-144014",
+      "subtitle_file": "This Bacterial Toxin is Causing Depression ｜ Dr. Rhonda Patrick.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjat3gGDZZykcNqbq24J8vI48ZRRszzN6JKtAwELYFjBa",
+      "title": "莫名疲劳、反复爆痘？看肠道内毒素与慢性微炎症的人体试验",
+      "processed_at": "2026-08-19T07:01:50+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=Ib5ga-vL5VY",
+      "url_normalized": "https://youtu.be/Ib5ga-vL5VY",
+      "article_dir": "articles/20260819-152132",
+      "subtitle_file": "What is a Zone 2 Cardio？ ＂Fat Burning＂ Walk.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjaaMMpgXVCTW1UDAiTQ5cKIqrJlZ3RwZ7BXlkwelIweP",
+      "title": "别把自己练得太痛苦：能边聊边喘的心率，反而是内脏燃脂黄金区",
+      "processed_at": "2026-08-19T07:53:15+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=wM5F7BzoCvk",
+      "url_normalized": "https://youtu.be/wM5F7BzoCvk",
+      "article_dir": "articles/20260820-082117",
+      "subtitle_file": "Andrew Huberman ｜ Weight Loss Hormones ｜ Control Hunger Naturally ｜ Intermittent Fasting ｜ GLP-1.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjSRONuVCE78uZ4qOUZkypvu1OaM0IfhqeZkrZP85l-zO",
+      "title": "难怪你越克制越想吃！斯坦福神经生物学家的食欲掌控指南",
+      "processed_at": "2026-08-20T00:29:44+00:00"
     }
   ]
 }

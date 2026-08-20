@@ -1,6 +1,7 @@
 # Generated output
 articles/
 assets/
+local-tests/
 
 # Input subtitle files (temporary, don't sync)
 inputs/*
@@ -9,20 +10,47 @@ links/*
 !links/.gitkeep
 !links/links.txt
 
-# macOS
+# macOS / OS
 .DS_Store
+Thumbs.db
+
+# Environments and Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+ENV/
 
 # Node
 node_modules/
 package-lock.json
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Temporary files
+# Temporary & Skill files
 *.tmp
 *.log
-__pycache__/
-*.pyc
 .agents
 .baoyu-skills
 .worktrees/
+

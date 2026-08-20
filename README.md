@@ -4,7 +4,7 @@
 
 文匠是一个基于 Code Agent 的内容生产工作流。丢进一段字幕，Agent 以字幕为唯一事实基准，依次完成内容分析、分轮写作、排版、配图、HTML 和平台资产生成。
 
-公众号草稿创建前的主体流程在 AI Code 内闭环完成；Step 7 需要用户预览确认，Step 11 仍由用户手动发布小红书。
+公众号草稿创建前的主体流程在 AI Code 内闭环完成；Step 10 统一预览公众号与小红书资产，最终仍由用户手动发布小红书。
 
 ## 它能做什么
 
@@ -30,15 +30,16 @@ Step 2  三轮生成文章 (article.md) + 配图提示词 (cover_prompt.md)
 Step 3  确定性回归校验
 Step 4  格式化 Markdown
 Step 5  AI 生成封面和配图
-Step 6  转换为公众号 HTML (article.html，3 个工具随机选主)
-Step 7  预览确认
-Step 8  上传图片并创建微信草稿箱
-Step 9  生成小红书卡片
-Step 10 生成小红书文案
-Step 11 手动发布小红书
+Step 6  固定品牌主题生成公众号 HTML + 移动端视觉复查
+Step 7  小红书搜索意图与热点策略
+Step 8  生成小红书卡片 + 全页程序检查
+Step 9  生成小红书文案 + 独立健康表达/去 AI 质检
+Step 10 统一预览确认公众号与小红书资产
+Step 11 上传图片并创建微信草稿箱
+Step 12 最终清理；随后手动发布小红书
 ```
 
-每个任务使用 `workflow-state.json` 记录步骤和校验状态。Step 7 是用户确认硬门禁；确认后的文章、HTML 或图片发生变化时，必须重新确认才能创建微信草稿。
+每个任务使用 `workflow-state.json` 记录步骤和校验状态。Step 10 是统一用户确认硬门禁；确认后的公众号或小红书资产发生变化时，必须重新确认才能创建微信草稿。
 
 ## 每篇文章产出
 
@@ -96,18 +97,13 @@ articles/YYYYMMDD-HHMMSS/
 │   │   │   └── image-generation-guide.md # 图片生成执行规则
 │   │   ├── step6/
 │   │   │   ├── html-guide.md            # 公众号 HTML 生成参数和兼容性规则
-│   │   │   └── html-tools/             # 三个 HTML 生成工具细则
-│   │   │       ├── md2wechat.md
-│   │   │       ├── baoyu-markdown-to-html.md
-│   │   │       └── gzh-design.md
-│   │   ├── step8/
-│   │   │   └── wechat-guide.md          # 公众号草稿上传说明
-│   │   ├── step9/
-│   │   │   └── xiaohongshu-guide.md    # 小红书卡片生成规则
-│   │   ├── step10/
-│   │   │   └── xiaohongshu-guide.md    # 小红书发布文案规则
-│   │   └── step11/
-│   │       └── final-cleanup-guide.md   # 发布前最终目录清理规则
+│   │   │   └── html-tools/gzh-design.md # 固定品牌渲染细则
+│   │   ├── step7/xiaohongshu-strategy-guide.md # 小红书搜索意图与热点策略
+│   │   ├── step8/xiaohongshu-card-guide.md     # 小红书卡片与程序检查
+│   │   ├── step9/xiaohongshu-copy-guide.md     # 文案、健康表达与去 AI 质检
+│   │   ├── step10/unified-approval-guide.md    # 统一预览确认
+│   │   ├── step11/wechat-guide.md              # 公众号草稿上传说明
+│   │   └── step12/final-cleanup-guide.md       # 发布前最终目录清理规则
 │   └── exceptions/             # 条件触发/异常参考
 │       ├── ending-guide.md             # 特殊免责声明或关注引导
 │       └── final-writing-check.md      # 独立质检未覆盖问题的输出规范
@@ -121,7 +117,6 @@ articles/YYYYMMDD-HHMMSS/
 ### 前置依赖
 
 - 支持读取项目指令和调用项目 Skills 的 Code Agent — 例如 [Codex](https://openai.com/codex/) 或 [OpenCode](https://github.com/anomalyco/opencode)，用于执行工作流
-- [md2wechat](https://github.com/geekjourneyx/md2wechat-skill) — 可选的公众号 HTML 生成工具
 - [baoyu-post-to-wechat](https://github.com/JimLiu/baoyu-skills#baoyu-post-to-wechat) — 上传正文图片、封面素材并创建公众号草稿
 - [Playwright](https://playwright.dev/) — 小红书卡片截图导出使用，依赖由 `guizang-social-card-skill` 提供（位于 `.agents/skills/guizang-social-card-skill/node_modules/`，截图脚本通过 `NODE_PATH` 指向该目录）
 
@@ -139,7 +134,7 @@ articles/YYYYMMDD-HHMMSS/
 1. 将字幕放入 `inputs/`，并把只含一个来源链接的同名 `.txt/.url` 文件放入 `links/`，例如 `video.srt` + `video.txt`
 2. 在你使用的 Code Agent 中打开本项目（例如 Codex 或 OpenCode）
 3. 对 Agent 说：「用 inputs/ 里的字幕写一篇文章」
-4. Agent 先本地清洗字幕，再按 `workflow-state.json` 顺序执行；Step 7 等待用户明确预览确认
+4. Agent 先本地清洗字幕，再按 `workflow-state.json` 顺序执行；Step 10 等待用户统一预览确认
 5. 微信草稿成功后自动登记链接并清理对应输入；流程结束前再清理提示词、batch、截图脚本和调试文件
 
 随时可检查一个链接是否处理过；命中时会返回文章目录、原字幕、`media_id` 和处理时间：
@@ -165,11 +160,9 @@ Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴
 | `baoyu-article-illustrator` | 分析文章结构，判断正文哪里需要配图 |
 | `baoyu-format-markdown` | 格式化 `article.md`，优化公众号 Markdown 排版 |
 | `baoyu-image-gen` | 当前会话无可调用的原生图片工具时，通过 `codex-cli` 生成封面和正文配图（回退路径） |
-| `baoyu-markdown-to-html` | 将 Markdown 转换为微信公众号兼容 HTML |
-| `gzh-design-skill` | 将 Markdown 转为不掉样式的公众号 HTML（Step 6 随机主工具之一） |
+| `gzh-design-skill` | 按固定“石墨极简”品牌配置生成公众号 HTML |
 | `baoyu-post-to-wechat` | 上传正文图片和封面，创建微信公众号草稿 |
 | `guizang-social-card-skill` | 生成小红书图文卡片、公众号封面等社交传播图片 |
-| `md2wechat` | 使用 `md2wechat` CLI 做预览、转换、草稿等公众号流程 |
 
 
 | 文件 | 用途 |
@@ -186,10 +179,12 @@ Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴
 | `docs/steps/step4/markdown-guide.md` | Markdown 格式化规则 |
 | `docs/steps/step5/image-generation-guide.md` | 图片生成执行规则 |
 | `docs/steps/step6/html-guide.md` | 公众号 HTML 生成参数和兼容性规则 |
-| `docs/steps/step8/wechat-guide.md` | 公众号草稿上传说明 |
-| `docs/steps/step9/xiaohongshu-guide.md` | 小红书卡片生成规则 |
-| `docs/steps/step10/xiaohongshu-guide.md` | 小红书发布文案规则 |
-| `docs/steps/step11/final-cleanup-guide.md` | 发布前最终目录清理规则 |
+| `docs/steps/step7/xiaohongshu-strategy-guide.md` | 小红书搜索意图与热点策略 |
+| `docs/steps/step8/xiaohongshu-card-guide.md` | 小红书卡片生成与程序检查 |
+| `docs/steps/step9/xiaohongshu-copy-guide.md` | 小红书文案、健康表达与去 AI 质检 |
+| `docs/steps/step10/unified-approval-guide.md` | 公众号与小红书统一预览确认 |
+| `docs/steps/step11/wechat-guide.md` | 公众号草稿上传说明 |
+| `docs/steps/step12/final-cleanup-guide.md` | 发布前最终目录清理规则 |
 
 
 配置修改后立即生效，下次运行自动应用。

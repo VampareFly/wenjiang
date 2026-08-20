@@ -21,7 +21,7 @@ class WorkflowStateTests(unittest.TestCase):
         state = workflow_state.load_state(self.root)
         for number in range(1, step_number + 1):
             state["steps"][f"step_{number}"]["status"] = "passed"
-        state["current_step"] = f"step_{min(step_number + 1, 11)}"
+        state["current_step"] = f"step_{min(step_number + 1, 12)}"
         workflow_state.save_state(self.root, state)
 
     def write_approval_artifacts(self) -> None:
@@ -32,7 +32,8 @@ class WorkflowStateTests(unittest.TestCase):
             encoding="utf-8",
         )
         (self.root / "article.html").write_text(
-            '<p>正文</p><img src="配图1.png" alt="久坐后的身体变化">',
+            '<section style="max-width:677px;line-height:1.8;color:#52525B">'
+            '<p>正文</p><img src="配图1.png" alt="久坐后的身体变化"></section>',
             encoding="utf-8",
         )
         for name, width, height in (("cover.png", 235, 100), ("配图1.png", 16, 9)):
@@ -43,17 +44,130 @@ class WorkflowStateTests(unittest.TestCase):
                 + struct.pack(">II", width, height)
             )
             (self.root / name).write_bytes(data)
+        (self.root / "wechat-layout-check.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "renderer": "gzh-design-skill",
+                    "theme_id": "graphite-minimal",
+                    "brand_config": "config/wechat-brand.json",
+                    "gzh_errors": 0,
+                    "gzh_warnings": 0,
+                    "mobile_preview": {
+                        "reviewed": True,
+                        "viewport_width": 390,
+                        "first_screen_clear": True,
+                        "headings_wrap_cleanly": True,
+                        "card_density_ok": True,
+                        "images_balanced": True,
+                        "spacing_consistent": True,
+                    },
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        (self.root / "xiaohongshu-strategy.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "mode": "evergreen",
+                    "researched_at": None,
+                    "primary_keyword": "久坐",
+                    "secondary_keywords": ["身体沉", "生活方式"],
+                    "search_intent": "久坐后为什么身体沉",
+                    "content_angle": "解释久坐后的身体感受",
+                    "trend_evidence": [],
+                    "external_facts_used": False,
+                    "fact_boundaries": ["不新增疗效"],
+                    "cta_mode": "omit",
+                    "cta_reason": "短文已经回答核心问题",
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        card_data = (
+            b"\x89PNG\r\n\x1a\n"
+            + struct.pack(">I", 13)
+            + b"IHDR"
+            + struct.pack(">II", 1080, 1440)
+        )
+        (self.root / "小红书卡片-01.png").write_bytes(card_data)
+        (self.root / "xiaohongshu-card-check.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "pages": [
+                        {
+                            "file": "小红书卡片-01.png",
+                            "width": 1080,
+                            "height": 1440,
+                            "overflow": False,
+                            "min_font_px": 28,
+                            "footer_gap_px": 24,
+                            "background_layer": True,
+                        }
+                    ],
+                    "cover_review": {
+                        "reviewed": True,
+                        "thumbnail_clear": True,
+                        "title_clear": True,
+                        "meaningful_visual": True,
+                        "no_dead_space": True,
+                        "background_supports_reading": True,
+                    },
+                },
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        (self.root / "小红书文案.txt").write_text(
+            "久坐后为什么身体沉\n久坐以后身体发沉，可以先从活动节奏看。\n#久坐 #身体健康 #生活方式",
+            encoding="utf-8",
+        )
 
     def test_init_creates_all_pending_steps(self):
         state = workflow_state.init_state(self.root)
         self.assertEqual("step_1", state["current_step"])
-        self.assertEqual("pending", state["steps"]["step_11"]["status"])
-        self.assertFalse(state["steps"]["step_7"]["approved"])
+        self.assertEqual("pending", state["steps"]["step_12"]["status"])
+        self.assertFalse(state["steps"]["step_10"]["approved"])
 
     def test_init_refuses_to_overwrite_existing_state(self):
         workflow_state.init_state(self.root)
         with self.assertRaisesRegex(FileExistsError, "workflow-state.json"):
             workflow_state.init_state(self.root)
+
+    def test_schema_one_state_is_migrated_to_twelve_step_layout(self):
+        legacy_steps = {
+            f"step_{number}": workflow_state._new_step(number)
+            for number in range(1, 12)
+        }
+        for number in range(1, 7):
+            legacy_steps[f"step_{number}"]["status"] = "passed"
+        legacy_steps["step_8"]["status"] = "passed"
+        legacy_steps["step_9"]["status"] = "passed"
+        legacy_steps["step_10"]["status"] = "pending"
+        (self.root / "workflow-state.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "article_dir": str(self.root),
+                    "current_step": "step_10",
+                    "steps": legacy_steps,
+                    "updated_at": "2026-08-19T00:00:00+00:00",
+                }
+            ),
+            encoding="utf-8",
+        )
+
+        state = workflow_state.load_state(self.root)
+
+        self.assertEqual(2, state["schema_version"])
+        self.assertEqual("passed", state["steps"]["step_8"]["status"])
+        self.assertEqual("passed", state["steps"]["step_11"]["status"])
+        self.assertEqual("pending", state["steps"]["step_12"]["status"])
+        self.assertEqual("step_7", state["current_step"])
 
     def test_cannot_start_step_before_previous_passes(self):
         workflow_state.init_state(self.root)
@@ -143,14 +257,18 @@ class WorkflowStateTests(unittest.TestCase):
                     f"{step} 的指南路径不存在：{guide}",
                 )
 
-    def test_step_nine_and_ten_route_to_split_xiaohongshu_guides(self):
+    def test_step_seven_to_nine_route_to_split_xiaohongshu_guides(self):
         self.assertEqual(
-            workflow_state.STEP_CONTEXT["step_9"]["guides"],
-            ["docs/steps/step9/xiaohongshu-guide.md"],
+            workflow_state.STEP_CONTEXT["step_7"]["guides"],
+            ["docs/steps/step7/xiaohongshu-strategy-guide.md"],
         )
         self.assertEqual(
-            workflow_state.STEP_CONTEXT["step_10"]["guides"],
-            ["docs/steps/step10/xiaohongshu-guide.md"],
+            workflow_state.STEP_CONTEXT["step_8"]["guides"],
+            ["docs/steps/step8/xiaohongshu-card-guide.md"],
+        )
+        self.assertEqual(
+            workflow_state.STEP_CONTEXT["step_9"]["guides"],
+            ["docs/steps/step9/xiaohongshu-copy-guide.md"],
         )
 
     def test_context_cli_prints_json_without_ok_suffix(self):
@@ -165,53 +283,53 @@ class WorkflowStateTests(unittest.TestCase):
         self.assertEqual("step_1", payload["current_step"])
         self.assertNotIn("OK", output.getvalue())
 
-    def test_step_seven_can_only_pass_through_approve(self):
+    def test_step_ten_can_only_pass_through_approve(self):
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
         with self.assertRaisesRegex(ValueError, "approve"):
-            workflow_state.pass_step(self.root, "step_7")
+            workflow_state.pass_step(self.root, "step_10")
 
     def test_approval_digest_becomes_stale_after_artifact_change(self):
         self.write_approval_artifacts()
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
         workflow_state.approve(self.root)
         self.assertEqual([], workflow_state.validate_approval(self.root))
         (self.root / "article.html").write_text("changed", encoding="utf-8")
         self.assertTrue(workflow_state.validate_approval(self.root))
 
-    def test_step_eight_requires_fresh_approval(self):
+    def test_step_eleven_requires_fresh_approval(self):
         self.write_approval_artifacts()
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        with self.assertRaisesRegex(ValueError, "Step 7"):
-            workflow_state.start_step(self.root, "step_8", enforce_previous=False)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        with self.assertRaisesRegex(ValueError, "Step 10"):
+            workflow_state.start_step(self.root, "step_11", enforce_previous=False)
+        workflow_state.start_step(self.root, "step_10")
         workflow_state.approve(self.root)
-        state = workflow_state.start_step(self.root, "step_8")
-        self.assertEqual("running", state["steps"]["step_8"]["status"])
+        state = workflow_state.start_step(self.root, "step_11")
+        self.assertEqual("running", state["steps"]["step_11"]["status"])
 
-    def test_step_eight_cannot_pass_if_approval_becomes_stale(self):
+    def test_step_eleven_cannot_pass_if_approval_becomes_stale(self):
         self.write_approval_artifacts()
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
         workflow_state.approve(self.root)
-        workflow_state.start_step(self.root, "step_8")
+        workflow_state.start_step(self.root, "step_11")
         (self.root / "article.html").write_text("changed", encoding="utf-8")
         (self.root / "公众号草稿信息.txt").write_text(
             "草稿 media_id：test-id",
             encoding="utf-8",
         )
         with self.assertRaisesRegex(ValueError, "确认已失效"):
-            workflow_state.pass_step(self.root, "step_8")
+            workflow_state.pass_step(self.root, "step_11")
 
     def test_approval_requires_all_expected_artifacts(self):
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
         with self.assertRaisesRegex(ValueError, "article.md"):
             workflow_state.approve(self.root)
 
@@ -219,44 +337,42 @@ class WorkflowStateTests(unittest.TestCase):
         self.write_approval_artifacts()
         (self.root / "article.md").write_text("invalid", encoding="utf-8")
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
         with self.assertRaisesRegex(ValueError, "frontmatter"):
             workflow_state.approve(self.root)
 
     def test_reopen_resets_target_and_downstream_approval(self):
         self.write_approval_artifacts()
         workflow_state.init_state(self.root)
-        self.mark_passed_through(6)
-        workflow_state.start_step(self.root, "step_7")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
         workflow_state.approve(self.root)
 
         state = workflow_state.reopen_step(self.root, "step_4", "用户要求调整排版")
 
         self.assertEqual("passed", state["steps"]["step_3"]["status"])
-        for number in range(4, 12):
+        for number in range(4, 13):
             self.assertEqual("pending", state["steps"][f"step_{number}"]["status"])
-        self.assertFalse(state["steps"]["step_7"]["approved"])
-        self.assertIsNone(state["steps"]["step_7"]["artifacts_sha256"])
+        self.assertFalse(state["steps"]["step_10"]["approved"])
+        self.assertIsNone(state["steps"]["step_10"]["artifacts_sha256"])
         self.assertEqual("step_4", state["current_step"])
         self.assertEqual("用户要求调整排版", state["reopen_reason"])
 
-    def test_step_eleven_revalidates_content_not_only_file_names(self):
+    def test_step_twelve_revalidates_content_not_only_file_names(self):
+        self.write_approval_artifacts()
         workflow_state.init_state(self.root)
-        for name in (
-            "article.md",
-            "article.html",
-            "cover.png",
-            "配图1.png",
-            "公众号草稿信息.txt",
-            "小红书卡片-01.png",
-            "小红书文案.txt",
-        ):
-            (self.root / name).write_bytes(b"x")
-        self.mark_passed_through(10)
-        workflow_state.start_step(self.root, "step_11")
+        self.mark_passed_through(9)
+        workflow_state.start_step(self.root, "step_10")
+        workflow_state.approve(self.root)
+        state = workflow_state.load_state(self.root)
+        state["steps"]["step_11"]["status"] = "passed"
+        state["current_step"] = "step_12"
+        workflow_state.save_state(self.root, state)
+        workflow_state.start_step(self.root, "step_12")
+        (self.root / "article.md").write_text("invalid", encoding="utf-8")
         with self.assertRaisesRegex(ValueError, "frontmatter"):
-            workflow_state.pass_step(self.root, "step_11")
+            workflow_state.pass_step(self.root, "step_12")
 
 
 if __name__ == "__main__":

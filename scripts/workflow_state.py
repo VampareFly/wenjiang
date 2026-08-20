@@ -21,9 +21,9 @@ except ImportError:  # Direct execution: python3 scripts/workflow_state.py
     import link_registry  # type: ignore[no-redef]
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 ALLOWED_STATUSES = {"pending", "running", "passed", "blocked"}
-STEP_NAMES = tuple(f"step_{number}" for number in range(1, 12))
+STEP_NAMES = tuple(f"step_{number}" for number in range(1, 13))
 STATE_FILENAME = "workflow-state.json"
 
 STEP_CONTEXT: dict[str, dict[str, object]] = {
@@ -76,43 +76,59 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
         "mode": "deterministic_skill",
         "guides": ["docs/steps/step6/html-guide.md"],
         "inputs": ["article.md", "cover.png", "配图{1-N}.png"],
-        "outputs": ["article.html"],
+        "outputs": ["article.html", "wechat-layout-check.json"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_6",
     },
     "step_7": {
-        "mode": "user_gate",
-        "guides": [],
-        "inputs": ["article.md", "article.html", "cover.png", "配图{1-N}.png"],
-        "outputs": ["workflow-state.json approval digest"],
-        "completion_command": "python3 scripts/workflow_state.py approve {article_dir}",
+        "mode": "ai_with_optional_readonly_discovery",
+        "guides": ["docs/steps/step7/xiaohongshu-strategy-guide.md"],
+        "inputs": ["article.md", "article.plan.md", "source.cleaned.txt"],
+        "outputs": ["xiaohongshu-strategy.json"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_7",
     },
     "step_8": {
-        "mode": "external_side_effect",
-        "guides": ["docs/steps/step8/wechat-guide.md"],
-        "inputs": ["article.html", "cover.png", "Step 7 approval"],
-        "outputs": ["公众号草稿信息.txt", "source-map.json", "link-registry.json"],
+        "mode": "skill",
+        "guides": ["docs/steps/step8/xiaohongshu-card-guide.md"],
+        "inputs": ["article.md", "xiaohongshu-strategy.json", "cover.png", "配图{1-N}.png"],
+        "outputs": ["小红书卡片-{01-N}.png", "xiaohongshu-card-check.json"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_8",
     },
     "step_9": {
-        "mode": "skill",
-        "guides": ["docs/steps/step9/xiaohongshu-guide.md"],
-        "inputs": ["article.md"],
-        "outputs": ["小红书卡片-{01-N}.png"],
+        "mode": "two_pass_ai",
+        "guides": ["docs/steps/step9/xiaohongshu-copy-guide.md"],
+        "rounds": ["平台文案轮", "独立健康表达与去 AI 质检轮"],
+        "inputs": ["article.md", "article.plan.md", "source.cleaned.txt", "xiaohongshu-strategy.json"],
+        "outputs": ["小红书文案.txt"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_9",
     },
     "step_10": {
-        "mode": "ai",
-        "guides": ["docs/steps/step10/xiaohongshu-guide.md"],
-        "inputs": ["article.md"],
-        "outputs": ["小红书文案.txt"],
-        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_10",
+        "mode": "user_gate",
+        "guides": ["docs/steps/step10/unified-approval-guide.md"],
+        "inputs": [
+            "article.md",
+            "article.html",
+            "cover.png",
+            "配图{1-N}.png",
+            "xiaohongshu-strategy.json",
+            "小红书卡片-{01-N}.png",
+            "小红书文案.txt",
+        ],
+        "outputs": ["workflow-state.json approval digest"],
+        "completion_command": "python3 scripts/workflow_state.py approve {article_dir}",
     },
     "step_11": {
+        "mode": "external_side_effect",
+        "guides": ["docs/steps/step11/wechat-guide.md"],
+        "inputs": ["article.html", "cover.png", "Step 10 approval"],
+        "outputs": ["公众号草稿信息.txt", "source-map.json", "link-registry.json"],
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_11",
+    },
+    "step_12": {
         "mode": "deterministic",
-        "guides": ["docs/steps/step11/final-cleanup-guide.md"],
+        "guides": ["docs/steps/step12/final-cleanup-guide.md"],
         "inputs": ["all workflow artifacts"],
         "outputs": ["final asset whitelist"],
-        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_11",
+        "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_12",
     },
 }
 
@@ -133,7 +149,7 @@ def _new_step(number: int) -> dict[str, object]:
         "completed_at": None,
         "reason": None,
     }
-    if number == 7:
+    if number == 10:
         step.update(
             {
                 "approved": False,
@@ -155,12 +171,68 @@ def init_state(article_dir: Path | str) -> dict[str, object]:
         "article_dir": str(article_dir.resolve()),
         "current_step": "step_1",
         "steps": {
-            f"step_{number}": _new_step(number) for number in range(1, 12)
+            f"step_{number}": _new_step(number) for number in range(1, 13)
         },
         "updated_at": _now(),
     }
     save_state(article_dir, state)
     return state
+
+
+def _migrate_v1_state(state: dict[str, object]) -> dict[str, object]:
+    """Map the former 11-step layout to schema v2 without replaying side effects."""
+    old_steps = state.get("steps")
+    if not isinstance(old_steps, dict):
+        raise ValueError(f"{STATE_FILENAME} 缺少完整步骤")
+    migrated = copy.deepcopy(state)
+    new_steps = {f"step_{number}": _new_step(number) for number in range(1, 13)}
+    for number in range(1, 7):
+        if isinstance(old_steps.get(f"step_{number}"), dict):
+            new_steps[f"step_{number}"] = copy.deepcopy(old_steps[f"step_{number}"])
+
+    # Old Step 9/10 were cards/copy; old Step 8 was the WeChat side effect.
+    if isinstance(old_steps.get("step_9"), dict):
+        new_steps["step_8"] = copy.deepcopy(old_steps["step_9"])
+    if isinstance(old_steps.get("step_10"), dict):
+        new_steps["step_9"] = copy.deepcopy(old_steps["step_10"])
+    if isinstance(old_steps.get("step_8"), dict):
+        new_steps["step_11"] = copy.deepcopy(old_steps["step_8"])
+    if isinstance(old_steps.get("step_11"), dict):
+        new_steps["step_12"] = copy.deepcopy(old_steps["step_11"])
+
+    # A fully completed legacy task remains historical-complete. Active tasks must
+    # produce the new strategy/check artifacts and receive unified approval.
+    legacy_complete = old_steps.get("step_11", {}).get("status") == "passed"
+    if legacy_complete:
+        new_steps["step_7"].update(
+            {"status": "passed", "completed_at": state.get("updated_at")}
+        )
+        old_approval = old_steps.get("step_7", {})
+        new_steps["step_10"].update(
+            {
+                "status": "passed",
+                "approved": bool(old_approval.get("approved")),
+                "approved_at": old_approval.get("approved_at"),
+                "artifacts_sha256": old_approval.get("artifacts_sha256"),
+                "completed_at": old_approval.get("completed_at"),
+            }
+        )
+
+    migrated["schema_version"] = SCHEMA_VERSION
+    migrated["steps"] = new_steps
+    migrated["migrated_from_schema"] = 1
+    if legacy_complete:
+        migrated["current_step"] = "step_12"
+    else:
+        migrated["current_step"] = next(
+            (
+                name
+                for name in STEP_NAMES
+                if new_steps[name].get("status") != "passed"
+            ),
+            "step_12",
+        )
+    return migrated
 
 
 def load_state(article_dir: Path | str) -> dict[str, object]:
@@ -171,7 +243,9 @@ def load_state(article_dir: Path | str) -> dict[str, object]:
         state = json.loads(path.read_text(encoding="utf-8"))
     except (UnicodeDecodeError, json.JSONDecodeError) as exc:
         raise ValueError(f"{STATE_FILENAME} 无效：{exc}") from exc
-    if state.get("schema_version") != SCHEMA_VERSION:
+    if state.get("schema_version") == 1:
+        state = _migrate_v1_state(state)
+    elif state.get("schema_version") != SCHEMA_VERSION:
         raise ValueError(
             f"不支持的状态版本：{state.get('schema_version')}，需要 {SCHEMA_VERSION}"
         )
@@ -188,6 +262,7 @@ def load_state(article_dir: Path | str) -> dict[str, object]:
 def save_state(article_dir: Path | str, state: dict[str, object]) -> None:
     article_dir = Path(article_dir)
     article_dir.mkdir(parents=True, exist_ok=True)
+    state["schema_version"] = SCHEMA_VERSION
     state["updated_at"] = _now()
     path = _state_path(article_dir)
     temporary = path.with_suffix(".json.tmp")
@@ -247,10 +322,10 @@ def start_step(
         previous = f"step_{number - 1}"
         if steps[previous]["status"] != "passed":
             raise ValueError(f"不能开始 {step}：前置步骤 {previous} 尚未通过")
-    if step == "step_8":
+    if step in {"step_11", "step_12"}:
         approval_errors = validate_approval(article_dir)
         if approval_errors:
-            raise ValueError("Step 7 用户确认无效：" + "；".join(approval_errors))
+            raise ValueError("Step 10 用户确认无效：" + "；".join(approval_errors))
     current_status = steps[step]["status"]
     if current_status == "passed":
         raise ValueError(f"{step} 已通过，不能重复开始")
@@ -277,11 +352,12 @@ def _validate_step(article_dir: Path | str, step: str) -> list[str]:
         "step_3": (validator.validate_article, validator.validate_prompts),
         "step_4": (validator.validate_article, validator.validate_prompts),
         "step_5": (validator.validate_images,),
-        "step_6": (validator.validate_html,),
-        "step_8": (validator.validate_draft_record,),
-        "step_9": (validator.validate_cards,),
-        "step_10": (validator.validate_xiaohongshu_copy,),
-        "step_11": (
+        "step_6": (validator.validate_html, validator.validate_wechat_layout),
+        "step_7": (validator.validate_xiaohongshu_strategy,),
+        "step_8": (validator.validate_cards, validator.validate_xiaohongshu_card_check),
+        "step_9": (validator.validate_xiaohongshu_copy,),
+        "step_11": (validator.validate_draft_record,),
+        "step_12": (
             validator.validate_article,
             validator.validate_images,
             validator.validate_html,
@@ -292,7 +368,7 @@ def _validate_step(article_dir: Path | str, step: str) -> list[str]:
         ),
     }
     errors: list[str] = []
-    if step == "step_8":
+    if step == "step_11":
         errors.extend(validate_approval(article_dir))
     for check in checks.get(step, ()):
         errors.extend(check(article_dir))
@@ -301,8 +377,8 @@ def _validate_step(article_dir: Path | str, step: str) -> list[str]:
 
 def pass_step(article_dir: Path | str, step: str) -> dict[str, object]:
     number = _step_number(step)
-    if step == "step_7":
-        raise ValueError("step_7 只能通过 approve 命令完成")
+    if step == "step_10":
+        raise ValueError("step_10 只能通过 approve 命令完成")
     state = load_state(article_dir)
     steps = _steps(state)
     if steps[step]["status"] != "running":
@@ -310,7 +386,7 @@ def pass_step(article_dir: Path | str, step: str) -> dict[str, object]:
     errors = _validate_step(article_dir, step)
     if errors:
         raise ValueError(f"{step} 校验失败：" + "；".join(errors))
-    if step == "step_8":
+    if step == "step_11":
         link_registry.finalize_mapping(article_dir)
     timestamp = _now()
     steps[step].update(
@@ -321,7 +397,7 @@ def pass_step(article_dir: Path | str, step: str) -> dict[str, object]:
             "reason": None,
         }
     )
-    state["current_step"] = f"step_{number + 1}" if number < 11 else "step_11"
+    state["current_step"] = f"step_{number + 1}" if number < 12 else "step_12"
     save_state(article_dir, state)
     return state
 
@@ -352,13 +428,13 @@ def reopen_step(
     reason: str,
 ) -> dict[str, object]:
     number = _step_number(step)
-    if number > 7:
-        raise ValueError("reopen 仅用于返回 Step 1-7 修改内容；发布后步骤应按失败重试规则处理")
+    if number > 10:
+        raise ValueError("reopen 仅用于返回 Step 1-10 修改内容；发布后步骤应按失败重试规则处理")
     if not reason.strip():
         raise ValueError("重开原因不能为空")
     state = load_state(article_dir)
     steps = _steps(state)
-    for reset_number in range(number, 12):
+    for reset_number in range(number, 13):
         steps[f"step_{reset_number}"] = _new_step(reset_number)
     state["current_step"] = step
     state["reopen_reason"] = reason.strip()
@@ -373,17 +449,21 @@ def _approval_artifacts(article_dir: Path | str) -> list[Path]:
         article_dir / "article.md",
         article_dir / "article.html",
         article_dir / "cover.png",
+        article_dir / "小红书文案.txt",
     ]
     body_images = sorted(
         article_dir.glob("配图*.png"),
         key=lambda path: int(re.search(r"\d+", path.name).group()),  # type: ignore[union-attr]
     )
+    cards = sorted(article_dir.glob("小红书卡片-*.png"))
     missing = [path.name for path in fixed if not path.is_file()]
     if not body_images:
         missing.append("配图1.png")
+    if not cards:
+        missing.append("小红书卡片-01.png")
     if missing:
-        raise ValueError("缺少 Step 7 确认资产：" + "、".join(missing))
-    return fixed + body_images
+        raise ValueError("缺少 Step 10 确认资产：" + "、".join(missing))
+    return fixed + body_images + cards
 
 
 def artifact_digest(article_dir: Path | str) -> str:
@@ -400,22 +480,27 @@ def artifact_digest(article_dir: Path | str) -> str:
 def approve(article_dir: Path | str) -> dict[str, object]:
     state = load_state(article_dir)
     steps = _steps(state)
-    if steps["step_6"]["status"] != "passed":
-        raise ValueError("Step 6 尚未通过，不能确认预览")
-    if steps["step_7"]["status"] != "running":
-        raise ValueError("Step 7 必须处于 running 才能记录用户确认")
+    if steps["step_9"]["status"] != "passed":
+        raise ValueError("Step 9 尚未通过，不能确认统一预览")
+    if steps["step_10"]["status"] != "running":
+        raise ValueError("Step 10 必须处于 running 才能记录用户确认")
     validation_errors: list[str] = []
     for check in (
         validator.validate_article,
         validator.validate_images,
         validator.validate_html,
+        validator.validate_wechat_layout,
+        validator.validate_xiaohongshu_strategy,
+        validator.validate_cards,
+        validator.validate_xiaohongshu_card_check,
+        validator.validate_xiaohongshu_copy,
     ):
         validation_errors.extend(check(article_dir))
     if validation_errors:
-        raise ValueError("Step 7 当前资产校验失败：" + "；".join(validation_errors))
+        raise ValueError("Step 10 当前资产校验失败：" + "；".join(validation_errors))
     digest = artifact_digest(article_dir)
     timestamp = _now()
-    steps["step_7"].update(
+    steps["step_10"].update(
         {
             "status": "passed",
             "approved": True,
@@ -426,7 +511,7 @@ def approve(article_dir: Path | str) -> dict[str, object]:
             "reason": None,
         }
     )
-    state["current_step"] = "step_8"
+    state["current_step"] = "step_11"
     save_state(article_dir, state)
     return state
 
@@ -436,16 +521,16 @@ def validate_approval(article_dir: Path | str) -> list[str]:
         state = load_state(article_dir)
     except (FileNotFoundError, ValueError) as exc:
         return [str(exc)]
-    step = _steps(state)["step_7"]
+    step = _steps(state)["step_10"]
     if step.get("status") != "passed" or not step.get("approved"):
-        return ["Step 7 尚未获得用户明确确认"]
+        return ["Step 10 尚未获得用户明确确认"]
     expected = step.get("artifacts_sha256")
     try:
         actual = artifact_digest(article_dir)
     except (OSError, ValueError) as exc:
         return [str(exc)]
     if expected != actual:
-        return ["Step 7 确认已失效：文章、HTML 或图片在确认后发生变化"]
+        return ["Step 10 确认已失效：公众号或小红书资产在确认后发生变化"]
     return []
 
 
@@ -468,7 +553,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     reopen_parser = subparsers.add_parser("reopen")
     reopen_parser.add_argument("article_dir", type=Path)
-    reopen_parser.add_argument("step", choices=STEP_NAMES[:7])
+    reopen_parser.add_argument("step", choices=STEP_NAMES[:10])
     reopen_parser.add_argument("--reason", required=True)
 
     approve_parser = subparsers.add_parser("approve")

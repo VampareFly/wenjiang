@@ -43,6 +43,28 @@ TITLE_BANNED_PATTERNS = (
     re.compile(r"重新(理解|认识|定义|看待|思考)"),
     re.compile(r"被偷走|被毁掉|正在被"),
 )
+XHS_COPY_BANNED_TERMS = (
+    "公众号",
+    "二维码",
+    "微信",
+    "加V",
+    "底层逻辑",
+    "完整真相",
+    "颠覆认知",
+    "完全安全",
+    "保证有效",
+    "根治",
+    "科学清除",
+    "坚决截止",
+    "修复窗口",
+    "暴击受体",
+)
+XHS_COPY_BANNED_PATTERNS = (
+    re.compile(r"今天我们(?:先)?抛开.{0,12}情绪"),
+    re.compile(r"这篇只是把.{0,40}拎了出来"),
+    re.compile(r"完整版我写在同名主页那篇长文里了"),
+    re.compile(r"想.{0,20}底层逻辑.{0,10}去翻一下"),
+)
 SOURCE_EXPOSURE_PATTERNS = (
     re.compile(r"字幕(?:里|中)"),
     re.compile(r"字幕(?:提到|显示|写到|给出)"),
@@ -100,6 +122,19 @@ def _read_text(path: Path, label: str) -> tuple[str | None, list[str]]:
         return path.read_text(encoding="utf-8"), []
     except UnicodeDecodeError:
         return None, [f"{label}不是有效 UTF-8：{path.name}"]
+
+
+def _read_json(path: Path, label: str) -> tuple[dict[str, object] | None, list[str]]:
+    text, errors = _read_text(path, label)
+    if text is None:
+        return None, errors
+    try:
+        payload = json.loads(text)
+    except json.JSONDecodeError as exc:
+        return None, [f"{label}不是有效 JSON：{exc}"]
+    if not isinstance(payload, dict):
+        return None, [f"{label}顶层必须是对象"]
+    return payload, errors
 
 
 def validate_article(article_dir: Path | str) -> list[str]:
@@ -390,6 +425,11 @@ def validate_cards(article_dir: Path | str) -> list[str]:
         numbers.append(int(match.group(1)))
         if path.stat().st_size == 0:
             errors.append(f"小红书卡片为空：{path.name}")
+            continue
+        dimensions = _png_dimensions(path)
+        if dimensions != (1080, 1440):
+            rendered = "无法识别" if dimensions is None else f"{dimensions[0]}×{dimensions[1]}"
+            errors.append(f"小红书卡片必须为 1080×1440：{path.name} ({rendered})")
     expected = list(range(1, len(numbers) + 1))
     if numbers != expected:
         errors.append(f"小红书卡片编号必须从 01 连续递增，当前为 {numbers}")
@@ -407,6 +447,154 @@ def validate_cards(article_dir: Path | str) -> list[str]:
     return errors
 
 
+def validate_wechat_layout(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    payload, errors = _read_json(article_dir / "wechat-layout-check.json", "公众号排版检查记录")
+    if payload is None:
+        return errors
+    expected = {
+        "schema_version": 1,
+        "renderer": "gzh-design-skill",
+        "theme_id": "graphite-minimal",
+        "brand_config": "config/wechat-brand.json",
+        "gzh_errors": 0,
+        "gzh_warnings": 0,
+    }
+    for field, value in expected.items():
+        if payload.get(field) != value:
+            errors.append(f"公众号排版检查记录 {field} 必须为 {value!r}")
+    preview = payload.get("mobile_preview")
+    if not isinstance(preview, dict):
+        errors.append("公众号排版检查记录缺少 mobile_preview")
+        return errors
+    if preview.get("viewport_width") not in range(360, 431):
+        errors.append("公众号移动端预览宽度必须在 360-430px")
+    for field in (
+        "reviewed",
+        "first_screen_clear",
+        "headings_wrap_cleanly",
+        "card_density_ok",
+        "images_balanced",
+        "spacing_consistent",
+    ):
+        if preview.get(field) is not True:
+            errors.append(f"公众号移动端视觉检查未通过：{field}")
+    html_text, html_errors = _read_text(article_dir / "article.html", "公众号 HTML")
+    errors.extend(html_errors)
+    if html_text is not None:
+        for forbidden in ("<style", "<script", "<div", " class=", " id="):
+            if forbidden in html_text.lower():
+                errors.append(f"固定品牌 HTML 包含禁用结构：{forbidden.strip()}")
+        for signature in ("max-width:677px", "line-height:1.8", "#52525B"):
+            if signature not in html_text:
+                errors.append(f"固定品牌 HTML 缺少石墨极简主题签名：{signature}")
+    return errors
+
+
+def validate_xiaohongshu_strategy(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    payload, errors = _read_json(
+        article_dir / "xiaohongshu-strategy.json", "小红书策略"
+    )
+    if payload is None:
+        return errors
+    if payload.get("schema_version") != 1:
+        errors.append("小红书策略 schema_version 必须为 1")
+    mode = payload.get("mode")
+    if mode not in {"live", "evergreen"}:
+        errors.append("小红书策略 mode 必须为 live 或 evergreen")
+    for field in ("primary_keyword", "search_intent", "content_angle", "cta_reason"):
+        if not isinstance(payload.get(field), str) or not str(payload[field]).strip():
+            errors.append(f"小红书策略缺少非空字段：{field}")
+    secondary = payload.get("secondary_keywords")
+    if not isinstance(secondary, list) or not 2 <= len(secondary) <= 5 or any(
+        not isinstance(item, str) or not item.strip() for item in secondary
+    ):
+        errors.append("小红书策略 secondary_keywords 必须包含 2-5 个非空关键词")
+    boundaries = payload.get("fact_boundaries")
+    if not isinstance(boundaries, list) or not boundaries:
+        errors.append("小红书策略必须记录 fact_boundaries")
+    if payload.get("external_facts_used") is not False:
+        errors.append("小红书策略 external_facts_used 必须为 false")
+    cta_mode = payload.get("cta_mode")
+    if cta_mode not in {"include", "omit"}:
+        errors.append("小红书策略 cta_mode 必须为 include 或 omit")
+    evidence = payload.get("trend_evidence")
+    if not isinstance(evidence, list):
+        errors.append("小红书策略 trend_evidence 必须为数组")
+    elif mode == "live":
+        if not isinstance(payload.get("researched_at"), str) or not payload["researched_at"]:
+            errors.append("live 模式必须记录 researched_at")
+        if len(evidence) < 2:
+            errors.append("live 模式至少需要 2 条公开搜索趋势证据")
+        for item in evidence:
+            if not isinstance(item, dict) or not all(
+                isinstance(item.get(field), str) and item.get(field)
+                for field in ("title", "url", "observed_at")
+            ):
+                errors.append("live 模式趋势证据必须包含 title、url、observed_at")
+                break
+            if not re.match(r"https?://", str(item["url"])):
+                errors.append("live 模式趋势证据 url 必须是完整 HTTP/HTTPS 链接")
+                break
+    elif mode == "evergreen":
+        if payload.get("researched_at") is not None or evidence:
+            errors.append("evergreen 模式不得伪造 researched_at 或 trend_evidence")
+    return errors
+
+
+def validate_xiaohongshu_card_check(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    payload, errors = _read_json(
+        article_dir / "xiaohongshu-card-check.json", "小红书卡片检查记录"
+    )
+    if payload is None:
+        return errors
+    if payload.get("schema_version") != 1:
+        errors.append("小红书卡片检查记录 schema_version 必须为 1")
+    cards = sorted(article_dir.glob("小红书卡片-*.png"))
+    expected_names = [path.name for path in cards]
+    pages = payload.get("pages")
+    if not isinstance(pages, list):
+        errors.append("小红书卡片检查记录 pages 必须为数组")
+    else:
+        reported_names = [page.get("file") for page in pages if isinstance(page, dict)]
+        if reported_names != expected_names:
+            errors.append(
+                "小红书卡片检查记录与实际文件不一致："
+                f"expected={expected_names}, reported={reported_names}"
+            )
+        for page in pages:
+            if not isinstance(page, dict):
+                errors.append("小红书卡片检查记录包含无效页面")
+                continue
+            if page.get("width") != 1080 or page.get("height") != 1440:
+                errors.append(f"卡片检查记录尺寸无效：{page.get('file')}")
+            if page.get("overflow") is not False:
+                errors.append(f"卡片存在文字溢出：{page.get('file')}")
+            if not isinstance(page.get("min_font_px"), (int, float)) or page["min_font_px"] < 24:
+                errors.append(f"卡片最小字号低于 24px：{page.get('file')}")
+            if not isinstance(page.get("footer_gap_px"), (int, float)) or page["footer_gap_px"] < 24:
+                errors.append(f"卡片 footer 安全间距不足：{page.get('file')}")
+            if page.get("background_layer") is not True:
+                errors.append(f"卡片缺少背景层：{page.get('file')}")
+    review = payload.get("cover_review")
+    if not isinstance(review, dict):
+        errors.append("小红书卡片检查记录缺少 cover_review")
+    else:
+        for field in (
+            "reviewed",
+            "thumbnail_clear",
+            "title_clear",
+            "meaningful_visual",
+            "no_dead_space",
+            "background_supports_reading",
+        ):
+            if review.get(field) is not True:
+                errors.append(f"小红书首图视觉复查未通过：{field}")
+    return errors
+
+
 def validate_xiaohongshu_copy(article_dir: Path | str) -> list[str]:
     article_dir = Path(article_dir)
     text, errors = _read_text(article_dir / "小红书文案.txt", "小红书文案")
@@ -420,6 +608,33 @@ def validate_xiaohongshu_copy(article_dir: Path | str) -> list[str]:
     topics = re.findall(r"(?<!\w)#[^\s#]+", text)
     if not 3 <= len(topics) <= 6:
         errors.append(f"小红书文案应包含 3-6 个话题，当前为 {len(topics)}")
+    for term in XHS_COPY_BANNED_TERMS:
+        if term in text:
+            errors.append(f"小红书文案包含高风险/AI 模板词：{term}")
+    for pattern in XHS_COPY_BANNED_PATTERNS:
+        if pattern.search(text):
+            errors.append(f"小红书文案命中固定 AI/引流模板：{pattern.pattern}")
+
+    strategy_path = article_dir / "xiaohongshu-strategy.json"
+    strategy: dict[str, object] | None = None
+    if strategy_path.is_file():
+        strategy, strategy_errors = _read_json(strategy_path, "小红书策略")
+        errors.extend(strategy_errors)
+    if strategy is not None:
+        primary = strategy.get("primary_keyword")
+        searchable_prefix = "".join(lines)[:120]
+        if isinstance(primary, str) and primary not in searchable_prefix:
+            errors.append("小红书主关键词必须自然出现在标题或正文前 120 字")
+        cta_mode = strategy.get("cta_mode")
+        has_cta = "主页" in text or "长文" in text or "完整版" in text or "去翻一下" in text
+        if cta_mode == "include":
+            if "主页" not in text or "长文" not in text:
+                errors.append("策略要求长文引导时，文案需自然提到主页里的长文")
+            cta_lines = [line for line in lines if "主页" in line or "长文" in line]
+            if sum(len(line) for line in cta_lines) > 60:
+                errors.append("小红书长文引导超过 60 字")
+        elif cta_mode == "omit" and has_cta:
+            errors.append("策略要求省略长文引导，但文案仍包含主页/长文引流")
     return errors
 
 
@@ -485,6 +700,15 @@ def run_checks(article_dir: Path | str) -> list[str]:
         errors.extend(validate_images(article_dir))
     if (article_dir / "article.html").exists():
         errors.extend(validate_html(article_dir))
+    if (article_dir / "wechat-layout-check.json").exists():
+        errors.extend(validate_wechat_layout(article_dir))
+    if (article_dir / "xiaohongshu-strategy.json").exists():
+        errors.extend(validate_xiaohongshu_strategy(article_dir))
+    if (article_dir / "xiaohongshu-card-check.json").exists():
+        errors.extend(validate_cards(article_dir))
+        errors.extend(validate_xiaohongshu_card_check(article_dir))
+    if (article_dir / "小红书文案.txt").exists():
+        errors.extend(validate_xiaohongshu_copy(article_dir))
     state_path = article_dir / "workflow-state.json"
     if state_path.is_file():
         try:
@@ -492,7 +716,7 @@ def run_checks(article_dir: Path | str) -> list[str]:
         except (OSError, UnicodeDecodeError, json.JSONDecodeError):
             errors.append("workflow-state.json 无效")
         else:
-            if state.get("steps", {}).get("step_11", {}).get("status") in {"running", "passed"}:
+            if state.get("steps", {}).get("step_12", {}).get("status") in {"running", "passed"}:
                 errors.extend(validate_final(article_dir))
     return errors
 
@@ -513,7 +737,22 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "check",
-        choices=("article", "prompts", "images", "html", "fix-html-images", "skills", "approval", "final", "all"),
+        choices=(
+            "article",
+            "prompts",
+            "images",
+            "html",
+            "wechat-layout",
+            "xhs-strategy",
+            "cards",
+            "xhs-card-check",
+            "xhs-copy",
+            "fix-html-images",
+            "skills",
+            "approval",
+            "final",
+            "all",
+        ),
     )
     parser.add_argument("path", type=Path, help="Article directory or skills.lock.json")
     return parser
@@ -538,6 +777,11 @@ def main(argv: list[str] | None = None) -> int:
         "prompts": validate_prompts,
         "images": validate_images,
         "html": validate_html,
+        "wechat-layout": validate_wechat_layout,
+        "xhs-strategy": validate_xiaohongshu_strategy,
+        "cards": validate_cards,
+        "xhs-card-check": validate_xiaohongshu_card_check,
+        "xhs-copy": validate_xiaohongshu_copy,
         "fix-html-images": fix_html_images,
         "final": validate_final,
         "all": run_checks,

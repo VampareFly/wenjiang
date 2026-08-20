@@ -1,72 +1,82 @@
-# 公众号 HTML 指南
+# 公众号 HTML 与固定品牌排版指南
 
-本文件定义 Step 6 生成公众号 HTML 时的通用生成原则、微信兼容性约束和图片硬检查门禁。三个工具的**细则**拆到 `docs/steps/step6/html-tools/` 下独立文件，确定使用哪个工具后再按需读取，避免一次性加载全部上下文。
+本文件定义 Step 6。此步骤只把 `article.md` 转为公众号兼容的 `article.html`，不创建草稿、不上传图片。
 
----
+## 固定品牌配置
 
-## 生成原则
+排版配置的唯一来源是 `config/wechat-brand.json`。当前品牌主题 v1 固定为：
 
-Step 6 只负责把 `article.md` 转为可预览、可上传的 `article.html`：
+- 渲染器：`gzh-design-skill`
+- 主题：石墨极简风（`graphite-minimal`）
+- 主题组件：`.agents/skills/gzh-design-skill/references/theme-graphite-minimal.md`
+- 通用组件：`.agents/skills/gzh-design-skill/references/common-components.md`
 
-- 只使用 HTML 生成所需参数，不触发上传、草稿创建等发布副作用。
-- 等待用户在 Step 7 预览确认后，才进入 Step 8 创建微信草稿。
-- 图片已在 Step 5 生成完毕，HTML 中必须用 `<img src="配图N.png" alt="标题">` 标签插入正文配图，不能只输出图片文件名文本。
-- 标题不放在卡片内，单独作为顶部元素或由公众号后台自动处理。
-- 正文列表在 HTML 中优先转为独立段落，避免微信编辑器剥离 `<ul>` / `<li>` 后破坏换行。
+不再从多个工具中随机选择，不在重开 Step 6 时自动换主题。渲染器、主题组件或校验失败时，修复当前路径；无法修复则 block Step 6，不用另一套工具静默生成不同风格。
 
-Step 6 从 3 个工具中等概率随机选一个主工具：`baoyu-markdown-to-html`、`gzh-design-skill`、`md2wechat`。文章已在 Step 4 完成格式化并通过回归校验，因此调用时明确使用当前 `article.md`，不重复触发格式化轮。每次 Step 6 独立随机，重开可能换工具；工具选择不写入状态文件。
+`md-wechat`、`doocs/md` 等外部工具可以在独立样稿评测中作为对照，但未通过真实公众号粘贴、图片和长文回归前不得替换生产配置。
 
-选中工具后按其流程生成 `article.html`；若生成或校验失败，排除已失败工具后重新随机选工具再生成。3 个工具均已失败时，调用 `python3 scripts/workflow_state.py block articles/<YYYYMMDD-HHMMSS> step_6 --reason "3 个 HTML 生成工具均失败"` 并停止，向用户报告具体原因。不设固定降级链路，不在工具间随机切换之外另行回退。
+## 品牌排版原则
 
-### 工具细则路由
+- 标题由公众号后台设置，正文不得重复文章标题。
+- 以纯白、石墨灰、细线和留白建立层级；暖橙只作锚点，全篇最多 3 处。
+- 优先使用正文、细线、下划线和左竖条，避免连续堆叠圆角卡片、渐变和装饰色块。
+- 正文字号、行高、最大宽度和色值严格读取品牌配置，不临时改风格。
+- 不新增金句、作者简介或互动文案；只转换 `article.md` 已有内容。
+- 列表优先转换为独立段落或主题组件，避免微信剥离 `<ul>/<li>` 后破坏换行。
 
-确定主工具后，读取对应细则文件再执行生成流程：
+## 生成流程
 
-| 主工具 | 细则文件 |
-|--------|----------|
-| `md2wechat` | `docs/steps/step6/html-tools/md2wechat.md` |
-| `baoyu-markdown-to-html` | `docs/steps/step6/html-tools/baoyu-markdown-to-html.md` |
-| `gzh-design-skill` | `docs/steps/step6/html-tools/gzh-design.md` |
+1. 读取 `gzh-design` 的 `SKILL.md`、固定主题组件库和通用组件库。
+2. 复制 `article.md` 为临时输入，把 `【配图N：标题】` 转为 `![标题](配图N.png)`；不得修改正式 `article.md`。
+3. 在文章目录内按石墨极简主题装配 HTML，跳过正文标题组件。
+4. 输出纯 `<section>…</section>` 片段并统一命名为 `article.html`。
+5. 删除临时 Markdown 和主题原始输出文件。
+6. 运行 gzh HTML 校验，ERROR 和 WARNING 都必须为 0。
+7. 以约 390px 宽度生成移动端预览并检查首屏、段落、标题换行、卡片密度、图片比例和整体留白。
+8. 写入 `wechat-layout-check.json`。
 
-细则文件包含主题/色系选择、参数表、调用示例、配图标记转换、跳过项（如 fix-html-images）等工具专属规定；本文件不重复这些细节。
+不得运行 `fix-html-images`，它会覆盖主题图片组件样式。
 
----
+## 微信兼容性
 
-## 微信 HTML 兼容性约束
+- 禁止 `<style>`、`<script>`、`<div>`、`class`、`id`。
+- 禁止 `position:fixed/absolute/sticky`、`float`、`display:grid`、CSS 变量。
+- 样式必须内联；文字节点按主题要求使用 `<span leaf="">`。
+- 正文图片使用相对路径 `配图N.png`，保留准确 `alt`。
+- 图片数量必须等于 `article.md` 的配图标记数量，HTML 不得残留 `【配图`。
 
-公众号 HTML 必须遵守以下约束：
+## 排版检查记录
 
-- 禁止使用 `<style>` 标签，所有样式必须为 inline style。
-- 禁止使用 flex `gap` 属性，卡片间距用 `margin-bottom` 实现。
-- 微信编辑器会剥掉 `<ul>` / `<li>` 标签，导致列表换行失效。正文中的列举内容统一使用独立 `<p>` 段落 + `margin-bottom` 控制间距，不用 `<ul><li>`。
+生成 `wechat-layout-check.json`：
 
----
-
-## HTML 图片硬检查
-
-> **fix-html-images 执行差异**：`baoyu-markdown-to-html` 与 `md2wechat` 路径在下方门禁前先运行 `validate_workflow.py fix-html-images`；`gzh-design-skill` 路径跳过此步（其图片组件样式由主题库决定，fix-html-images 会覆盖破坏，详见 `docs/steps/step6/html-tools/gzh-design.md`）。
-
-生成后必须执行 HTML 图片硬检查，失败即停止，不得进入预览确认：
-
-- `article.html` 中 `<img` 数量必须等于 `article.md` 中 `【配图N：...】` 数量。
-- `article.html` 中不得残留 `【配图`。
-- 每个正文图片必须使用本地相对路径：`src="配图N.png"`。
-- 每个正文图片必须包含 `alt`。
-- 如果 `<img` 数量为 0，且 `article.md` 中存在配图标记，必须停止并修复。
-
-推荐检查命令：
-
-```bash
-rg -n "【配图[0-9]+：" articles/<YYYYMMDD-HHMMSS>/article.md
-rg -n "<img" articles/<YYYYMMDD-HHMMSS>/article.html
-rg -n "【配图" articles/<YYYYMMDD-HHMMSS>/article.html
+```json
+{
+  "schema_version": 1,
+  "renderer": "gzh-design-skill",
+  "theme_id": "graphite-minimal",
+  "brand_config": "config/wechat-brand.json",
+  "gzh_errors": 0,
+  "gzh_warnings": 0,
+  "mobile_preview": {
+    "reviewed": true,
+    "viewport_width": 390,
+    "first_screen_clear": true,
+    "headings_wrap_cleanly": true,
+    "card_density_ok": true,
+    "images_balanced": true,
+    "spacing_consistent": true
+  }
+}
 ```
 
-以上人工命令只用于定位问题，阶段门禁统一执行：
+检查记录必须来自本次真实生成和预览，不得沿用旧文件。
+
+## 门禁
 
 ```bash
 python3 scripts/validate_workflow.py html articles/<YYYYMMDD-HHMMSS>
+python3 scripts/validate_workflow.py wechat-layout articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_6
 ```
 
-校验失败不得进入 Step 7。
+任一检查失败不得进入小红书策略轮。

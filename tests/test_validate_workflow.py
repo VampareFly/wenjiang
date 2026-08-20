@@ -299,6 +299,37 @@ class ValidatorTests(unittest.TestCase):
         (self.root / "小红书卡片-03.png").write_bytes(b"x")
         self.assertTrue(any("连续" in error for error in validator.validate_cards(self.root)))
 
+    def test_cards_require_exact_xiaohongshu_dimensions(self):
+        self.write_png("小红书卡片-01.png", 1000, 1333)
+        self.assertTrue(any("1080×1440" in error for error in validator.validate_cards(self.root)))
+
+    def test_wechat_layout_requires_fixed_brand_signature(self):
+        self.write("article.html", "<section><p>正文</p></section>")
+        self.write(
+            "wechat-layout-check.json",
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "renderer": "gzh-design-skill",
+                    "theme_id": "graphite-minimal",
+                    "brand_config": "config/wechat-brand.json",
+                    "gzh_errors": 0,
+                    "gzh_warnings": 0,
+                    "mobile_preview": {
+                        "reviewed": True,
+                        "viewport_width": 390,
+                        "first_screen_clear": True,
+                        "headings_wrap_cleanly": True,
+                        "card_density_ok": True,
+                        "images_balanced": True,
+                        "spacing_consistent": True,
+                    },
+                }
+            ),
+        )
+        errors = validator.validate_wechat_layout(self.root)
+        self.assertTrue(any("主题签名" in error for error in errors))
+
     def test_xiaohongshu_copy_requires_short_title_and_topics(self):
         self.write("小红书文案.txt", "这是一个超过二十个汉字而且明显过长的小红书标题示例\n正文")
         errors = validator.validate_xiaohongshu_copy(self.root)
@@ -308,6 +339,39 @@ class ValidatorTests(unittest.TestCase):
     def test_xiaohongshu_copy_accepts_valid_format(self):
         self.write("小红书文案.txt", "久坐后为什么身体沉\n正文内容\n#久坐 #身体健康 #生活方式")
         self.assertEqual([], validator.validate_xiaohongshu_copy(self.root))
+
+    def test_xiaohongshu_copy_rejects_fixed_cta_and_health_overclaim(self):
+        self.write(
+            "小红书文案.txt",
+            "咖啡什么时候喝\n这个时间完全安全。\n"
+            "完整版我写在同名主页那篇长文里了。\n#咖啡 #睡眠 #健康",
+        )
+        errors = validator.validate_xiaohongshu_copy(self.root)
+        self.assertTrue(any("完全安全" in error for error in errors))
+        self.assertTrue(any("固定 AI/引流模板" in error for error in errors))
+
+    def test_evergreen_strategy_cannot_claim_live_evidence(self):
+        self.write(
+            "xiaohongshu-strategy.json",
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "mode": "evergreen",
+                    "researched_at": "2026-08-19T12:00:00+08:00",
+                    "primary_keyword": "咖啡什么时候喝",
+                    "secondary_keywords": ["咖啡因", "睡眠"],
+                    "search_intent": "了解咖啡时间",
+                    "content_angle": "从时间切入",
+                    "trend_evidence": [{"title": "伪热点"}],
+                    "external_facts_used": False,
+                    "fact_boundaries": ["不新增事实"],
+                    "cta_mode": "omit",
+                    "cta_reason": "内容已完整",
+                },
+                ensure_ascii=False,
+            ),
+        )
+        self.assertTrue(validator.validate_xiaohongshu_strategy(self.root))
 
     def test_workflow_documents_define_required_gates(self):
         project_root = Path(__file__).resolve().parents[1]
@@ -360,12 +424,14 @@ class ValidatorTests(unittest.TestCase):
         html = (project_root / "docs/steps/step6/html-guide.md").read_text(encoding="utf-8")
         markdown = (project_root / "docs/steps/step4/markdown-guide.md").read_text(encoding="utf-8")
         images = (project_root / "docs/steps/step5/image-generation-guide.md").read_text(encoding="utf-8")
-        wechat = (project_root / "docs/steps/step8/wechat-guide.md").read_text(encoding="utf-8")
-        cleanup = (project_root / "docs/steps/step11/final-cleanup-guide.md").read_text(encoding="utf-8")
+        wechat = (project_root / "docs/steps/step11/wechat-guide.md").read_text(encoding="utf-8")
+        cleanup = (project_root / "docs/steps/step12/final-cleanup-guide.md").read_text(encoding="utf-8")
         readme = (project_root / "README.md").read_text(encoding="utf-8")
         self.assertNotIn("60%", html)
         self.assertNotIn("40%", html)
-        self.assertIn("3 个工具中等概率随机选一个主工具", html)
+        self.assertNotIn("等概率随机", html)
+        self.assertIn("config/wechat-brand.json", html)
+        self.assertIn("`gzh-design-skill`", html)
         self.assertIn("`gzh-design-skill`", html)
         self.assertIn("validate_workflow.py article", markdown)
         self.assertIn("validate_workflow.py skills", images)
@@ -407,25 +473,24 @@ class ValidatorTests(unittest.TestCase):
                 (project_root / path).is_file(),
                 f"workflow.md 引用的文档不存在：{path}",
             )
-        # step9 / step10 拆分后应分别引用独立文件
-        self.assertIn("docs/steps/step9/xiaohongshu-guide.md", workflow)
-        self.assertIn("docs/steps/step10/xiaohongshu-guide.md", workflow)
+        # 小红书策略、卡片、文案与统一确认应分别引用独立文件
+        self.assertIn("docs/steps/step7/xiaohongshu-strategy-guide.md", workflow)
+        self.assertIn("docs/steps/step8/xiaohongshu-card-guide.md", workflow)
+        self.assertIn("docs/steps/step9/xiaohongshu-copy-guide.md", workflow)
+        self.assertIn("docs/steps/step10/unified-approval-guide.md", workflow)
         # 异常参考应指向 exceptions/
         self.assertIn("docs/exceptions/ending-guide.md", workflow)
         self.assertIn("docs/exceptions/final-writing-check.md", workflow)
 
     def test_html_tools_nested_under_step_six_exist(self):
         project_root = Path(__file__).resolve().parents[1]
-        for name in (
-            "docs/steps/step6/html-tools/md2wechat.md",
-            "docs/steps/step6/html-tools/baoyu-markdown-to-html.md",
-            "docs/steps/step6/html-tools/gzh-design.md",
-        ):
-            self.assertTrue((project_root / name).is_file(), f"HTML 工具细则缺失：{name}")
+        name = "docs/steps/step6/html-tools/gzh-design.md"
+        self.assertTrue((project_root / name).is_file(), f"HTML 工具细则缺失：{name}")
         html = (project_root / "docs/steps/step6/html-guide.md").read_text(
             encoding="utf-8"
         )
-        self.assertIn("docs/steps/step6/html-tools/", html)
+        self.assertIn("gzh-design-skill", html)
+        self.assertIn("graphite-minimal", html)
 
     def test_native_image_route_requires_a_callable_native_tool(self):
         project_root = Path(__file__).resolve().parents[1]

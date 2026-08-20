@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "brand": "食外",
+  "renderer": "gzh-design-skill",
+  "theme_name": "石墨极简风",
+  "theme_id": "graphite-minimal",
+  "theme_file": ".agents/skills/gzh-design-skill/references/theme-graphite-minimal.md",
+  "common_components_file": ".agents/skills/gzh-design-skill/references/common-components.md",
+  "body_font_size_px": 15,
+  "line_height": 1.8,
+  "max_width_px": 677,
+  "primary_color": "#52525B",
+  "accent_color": "#F97316",
+  "accent_max_uses": 3,
+  "layout_policy": {
+    "title_in_body": false,
+    "single_theme_only": true,
+    "body_background": "#FFFFFF",
+    "prefer_lines_over_cards": true,
+    "avoid_decorative_gradients": true,
+    "avoid_dense_card_stacking": true
+  }
+}
