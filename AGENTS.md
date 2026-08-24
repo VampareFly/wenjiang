@@ -32,6 +32,12 @@
 
 
 
+# Image Generation Priority
+
+- **首选 Gemini**：Step 5 配图与封面生成必须**优先使用 Gemini**（包括环境原生 `generate_image` 工具或 Gemini 生图接口）。
+- **GPT 兜底**：仅当 Gemini 出现不可用、报错、配额耗尽或生成失败时，才自动切换使用 **GPT**（OpenAI / GPT-Image-2 / Codex 等路径）进行兜底补全。
+- 无论使用何种后端，生成的图片必须严格符合尺寸/比例规范（公众号封面 2.35:1、正文图与头条三图 16:9），并通过 `validate_workflow.py images` 客观门禁。
+
 # Workflow
 
 - 仅在正式执行内容生产任务时读取 `docs/workflow.md`；讨论方案、检查仓库或处理其他任务时不读取。

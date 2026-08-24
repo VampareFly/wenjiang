@@ -159,7 +159,7 @@ python3 scripts/link_registry.py check "https://example.com/video"
 
 当前项目需要以下 skills：
 
-Step 5 会先运行项目 Skill 兼容性检查，再确认当前会话是否暴露可调用的 Codex 原生图片工具；可调用时按 `imagegen` skill 的规则逐张生成。只有当前会话没有可调用的原生图片工具时，才使用下表中的 `baoyu-image-gen` 通过 `codex-cli` 回退生成。
+Step 5 会先运行项目 Skill 兼容性检查，生图优先使用 Gemini 原生/接口能力逐张生成；仅当 Gemini 出现未暴露、报错或不可用时，才自动切换使用 GPT（如 baoyu-image-gen / OpenAI / Codex 路径）进行兜底补全。
 
 | Skill | 用途 |
 |------|------|
