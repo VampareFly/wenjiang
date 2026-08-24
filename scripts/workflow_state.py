@@ -69,9 +69,10 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
         "mode": "skill",
         "guides": ["docs/steps/step5/image-generation-guide.md"],
         "inputs": ["article.md", "cover_prompt.md"],
-        "outputs": ["cover.png", "配图{1-N}.png"],
+        "outputs": ["cover.png", "配图{1-N}.png", "toutiao-cover-{1-3}.png"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_5",
     },
+
     "step_6": {
         "mode": "deterministic_skill",
         "guides": ["docs/steps/step6/html-guide.md"],
@@ -95,10 +96,13 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
     },
     "step_9": {
         "mode": "two_pass_ai",
-        "guides": ["docs/steps/step9/xiaohongshu-copy-guide.md"],
+        "guides": [
+            "docs/steps/step9/xiaohongshu-copy-guide.md",
+            "docs/steps/step9/toutiao-guide.md",
+        ],
         "rounds": ["平台文案轮", "独立健康表达与去 AI 质检轮"],
         "inputs": ["article.md", "article.plan.md", "source.cleaned.txt", "xiaohongshu-strategy.json"],
-        "outputs": ["小红书文案.txt"],
+        "outputs": ["小红书文案.txt", "今日头条文章.md", "微头条.txt"],
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_9",
     },
     "step_10": {
@@ -112,6 +116,8 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
             "xiaohongshu-strategy.json",
             "小红书卡片-{01-N}.png",
             "小红书文案.txt",
+            "今日头条文章.md",
+            "微头条.txt",
         ],
         "outputs": ["workflow-state.json approval digest"],
         "completion_command": "python3 scripts/workflow_state.py approve {article_dir}",
@@ -131,6 +137,7 @@ STEP_CONTEXT: dict[str, dict[str, object]] = {
         "completion_command": "python3 scripts/workflow_state.py pass {article_dir} step_12",
     },
 }
+
 
 
 def _now() -> str:
@@ -355,7 +362,7 @@ def _validate_step(article_dir: Path | str, step: str) -> list[str]:
         "step_6": (validator.validate_html, validator.validate_wechat_layout),
         "step_7": (validator.validate_xiaohongshu_strategy,),
         "step_8": (validator.validate_cards, validator.validate_xiaohongshu_card_check),
-        "step_9": (validator.validate_xiaohongshu_copy,),
+        "step_9": (validator.validate_xiaohongshu_copy, validator.validate_toutiao),
         "step_11": (validator.validate_draft_record,),
         "step_12": (
             validator.validate_article,
@@ -364,8 +371,10 @@ def _validate_step(article_dir: Path | str, step: str) -> list[str]:
             validator.validate_draft_record,
             validator.validate_cards,
             validator.validate_xiaohongshu_copy,
+            validator.validate_toutiao,
             validator.validate_final,
         ),
+
     }
     errors: list[str] = []
     if step == "step_11":
@@ -450,20 +459,26 @@ def _approval_artifacts(article_dir: Path | str) -> list[Path]:
         article_dir / "article.html",
         article_dir / "cover.png",
         article_dir / "小红书文案.txt",
+        article_dir / "今日头条文章.md",
+        article_dir / "微头条.txt",
     ]
     body_images = sorted(
         article_dir.glob("配图*.png"),
         key=lambda path: int(re.search(r"\d+", path.name).group()),  # type: ignore[union-attr]
     )
     cards = sorted(article_dir.glob("小红书卡片-*.png"))
+    toutiao_covers = [article_dir / f"toutiao-cover-{i}.png" for i in (1, 2, 3)]
     missing = [path.name for path in fixed if not path.is_file()]
     if not body_images:
         missing.append("配图1.png")
     if not cards:
         missing.append("小红书卡片-01.png")
+    for i, path in enumerate(toutiao_covers, start=1):
+        if not path.is_file():
+            missing.append(f"toutiao-cover-{i}.png")
     if missing:
         raise ValueError("缺少 Step 10 确认资产：" + "、".join(missing))
-    return fixed + body_images + cards
+    return fixed + body_images + cards + toutiao_covers
 
 
 def artifact_digest(article_dir: Path | str) -> str:
@@ -494,8 +509,10 @@ def approve(article_dir: Path | str) -> dict[str, object]:
         validator.validate_cards,
         validator.validate_xiaohongshu_card_check,
         validator.validate_xiaohongshu_copy,
+        validator.validate_toutiao,
     ):
         validation_errors.extend(check(article_dir))
+
     if validation_errors:
         raise ValueError("Step 10 当前资产校验失败：" + "；".join(validation_errors))
     digest = artifact_digest(article_dir)

@@ -126,8 +126,35 @@ class WorkflowStateTests(unittest.TestCase):
             "久坐后为什么身体沉\n久坐以后身体发沉，可以先从活动节奏看。\n#久坐 #身体健康 #生活方式",
             encoding="utf-8",
         )
+        (self.root / "今日头条文章.md").write_text(
+            "# 为什么久坐后身体总是发沉？3招找回充沛精力\n\n"
+            "> 1. 《为什么久坐后身体总是发沉？3招找回充沛精力》（23字）\n\n"
+            "正文\n\n## 标题候选\n1. 标题一\n",
+            encoding="utf-8",
+        )
+        (self.root / "微头条.txt").write_text(
+            "为什么久坐后身体总是发沉？\n\n"
+            "分享 3 个简单调整：\n"
+            "1. 每工作 45 分钟起身活动 2 分钟；\n"
+            "2. 喝水并做简单拉伸；\n"
+            "3. 保持深呼吸调动核心。\n\n"
+            "你平时也有久坐发沉的感觉吗？欢迎评论区聊聊！\n\n"
+            "#久坐健康# #健康科普#",
+            encoding="utf-8",
+        )
+        for i in (1, 2, 3):
+            data = (
+                b"\x89PNG\r\n\x1a\n"
+                + struct.pack(">I", 13)
+                + b"IHDR"
+                + struct.pack(">II", 160, 90)
+                + f"toutiao-{i}".encode("utf-8")
+            )
+            (self.root / f"toutiao-cover-{i}.png").write_bytes(data)
 
     def test_init_creates_all_pending_steps(self):
+
+
         state = workflow_state.init_state(self.root)
         self.assertEqual("step_1", state["current_step"])
         self.assertEqual("pending", state["steps"]["step_12"]["status"])
@@ -268,8 +295,12 @@ class WorkflowStateTests(unittest.TestCase):
         )
         self.assertEqual(
             workflow_state.STEP_CONTEXT["step_9"]["guides"],
-            ["docs/steps/step9/xiaohongshu-copy-guide.md"],
+            [
+                "docs/steps/step9/xiaohongshu-copy-guide.md",
+                "docs/steps/step9/toutiao-guide.md",
+            ],
         )
+
 
     def test_context_cli_prints_json_without_ok_suffix(self):
         workflow_state.init_state(self.root)

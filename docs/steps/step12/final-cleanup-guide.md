@@ -11,9 +11,13 @@
 - `公众号草稿信息.txt`
 - `小红书卡片-{01-N}.png`
 - `小红书文案.txt`
+- `今日头条文章.md`
+- `微头条.txt`
+- `toutiao-cover-{1-3}.png`
 - `workflow-state.json`
 - 一个 `source.srt`、`source.vtt` 或 `source.txt`
 - 成对存在的 `source-link.txt` 和 `source-map.json`
+
 
 ## 删除中间资产
 
@@ -35,3 +39,4 @@ python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_12
 python3 scripts/validate_workflow.py final articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_12
 ```
+

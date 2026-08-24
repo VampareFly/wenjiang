@@ -39,8 +39,10 @@ class ValidatorTests(unittest.TestCase):
             + struct.pack(">I", 13)
             + b"IHDR"
             + struct.pack(">II", width, height)
+            + name.encode("utf-8")
         )
         (self.root / name).write_bytes(data)
+
 
     def test_parse_frontmatter_handles_quoted_and_plain_values(self):
         metadata, _ = validator.parse_frontmatter(VALID_ARTICLE)
@@ -97,9 +99,11 @@ class ValidatorTests(unittest.TestCase):
         self.write(
             "cover_prompt.md",
             "# 封面图提示词\n\nWeChat Official Account article cover, primary crop 2.35:1\n\n"
-            "## 【配图1：久坐后的身体变化】\n",
+            "## 【配图1：久坐后的身体变化】\n\n"
+            "## 【头条封面1：痛点】\n\n## 【头条封面2：反差】\n\n## 【头条封面3：赋能】\n",
         )
         self.assertEqual([], validator.validate_prompts(self.root))
+
 
     def test_html_requires_relative_image_and_alt(self):
         self.write("article.md", VALID_ARTICLE)
@@ -174,13 +178,20 @@ class ValidatorTests(unittest.TestCase):
         self.write("article.md", VALID_ARTICLE)
         self.write_png("cover.png", 235, 100)
         self.write_png("配图1.png", 16, 9)
+        self.write_png("toutiao-cover-1.png", 16, 9)
+        self.write_png("toutiao-cover-2.png", 16, 9)
+        self.write_png("toutiao-cover-3.png", 16, 9)
         self.assertEqual([], validator.validate_images(self.root))
 
     def test_images_reject_wrong_body_ratio(self):
         self.write("article.md", VALID_ARTICLE)
         self.write_png("cover.png", 235, 100)
         self.write_png("配图1.png", 1, 1)
+        self.write_png("toutiao-cover-1.png", 16, 9)
+        self.write_png("toutiao-cover-2.png", 16, 9)
+        self.write_png("toutiao-cover-3.png", 16, 9)
         self.assertTrue(any("16:9" in error for error in validator.validate_images(self.root)))
+
 
     def test_final_keeps_draft_record_and_state(self):
         names = (
@@ -503,6 +514,57 @@ class ValidatorTests(unittest.TestCase):
             self.assertIn("可调用", text)
         self.assertIn("仅列出 `imagegen` skill 不足以证明原生工具可用", images)
 
+    def test_toutiao_article_validation(self):
+        self.write(
+            "今日头条文章.md",
+            "# 斯坦福最新研究：难怪你越节食越馋，原来大脑藏着食欲开关\n\n"
+            "很多人以为食欲靠意志力就能控制，其实大错特错。\n\n"
+            "## 标题候选\n1. 标题一（短标题）\n2. 标题二\n3. 标题三\n",
+        )
+        self.assertEqual([], validator.validate_toutiao_article(self.root))
+
+        # 测试标题超过 30 字
+        self.write(
+            "今日头条文章.md",
+            "# 这是一个非常非常非常非常非常非常非常非常非常非常非常长的标题超过了三十个字符\n\n正文。\n\n## 标题候选\n1. 正常标题\n",
+        )
+        errors = validator.validate_toutiao_article(self.root)
+        self.assertTrue(any("超过 30 字" in e for e in errors))
+
+        # 测试包含违规词
+        self.write(
+            "今日头条文章.md",
+            "# 合规短标题\n\n可以根治糖尿病！关注微信公众号获取完整版。\n\n## 标题候选\n1. 正常候选\n",
+        )
+        errors = validator.validate_toutiao_article(self.root)
+        self.assertTrue(any("违规" in e for e in errors))
+
+
+    def test_toutiao_covers_validation(self):
+        # 写入合规的 16:9 PNG 封面
+        for i in (1, 2, 3):
+            data = (
+                b"\x89PNG\r\n\x1a\n"
+                + struct.pack(">I", 13)
+                + b"IHDR"
+                + struct.pack(">II", 160, 90)
+            )
+            (self.root / f"toutiao-cover-{i}.png").write_bytes(data)
+        self.assertEqual([], validator.validate_toutiao_covers(self.root))
+
+        # 测试异常比例
+        bad_data = (
+            b"\x89PNG\r\n\x1a\n"
+            + struct.pack(">I", 13)
+            + b"IHDR"
+            + struct.pack(">II", 100, 100)
+        )
+        (self.root / "toutiao-cover-1.png").write_bytes(bad_data)
+        errors = validator.validate_toutiao_covers(self.root)
+        self.assertTrue(any("比例不是 16:9" in e for e in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
+
+

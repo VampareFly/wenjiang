@@ -81,12 +81,32 @@ FINAL_FIXED = {
     "小红书文案.txt",
     "workflow-state.json",
 }
-FINAL_OPTIONAL = {"source-link.txt", "source-map.json"}
+SOURCE_MAPPING_OPTIONAL = {"source-link.txt", "source-map.json"}
+TOUTIAO_OPTIONAL = {"今日头条文章.md", "微头条.txt"}
+FINAL_OPTIONAL = SOURCE_MAPPING_OPTIONAL | TOUTIAO_OPTIONAL
 FINAL_PATTERNS = (
     re.compile(r"配图\d+\.png"),
     re.compile(r"小红书卡片-\d{2}\.png"),
+    re.compile(r"toutiao-cover-[1-3]\.png"),
     re.compile(r"source\.(?:srt|vtt|txt)"),
 )
+
+
+TOUTIAO_BANNED_TERMS = (
+    "公众号",
+    "二维码",
+    "微信",
+    "加V",
+    "扫码关注",
+    "私信回复",
+    "底层逻辑",
+    "颠覆认知",
+    "完全安全",
+    "保证有效",
+    "根治",
+    "科学清除",
+)
+
 
 
 def parse_frontmatter(text: str) -> tuple[dict[str, str], str]:
@@ -199,6 +219,9 @@ def validate_prompts(article_dir: Path | str) -> list[str]:
         )
     if "WeChat Official Account article cover, primary crop 2.35:1" not in prompt_text:
         errors.append("封面提示词缺少公众号 2.35:1 主裁剪要求")
+    for i in (1, 2, 3):
+        if f"头条封面{i}" not in prompt_text and f"toutiao-cover-{i}" not in prompt_text:
+            errors.append(f"cover_prompt.md 缺少今日头条专属三图封面提示词【头条封面{i}】")
     return errors
 
 
@@ -252,6 +275,14 @@ def validate_images(article_dir: Path | str) -> list[str]:
     image_paths = [article_dir / "cover.png"] + [
         article_dir / f"配图{number}.png" for number, _ in markers
     ]
+    toutiao_covers = [article_dir / f"toutiao-cover-{i}.png" for i in (1, 2, 3)]
+    for i, path in enumerate(toutiao_covers, start=1):
+        if not path.is_file():
+            errors.append(f"缺少今日头条专属封面：toutiao-cover-{i}.png")
+        else:
+            errors.extend(_validate_png(path, 16 / 9, "16:9"))
+            image_paths.append(path)
+
     hashes: dict[str, list[str]] = {}
     for path in image_paths:
         if path.is_file():
@@ -260,10 +291,12 @@ def validate_images(article_dir: Path | str) -> list[str]:
     for duplicate_names in hashes.values():
         if len(duplicate_names) > 1:
             errors.append(
-                "公众号图片内容重复，禁止用同一张图代替多张配图："
+                "图片内容重复，禁止用同一张图代替多张配图/封面："
                 + "、".join(duplicate_names)
             )
     return errors
+
+
 
 
 class _ImageParser(HTMLParser):
@@ -374,9 +407,10 @@ def validate_final(article_dir: Path | str) -> list[str]:
         errors.append("缺少小红书卡片最终资产")
     if len(source_subtitles) != 1 or source_subtitles[0].stat().st_size == 0:
         errors.append("必须保留且只能保留一个非空源字幕：source.srt/source.vtt/source.txt")
-    mapping_assets = [name for name in FINAL_OPTIONAL if (article_dir / name).is_file()]
-    if mapping_assets and len(mapping_assets) != len(FINAL_OPTIONAL):
+    mapping_assets = [name for name in SOURCE_MAPPING_OPTIONAL if (article_dir / name).is_file()]
+    if mapping_assets and len(mapping_assets) != len(SOURCE_MAPPING_OPTIONAL):
         errors.append("来源链接归档必须同时保留 source-link.txt 和 source-map.json")
+
 
     for path in article_dir.iterdir() if article_dir.is_dir() else ():
         if not path.is_file() or not _is_final_asset(path.name):
@@ -638,6 +672,79 @@ def validate_xiaohongshu_copy(article_dir: Path | str) -> list[str]:
     return errors
 
 
+def validate_toutiao_article(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    path = article_dir / "今日头条文章.md"
+    text, errors = _read_text(path, "今日头条文章")
+    if text is None:
+        return errors
+    if not text.strip():
+        return ["今日头条文章.md 为空"]
+    for term in TOUTIAO_BANNED_TERMS:
+        if term in text:
+            errors.append(f"今日头条文章包含违规/AI词：{term}")
+    if "标题候选" not in text and "候选标题" not in text:
+        errors.append("今日头条文章需包含三段式标题候选")
+
+    # 校验主标题长度不超过 30 字
+    h1_match = re.search(r"^#\s+(.+)$", text, re.MULTILINE)
+    if h1_match:
+        main_title = h1_match.group(1).strip().strip("《》")
+        if len(main_title) > 30:
+            errors.append(f"今日头条主标题超过 30 字（当前为 {len(main_title)} 字）：{main_title}")
+
+    # 校验标题候选长度均不超过 30 字
+    cand_lines = re.findall(r"(?:^|\n)\s*(?:>\s*)?(?:[1-9]\.|\d+、)\s*《?([^》\r\n]+)》?", text)
+    for cand in cand_lines:
+        cand_clean = cand.strip().strip("《》")
+        if len(cand_clean) > 30:
+            errors.append(f"今日头条标题候选超过 30 字（当前为 {len(cand_clean)} 字）：{cand_clean}")
+    return errors
+
+
+
+def validate_toutiao_micro(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    path = article_dir / "微头条.txt"
+    text, errors = _read_text(path, "微头条文案")
+    if text is None:
+        return errors
+    clean_text = text.strip()
+    if not clean_text:
+        return ["微头条.txt 为空"]
+    if len(clean_text) < 100:
+        errors.append(f"微头条字数过少（少于 100 字）：当前为 {len(clean_text)} 字")
+    if len(clean_text) > 1000:
+        errors.append(f"微头条字数过多（超过 1000 字）：当前为 {len(clean_text)} 字")
+    topics = re.findall(r"(?<!\w)#[^\s#]+", text)
+    if len(topics) < 1:
+        errors.append("微头条文案应包含至少 1 个话题标签（如 #健康#）")
+    for term in TOUTIAO_BANNED_TERMS:
+        if term in text:
+            errors.append(f"微头条包含违规/AI词：{term}")
+    return errors
+
+
+
+def validate_toutiao_covers(article_dir: Path | str) -> list[str]:
+    article_dir = Path(article_dir)
+    errors: list[str] = []
+    covers = [article_dir / f"toutiao-cover-{i}.png" for i in (1, 2, 3)]
+    for path in covers:
+        if path.exists():
+            errors.extend(_validate_png(path, 16 / 9, "16:9"))
+    return errors
+
+
+def validate_toutiao(article_dir: Path | str) -> list[str]:
+    errors: list[str] = []
+    errors.extend(validate_toutiao_article(article_dir))
+    errors.extend(validate_toutiao_micro(article_dir))
+    errors.extend(validate_toutiao_covers(article_dir))
+    return errors
+
+
+
 def _frontmatter_version(text: str) -> str | None:
     metadata, _ = parse_frontmatter(text)
     return metadata.get("version")
@@ -709,6 +816,8 @@ def run_checks(article_dir: Path | str) -> list[str]:
         errors.extend(validate_xiaohongshu_card_check(article_dir))
     if (article_dir / "小红书文案.txt").exists():
         errors.extend(validate_xiaohongshu_copy(article_dir))
+    if (article_dir / "今日头条文章.md").exists() or (article_dir / "微头条.txt").exists():
+        errors.extend(validate_toutiao(article_dir))
     state_path = article_dir / "workflow-state.json"
     if state_path.is_file():
         try:
@@ -747,6 +856,9 @@ def build_parser() -> argparse.ArgumentParser:
             "cards",
             "xhs-card-check",
             "xhs-copy",
+            "toutiao-article",
+            "toutiao-micro",
+            "toutiao",
             "fix-html-images",
             "skills",
             "approval",
@@ -782,6 +894,9 @@ def main(argv: list[str] | None = None) -> int:
         "cards": validate_cards,
         "xhs-card-check": validate_xiaohongshu_card_check,
         "xhs-copy": validate_xiaohongshu_copy,
+        "toutiao-article": validate_toutiao_article,
+        "toutiao-micro": validate_toutiao_micro,
+        "toutiao": validate_toutiao,
         "fix-html-images": fix_html_images,
         "final": validate_final,
         "all": run_checks,
@@ -791,3 +906,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

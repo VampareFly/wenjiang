@@ -145,9 +145,9 @@ python3 scripts/validate_workflow.py prompts articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_4
 ```
 
-### Step 5：生成配图
+### Step 5：生成封面与配图（公众号 + 今日头条三图）
 
-按 `docs/steps/step5/image-generation-guide.md` 检测当前会话是否暴露可调用的原生图片工具，并固定本次生成路径，再生成封面与正文配图：
+按 `docs/steps/step5/image-generation-guide.md` 检测当前会话是否暴露可调用的原生图片工具，并固定本次生成路径，依次生成公众号封面 (`cover.png`)、正文配图 (`配图1~N.png`) 与今日头条专属三图封面 (`toutiao-cover-1~3.png`)：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_5
@@ -157,6 +157,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_5
 ```
 
 路径选择、备份保留与生成后客观校验规则见该指南。
+
 
 ### Step 6：生成公众号 HTML
 
@@ -192,13 +193,16 @@ python3 scripts/validate_workflow.py xhs-card-check articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_8
 ```
 
-### Step 9：生成并独立质检小红书文案
+### Step 9：生成多平台分发文案（小红书 + 今日头条）
 
-按 `docs/steps/step9/xiaohongshu-copy-guide.md` 完成“平台文案轮”和“独立健康表达与去 AI 质检轮”，生成 `小红书文案.txt`。长文引导由策略决定是否出现，不使用固定句：
+按 `docs/steps/step9/xiaohongshu-copy-guide.md` 和 `docs/steps/step9/toutiao-guide.md` 完成小红书与今日头条专属资产生成与独立质检：
+1. **小红书**：生成 `小红书文案.txt`（爆款标题 + 标签 + 条件式长文引导）；
+2. **今日头条**：生成 `今日头条文章.md`（大白话、超短段落、痛点前置、3 个三段式标题候选）与 `微头条.txt`（300~500 字短平快干货）。
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_9
 python3 scripts/validate_workflow.py xhs-copy articles/<YYYYMMDD-HHMMSS>
+python3 scripts/validate_workflow.py toutiao articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_9
 ```
 
@@ -208,7 +212,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_9
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_10
 ```
 
-按 `docs/steps/step10/unified-approval-guide.md`，统一预览 `article.html`、公众号图片、小红书卡片和小红书文案。Agent 必须停在这里；初始生成请求不等于上传授权。用户在当前对话明确确认后才运行：
+按 `docs/steps/step10/unified-approval-guide.md`，统一预览 `article.html`、公众号图片、小红书卡片、小红书文案、今日头条长文及微头条。Agent 必须停在这里；初始生成请求不等于上传授权。用户在当前对话明确确认后才运行：
 
 ```bash
 python3 scripts/workflow_state.py approve articles/<YYYYMMDD-HHMMSS>
@@ -239,4 +243,5 @@ python3 scripts/validate_workflow.py final articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_12
 ```
 
-用户随后手动发布 `小红书卡片-{01-N}.png` 和 `小红书文案.txt`。
+用户随后手动发布小红书（`小红书卡片-{01-N}.png` 和 `小红书文案.txt`）以及今日头条（`今日头条文章.md` 和 `微头条.txt`）。
+

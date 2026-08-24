@@ -67,16 +67,17 @@ python3 scripts/validate_workflow.py skills skills.lock.json
 
 ### 1. 从 cover_prompt.md 提取提示词
 
-读取 `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`，为封面和每张正文配图分别提取完整英文 prompt。保持 section 与输出文件一一对应：
+读取 `articles/<YYYYMMDD-HHMMSS>/cover_prompt.md`，为封面、正文配图和今日头条专属三图封面分别提取完整英文 prompt。保持 section 与输出文件一一对应：
 
-- 封面：`cover.png`，目标比例 `2.35:1`。
-- 正文配图：`配图N.png`，目标比例 `16:9`。
+- 公众号主封面：`cover.png`，目标比例 `2.35:1`。
+- 正文插图：`配图N.png`，目标比例 `16:9`。
+- 今日头条三图封面：`toutiao-cover-1.png`、`toutiao-cover-2.png`、`toutiao-cover-3.png`，目标比例 `16:9`（分别对应痛点场景、食物对比与科学赋能）。
 
 无论原生接口是否提供独立的比例参数，都必须在传入的 prompt 中明确写出目标比例和用途。
 
 ### 2A. Codex 原生路径
 
-1. 按当前 `imagegen` skill 的说明调用原生 `image_gen`，每个 section 单独调用一次，按封面、配图1、配图2的顺序依次生成。
+1. 按当前 `imagegen` skill 的说明调用原生 `image_gen`，每个 section 单独调用一次，按公众号封面、正文配图（1~N）、头条三图封面（1~3）的顺序依次生成。
 2. 每次调用只传当前图片的 prompt、目标比例和必要参考图，不传其他 section 的内容。
 3. 原生工具生成完成后，使用该次调用返回的文件路径或输出提示定位新图；不要事先扫描或猜测 `$CODEX_HOME/generated_images/` 中的旧文件。
 4. 将该次生成的图片移动或复制到对应文章目录：
@@ -85,11 +86,15 @@ python3 scripts/validate_workflow.py skills skills.lock.json
    articles/<YYYYMMDD-HHMMSS>/cover.png
    articles/<YYYYMMDD-HHMMSS>/配图1.png
    articles/<YYYYMMDD-HHMMSS>/配图2.png
+   articles/<YYYYMMDD-HHMMSS>/toutiao-cover-1.png
+   articles/<YYYYMMDD-HHMMSS>/toutiao-cover-2.png
+   articles/<YYYYMMDD-HHMMSS>/toutiao-cover-3.png
    ```
 
 5. 原生路径不创建 `batch.json`，不读取 `baoyu-image-gen` 的 `EXTEND.md`，也不执行 codex-cli 锁文件预检。
 
 项目的“生成后只做客观检查”规则优先：即使原生 `imagegen` skill 的通用流程建议目检，本阶段也不得调用 `view_image` 或根据主观画面质量重生成。
+
 
 ### 2B. codex-cli 回退路径
 

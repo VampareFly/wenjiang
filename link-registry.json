@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-20T00:29:44+00:00",
+  "updated_at": "2026-08-24T01:40:53+00:00",
   "entries": [
     {
       "url_original": "https://youtu.be/qB2PpDoUh30?si=RS8_k5gylkYajAjH",
@@ -511,6 +511,36 @@
       "media_id": "HbIbdPKCxVEYs2lDI5JYjSRONuVCE78uZ4qOUZkypvu1OaM0IfhqeZkrZP85l-zO",
       "title": "难怪你越克制越想吃！斯坦福神经生物学家的食欲掌控指南",
       "processed_at": "2026-08-20T00:29:44+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=v-JxxTGB3GY",
+      "url_normalized": "https://youtu.be/v-JxxTGB3GY",
+      "article_dir": "articles/20260820-152923",
+      "subtitle_file": "The Glymphatic System： what on Earth is it - and 7 ways to improve it!.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjWhyfhhQC_prk72Iht2xubk2UdktzfekbFev1Ir_h4jo",
+      "title": "睡够8小时脑子还是沉？看懂大脑夜间的“自动洗脑”排毒机制",
+      "processed_at": "2026-08-20T08:09:38+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=xhqhyqC6d3o",
+      "url_normalized": "https://youtu.be/xhqhyqC6d3o",
+      "article_dir": "articles/20260824-083329",
+      "subtitle_file": "Autophagy Explained： How Long Do You Really Need to Fast ｜ Science Explained.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjbNQ3TxI0l5ek4QQjgFnFWA7OtnomwRT0XsvCZN3iTOP",
+      "title": "诺奖级细胞自噬抗衰：盲目断食为何没用？看懂身体自我翻新机制",
+      "processed_at": "2026-08-24T01:02:25+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=3VkP4tqGhdY",
+      "url_normalized": "https://youtu.be/3VkP4tqGhdY",
+      "article_dir": "articles/20260824-091906",
+      "subtitle_file": "The #1 Best Protocol for Gout.en.srt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQWEJkiZ_6AQG5l9IG1QUhe3fXtSCc53-ltH_mNdZ9E_",
+      "title": "戒了海鲜啤酒尿酸依然500+？拆解高尿酸与痛风的天然排酸方案",
+      "processed_at": "2026-08-24T01:40:53+00:00"
     }
   ]
 }
