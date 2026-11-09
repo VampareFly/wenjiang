@@ -41,7 +41,8 @@
 
 - 禁止 `<style>`、`<script>`、`<div>`、`class`、`id`。
 - 禁止 `position:fixed/absolute/sticky`、`float`、`display:grid`、CSS 变量。
-- 样式必须内联；文字节点按主题要求使用 `<span leaf="">`。
+- 样式必须内联；所有正文文字节点必须使用 `<span leaf="">正文文字</span>` 包裹。**注意：`leaf=""` 属性值必须严格为空字符串，正文必须作为 `<span>` 标签内部的文本子节点**。严禁将文字写入 `leaf` 属性内（例如错误写法 `<span leaf="文字"></span>` 会导致微信公众平台后台正文全部丢失，仅剩图片）。
+- HTML 可见正文字符数必须与 `article.md` 基本一致（≥70%），严禁发生文案丢失。
 - 正文图片使用相对路径 `配图N.png`，保留准确 `alt`。
 - 图片数量必须等于 `article.md` 的配图标记数量，HTML 不得残留 `【配图`。
 

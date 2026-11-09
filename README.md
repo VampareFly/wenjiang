@@ -36,8 +36,8 @@ Step 7  小红书搜索意图与热点策略
 Step 8  生成小红书卡片 + 全页程序检查
 Step 9  生成多平台文案 (小红书文案 + 今日头条长文/微头条) + 独立健康表达/去 AI 质检
 Step 10 统一预览确认公众号、小红书与今日头条资产
-Step 11 上传图片并创建微信草稿箱
-Step 12 最终清理；随后手动发布小红书与今日头条
+Step 11 上传图片并创建微信与今日头条草稿箱 (post_to_toutiao.py)
+Step 12 最终清理；随后在手机/电脑端一键发布各平台草稿
 ```
 
 每个任务使用 `workflow-state.json` 记录步骤和校验状态。Step 10 是统一用户确认硬门禁；确认后的公众号、小红书或头条资产发生变化时，必须重新确认才能创建微信草稿。
@@ -80,6 +80,7 @@ articles/YYYYMMDD-HHMMSS/
 ├── scripts/
 │   ├── discover_youtube.py # YouTube 选题雷达扫描与 candidates.md 生成
 │   ├── fetch_youtube.py    # YouTube 字幕提取、清洗与任务初始化
+│   ├── post_to_toutiao.py  # 今日头条长文与微头条自动存草稿
 │   ├── clean_subtitle.py   # 本地字幕清洗脚本
 │   ├── link_registry.py    # 链接查重与输入/草稿映射
 │   ├── validate_workflow.py # 文章、图片、HTML、发布和最终资产校验

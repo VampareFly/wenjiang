@@ -1,0 +1,14 @@
+[
+  {
+    "prompt": "Cinematic dramatic photography, 16:9 aspect ratio. A late-night intense emotional struggle scene: a 30-year-old Asian woman sitting at a dimly lit desk late at night, looking deeply conflicted, stressed, and struggling with intense food cravings. In front of her, a crumpled empty soda can clearly printed with Simplified Chinese text \"0糖饮料\", with a couple of other empty beverage cans nearby. Right next to her hands in the foreground is a tempting chocolate-glazed pastry and fried chicken, illuminated by warm inviting light contrasting with the cool blue shadows of the room. High emotional tension, cinematic lighting, shallow depth of field, 8k resolution. All text and labels on the cans and desk must be exclusively in Simplified Chinese characters. Absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Dynamic high-speed luxury macro photography, 16:9 aspect ratio. A thrilling, hyper-refreshing pure natural vitality scene: a crystal-clear glass of sparkling mineral water with explosive, crystal water splashes and effervescent bubbles frozen in mid-air. Juicy fresh yellow lemon slices and lime wedges submerged with rising carbonation bubbles, crisp vibrant green mint leaves catching radiant morning golden sunlight. Surrounded by fresh dewy wild blueberries, ripe red strawberries, and pristine ice cubes on a dark slate surface. Ultra-high clarity, intense vibrant colors, cinematic backlighting, 8k resolution. Pure natural appetizing imagery, absolutely NO English text, NO words.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

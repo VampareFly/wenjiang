@@ -1,0 +1,54 @@
+{
+  "jobs": 4,
+  "tasks": [
+    {
+      "id": "cover_raw",
+      "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. A serene, high-end editorial photograph of healthy cellular hydration and electrolytes. On a warm wooden kitchen counter bathed in morning natural sunlight, there is a clear glass of pure water with a fresh lemon slice, delicate water droplets beaded on the exterior. Next to it, an artisanal small stoneware dish filled with natural coarse sea salt crystals and a sprig of fresh mint. Minimalist, refreshing, tranquil, warm cinematic lighting, 8k resolution, photorealistic, clean visual without any English text. All text labels, signage, or props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/cover_raw.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu1",
+      "prompt": "Modern health infographic, 16:9 aspect ratio. Scientific breakdown of everyday beverage traps on a warm minimalist editorial background. Four stylish visual comparison cards arranged horizontally: Card 1: A cup of dark coffee with a warning icon, labeled in Simplified Chinese: '咖啡与浓茶：利尿促排'. Card 2: A glass of soda with sugar cubes and a lock icon, labeled in Simplified Chinese: '含糖饮料：糖原锁水'. Card 3: A cocktail glass, labeled in Simplified Chinese: '酒精饮品：抑制抗利尿激素'. Card 4: A pure water glass with mineral ions, labeled in Simplified Chinese: '优质水合：纯水搭配电解质'. Crisp graphic presentation, magazine layout, highly aesthetic, all typography exclusively in Simplified Chinese, zero English words, absolutely NO English letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/配图1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu2",
+      "prompt": "Medical biomechanics infographic, 16:9 aspect ratio. Clear side-by-side comparison diagram explaining cellular osmosis and electrolyte water balance on a clean light clinical background. Left section shows '低钠稀释' (Hyponatremic Dilution): extracellular fluid with low sodium, showing water rushing uncontrollably causing cellular swelling and fluid loss, labeled in Simplified Chinese: '钠离子稀释', '细胞外液'. Right section shows '正常水合' (Healthy Hydration): balanced sodium and potassium ion channels across the cell membrane, keeping optimal water volume inside the cell, clearly labeled in Simplified Chinese: '细胞内液', '钠离子', '钾离子', '水盐平衡'. Clean modern infographic design, elegant 3D molecular elements, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu3",
+      "prompt": "Clinical lifestyle health infographic, 16:9 aspect ratio. An aesthetic, structured guide showing the '科学补水4步法' on an elegant warm parchment background. Step 1: Icon of a water bottle, labeled in Simplified Chinese: '基准纯水：每日2至3升'. Step 2: Icon of a pinch of sea salt, labeled in Simplified Chinese: '微咸法则：一小撮天然海盐'. Step 3: Icon of fresh lemon slice and greens, labeled in Simplified Chinese: '钾镁平衡：柠檬汁与绿叶菜'. Step 4: A urine color spectrum card, labeled in Simplified Chinese: '身体信号：清亮淡黄为最佳'. Clean Scandinavian wellness layout, clear visual hierarchy, soft natural lighting, all text exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/配图3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao1",
+      "prompt": "Hyper-realistic lifestyle photography, 16:9 aspect ratio. A dramatic split-screen composition for health news headline. Left side: an exhausted modern Asian professional sitting at a desk with a large water tumbler, touching forehead with tired expression of dehydration despite drinking water. Right side: an artistic glowing translucent water droplet containing sparkling golden mineral electrolyte ions. Bold, clean Chinese typography graphic style with Chinese text: '越喝越干？' and '假性脱水真相'. Modern lifestyle medical aesthetics, cinematic lighting, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/toutiao-cover-1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "Striking educational medical illustration, 16:9 aspect ratio. Dark clinical background showing the physiological effect of drinking excessive water without salt. A stylized 3D human silhouette highlighting the brain, heart, and circulatory blood vessels, illustrating low blood volume and dizziness from electrolyte depletion. Prominently labeled with bold Chinese text: '狂灌纯水' and '低钠眩晕'. High contrast, 3D bio-render, dramatic neon blue and amber lighting, 16:9 aspect ratio, all text in Simplified Chinese, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao3",
+      "prompt": "Bright, clean, uplifting flat lay photography, 16:9 aspect ratio. A natural cellular hydration kitchen setup: a glass carafe of pristine water infused with fresh lemon and cucumber slices, a small rustic wooden bowl filled with pink Himalayan salt and coarse sea salt crystals, and a small glass of fresh electrolyte water. Bright morning kitchen ambiance, crisp details, labeled cleanly in Simplified Chinese: '海盐电解质', '真正补进细胞'. Magazine quality, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-105123/toutiao-cover-3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}

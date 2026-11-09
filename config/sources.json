@@ -2,9 +2,27 @@
   "channels": [
     {
       "name": "Huberman Lab (Andrew Huberman)",
-      "channel_id": "UC2D2197645-_dcG6KETOQcA",
+      "channel_id": "UC2D2CMWXMOVWx7giW1n3LIg",
       "custom_url": "https://www.youtube.com/@hubermanlab",
       "category": "神经科学与睡眠精力"
+    },
+    {
+      "name": "Dr. Eric Berg DC",
+      "channel_id": "UC3w193M5tYPJqF0Hi-7U-2g",
+      "custom_url": "https://www.youtube.com/@DrBerg",
+      "category": "肝脏代谢与饮食避坑"
+    },
+    {
+      "name": "ZOE Science & Nutrition (Tim Spector)",
+      "channel_id": "UCa09am-cOsC-FSgr_nLkFFA",
+      "custom_url": "https://www.youtube.com/@zoescience",
+      "category": "肠道微生态与超加工食品"
+    },
+    {
+      "name": "FoundMyFitness Clips (Dr. Rhonda Patrick)",
+      "channel_id": "UC5fdyC4LxyyYv8Am6nDrkmg",
+      "custom_url": "https://www.youtube.com/@FoundMyFitnessClips",
+      "category": "内脏脂肪与细胞延寿"
     },
     {
       "name": "Peter Attia MD (The Drive)",
@@ -13,28 +31,10 @@
       "category": "长寿医学与代谢抗衰"
     },
     {
-      "name": "Dr. Eric Berg DC",
-      "channel_id": "UC3w193751543",
-      "custom_url": "https://www.youtube.com/@DrEricBergDC",
-      "category": "饮食结构与控糖减脂"
-    },
-    {
       "name": "Glucose Goddess (Jessie Inchauspé)",
-      "channel_id": "UCwkd2LpZqG1lC0k_a2jUv-w",
+      "channel_id": "UCsQdi6X-12eUKBBBze46STA",
       "custom_url": "https://www.youtube.com/@GlucoseGoddess",
       "category": "控糖曲线与饮食顺序"
-    },
-    {
-      "name": "ZOE (Tim Spector)",
-      "channel_id": "UC_w7i2fK6uXo4y7A633Fk8g",
-      "custom_url": "https://www.youtube.com/@ZOE",
-      "category": "肠道微生态与超加工食品"
-    },
-    {
-      "name": "FoundMyFitness (Dr. Rhonda Patrick)",
-      "channel_id": "UCvYgmpt4P4P3X5wA5U_zYkg",
-      "custom_url": "https://www.youtube.com/@FoundMyFitness",
-      "category": "细胞自噬与延寿营养"
     }
   ],
   "keywords": [

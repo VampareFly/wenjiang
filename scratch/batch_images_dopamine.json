@@ -1,0 +1,26 @@
+[
+  {
+    "prompt": "A clean health lifestyle infographic, 16:9 aspect ratio, four visual quadrants: 1. morning phone-free 60 minutes window, 2. setting physical friction for distracting apps, 3. finding dopamine in the effort process, 4. active rest with NSDR or nature walks, elegant Scandinavian layout, emerald and warm gold palette",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260907-081817/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio, an exhausted Asian professional slumping on an office desk, aimlessly scrolling a glowing smartphone in dim light with an empty, burnt-out facial expression, authentic cinematic lighting, highly detailed 8k",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260907-081817/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end medical and lifestyle photography, 16:9 aspect ratio, a split contrast composition: left side showing a glowing brain bathed in chaotic red/purple digital noise representing burnout, right side showing a serene brain glowing with balanced emerald and gold neural circuits representing calm focus, crisp lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260907-081817/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Lifestyle photography, 16:9 aspect ratio, a refreshed, focused 30-year-old Asian professional sitting by a sunlit morning window, working deeply with calm clarity and vibrant energy, surrounded by green plants, warm golden sunlight, inspiring atmosphere",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260907-081817/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

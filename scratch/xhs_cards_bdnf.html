@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>大脑抗衰与防健忘 · 小红书卡片组（中间四条聚合居中版）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #f4f6f0;
+      --paper-card: #ffffff;
+      --ink: #14211a;
+      --ink-secondary: #33443a;
+      --muted: #6b7f73;
+      --accent: #205c40;
+      --accent-warm: #c88a35;
+      --line: rgba(20, 33, 26, 0.14);
+      --line-subtle: rgba(20, 33, 26, 0.08);
+      --tag-bg: rgba(32, 92, 64, 0.09);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #333; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(20,33,26,0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line);
+      padding-top: 24px;
+      margin-top: 28px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    /* Content Area: Fills all vertical space */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 21px;
+      font-weight: 700;
+      border-radius: 30px;
+      margin-bottom: 16px;
+    }
+
+    .title-hero {
+      font-family: var(--font-serif);
+      font-size: 64px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .title-section {
+      font-family: var(--font-serif);
+      font-size: 50px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 25px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border-radius: 24px;
+      padding: 34px 40px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 10px 30px rgba(20,33,26,0.04);
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 29px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-desc {
+      font-size: 23px;
+      line-height: 1.65;
+      color: var(--ink-secondary);
+    }
+
+    .highlight {
+      color: var(--accent-warm);
+      font-weight: 800;
+    }
+
+    /* Checklist Group Styling for Card 5 (Grouped and Centered) */
+    .checklist-group {
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .check-item {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 22px 28px;
+      border: 1.5px solid var(--line-subtle);
+      box-shadow: 0 6px 18px rgba(20,33,26,0.03);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .check-badge {
+      width: 44px;
+      height: 44px;
+      background: rgba(32,92,64,0.12);
+      color: var(--accent);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .check-text-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .check-text-sub {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    /* Grid & Lists */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      flex: 1;
+    }
+    .grid-card {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 30px 32px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 8px 24px rgba(20,33,26,0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 800;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .visual-split {
+      width: 100%;
+      height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 22px;
+      background: #111;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.1);
+    }
+    .visual-split img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .visual-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 18px 26px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      color: #fff;
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Card 01: Cover -->
+  <section class="poster" id="card-01">
+    <div class="header">
+      <span class="brand-tag">NEUROSCIENCE & BRAIN HEALTH</span>
+      <span class="page-index">01 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">💡 循证脑科学 · 记忆力抗衰</div>
+        <h1 class="title-hero">转头就忘不是老糊涂？<br>大脑缺少这种“神经肥料”</h1>
+        <p class="subtitle">别以为脑细胞死一个少一个！<strong class="highlight">海马体终身都在生长新突触</strong><br>看懂神经生长因子 BDNF，重塑大脑活力</p>
+      </div>
+
+      <div class="card" style="background: rgba(32,92,64,0.05); border-left: 8px solid var(--accent); padding: 38px 44px; margin-top: 10px;">
+        <div style="font-size: 25px; line-height: 1.75; color: var(--ink-secondary);">
+          ❌ <strong>健忘不是衰老的不可逆必然</strong><br>
+          ❌ 久坐 + 甜食让大脑产生胰岛素抵抗，锁死 <strong class="highlight">BDNF</strong> 分泌<br>
+          👉 <strong>激活肌肉-大脑对话</strong>，让海马体源源不断新生突触
+        </div>
+      </div>
+
+      <div class="card" style="padding: 28px 36px; background: #ffffff;">
+        <div style="font-size: 22px; color: var(--muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>📌 核心要点：机制拆解 ➔ 肌肉对话 ➔ 4 步施肥法</span>
+          <span style="color: var(--accent); font-weight: 700;">右滑继续阅读 ➔</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学脑神经与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">SLIDE TO READ →</span>
+    </div>
+  </section>
+
+  <!-- Card 02: Mechanism (Semi-Editorial Split) -->
+  <section class="poster" id="card-02">
+    <div class="header">
+      <span class="brand-tag">01 · 核心机制</span>
+      <span class="page-index">02 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">什么是大脑天然肥料？<br>认识神奇因子 BDNF</h2>
+        <p class="subtitle" style="margin-bottom: 18px;">脑源性神经营养因子负责在海马体中催生新神经元并巩固记忆</p>
+      </div>
+
+      <div class="visual-split">
+        <img src="file:///Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/配图1.png" alt="海马体BDNF机制">
+        <div class="visual-caption">🔬 微观机制：海马体在金色 BDNF 滋养下，伸展全新神经突触并建立持久记忆</div>
+      </div>
+
+      <div class="card" style="padding: 30px 36px;">
+        <div class="card-desc" style="font-size: 23px; line-height: 1.65;">
+          <strong>BDNF</strong> 被神经科学家誉为“大脑的超级肥料”。它能促进成年人海马体神经发生（Neurogenesis），加固神经元突触长时程增强（LTP），让思维灵敏、告别脑雾！
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学脑神经与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 03: Muscle-Brain Dialogue -->
+  <section class="poster" id="card-03">
+    <div class="header">
+      <span class="brand-tag">02 · 肌肉对话</span>
+      <span class="page-index">03 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">肌肉收缩：<br>激活大脑肥料的黄金开关</h2>
+        <p class="subtitle" style="margin-bottom: 22px;">大腿不仅管走路，更是大脑最大的内分泌给药器：</p>
+      </div>
+
+      <div class="card" style="margin-bottom: 22px; padding: 36px 40px;">
+        <div class="card-title">🏃 1. 下肢肌肉释放鸢尾素（Irisin）</div>
+        <div class="card-desc" style="font-size: 23px; line-height: 1.7;">
+          中等强度快走时，大腿肌纤维收缩向血液泵出 <strong>鸢尾素</strong>。它能顺畅穿透血脑屏障，直接刺激海马体爆发式分泌 BDNF！
+        </div>
+      </div>
+
+      <div class="card" style="padding: 36px 40px;">
+        <div class="card-title">⚠️ 2. 警惕久坐与大脑胰岛素抵抗</div>
+        <div class="card-desc" style="font-size: 23px; line-height: 1.7;">
+          长期久坐不动 + 高精制甜食，会导致大脑神经元对胰岛素产生抵抗，直接锁死 BDNF 的基因转录通道，加速脑突触萎缩。
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学脑神经与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 04: 4 Actions -->
+  <section class="poster" id="card-04">
+    <div class="header">
+      <span class="brand-tag">03 · 行动指南</span>
+      <span class="page-index">04 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">科学给大脑“施肥”：<br>做好这 4 件事防健忘</h2>
+        <p class="subtitle" style="margin-bottom: 22px;">激发体内天然 BDNF，重塑记忆力：</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 10px;">
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">1</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">每天快走20分</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            微出汗、微气喘的中等强度，持续刺激下肢释放鸢尾素。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">2</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">适度夜间空腹</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            拉长空腹产生 BHB 酮体，直接充当表观遗传开关唤醒 BDNF。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">3</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">吃深色抗炎浆果</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            蓝莓花青素与初榨橄榄油多酚，强力平息海马体微炎症。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">4</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">保证慢波深睡</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            胶质淋巴系统清洗 β-淀粉样蛋白，将新记忆牢固封存。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学脑神经与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 05: Checklist (Grouped Together & Vertically Centered) -->
+  <section class="poster" id="card-05">
+    <div class="header">
+      <span class="brand-tag">04 · 落地清单</span>
+      <span class="page-index">05 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">从今天起，<br>科学守护大脑年轻态</h2>
+        <p class="subtitle" style="margin-bottom: 0;">坚持给大脑施肥，告别转头就忘</p>
+      </div>
+
+      <!-- 4 items grouped together with compact 14px gap, centered vertically via margin: auto 0 -->
+      <div class="checklist-group">
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">1. 饭后出门快走 20 分钟</div>
+            <div class="check-text-sub">微出汗快走刺激大腿肌纤维分泌鸢尾素，直通海马体</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">2. 晚饭早点吃、坚决不吃夜宵</div>
+            <div class="check-text-sub">保持 14 小时夜间空腹，激活肝脏酮体解锁 BDNF 基因</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">3. 早餐一把野生蓝莓或黑加仑</div>
+            <div class="check-text-sub">天然高浓度花青素筑牢海马体抗炎屏障，保护神经突触</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">4. 睡前远离手机蓝光与高糖</div>
+            <div class="check-text-sub">保障优质慢波深睡，让胶质淋巴系统彻底清洗脑内代谢废物</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Callout Card -->
+      <div class="card" style="text-align: center; padding: 26px 32px; background: #ffffff; border: 1.5px solid var(--accent); margin-top: 0;">
+        <p style="font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 6px;">❤️ 觉得有用请【点赞 + 收藏 + 转发给家人】</p>
+        <p style="font-size: 20px; color: var(--muted);">关注【食外】，每天掌握一个硬核靠谱的大脑与身体抗衰常识</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>免责声明：科普内容仅供参考，不作为个体化临床诊疗依据。</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">食外</span>
+    </div>
+  </section>
+
+</body>
+</html>

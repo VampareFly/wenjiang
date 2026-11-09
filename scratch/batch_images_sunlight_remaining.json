@@ -1,0 +1,33 @@
+{
+  "jobs": 1,
+  "tasks": [
+    {
+      "id": "cover_raw",
+      "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. A tranquil, refreshing morning lifestyle scene bathed in low solar angle, golden morning sunlight streaming naturally from the side. In a warm modern minimalist balcony or courtyard, a pair of casual running sneakers, a minimal clear glass of fresh water, and vibrant natural green plants are illuminated by soft, warm morning daylight. Editorial lifestyle photography, Kinfolk and Monocle magazine aesthetic, authentic natural textures, peaceful, uplifting, and highly credible atmosphere. Clean visual without any English text. NO sci-fi glow, NO neon lighting, NO glowing organs, NO chaotic glowing particles, NO exaggerated dramatic expressions. Absolutely NO English words or letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/cover_raw.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu1",
+      "prompt": "Medical neurobiology infographic, 16:9 aspect ratio. Nature and Cell journal diagram style. Illustrating the neurobiological pathway of morning light entering the human eye: Low solar angle morning sunlight travels into the eye, directly exciting '感光视网膜神经节细胞' (ipRGCs). The neural electrical signal travels along the retinohypothalamic tract directly into the '视交叉上核' (SCN, central biological clock), synchronizing peripheral organ clocks. Warm parchment paper background, soft deep forest green, ice blue, and warm ochre accents, clean elegant vector lines, anatomical clarity. All text labels, diagram annotations, and captions MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '晨间低角度阳光', '感光神经节细胞', '视交叉上核', '中央生物钟', '外周器官同步'. NO sci-fi glow, NO neon lighting, NO glowing fantasy organs.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/配图1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu2",
+      "prompt": "Medical endocrine infographic, 16:9 aspect ratio. A dual-curve timeline chart illustrating the 24-hour endocrine rhythm: Morning 07:00 shows a sharp, healthy peak labeled '晨间皮质醇健康脉冲' driving daytime alertness, focus, and immune activation. An arrow marks a '16小时内在倒计时' pointing to 23:00, where cortisol drops to baseline and the pineal gland releases a smooth, high peak labeled '夜间褪黑素深度分泌' inducing deep sleep. Clean editorial dual-curve graph on warm cream paper texture, muted deep navy line for cortisol, soft amber gold line for melatonin, elegant data points and clean typography. All text labels, diagram annotations, and captions MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '24小时激素时序', '晨间皮质醇健康脉冲', '16小时内在倒计时', '夜间褪黑素深度分泌', '白天清醒', '夜间深睡'. NO sci-fi glow, NO neon lighting.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "High-contrast split-composition realistic photography, 16:9 aspect ratio. Left side: a person sitting inside a closed room behind a double-pane glass window looking outside into gray dim light, looking sluggish and lethargic; Right side: the same person standing on an outdoor balcony or courtyard under the natural morning sky, facing the natural daylight with an open, relaxed posture, taking a deep breath of fresh air. Editorial lifestyle photography, natural light, genuine textures, powerful visual contrast between stagnant indoor gloom and outdoor natural radiance. Clean visual without any English text. NO sci-fi glow, NO neon lighting. Absolutely NO English words or letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}

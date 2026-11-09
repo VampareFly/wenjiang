@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="warm-academic">
+<head>
+  <meta charset="utf-8">
+  <title>睡眠枕头与脊柱力学指南 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #faf7f2;
+      --paper-card: #ffffff;
+      --ink: #1c1917;
+      --ink-secondary: #44403c;
+      --muted: #78716c;
+      --accent: #991b1b;
+      --accent-warm: #c2410c;
+      --line: rgba(28, 25, 23, 0.14);
+      --line-subtle: rgba(28, 25, 23, 0.08);
+      --tag-bg: rgba(153, 27, 27, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #222; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(28, 25, 23, 0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--line);
+      padding-bottom: 24px;
+    }
+
+    .brand {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      letter-spacing: 2px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      border-top: 1.5px solid var(--line);
+      padding-top: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 20px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    .footer-left { display: flex; align-items: center; gap: 12px; }
+    .badge {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Typography */
+    .tag-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      border: 1px solid rgba(153, 27, 27, 0.2);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+      margin-bottom: 28px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-title span.accent {
+      color: var(--accent);
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    .subtitle {
+      font-size: 24px;
+      color: var(--ink-secondary);
+      line-height: 1.6;
+      margin-bottom: 36px;
+    }
+
+    /* Content Blocks */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px 0;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 34px 38px;
+      box-shadow: 0 8px 24px rgba(28, 25, 23, 0.04);
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title-badge {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .card p {
+      font-size: 23px;
+      color: var(--ink-secondary);
+      line-height: 1.65;
+    }
+
+    .card strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* Image Block */
+    .media-frame {
+      width: 100%;
+      height: 480px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      position: relative;
+      background: #000;
+    }
+
+    .media-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Comparison Grid */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .bad-box {
+      background: #fff5f5;
+      border: 1.5px solid rgba(239, 68, 68, 0.3);
+      border-radius: 18px;
+      padding: 26px 28px;
+    }
+
+    .good-box {
+      background: #f0fdf4;
+      border: 1.5px solid rgba(34, 197, 94, 0.35);
+      border-radius: 18px;
+      padding: 26px 28px;
+    }
+
+    .box-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .bad-box .box-header { color: #dc2626; }
+    .good-box .box-header { color: #16a34a; }
+
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 26px;
+    }
+
+    .check-icon {
+      font-size: 26px;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    .check-text h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+
+    .check-text p {
+      font-size: 21px;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- P1 封面 -->
+  <div class="poster" id="card-01">
+    <div class="header">
+      <span class="brand">SPINE & SLEEP BIOMECHANICS</span>
+      <span class="page-index">01 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="tag-pill">
+          <span>🦴 脊柱生物力学 · 睡眠自查</span>
+        </div>
+        <h1 class="hero-title">越睡越累？你家枕头可能<br><span class="accent">从一开始就垫错位置</span></h1>
+        <p class="subtitle">睡醒脖子发紧、后背酸胀、频繁落枕？解剖学临床指出：80%的人误把枕头当成了“垫后脑勺”的工具，导致颈椎整夜悬空受力！</p>
+      </div>
+
+      <div class="media-frame" style="height: 580px;">
+        <img src="../articles/20260911-093839/配图1.png" alt="仰睡与侧睡脊柱对齐力学图">
+      </div>
+
+      <div class="card" style="padding: 24px 30px; background: rgba(153, 27, 27, 0.05); border-color: rgba(153, 27, 27, 0.2);">
+        <p style="font-size: 22px; color: var(--accent); font-weight: 600; text-align: center;">
+          💡 核心认知：枕头不是垫脑袋的，而是填补颈椎与中背部空隙的！
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">
+        <span class="badge"></span>
+        <span>食外 · 循证睡眠科学</span>
+      </div>
+      <span>SWIPE TO LEARN ➔</span>
+    </div>
+  </div>
+
+  <!-- P2 仰睡力学误区与正确解法 -->
+  <div class="poster" id="card-02">
+    <div class="header">
+      <span class="brand">BACK SLEEPING MECHANICS</span>
+      <span class="page-index">02 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="tag-pill">
+          <span>⚠️ 常见误区 vs 科学对齐</span>
+        </div>
+        <h2 class="hero-title" style="font-size: 46px;">仰睡为什么会“越睡越僵”？</h2>
+      </div>
+
+      <div class="comparison-grid">
+        <div class="bad-box">
+          <div class="box-header">
+            <span>❌ 传统错误垫法</span>
+          </div>
+          <p style="font-size: 21px; line-height: 1.6; color: #7f1d1d;">
+            • <strong>只枕在后脑勺边缘</strong>：厚枕头把头颅向上顶，下巴强行贴向胸口。<br><br>
+            • <strong>颈椎持续屈曲变直</strong>：相当于整夜七八个小时都在维持低头看手机的“探颈体态”，肌肉严重代偿。
+          </p>
+        </div>
+
+        <div class="good-box">
+          <div class="box-header">
+            <span>✅ 科学力学纠偏</span>
+          </div>
+          <p style="font-size: 21px; line-height: 1.6; color: #14532d;">
+            • <strong>下沿卡入两肩胛骨间</strong>：枕头往下扯，托住中背部胸椎与颈椎弧度，让头自然回落平整。<br><br>
+            • <strong>膝下垫上“第二个枕头”</strong>：微屈髋膝关节，卸除骨盆前倾对下背部腰椎的持续代偿拉力！
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 28px 32px;">
+        <div class="card-title">
+          <span class="card-title-badge">STEP</span>
+          <span>今晚躺下立刻调整的 2 个动作</span>
+        </div>
+        <p>1. 仰躺时双手抓住枕头下沿，往下拉到覆盖上背部两肩胛骨之间；<br>
+        2. 抓一个旧枕头或抱枕，直接垫在双膝后侧的膝窝下方。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">
+        <span class="badge"></span>
+        <span>食外 · 循证睡眠科学</span>
+      </div>
+      <span>SWIPE TO LEARN ➔</span>
+    </div>
+  </div>
+
+  <!-- P3 侧睡力学平衡与双膝夹枕 -->
+  <div class="poster" id="card-03">
+    <div class="header">
+      <span class="brand">SIDE SLEEPING ALIGNMENT</span>
+      <span class="page-index">03 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="tag-pill">
+          <span>⚖️ 侧睡防扭转 · 骨盆对齐</span>
+        </div>
+        <h2 class="hero-title" style="font-size: 46px;">侧睡如何防止脊柱扭成麻花？</h2>
+      </div>
+
+      <div class="media-frame" style="height: 380px;">
+        <img src="../articles/20260911-093839/配图2.png" alt="侧睡头颈高度与双膝夹枕图">
+      </div>
+
+      <div class="card" style="padding: 28px 32px;">
+        <div class="card-title">
+          <span class="card-title-badge">KEY 1</span>
+          <span>枕头厚度 = 肩膀外缘到耳朵的落差</span>
+        </div>
+        <p>侧睡时落差远大于仰睡：枕头太薄导致头部朝床面倾斜塌陷，上方颈肌被动牵拉；枕头太厚则向天花板掰折。必须保持<strong>面部中线、颈椎与胸椎在同一水平线</strong>。</p>
+      </div>
+
+      <div class="card" style="padding: 28px 32px; background: rgba(194, 65, 12, 0.05); border-color: rgba(194, 65, 12, 0.2);">
+        <div class="card-title" style="color: var(--accent-warm);">
+          <span class="card-title-badge" style="background: var(--accent-warm);">KEY 2</span>
+          <span>双膝之间必须夹一个枕头！</span>
+        </div>
+        <p>双腿叠放侧躺，上方大腿受重力会向前滑落旋转，把腰椎拧向一侧。<strong>两膝间夹枕头</strong>把双腿撑至与骨盆同宽，彻底保护骨盆与腰椎中立平直！</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">
+        <span class="badge"></span>
+        <span>食外 · 循证睡眠科学</span>
+      </div>
+      <span>SWIPE TO LEARN ➔</span>
+    </div>
+  </div>
+
+  <!-- P4 波浪枕高低侧与毛巾卷 -->
+  <div class="poster" id="card-04">
+    <div class="header">
+      <span class="brand">CERVICAL PILLOW & DIY TOWEL</span>
+      <span class="page-index">04 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="tag-pill">
+          <span>🛠️ 枕型选型 · 0成本实操</span>
+        </div>
+        <h2 class="hero-title" style="font-size: 46px;">波浪枕高低侧搞反了？毛巾卷自救</h2>
+      </div>
+
+      <div class="media-frame" style="height: 380px;">
+        <img src="../articles/20260911-093839/配图3.png" alt="波浪枕高低侧与毛巾卷自制托颈法">
+      </div>
+
+      <div class="card" style="padding: 26px 32px;">
+        <div class="card-title">
+          <span class="card-title-badge">01</span>
+          <span>波浪形记忆棉枕：千万别用错边！</span>
+        </div>
+        <p>• <strong>仰睡务必用较低那一侧</strong>：恰好贴合颈椎前凸，后脑勺落入凹槽，头不被顶起；<br>
+        • <strong>侧睡切换到较高那一侧</strong>：利用隆起填补肩宽空隙，维持颈椎水平平直。</p>
+      </div>
+
+      <div class="card" style="padding: 26px 32px;">
+        <div class="card-title">
+          <span class="card-title-badge">02</span>
+          <span>换了几十个枕头都不舒服？试试毛巾卷！</span>
+        </div>
+        <p>拿一条普通棉质毛巾，卷成直径约 8~10 厘米的圆柱卷，躺平垫在颈曲正后方（后脑勺自然着床）。极其温和地托住生理曲度，让深层颈屈肌彻底放松。</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">
+        <span class="badge"></span>
+        <span>食外 · 循证睡眠科学</span>
+      </div>
+      <span>SWIPE TO LEARN ➔</span>
+    </div>
+  </div>
+
+  <!-- P5 日常自测清单与行动指南 -->
+  <div class="poster" id="card-05">
+    <div class="header">
+      <span class="brand">DAILY CHECKLIST</span>
+      <span class="page-index">05 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="tag-pill">
+          <span>📋 今晚照着做 · 睡眠检查清单</span>
+        </div>
+        <h2 class="hero-title" style="font-size: 46px;">平稳睡眠的 4 个物理对齐法则</h2>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-icon">①</div>
+          <div class="check-text">
+            <h4>枕头下沿往下扯</h4>
+            <p>不要只搭着后脑勺，让枕头下边缘覆盖到两块肩胛骨之间，自然托起中背部与颈椎。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-icon">②</div>
+          <div class="check-text">
+            <h4>床边备好第二个辅助枕</h4>
+            <p>仰睡垫在膝窝下方卸除腰椎悬空压力；侧睡夹在两膝之间阻止骨盆侧扭。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-icon">③</div>
+          <div class="check-text">
+            <h4>根据睡姿匹配高度</h4>
+            <p>侧睡枕高需等同于肩颈落差；仰睡枕高需保持下巴和视线垂直于床面，避免探颈前折。</p>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-icon">④</div>
+          <div class="check-text">
+            <h4>器质性病变需线下就医</h4>
+            <p>若已有明确的椎间盘突出伴手臂麻木或剧烈眩晕，需遵从专科物理治疗师指导个体化调整。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 24px 30px; background: rgba(153, 27, 27, 0.05); border-color: rgba(153, 27, 27, 0.2);">
+        <p style="font-size: 21px; color: var(--accent); font-weight: 600; text-align: center;">
+          📌 点赞收藏，今晚睡前对照调整你的枕头位置！
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">
+        <span class="badge"></span>
+        <span>食外 · 循证睡眠科学</span>
+      </div>
+      <span>END OF CARDS</span>
+    </div>
+  </div>
+
+</body>
+</html>

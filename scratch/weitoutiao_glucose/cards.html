@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>微头条卡片 · 血糖空腹6.7算高吗</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@500;700&display=swap">
+  <style>
+    :root {
+      --paper: #f4f6f0;
+      --paper-card: #ffffff;
+      --ink: #14211a;
+      --ink-secondary: #3d5045;
+      --muted: #6b7f73;
+      --accent: #205c40;
+      --accent-warm: #c88a35;
+      --line: rgba(20, 33, 26, 0.12);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #333; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 64px 72px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(20,33,26,0.035) 1.5px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--line);
+      padding-bottom: 20px;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      color: var(--muted);
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1.5px solid var(--line);
+      padding-top: 20px;
+      font-size: 19px;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(32, 92, 64, 0.08);
+      color: var(--accent);
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .title-hero {
+      font-family: var(--font-serif);
+      font-size: 58px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .title-section {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .subtitle {
+      font-size: 25px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 32px 36px;
+      border: 1px solid rgba(20, 33, 26, 0.06);
+      box-shadow: 0 8px 24px rgba(20, 33, 26, 0.03);
+      margin-bottom: 20px;
+    }
+
+    .highlight {
+      color: var(--accent-warm);
+      font-weight: 700;
+    }
+
+    /* Range Indicators */
+    .range-box {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 28px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    .range-tag {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .range-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .range-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+    }
+
+    .hero-img-box {
+      width: 100%;
+      height: 480px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 24px;
+      background: #e5eae0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+    .hero-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Card 1: Cover with Gemini Illustration -->
+  <section class="poster" id="card-1">
+    <div class="header">
+      <span class="brand-tag">BLOOD GLUCOSE GUIDE</span>
+      <span class="page-index">01 / 04</span>
+    </div>
+
+    <div>
+      <div class="badge">💡 临床指南解读 · 慢病常识</div>
+      <h1 class="title-hero">空腹血糖 6.7 算高吗？<br>看懂化验单真实区间</h1>
+      <p class="subtitle">别慌着吃药，也别当没事！<strong class="highlight">这是身体给你的黄金逆转期</strong></p>
+
+      <div class="hero-img-box">
+        <img src="file:///Users/parkerpan/.gemini/antigravity/brain/949733b3-f8ed-4423-8b9c-a51ccaa625d0/glucose_test_guide_1788222941660.jpg" alt="血糖测试指南">
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>循证健康科普 · 科学控糖</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">SLIDE TO READ →</span>
+    </div>
+  </section>
+
+  <!-- Card 2: 3 Glucose Ranges -->
+  <section class="poster" id="card-2">
+    <div class="header">
+      <span class="brand-tag">01 · 标准界定</span>
+      <span class="page-index">02 / 04</span>
+    </div>
+
+    <div>
+      <h2 class="title-section">对照化验单标准：<br>6.7 到底处在哪个区间？</h2>
+      <p class="subtitle">依据《中国 2 型糖尿病防治指南》权威参考值：</p>
+
+      <div class="range-box" style="border-left: 6px solid #205c40;">
+        <span class="range-tag" style="background: rgba(32,92,64,0.1); color: #205c40;">3.9 ~ 6.1</span>
+        <div class="range-info">
+          <h4 style="color: #205c40;">🟢 正常健康区间</h4>
+          <p>胰岛功能良好，机体糖代谢与胰岛素分泌平稳。</p>
+        </div>
+      </div>
+
+      <div class="range-box" style="border-left: 6px solid #c88a35; background: rgba(200,138,53,0.06);">
+        <span class="range-tag" style="background: #c88a35; color: #fff;">6.1 ~ 7.0</span>
+        <div class="range-info">
+          <h4 style="color: #c88a35;">🟡 空腹血糖受损（糖尿病前期）📍6.7 处在此处</h4>
+          <p><strong>不是确诊糖尿病</strong>，胰岛细胞受损但未衰竭，完全可逆转！</p>
+        </div>
+      </div>
+
+      <div class="range-box" style="border-left: 6px solid #c0392b;">
+        <span class="range-tag" style="background: rgba(192,57,43,0.1); color: #c0392b;">≥ 7.0</span>
+        <div class="range-info">
+          <h4 style="color: #c0392b;">🔴 糖尿病临床诊断线</h4>
+          <p>两次不同日期空腹 ≥7.0，需遵医嘱进行专科评估。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>循证健康科普 · 科学控糖</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 3: 2 Hidden Metrics -->
+  <section class="poster" id="card-3">
+    <div class="header">
+      <span class="brand-tag">02 · 避坑自查</span>
+      <span class="page-index">03 / 04</span>
+    </div>
+
+    <div>
+      <h2 class="title-section">空腹 6.7，<br>别漏查这 2 个隐藏指标！</h2>
+      <p class="subtitle">光看空腹容易产生“假安全感”，建议同步加查：</p>
+
+      <div class="card">
+        <div style="font-size: 26px; font-weight: 700; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+          <span>📌</span> 1. 餐后 2 小时血糖（OGTT）
+        </div>
+        <p style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+          很多空腹 6.7 的朋友，由于餐后胰岛素分泌延迟，<strong>餐后 2 小时血糖可能已经飙到 9~11 mmol/L</strong>！餐后高糖对血管的损伤更直接。
+        </p>
+      </div>
+
+      <div class="card">
+        <div style="font-size: 26px; font-weight: 700; color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+          <span>📌</span> 2. 糖化血红蛋白（HbA1c）
+        </div>
+        <p style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+          单次空腹血糖容易受前晚睡眠或情绪波动影响。<strong>糖化血红蛋白反映过去 2~3 个月的平均血糖水平</strong>（正常值通常要求 &lt; 5.7%）。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>循证健康科普 · 科学控糖</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 4: 3 Actions & Checklist -->
+  <section class="poster" id="card-4">
+    <div class="header">
+      <span class="brand-tag">03 · 逆转方案</span>
+      <span class="page-index">04 / 04</span>
+    </div>
+
+    <div>
+      <h2 class="title-section">抓住黄金窗口期：<br>3 步科学稳糖落地法</h2>
+      <p class="subtitle">处于 6.1~7.0 前期，无需盲目吃药，调整生活方式即可逆转：</p>
+
+      <div class="card" style="padding: 24px 28px; margin-bottom: 16px;">
+        <div style="font-size: 23px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">
+          🥗 1. 践行“先菜后肉再主食”进食顺序
+        </div>
+        <p style="font-size: 20px; line-height: 1.5; color: var(--ink-secondary);">
+          先吃一大碗绿叶蔬菜形成纤维网膜，延缓肠道吸糖，削平餐后血糖尖峰。
+        </p>
+      </div>
+
+      <div class="card" style="padding: 24px 28px; margin-bottom: 16px;">
+        <div style="font-size: 23px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">
+          🚶 2. 饭后快走 15 分钟
+        </div>
+        <p style="font-size: 20px; line-height: 1.5; color: var(--ink-secondary);">
+          骨骼肌收缩直接利用 GLUT4 消耗血液葡萄糖，不增加胰腺额外负担。
+        </p>
+      </div>
+
+      <div class="card" style="padding: 24px 28px; margin-bottom: 16px;">
+        <div style="font-size: 23px; font-weight: 700; color: var(--accent); margin-bottom: 6px;">
+          ⏰ 3. 戒掉宵夜，拉长夜间空腹窗口
+        </div>
+        <p style="font-size: 20px; line-height: 1.5; color: var(--ink-secondary);">
+          晚 7 点后不吃零食，保持 12~14 小时空腹，给胰岛细胞充足休整时间。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>免责声明：科普内容仅供健康生活参考，不构成个体化诊疗建议。</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">食外</span>
+    </div>
+  </section>
+
+</body>
+</html>

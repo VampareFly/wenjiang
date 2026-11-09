@@ -1,0 +1,26 @@
+[
+  {
+    "prompt": "A clean health lifestyle infographic, 16:9 aspect ratio, four visual quadrants: 1. choose unrefined mineral sea salt or pink salt, 2. eat plenty of potassium-rich deep greens and mushrooms, 3. pinch of salt hydration during fasting or sweating, 4. ditch ultra-processed foods with hidden chemical sodium, elegant Scandinavian layout, emerald and warm gold palette",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-161027/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio, a 60-year-old Asian person sitting at a dining table looking anxiously at a bland bowl of boiled vegetables without any salt, hand resting on heart feeling a racing pulse, authentic warm lighting, highly detailed 8k",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-161027/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end culinary and health photography, 16:9 aspect ratio, a split contrast composition: left side showing a shaker of refined white table salt with a warning symbol, right side showing coarse natural pink Himalayan rock salt surrounded by fresh dark spinach and avocado, crisp lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-161027/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Lifestyle photography, 16:9 aspect ratio, an energetic, healthy 62-year-old Asian person smiling warmly in a bright kitchen, seasoning a colorful freshly cooked Mediterranean vegetable dish with a pinch of natural sea salt, radiant vitality, warm natural sunlight",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-161027/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

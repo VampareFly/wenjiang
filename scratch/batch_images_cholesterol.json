@@ -1,0 +1,44 @@
+[
+  {
+    "prompt": "Editorial medical aesthetics and healthy culinary still life, 16:9 aspect ratio. An elegant marble kitchen tabletop featuring heart-healthy cooking ingredients on one side: a glass bottle of glowing golden extra virgin olive oil, fresh green olives, walnuts, almonds, and avocados, contrasted with a clean medical anatomical visualization of a smooth, healthy coronary artery glowing with vitality in a soft bokeh background. Natural morning sunlight, cinematic studio lighting, premium health editorial magazine style, 8k resolution, photorealistic, clean visual without any English text. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/cover_raw.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "16:9 cross-section medical scientific illustration of an artery wall. The microscopic biological process of atherosclerosis: on top is the bloodstream with LDL cholesterol particles (represented as golden spherical molecules). In the middle is the endothelial lining of the artery with microscopic gaps. Below the endothelium, tissue macrophages engulf excess oxidized LDL particles, transforming into swollen, lipid-laden foam cells. On the right, accumulated foam cells form an early atherosclerotic plaque narrowing the vessel lumen. Professional educational medical diagram, clean scientific graphics, high contrast, elegant dark cyan and warm amber palette, 3D render. All text labels and diagram annotations MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '动脉内皮', '低密度脂蛋白', '巨噬细胞', '泡沫细胞', '粥样硬化斑块'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/配图1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "16:9 scientific nutritional comparison matrix infographic. Split layout comparing two types of dietary fats and their biological effects on blood LDL cholesterol. On the left red/warning side: '饱和脂肪（推高低密度脂蛋白）', displaying realistic culinary items: solid butter, beef tallow in a jar, and solid white coconut oil, with an upward arrow pointing to elevated LDL. On the right green/healthy side: '不饱和脂肪（降低低密度脂蛋白）', displaying liquid golden extra virgin olive oil, canola oil, raw walnuts, and chia seeds, with a downward arrow pointing to lowered LDL. Clean scientific infographic style, photorealistic food textures, high contrast educational chart. All text labels, titles, and legends MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '饱和脂肪', '不饱和脂肪', '黄油', '牛油', '椰子油', '橄榄油', '菜籽油', '低密度脂蛋白'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/配图2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "16:9 healthy culinary editorial diagram demonstrating a heart-healthy dietary substitution guide. A central banner reading in Chinese: '心血管健康替换策略'. Three clear horizontal paired rows of food swaps: Row 1 shows solid butter and beef lard being replaced by an arrow pointing to a pouring bottle of liquid olive oil; Row 2 shows fatty red meat and sausages being replaced by fresh wild salmon fillet and tofu; Row 3 shows packaged sweet pastries being replaced by mixed raw nuts and fresh berries. Bright, clean natural kitchen setting, top-down isometric view, appetizing and vibrant photography aesthetic. All text labels, headings, and signs MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '心血管健康替换策略', '减少动物饱和脂肪', '替换为液态植物油', '深海鱼与大豆', '天然坚果浆果'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "16:9 cinematic photorealistic scene. An everyday relatable lifestyle dilemma: a middle-aged professional sitting by a dining table looking concerned and thoughtful while holding a physical health checkup medical report with highlighted blood test metrics. On the dining table sits a plate of plain boiled vegetables and boiled chicken breast with zero oil, expressing the frustration of strict and tasteless dieting. Soft moody indoor evening lighting, documentary photography, authentic emotional expression, clean visual without any English text. All text labels and props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "16:9 high-contrast editorial photography comparing two dietary cooking choices side by side. On the left side: heavy solid butter and thick white beef tallow glistening in a hot frying pan with dense smoke. On the right side: fresh, clear golden extra virgin olive oil gently poured into a clean glass bowl surrounded by crisp fresh salad greens, ripe avocados, and walnuts. Dramatic split lighting emphasizing the difference between heavy solid saturated animal fat and light, vibrant liquid plant oil. Photorealistic, 8k resolution, clean visual without any English text. All text labels and packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "16:9 bright and energetic outdoor lifestyle photograph. A cheerful, healthy middle-aged couple in comfortable athletic wear walking briskly along a tree-lined sunny path in a city park during golden morning light. The atmosphere is brimming with vitality, relaxed breathing, and cardiovascular health. Warm sun flare, cinematic documentary style, uplifting, professional editorial camera shot, clean visual without any English text. All signage, background elements, and props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-162111/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

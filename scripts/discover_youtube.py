@@ -46,7 +46,13 @@ def generate_health_recommendation_reason(title: str, category: str, channel_nam
     format_type = "4宫格干货卡片 / 核心结论速查清单"
     suggested_title = f"这篇把【{title[:20]}】讲透了！科学建议收藏"
 
-    if any(k in title_lower for k in ["glucose", "sugar", "insulin", "diabetes", "carb", "spike"]):
+    if any(k in title_lower for k in ["liver", "alcohol", "fatty liver", "detox"]):
+        hook = "直击脂肪肝、酒精代谢与肝脏解毒机制。揭秘容易被忽视的隐匿体征，提供实用的聚餐解酒与保肝饮食方案。"
+        audience = "假日前夕应酬聚餐多、经常熬夜饮酒、体检有脂肪肝/转氨酶偏高倾向的人群"
+        format_type = "护肝红黑食物清单 + 肝脏状态自查自纠卡"
+        suggested_title = "国庆大餐喝酒前必看！肝脏最爱的食物与隐秘求救信号"
+
+    elif any(k in title_lower for k in ["glucose", "sugar", "insulin", "diabetes", "carb", "spike"]):
         hook = "揭秘血糖波动对脂肪堆积、午后疲劳及衰老的影响，给出‘不用挨饿也能稳糖’的具体进食顺序与小妙招。"
         audience = "控糖减脂党、午后容易犯困的上班族、胰岛素抵抗/多囊体质人群"
         format_type = "图文实况对比卡片 + 3步稳糖实操公式"
@@ -58,13 +64,13 @@ def generate_health_recommendation_reason(title: str, category: str, channel_nam
         format_type = "晨晚行动清单 + 睡眠环境参数速查表"
         suggested_title = "提升深度睡眠的 3 个物理级微习惯（零成本照着做）"
 
-    elif any(k in title_lower for k in ["fat", "visceral", "belly", "weight loss", "metabolism", "liver"]):
+    elif any(k in title_lower for k in ["fat", "visceral", "belly", "weight loss", "metabolism"]):
         hook = "直击顽固内脏脂肪与代谢卡关根源，避开盲目节食陷阱，提供以证据为基础的减脂饮食策略。"
         audience = "四肢纤细但有小肚子、久坐脂肪肝风险、减重平台期人群"
         format_type = "食物黑红榜 + 减脂作弊餐避坑指南"
         suggested_title = "为什么你少吃还是减不掉小肚子？内脏脂肪的真相与对策"
 
-    elif any(k in title_lower for k in ["gut", "microbiome", "inflammation", "ultra-processed", "fiber", "leak"]):
+    elif any(k in title_lower for k in ["gut", "microbiome", "inflammation", "ultra-processed", "fiber", "leak", "grocery"]):
         hook = "肠道微生态决定了免疫力与皮肤状态。解析促炎食物与超加工食品对身体的慢性损耗，附抗炎修复食单。"
         audience = "频繁过敏/长痘、排便不规律、慢性疲劳与胃肠敏感人群"
         format_type = "超加工食品避雷图鉴 + 肠道修复 7 日法则"
@@ -75,6 +81,12 @@ def generate_health_recommendation_reason(title: str, category: str, channel_nam
         audience = "30+ 岁抗衰关注者、健康长寿极客、轻断食爱好者"
         format_type = "断食时刻表 + 补剂循证优先级金字塔"
         suggested_title = "科学断食激活‘细胞自噬’的正确时间线（避开掉肌肉误区）"
+
+    elif any(k in title_lower for k in ["egg", "cholesterol", "heart", "nutrient", "kidney"]):
+        hook = "打破常见健康与营养认知迷思，从临床医学和循证营养学角度剖析日常饮食习惯的真实影响。"
+        audience = "关注日常营养搭配、心血管健康与体检指标的家庭主理人"
+        format_type = "辟谣对比清单 + 科学摄入建议表"
+        suggested_title = f"打破常识误区！关于【{title[:16]}】的真正科学真相"
 
     return {
         "hook": hook,
@@ -422,8 +434,26 @@ def main(argv: list[str] | None = None) -> int:
         if not link_registry.find_url(PROJECT_ROOT, url):
             fresh_candidates.append(item)
 
-    # 4. Pick top 3-5 high-value topics
-    selected_candidates = fresh_candidates[:recommend_limit]
+    # 4. Pick top 3-5 high-value topics with channel diversity
+    selected_candidates: list[dict[str, object]] = []
+    seen_channels: set[str] = set()
+
+    # Pass 1: Select 1 top fresh video per distinct channel
+    for item in fresh_candidates:
+        ch = str(item.get("channel_name", ""))
+        if ch not in seen_channels:
+            seen_channels.add(ch)
+            selected_candidates.append(item)
+            if len(selected_candidates) >= recommend_limit:
+                break
+
+    # Pass 2: Fill remaining slots if limit not reached
+    if len(selected_candidates) < recommend_limit:
+        for item in fresh_candidates:
+            if item not in selected_candidates:
+                selected_candidates.append(item)
+                if len(selected_candidates) >= recommend_limit:
+                    break
 
     # If offline or no new videos found, generate top curated evergreen health topics
     if not selected_candidates:

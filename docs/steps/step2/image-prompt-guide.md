@@ -91,14 +91,38 @@
 
 ---
 
-## 中文文字要求（强制）
+## 画面审美与去浮夸规范（自然杂志美学铁律）
 
-图片面向中文读者，含文字的图片必须在提示词中注明中文渲染：
+面向健康、饮食与长寿科普，画面必须呈现**「自然真实的生活美学」**与**「克制优雅的现代杂志质感」**，严禁任何用力过猛的科幻浮夸感：
 
-- 封面/一般图片含文字 → 加 `all text labels in Simplified Chinese`
-- 信息图/图表类 → 加 `all chart labels, legends, and annotations in Simplified Chinese`
-- 纯视觉插图（无文字）→ 不需要加
-- 禁止生成含英文标注的科普/信息图
+1. **三大核心视觉风格**：
+   - **风格 A：现代生活质感静物摄影 (Editorial Still Life)**：适用于饮食控糖、抗炎食谱、健康补剂。特点：柔和晨光（Soft morning daylight）、真实天然食材纹理、木质/亚麻/陶瓷等自然器皿，构图干净、真实、松弛；
+   - **风格 B：舒适生活方式纪实 (Lifestyle Documentary)**：适用于睡眠作息、晨间光照、运动精力。特点：温暖柔和的清晨卧室、窗前一杯温水与晨光、松弛自然的生活场景，拒绝焦虑与刻意摆拍；
+   - **风格 C：典雅极简科学图解 (Minimalist Editorial Infographic)**：适用于生化机制、胰岛素曲线、细胞自噬。特点：类似《Nature》《Time》杂志的极简平面图解，清爽线条，浅色纸质底色，直观易懂，杜绝杂乱特效。
+
+2. **提示词编写必须包含的正向质感修饰**：
+   - 英文提示词中必须包含：`clean editorial photography, soft natural morning daylight, minimal aesthetic, authentic textures, calm and credible tone, Kinfolk / Monocle magazine aesthetic`。
+
+3. **严格执行的负向约束（严禁词）**：
+   - 每一张图的提示词中，必须显式约束：`NO sci-fi glow, NO neon lighting, NO glowing organs, NO exaggerated dramatic facial expressions, NO chaotic glowing particles, NO surreal horror elements`。
+
+---
+
+## 全域生图纯中文铁律（严禁出现任何英文）
+
+所有生成的图片（包含公众号封面、正文配图、头条三图封面）面向中文读者，画面内所有出现的文字必须 100% 为规范简体中文，严禁出现任何英文单词或英文字母：
+
+1. **全域覆盖**：
+   - **公众号大封面 (`cover.png`)**：若有解剖结构、分子对比或主题字，必须全部为规范简体中文（如「脑干」「迷走神经」「小肠黏膜」「葡萄糖」）；
+   - **正文插图与机理图 (`配图1~N.png`)**：流程节点、坐标轴、箭头指示、生化机制标签必须 100% 纯中文；
+   - **今日头条三图封面 (`toutiao-cover-1~3.png`)**：人物场景中的道具包装（如饮料罐、食品袋、书刊）、海报标语、对比文字必须直接生成为纯中文（如「0糖气泡水」「肉桂卷」「0卡代糖水」「肠脑轴」），严禁出现英文品牌或英文标签（如 "Coke", "NO SUGAR", "CHEMICAL ZERO SUGAR SODA" 等一律严禁）。
+
+2. **提示词编写强制规范**：
+   - 只要画面可能包含文字或图示，英文提示词末尾必须显式追加纯中文约束句：
+     `All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.`
+   - 必须用单引号明确列出所有具体的中文词汇（如：`Clearly label in Simplified Chinese: '0糖气泡水', '肠脑轴', '迷走神经'`）；
+   - 纯摄影无文字画面，明确指示 `clean visual without any English text`；
+   - 严禁生成任何含英文标注的科普图、信息图或道具包装。
 
 ---
 

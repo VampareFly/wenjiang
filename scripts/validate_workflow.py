@@ -82,7 +82,7 @@ FINAL_FIXED = {
     "workflow-state.json",
 }
 SOURCE_MAPPING_OPTIONAL = {"source-link.txt", "source-map.json"}
-TOUTIAO_OPTIONAL = {"今日头条文章.md", "微头条.txt"}
+TOUTIAO_OPTIONAL = {"今日头条文章.md", "微头条.txt", "今日头条草稿信息.txt"}
 FINAL_OPTIONAL = SOURCE_MAPPING_OPTIONAL | TOUTIAO_OPTIONAL
 FINAL_PATTERNS = (
     re.compile(r"配图\d+\.png"),
@@ -222,6 +222,8 @@ def validate_prompts(article_dir: Path | str) -> list[str]:
     for i in (1, 2, 3):
         if f"头条封面{i}" not in prompt_text and f"toutiao-cover-{i}" not in prompt_text:
             errors.append(f"cover_prompt.md 缺少今日头条专属三图封面提示词【头条封面{i}】")
+    if "Simplified Chinese" not in prompt_text and "纯中文" not in prompt_text:
+        errors.append("cover_prompt.md 缺少全域纯中文生图约束（提示词必须声明 Simplified Chinese 或 纯中文 说明）")
     return errors
 
 
@@ -321,6 +323,24 @@ def validate_html(article_dir: Path | str) -> list[str]:
     markers = extract_markers(body)
     if "【配图" in html_text:
         errors.append("article.html 残留配图占位符")
+
+    if re.search(r'<span[^>]*\bleaf=["\'][^"\']+["\']', html_text):
+        errors.append(
+            "article.html 存在非空 leaf 属性！必须为 <span leaf=\"\">正文</span>，"
+            "严禁将文字写入 leaf 属性，否则公众号后台会显示文案全空！"
+        )
+
+    # 校验 HTML 可见文本是否完整保留了 Markdown 正文
+    cjk_re = re.compile(r"[\u4e00-\u9fff]")
+    cjk_body = len(cjk_re.findall(body))
+    # 剥离所有 HTML 标签后统计可见中文字符数
+    visible_html_text = re.sub(r"<[^>]+>", "", html_text)
+    cjk_html = len(cjk_re.findall(visible_html_text))
+    if cjk_body > 100 and cjk_html < cjk_body * 0.7:
+        errors.append(
+            f"article.html 正文文字严重缺失：Markdown 有 {cjk_body} 个汉字，"
+            f"而 HTML 仅解析出 {cjk_html} 个可见汉字！"
+        )
 
     parser = _ImageParser()
     try:
@@ -639,6 +659,8 @@ def validate_xiaohongshu_copy(article_dir: Path | str) -> list[str]:
         return ["小红书文案.txt 为空"]
     if len(lines[0]) > 20:
         errors.append(f"小红书标题超过 20 字：{len(lines[0])}")
+    if len(text) > 1000:
+        errors.append(f"小红书文案总字数超过 1000 字限制（当前为 {len(text)} 字），请精简正文")
     topics = re.findall(r"(?<!\w)#[^\s#]+", text)
     if not 3 <= len(topics) <= 6:
         errors.append(f"小红书文案应包含 3-6 个话题，当前为 {len(topics)}")

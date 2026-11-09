@@ -1,0 +1,26 @@
+[
+  {
+    "prompt": "A clear biochemical pathway diagram, 16:9 aspect ratio. Showing the relationship between stress and magnesium: on the left, stress hormones accelerating urinary excretion of magnesium and potassium, triggering neuromuscular tension and heightened anxiety; on the right, dark chocolate rich in magnesium and cocoa flavonoids (polyphenols) directly calming the adrenal cortex and reducing stress reactivity. Elegant minimalist layout, warm cocoa brown, deep forest green, and amber gold accents, scientific illustration. All text labels, biochemical pathways, and arrows must be exclusively in Simplified Chinese characters, absolutely NO English words or letters. Clearly label in Chinese: '应激耗镁', '黑巧克力类黄酮', '平抑肾上腺', '神经舒缓'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-084424/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio. A 32-year-old Asian office professional sitting at an office desk late at night, holding forehead with hand showing deep mental exhaustion and chronic fatigue, looking down at soft lower belly and snack wrappers on desk with feelings of burnout and anxiety. Moody cinematic warm lighting, shallow depth of field, authentic facial emotion, 8k resolution. Absolutely NO English text, NO English letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-084424/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Premium nutritional and lifestyle photography, 16:9 aspect ratio. Split contrast composition: on the left, high-cortisol triggers represented by a sugary soda can, candy, and greasy fried fast food; on the right, nourishing cortisol-lowering whole foods: fresh wild salmon, dark chocolate bar chunks, pumpkin seeds, vibrant avocado, and deep green leafy vegetables on an elegant wooden board. Crisp studio lighting, appetizing textures, editorial food photography. All labels if any must be exclusively in Simplified Chinese characters, absolutely NO English words or letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-084424/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Vibrant healthy lifestyle photography, 16:9 aspect ratio. A calm, refreshed 30-year-old Asian individual enjoying a mindful peaceful morning in a sunlit kitchen, drinking a glass of pure water, surrounded by colorful whole foods and lush green indoor plants, gentle relaxed posture, glowing morning sunbeams, peaceful serene atmosphere. High resolution 8k, photorealistic. Absolutely NO English text, NO English letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260909-084424/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

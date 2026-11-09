@@ -83,63 +83,96 @@ def download_subtitles_and_meta(
     work_dir: Path,
 ) -> tuple[dict[str, object], Path]:
     """Download best matching subtitle file and video metadata JSON using yt-dlp."""
-    lang_arg = ",".join(preferred_languages)
+    # Expand languages to include -orig variants (e.g. en-orig to avoid YouTube 429 auto-translation errors)
+    expanded_languages = []
+    for lang in preferred_languages:
+        orig_variant = f"{lang}-orig"
+        if orig_variant not in expanded_languages:
+            expanded_languages.append(orig_variant)
+        if lang not in expanded_languages:
+            expanded_languages.append(lang)
+    lang_arg = ",".join(expanded_languages)
     output_tmpl = str(work_dir / "%(id)s")
 
-    cmd = [
+    # 1. Fetch metadata JSON
+    meta_cmd = [
         *ytdlp_cmd,
-        "--skip-download",
-        "--write-subs",
-        "--write-auto-subs",
-        "--sub-lang",
-        lang_arg,
-        "--convert-subs",
-        "srt",
         "--dump-single-json",
         "--no-warnings",
-        "-o",
-        output_tmpl,
         url,
     ]
-
     try:
-        proc = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            check=True,
-        )
+        proc = subprocess.run(meta_cmd, capture_output=True, text=True, check=True)
     except subprocess.CalledProcessError as exc:
         err_msg = exc.stderr.strip() or exc.stdout.strip()
-        raise RuntimeError(f"yt-dlp 提取字幕/元数据失败：{err_msg}") from exc
+        if "confirm you’re not a bot" in err_msg or "Sign in" in err_msg or "cookies" in err_msg:
+            print("💡 检测到 YouTube 机器人验证，正在使用 Chrome Cookies 获取元数据...")
+            retry_meta_cmd = meta_cmd[:-1] + [
+                "--cookies-from-browser", "chrome",
+                "--extractor-args", "youtube:player_client=web_embedded",
+                url,
+            ]
+            proc = subprocess.run(retry_meta_cmd, capture_output=True, text=True, check=True)
+        else:
+            raise RuntimeError(f"yt-dlp 提取元数据失败：{err_msg}") from exc
 
     try:
         meta = json.loads(proc.stdout)
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"无法解析 yt-dlp 返回的视频元数据 JSON：{exc}") from exc
 
-    # Find candidate .srt files in work_dir
-    srt_files = list(work_dir.glob("*.srt"))
-    if not srt_files:
+    # 2. Fetch subtitles (without convert-subs to avoid requiring ffmpeg)
+    sub_cmd = [
+        *ytdlp_cmd,
+        "--skip-download",
+        "--write-subs",
+        "--write-auto-subs",
+        "--sub-lang",
+        lang_arg,
+        "--no-warnings",
+        "-o",
+        output_tmpl,
+        url,
+    ]
+    subprocess.run(sub_cmd, capture_output=True, text=True)
+
+    sub_files = list(work_dir.glob("*.srt")) + list(work_dir.glob("*.vtt"))
+    if not sub_files:
+        print("💡 标准通道未获取到字幕，正在尝试使用 web_embedded 客户端与 Chrome Cookies 重试...")
+        retry_sub_cmd = sub_cmd[:-1] + [
+            "--cookies-from-browser", "chrome",
+            "--extractor-args", "youtube:player_client=web_embedded",
+            url,
+        ]
+        subprocess.run(retry_sub_cmd, capture_output=True, text=True)
+        sub_files = list(work_dir.glob("*.srt")) + list(work_dir.glob("*.vtt"))
+
+    if not sub_files:
         raise RuntimeError(
             f"未找到视频 '{meta.get('title', url)}' 的可用字幕。\n"
             f"该视频可能未开启任何官方字幕或自动字幕。"
         )
 
     # Sort files by language priority
-    def lang_score(srt_path: Path) -> int:
-        filename = srt_path.name.lower()
-        # Non-auto subs get priority
+    def lang_score(sub_path: Path) -> int:
+        filename = sub_path.name.lower()
         is_auto = "orig" in filename or "auto" in filename
         for idx, lang in enumerate(preferred_languages):
             lang_low = lang.lower()
-            if f".{lang_low}." in filename or filename.endswith(f".{lang_low}.srt"):
+            if (
+                f".{lang_low}." in filename
+                or f".{lang_low}-" in filename
+                or filename.endswith(f".{lang_low}.srt")
+                or filename.endswith(f".{lang_low}.vtt")
+                or filename.endswith(f".{lang_low}-orig.srt")
+                or filename.endswith(f".{lang_low}-orig.vtt")
+            ):
                 return idx * 2 + (1 if is_auto else 0)
         return 999
 
-    srt_files.sort(key=lang_score)
-    chosen_srt = srt_files[0]
-    return meta, chosen_srt
+    sub_files.sort(key=lang_score)
+    chosen_sub = sub_files[0]
+    return meta, chosen_sub
 
 
 def create_article_task(
@@ -172,8 +205,9 @@ def create_article_task(
         upload_date = f"{upload_date[:4]}-{upload_date[4:6]}-{upload_date[6:]}"
 
     # 1. Copy source subtitle
-    target_source_srt = article_path / "source.srt"
-    shutil.copy2(srt_path, target_source_srt)
+    sub_ext = srt_path.suffix.lower()
+    target_source_sub = article_path / f"source{sub_ext}"
+    shutil.copy2(srt_path, target_source_sub)
 
     # 2. Write source-link.txt
     norm_url, video_id = normalize_youtube_url(url)
@@ -187,21 +221,21 @@ def create_article_task(
     (article_path / link_registry.SOURCE_LINK_FILENAME).write_text(source_link_content, encoding="utf-8")
 
     # 3. Write source-map.json for link_registry compatibility
-    subtitle_sha256 = link_registry._sha256(target_source_srt)
+    subtitle_sha256 = link_registry._sha256(target_source_sub)
     map_payload = {
         "schema_version": 1,
         "status": "prepared",
         "article_dir": article_path.relative_to(project_root).as_posix(),
         "prepared_at": link_registry._now(),
         "input_subtitle": {
-            "filename": f"youtube_{video_id}.srt",
+            "filename": f"youtube_{video_id}{sub_ext}",
             "sha256": subtitle_sha256,
         },
         "input_link_file": {
             "filename": "links.txt",
             "sha256": link_registry._sha256(article_path / link_registry.SOURCE_LINK_FILENAME),
         },
-        "source_subtitle": "source.srt",
+        "source_subtitle": target_source_sub.name,
         "source_link_file": link_registry.SOURCE_LINK_FILENAME,
         "url_original": url,
         "url_normalized": norm_url,
@@ -224,12 +258,12 @@ def create_article_task(
         links_dir = project_root / "links"
         inputs_dir.mkdir(exist_ok=True)
         links_dir.mkdir(exist_ok=True)
-        shutil.copy2(target_source_srt, inputs_dir / f"youtube_{video_id}.srt")
+        shutil.copy2(target_source_sub, inputs_dir / f"youtube_{video_id}{sub_ext}")
         (links_dir / link_registry.DEFAULT_LINK_FILE).write_text(source_link_content, encoding="utf-8")
 
     # 5. Clean subtitle and initialize workflow state
     if not skip_clean:
-        source_text = target_source_srt.read_text(encoding="utf-8-sig")
+        source_text = target_source_sub.read_text(encoding="utf-8-sig")
         cleaned_text = clean_subtitle.clean_subtitle_text(source_text)
         cleaned_path = article_path / "source.cleaned.txt"
         cleaned_path.write_text(cleaned_text, encoding="utf-8")

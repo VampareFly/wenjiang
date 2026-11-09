@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="midnight-bio">
+<head>
+  <meta charset="utf-8">
+  <title>代糖迷局与肠脑轴真相 · 小红书卡片组（深空微光动态版式）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --bg-space: #0d131a;
+      --card-bg: #151d26;
+      --card-inner: #1c2633;
+      --text-main: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --cyan-glow: #38bdf8;
+      --cyan-soft: rgba(56, 189, 248, 0.12);
+      --amber-warm: #f59e0b;
+      --line: rgba(56, 189, 248, 0.2);
+      --line-subtle: rgba(255, 255, 255, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #05080c; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--bg-space);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+    }
+
+    /* Ambient Glow */
+    .poster::before {
+      content: "";
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--cyan-glow);
+      text-transform: uppercase;
+    }
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line-subtle);
+      padding-top: 24px;
+      margin-top: 28px;
+      font-size: 20px;
+      color: var(--text-muted);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--cyan-soft);
+      color: var(--cyan-glow);
+      font-size: 21px;
+      font-weight: 700;
+      border-radius: 30px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .title-hero {
+      font-family: var(--font-serif);
+      font-size: 62px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .title-section {
+      font-family: var(--font-serif);
+      font-size: 50px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: #ffffff;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 25px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 34px 40px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 29px;
+      font-weight: 800;
+      color: var(--cyan-glow);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-desc {
+      font-size: 23px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .highlight {
+      color: var(--amber-warm);
+      font-weight: 800;
+    }
+
+    /* Checklist Group for Card 5 (Grouped & Vertically Centered) */
+    .checklist-group {
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .check-item {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 22px 28px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .check-badge {
+      width: 44px;
+      height: 44px;
+      background: var(--cyan-soft);
+      color: var(--cyan-glow);
+      border: 1px solid rgba(56,189,248,0.3);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .check-text-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+    .check-text-sub {
+      font-size: 20px;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    /* Grid & Lists */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      flex: 1;
+    }
+    .grid-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px 32px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      background: var(--cyan-glow);
+      color: #0d131a;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .visual-split {
+      width: 100%;
+      height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 22px;
+      background: #000;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+    }
+    .visual-split img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .visual-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 18px 26px;
+      background: linear-gradient(transparent, rgba(13,19,26,0.92));
+      color: #fff;
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Card 01: Cover (Style 1 杂志微光画报封) -->
+  <section class="poster" id="card-01">
+    <div class="header">
+      <span class="brand-tag">GUT-BRAIN AXIS & METABOLIC ILLUSION</span>
+      <span class="page-index">01 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">💡 杜克大学神经研究 · 肠脑轴机制</div>
+        <h1 class="title-hero">喝无糖饮料反而更馋？<br>肠脑轴根本没被骗过</h1>
+        <p class="subtitle">天天喝 0 糖 0 卡却更想暴饮暴食？<br>看懂<strong class="highlight">多巴胺预期落空</strong>与神经突足细胞的生物语言</p>
+      </div>
+
+      <div class="card" style="background: rgba(56, 189, 248, 0.06); border-left: 8px solid var(--cyan-glow); padding: 38px 44px; margin-top: 10px;">
+        <div style="font-size: 25px; line-height: 1.75; color: var(--text-main);">
+          ❌ <strong>代糖只骗过了舌头，骗不过肠道</strong><br>
+          ❌ 甜味与能量脱节，引爆大脑 <strong class="highlight">补偿性暴食饥渴</strong><br>
+          👉 <strong>14 天重置味蕾敏感度</strong>，告别代糖自欺欺人
+        </div>
+      </div>
+
+      <div class="card" style="padding: 28px 36px; background: var(--card-bg);">
+        <div style="font-size: 22px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>📌 核心要点：神经突足细胞 ➔ 预期落空 ➔ 4 步戒断法</span>
+          <span style="color: var(--cyan-glow); font-weight: 700;">右滑继续阅读 ➔</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 肠脑神经与代谢科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--cyan-glow);">SLIDE TO READ →</span>
+    </div>
+  </section>
+
+  <!-- Card 02: Mechanism (版式 A 全屏大图杂志流) -->
+  <section class="poster" id="card-02">
+    <div class="header">
+      <span class="brand-tag">01 · 核心机制</span>
+      <span class="page-index">02 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">肠道显微镜：<br>神秘的“神经突足细胞”</h2>
+        <p class="subtitle" style="margin-bottom: 18px;">肠道不仅消化食物，更是直通大脑的高速感应器官</p>
+      </div>
+
+      <div class="visual-split">
+        <img src="file:///Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/配图1.png" alt="肠道神经突足细胞与迷走神经机制">
+        <div class="visual-caption">🔬 毫秒级直连：肠道神经突足细胞通过迷走神经，在千分之一秒内识破进入的是真糖还是人工代糖</div>
+      </div>
+
+      <div class="card" style="padding: 30px 36px;">
+        <div class="card-desc" style="font-size: 23px; line-height: 1.65;">
+          <strong>真正的葡萄糖</strong> 进入肠道会立刻激活转运受体引爆多巴胺；而 <strong>人工代糖</strong> 无法被受体识别，神经信号直接静音，产生甜味欺骗！
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 肠脑神经与代谢科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--cyan-glow);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 03: Contrast (版式 B 对撞回路流) -->
+  <section class="poster" id="card-03">
+    <div class="header">
+      <span class="brand-tag">02 · 恶性循环</span>
+      <span class="page-index">03 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">多巴胺预期落空：<br>代糖如何引爆代偿暴食？</h2>
+        <p class="subtitle" style="margin-bottom: 22px;">甜味与能量脱节后的神经连锁反应：</p>
+      </div>
+
+      <div class="card" style="margin-bottom: 22px; padding: 36px 40px; border-left: 6px solid var(--amber-warm);">
+        <div class="card-title" style="color: var(--amber-warm);">⚡ 步骤 1：舌尖尝到极致甜味 ➔ 大脑兴奋等待</div>
+        <div class="card-desc" style="font-size: 23px; line-height: 1.7;">
+          超高倍甜味划过舌头，大脑伏隔核立刻做好多巴胺大爆发的预期准备。
+        </div>
+      </div>
+
+      <div class="card" style="padding: 36px 40px; border-left: 6px solid var(--cyan-glow);">
+        <div class="card-title">📉 步骤 2：肠道检测 0 卡路里 ➔ 疯狂反向下达饥饿令</div>
+        <div class="card-desc" style="font-size: 23px; line-height: 1.7;">
+          肠脑轴发现“遭遇能量欺诈”，下丘脑随即大量释放神经肽 Y 与饥饿素，<strong class="highlight">逼你在下一餐疯狂吃进更多高碳水进行代偿！</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 肠脑神经与代谢科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--cyan-glow);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 04: Actions (版式 D 行动四宫格) -->
+  <section class="poster" id="card-04">
+    <div class="header">
+      <span class="brand-tag">03 · 行动指南</span>
+      <span class="page-index">04 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">重置味蕾：<br>做好这 4 件事摆脱代糖</h2>
+        <p class="subtitle" style="margin-bottom: 22px;">重置肠脑轴敏感度，找回味觉最初的清爽：</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 10px;">
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">1</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--cyan-glow);">14天味觉脱敏</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--text-secondary);">
+            主动停用高倍人工甜味剂，让过度迟钝的味蕾重新恢复敏感。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">2</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--cyan-glow);">鲜柠檬气泡水</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--text-secondary);">
+            用纯矿泉气泡水加鲜柠檬或薄荷，享受微酸沙口不刺激肠脑。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">3</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--cyan-glow);">冷萃大麦草本</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--text-secondary);">
+            薄荷茶或大麦茶带有天然回甘，丰富的植物多酚滋养益生菌。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">4</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--cyan-glow);">吃低糖完整全果</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--text-secondary);">
+            吃蓝莓草莓等真全果，纤维包裹慢糖给肠脑轴真实的满足感。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 肠脑神经与代谢科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--cyan-glow);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 05: Checklist (版式 E 落地打卡清单流，紧凑居中) -->
+  <section class="poster" id="card-05">
+    <div class="header">
+      <span class="brand-tag">04 · 落地清单</span>
+      <span class="page-index">05 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">从今天起，<br>停止用“假甜”自欺欺人</h2>
+        <p class="subtitle" style="margin-bottom: 0;">读懂肠脑轴的生理语言，告别无止境的甜味渴望</p>
+      </div>
+
+      <!-- 4 items grouped together with compact 14px gap, centered vertically via margin: auto 0 -->
+      <div class="checklist-group">
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">1. 检查日常饮料配料表，避开高倍甜味剂</div>
+            <div class="check-text-sub">三氯蔗糖、阿斯巴甜、安赛蜜等人工代糖暂时叫停 14 天</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">2. 嘴馋想喝气泡时自制鲜柠檬矿泉水</div>
+            <div class="check-text-sub">纯净苏打水加 2 片新鲜青柠，享受天然微酸的物理沙口刺激</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">3. 办公桌上常备冷萃薄荷茶或大麦茶</div>
+            <div class="check-text-sub">用植物天然微甜替代化学高甜，舒缓情绪并保护肠道屏障</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">4. 正餐用掌心大小蓝莓作为天然甜味收尾</div>
+            <div class="check-text-sub">天然膳食纤维协同营养素，给肠道神经突足细胞真实的饱足反馈</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Callout Card -->
+      <div class="card" style="text-align: center; padding: 26px 32px; background: var(--card-bg); border: 1.5px solid var(--cyan-glow); margin-top: 0;">
+        <p style="font-size: 26px; font-weight: 800; color: var(--cyan-glow); margin-bottom: 6px;">❤️ 觉得有用请【点赞 + 收藏 + 转发给朋友】</p>
+        <p style="font-size: 20px; color: var(--text-muted);">关注【食外】，每天掌握一个硬核靠谱的身体抗衰常识</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>免责声明：科普内容仅供参考，不作为个体化临床诊疗依据。</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--cyan-glow);">食外</span>
+    </div>
+  </section>
+
+</body>
+</html>

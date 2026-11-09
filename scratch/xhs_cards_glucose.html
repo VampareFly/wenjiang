@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>进食顺序法则与无痛控糖 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #f4f6f0;
+      --paper-card: #ffffff;
+      --ink: #1c1917;
+      --ink-secondary: #3f3f46;
+      --muted: #71717a;
+      --accent: #1b4931;
+      --accent-warm: #c88a35;
+      --line: rgba(27, 73, 49, 0.14);
+      --line-subtle: rgba(27, 73, 49, 0.08);
+      --tag-bg: rgba(27, 73, 49, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #222; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(27, 73, 49, 0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 20px;
+    }
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 6px 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(27, 73, 49, 0.2);
+    }
+    .header-vol {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+    .footer-author {
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-author::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px 0 24px;
+    }
+
+    .title-block { margin-bottom: 20px; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc {
+      font-size: 24px;
+      color: var(--ink-secondary);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 26px 30px;
+      box-shadow: 0 4px 16px rgba(27, 73, 49, 0.04);
+    }
+
+    /* P1 Elements */
+    .cover-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-mono);
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-card .label {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .banner {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 20px;
+      color: #166534;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .banner-icon { font-size: 24px; flex-shrink: 0; }
+
+    /* P2 Comparison */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 16px;
+    }
+    .compare-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid var(--line);
+    }
+    .compare-card.wrong {
+      border-color: rgba(185, 28, 28, 0.35);
+      background: #fffafa;
+    }
+    .compare-card.right {
+      border-color: rgba(27, 73, 49, 0.35);
+      background: #f7faf8;
+    }
+    .tag-wrong {
+      display: inline-block;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 19px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .tag-right {
+      display: inline-block;
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 19px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    /* P3 & P4 Action Cards */
+    .action-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .action-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+    .action-badge {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--accent);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .action-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .action-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+    .action-avoid {
+      margin-top: 8px;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--accent-warm);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* P5 Checklist */
+    .checklist-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+    }
+    .checklist-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .check-badge {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--accent);
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .check-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .check-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== P1: 封面（画报三段流：强制中部大图） ==================== -->
+  <section class="poster" id="p1">
+    <header class="header">
+      <div class="header-tag">代谢健康 · 科学控糖</div>
+      <div class="header-vol">VOL. 05 · 进食顺序法则</div>
+    </header>
+
+    <div class="content-fill" style="padding: 20px 0 14px;">
+      <!-- 顶部扎心反问与大标题 -->
+      <div>
+        <div class="cover-badge">日常无痛控糖</div>
+        <h1 style="font-family: var(--font-serif); font-size: 52px; font-weight: 900; line-height: 1.22; letter-spacing: -0.5px; margin-bottom: 8px;">
+          吃同样一顿饭血糖降70%？<br>
+          <span style="color: var(--accent); border-bottom: 5px solid var(--accent);">原来是你动筷顺序搞反了！</span>
+        </h1>
+        <p style="font-size: 22px; color: var(--ink-secondary); line-height: 1.4;">午后极度嗜睡脑雾？不用挨饿节食，微调动筷次序瞬间拉平血糖过山车！</p>
+      </div>
+
+      <!-- 中部高清核心大图卡片（高度500px，磨砂浮层） -->
+      <div style="margin: 16px 0; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); box-shadow: 0 12px 32px rgba(27,73,49,0.12); position: relative;">
+        <img src="../articles/20260911-152955/toutiao-cover-1.png" style="display: block; width: 100%; height: 500px; object-fit: cover;" />
+        <div style="position: absolute; bottom: 0; inset-inline: 0; background: linear-gradient(transparent, rgba(27,73,49,0.92)); padding: 22px 28px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: #fef08a;">🔬 临床控糖机制</div>
+            <div style="font-size: 20px; color: #f1f5f9; margin-top: 4px;">纤维搭建物理黏网 ➔ 蛋白脂肪延缓胃排空 ➔ 碳水平稳释放入血</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.22); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 18px; font-weight: 600;">
+            峰值降低73%
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部3组数据卡片与结论横条 -->
+      <div>
+        <div class="cover-stats-grid">
+          <div class="stat-card">
+            <div class="num">-73%</div>
+            <div class="label">餐后血糖尖峰</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">5小时</div>
+            <div class="label">饱腹感平稳压制</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">0负担</div>
+            <div class="label">无需少吃卡路里</div>
+          </div>
+        </div>
+
+        <div class="banner">
+          <span class="banner-icon">💡</span>
+          <span>吃什么固然重要，但怎么吃、先吃什么，直接决定你的精力和体态！</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看临床实验与血糖曲线对比 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P2: 红绿对撞流（血糖曲线对比） ==================== -->
+  <section class="poster" id="p2">
+    <header class="header">
+      <div class="header-tag">临床对撞</div>
+      <div class="header-vol">02 / 05 · 顺序 vs 血糖曲线</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">权威医学期刊证实：<br><span>完全同等热量，体验截然不同</span></h2>
+        <p class="page-desc">《Diabetes Care》临床研究：相同食材和卡路里，仅仅颠倒顺序，代谢天差地别。</p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- 错误顺序：先吃碳水 -->
+        <div class="compare-card wrong">
+          <div>
+            <div class="tag-wrong">常规混吃 · 先吃米面主食</div>
+            <h3 style="font-size: 26px; font-weight: 700; color: #b91c1c; margin-bottom: 16px;">血糖过山车与午后断崖</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 20px; color: var(--ink-secondary); line-height: 1.5;">
+              <li>• <strong>淀粉极速水解</strong>：大量葡萄糖分子瞬间涌入小肠前端；</li>
+              <li>• <strong>血糖陡峭冲顶</strong>：30分钟内飙升出尖锐高耸的血糖尖峰；</li>
+              <li>• <strong>胰岛素报复性分泌</strong>：高胰岛素将过剩糖分疯狂转存为脂肪；</li>
+              <li>• <strong>随之而来的低谷</strong>：血糖断崖暴跌，引发剧烈脑雾与犯困。</li>
+            </ul>
+          </div>
+          <div style="margin-top: 16px; padding: 14px 16px; background: #fee2e2; border-radius: 12px; font-size: 19px; color: #b91c1c; font-weight: 600;">
+            ⚠️ 饭后两小时内昏昏欲睡，下午三点疯狂想吃甜食！
+          </div>
+        </div>
+
+        <!-- 正确顺序：蔬菜先行 -->
+        <div class="compare-card right">
+          <div>
+            <div class="tag-right">黄金顺序 · 蔬菜 ➔ 蛋白 ➔ 碳水</div>
+            <h3 style="font-size: 26px; font-weight: 700; color: #15803d; margin-bottom: 16px;">平稳缓释与全天高能</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 20px; color: var(--ink-secondary); line-height: 1.5;">
+              <li>• <strong>纤维率先就位</strong>：蔬菜在小肠内壁搭建黏性微观滤网；</li>
+              <li>• <strong>葡萄糖平稳穿透</strong>：碳水释放速率被延缓，峰值降低 73%；</li>
+              <li>• <strong>胰岛素温和释放</strong>：代谢压力大幅减轻，避免脂肪合成囤积；</li>
+              <li>• <strong>情绪精力稳定</strong>：血糖如微波起伏，全天保持专注清醒。</li>
+            </ul>
+          </div>
+          <div style="margin-top: 16px; padding: 14px 16px; background: #dcfce7; border-radius: 12px; font-size: 19px; color: #15803d; font-weight: 600;">
+            ✅ 餐后无昏睡感，精力续航拉长，自然戒掉下午奶茶！
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 20px 24px; background: #fdfaf6;">
+        <p style="font-size: 21px; color: var(--ink); line-height: 1.5;">
+          <strong>💡 总结</strong>：肠胃不是果汁机！吃下的先后顺序直接决定了葡萄糖进入血液的速度。
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看小肠纤维网拦截机制 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P3: 显微镜流（小肠微观机制） ==================== -->
+  <section class="poster" id="p3">
+    <header class="header">
+      <div class="header-tag">肠道微观</div>
+      <div class="header-vol">03 / 05 · 物理减速网</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">消化道微观揭秘：<br><span>纤维如何化身“减速坝”？</span></h2>
+        <p class="page-desc">把胃比作水槽、小肠比作管道，先吃进去的成分在管道内建起物理防线。</p>
+      </div>
+
+      <div class="action-cards">
+        <div class="action-card">
+          <div class="action-badge">01</div>
+          <div class="action-info">
+            <h4>第一道防线：膳食纤维微观黏网</h4>
+            <p><strong>微观机制</strong>：不溶性与水溶性纤维率先抵达小肠，吸水后在肠上皮微绒毛表面形成一层致密黏网，阻挡后续葡萄糖瞬间撞击肠壁血管。</p>
+            <div class="action-avoid">🎯 相当于在湍急的葡萄糖山洪中搭建了多道物理减速坝！</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">02</div>
+          <div class="action-info">
+            <h4>第二道防线：胃排空速率整体放缓</h4>
+            <p><strong>生理调控</strong>：随后进入的肉蛋蛋白与健康油脂，刺激肠道分泌饱腹感激素（CCK与GLP-1），让胃部蠕动释放速率降至每分钟约 3 大卡。</p>
+            <div class="action-avoid">🎯 双重延缓释放，使淀粉分解的糖分均匀平缓流向小肠。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">03</div>
+          <div class="action-info">
+            <h4>碳水最后登场：从容吸收无负担</h4>
+            <p><strong>从容代谢</strong>：当米饭面条到达小肠时，肠道已做足缓冲准备，原本凶猛的吸收过程被驯化为平稳涓流，避免胰岛素骤升。</p>
+            <div class="action-avoid">🎯 享受主食碳水带来的快乐，同时消除脂肪囤积恐慌。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">🔬</span>
+        <span>物理力学拦截：纤维网让同样的碳水在体内吸收速度慢下来！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看胃饥饿素与饱腹感机制 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P4: 饥饿素天平（饱腹感翻倍） ==================== -->
+  <section class="poster" id="p4">
+    <header class="header">
+      <div class="header-tag">食欲荷尔蒙</div>
+      <div class="header-vol">04 / 05 · 驯服胃饥饿素</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">饱腹感延长一倍：<br><span>为什么能彻底告别假性饥饿？</span></h2>
+        <p class="page-desc">胃饥饿素（Ghrelin）决定了你什么时候想找零食，进食顺序直接重塑其分泌周期。</p>
+      </div>
+
+      <div class="action-cards">
+        <div class="action-card">
+          <div class="action-badge">01</div>
+          <div class="action-info">
+            <h4>乱序进食：2.5小时报复性反弹</h4>
+            <p>先吃精致碳水时，胃饥饿素虽然短暂被压制，但在餐后 2～2.5 小时便会伴随低血糖报复性反扑，让你在下午三点疯狂想吃甜点和奶茶。</p>
+            <div class="action-avoid">⚠️ 这不是意志力薄弱，而是生理激素失控带来的被迫觅食！</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">02</div>
+          <div class="action-info">
+            <h4>顺序进食：平稳压制长达 5 小时</h4>
+            <p>蔬菜先行 + 蛋白脂肪垫底，促使饱腹感信号充实持久。胃饥饿素被持续平稳抑制达 4～5 小时以上，直到下一餐前都毫无心慌乏力感。</p>
+            <div class="action-avoid">✅ 消除对零食的强迫性依赖，下午工作思维极度敏捷专注。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">03</div>
+          <div class="action-info">
+            <h4>减轻长期慢性炎症与糖化</h4>
+            <p>剧烈的血糖峰值会加速体内胶原蛋白糖化（AGEs）并诱发血管内皮微炎症。平稳曲线不仅护身材，更从源头延缓细胞衰老。</p>
+            <div class="action-avoid">✅ 皮肤出油暗沉减少，精神体态呈现自然轻盈状态。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">⚡</span>
+        <span>吃饱且吃稳：顺应身体激素规律，不必在饥饿中痛苦煎熬！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看一日三餐动筷实操 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P5: 一日三餐动筷实操清单 ==================== -->
+  <section class="poster" id="p5">
+    <header class="header">
+      <div class="header-tag">日常落地</div>
+      <div class="header-vol">05 / 05 · 动筷3步法</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">一日三餐极简法则：<br><span>动筷3步法轻松实践</span></h2>
+        <p class="page-desc">无论在家做饭还是外卖聚餐，不需要特殊食谱，记住口诀即可践行。</p>
+      </div>
+
+      <div class="checklist-wrap">
+        <div class="checklist-item">
+          <div class="check-badge">01</div>
+          <div class="check-info">
+            <h4>第一步：蔬菜纤维先垫底</h4>
+            <p>开饭前 5 分钟，先把盘子里的清炒时蔬、西兰花、黄瓜或蔬菜沙拉吃掉一半以上，让纤维滤网在小肠提前就位。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">02</div>
+          <div class="check-info">
+            <h4>第二步：享用肉蛋豆与优质蛋白</h4>
+            <p>正常品尝鸡胸肉、鱼虾、牛肉、鸡蛋或豆腐，激活胆囊收缩素与肠促胰素，全面放缓胃排空速度。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">03</div>
+          <div class="check-info">
+            <h4>第三步：米面碳水与甜点留最后</h4>
+            <p>最后吃米饭、面条、意面或水果。此时肠道已布满缓冲网，即便摄入碳水也能从容代谢而不引起血糖暴跳。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">04</div>
+          <div class="check-info">
+            <h4>混合餐食的机智拆解法</h4>
+            <p>吃汉堡、披萨或炒饭难以彻底分开？尽量先吃搭配的沙拉，或先吃汉堡里的牛肉饼与生菜，再吃面包皮，依然大有裨益。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner" style="margin-top: 14px;">
+        <span class="banner-icon">📌</span>
+        <span>收藏本篇控糖指南，从下一顿饭开始调整顺序，感受无痛控糖的轻盈！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>长文已同步，欢迎在评论区聊聊你的感受</span>
+    </footer>
+  </section>
+
+</body>
+</html>

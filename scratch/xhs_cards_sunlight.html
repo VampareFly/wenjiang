@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="midnight-bio">
+<head>
+  <meta charset="utf-8">
+  <title>晨光节律与深度睡眠 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --bg: #0d131a;
+      --card-bg: #151e28;
+      --card-bg-light: #1c2836;
+      --ink: #f8fafc;
+      --ink-secondary: #cbd5e1;
+      --muted: #64748b;
+      --accent: #38bdf8;
+      --accent-warm: #fbbf24;
+      --line: rgba(56, 189, 248, 0.22);
+      --line-subtle: rgba(255, 255, 255, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #05080c; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 64px 72px 52px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1.5px, transparent 0);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+    }
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .header-vol {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line);
+      padding-top: 20px;
+      margin-top: 22px;
+      font-size: 24px;
+      color: var(--muted);
+    }
+    .footer-author {
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+    }
+    .footer-author::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px 0;
+    }
+
+    .title-block { margin-bottom: 16px; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc {
+      font-size: 25px;
+      color: var(--ink-secondary);
+      margin-top: 8px;
+      line-height: 1.45;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* P1 Specifics */
+    .cover-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      font-size: 24px;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 8px;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-mono);
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--accent-warm);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .stat-card .label {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .banner {
+      background: rgba(56, 189, 248, 0.12);
+      border: 1.5px solid rgba(56, 189, 248, 0.35);
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 24px;
+      color: #bae6fd;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .banner-icon { font-size: 26px; flex-shrink: 0; }
+
+    /* P4 Grid */
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .weather-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .weather-icon { font-size: 36px; margin-bottom: 8px; }
+    .weather-title { font-size: 25px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+    .weather-time { font-family: var(--font-mono); font-size: 28px; font-weight: 900; color: var(--accent-warm); }
+
+    .warn-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .warn-card {
+      background: rgba(239, 68, 68, 0.08);
+      border: 1.5px solid rgba(239, 68, 68, 0.35);
+      border-radius: 16px;
+      padding: 20px 22px;
+    }
+    .warn-title { font-size: 25px; font-weight: 700; color: #f87171; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .warn-text { font-size: 24px; color: var(--ink-secondary); line-height: 1.45; }
+
+    /* P5 Action List */
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: auto 0;
+    }
+    .action-item {
+      background: var(--card-bg);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .action-num {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .action-content h4 { font-size: 25px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+    .action-content p { font-size: 24px; color: var(--ink-secondary); line-height: 1.4; }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== P1: 首图三段画报流（强制含图） ==================== -->
+  <section class="poster" id="p1">
+    <header class="header">
+      <div class="header-tag">NEUROBIOLOGY · 昼夜节律</div>
+      <div class="header-vol">01 / 05 · 早起第一件事</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <div class="cover-badge">☀️ 神经生物学晨光法则</div>
+        <h1 class="page-title">早起做对这一件事：<br><span>神经科学拆解晨光节律法则</span></h1>
+        <p class="page-desc">为什么闹钟只能叫醒意识，而晨光叫醒的才是整副肉体？</p>
+      </div>
+
+      <!-- 核心视觉大图（高度 500px，典雅写实画报质感） -->
+      <div style="margin: 8px 0; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); box-shadow: 0 12px 32px rgba(0,0,0,0.5); position: relative; background: #0b1017;">
+        <img src="/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/toutiao-cover-3.png" style="display: block; width: 100%; height: 500px; object-fit: cover; object-position: center;" />
+        <div style="position: absolute; top: 16px; left: 18px; background: rgba(13, 19, 26, 0.88); backdrop-filter: blur(10px); padding: 6px 18px; border-radius: 20px; font-size: 24px; font-weight: 700; color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.35);">
+          🔬 视交叉上核 (SCN) 生物钟校准机制
+        </div>
+      </div>
+
+      <!-- 底部3组数据卡片与结论横条 -->
+      <div>
+        <div class="cover-stats-grid">
+          <div class="stat-card">
+            <div class="num">16小时</div>
+            <div class="label">夜间深睡倒计时</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">3-5分钟</div>
+            <div class="label">晴天采光即可开机</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">50-100倍</div>
+            <div class="label">隔窗采光耗时剧增</div>
+          </div>
+        </div>
+
+        <div class="banner">
+          <span class="banner-icon">💡</span>
+          <span>早晨见光不仅能激发清醒皮质醇，更启动了16小时后褪黑素夜间分泌！</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看视网膜到中央时钟通路 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P2: 版式 A 全屏图文杂志流（神经通路） ==================== -->
+  <section class="poster" id="p2">
+    <header class="header">
+      <div class="header-tag">神经解剖通路</div>
+      <div class="header-vol">02 / 05 · 视网膜光敏天线</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">眼睛不只负责“看”：<br><span>它还是身体对时的光敏天线</span></h2>
+        <p class="page-desc">视网膜深处的非成像感光细胞，是掌控全身体内时钟的总接收器。</p>
+      </div>
+
+      <!-- 插图嵌入配图1 -->
+      <div style="margin: 8px 0; border-radius: 18px; overflow: hidden; border: 1.5px solid var(--line); box-shadow: 0 10px 28px rgba(0,0,0,0.4); background: #0b1017;">
+        <img src="/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/配图1.png" style="display: block; width: 100%; height: 480px; object-fit: cover; object-position: center;" />
+      </div>
+
+      <!-- 3条干货解析 -->
+      <div class="card" style="padding: 20px 24px;">
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 24px; color: var(--ink-secondary); line-height: 1.45;">
+          <li>• <strong style="color: var(--accent);">非成像感光细胞 (ipRGCs)</strong>：分布于视网膜，专门捕捉清晨低角度阳光中的特定光谱；</li>
+          <li>• <strong style="color: var(--accent);">直接连通视交叉上核 (SCN)</strong>：神经电信号瞬时直达中央生物钟，同步所有外周器官时钟；</li>
+          <li>• <strong style="color: var(--accent-warm);">非对称感光敏感度</strong>：早晨需要数百万光子强刺激才能激活，而夜晚极微弱杂光就会扰乱节律！</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看晨间皮质醇与夜间褪黑素联动 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P3: 版式 B 激素时序双向曲线流 ==================== -->
+  <section class="poster" id="p3">
+    <header class="header">
+      <div class="header-tag">内分泌时序联动</div>
+      <div class="header-vol">03 / 05 · 16小时内在倒计时</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">今晚能否深睡，<br><span>早在今早起床前 60 分钟就定局了</span></h2>
+        <p class="page-desc">晨光启动的不仅是白天清醒脉冲，更是今夜褪黑素分泌的精准定时器。</p>
+      </div>
+
+      <!-- 插图嵌入配图2 -->
+      <div style="margin: 8px 0; border-radius: 18px; overflow: hidden; border: 1.5px solid var(--line); box-shadow: 0 10px 28px rgba(0,0,0,0.4); background: #0b1017;">
+        <img src="/Users/parkerpan/Desktop/wenjiang/articles/20260928-152827/配图2.png" style="display: block; width: 100%; height: 460px; object-fit: cover; object-position: center;" />
+      </div>
+
+      <!-- 机制解释 -->
+      <div class="card" style="padding: 20px 24px;">
+        <div style="display: flex; flex-direction: column; gap: 12px; font-size: 24px; color: var(--ink-secondary); line-height: 1.45;">
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="color: var(--accent); font-weight: 700; flex-shrink: 0;">☀️ 早 07:00</span>
+            <span>晨光触发健康皮质醇脉冲，提高体温、精力与专注力，激活全天免疫与代谢；</span>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <span style="color: var(--accent-warm); font-weight: 700; flex-shrink: 0;">🌙 晚 23:00</span>
+            <span>16小时内在倒计时归零，松果体平稳释放褪黑素，顺畅滑入深度慢波睡眠；</span>
+          </div>
+          <div style="padding-top: 6px; border-top: 1px solid var(--line-subtle); color: #f87171; font-weight: 600;">
+            ⚠️ 若晨起不见光，皮质醇释放延迟到傍晚，直接导致“白天浑浑噩噩，深夜翻来覆去”！
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看天气基准与实操避坑 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P4: 版式 D 天气矩阵与避坑流 ==================== -->
+  <section class="poster" id="p4">
+    <header class="header">
+      <div class="header-tag">天气实操基准</div>
+      <div class="header-vol">04 / 05 · 天气采光与避坑原则</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">隔着玻璃晒太阳？<br><span>你可能白白浪费了 99% 的光子</span></h2>
+        <p class="page-desc">不同天气需要多少户外采光？两大最常见误区一次彻底厘清。</p>
+      </div>
+
+      <!-- 三种天气光照基准 -->
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: var(--accent); margin-bottom: 12px;">📊 不同天气户外见光基准时长</div>
+        <div class="weather-grid">
+          <div class="weather-card">
+            <div class="weather-icon">☀️</div>
+            <div class="weather-title">晴空万里</div>
+            <div class="weather-time">3-5 分钟</div>
+            <p style="font-size: 24px; color: var(--muted); margin-top: 6px;">光强极充沛，自然眨眼即可快速激活</p>
+          </div>
+          <div class="weather-card">
+            <div class="weather-icon">⛅</div>
+            <div class="weather-title">多云微阴</div>
+            <div class="weather-time">10 分钟</div>
+            <p style="font-size: 24px; color: var(--muted); margin-top: 6px;">云层散射光子，需适度延长逗留</p>
+          </div>
+          <div class="weather-card">
+            <div class="weather-icon">🌧️</div>
+            <div class="weather-title">浓云密雨</div>
+            <div class="weather-time">20-30 分钟</div>
+            <p style="font-size: 24px; color: var(--muted); margin-top: 6px;">户外自然光依然是室内灯光的数倍</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 避坑两大红线 -->
+      <div>
+        <div style="font-size: 24px; font-weight: 700; color: #f87171; margin-bottom: 12px;">⚠️ 两大采光核心红线</div>
+        <div class="warn-grid">
+          <div class="warn-card">
+            <div class="warn-title">🚫 严禁隔窗采光</div>
+            <div class="warn-text">窗户玻璃与挡风玻璃会严重过滤、散射有效光谱光子。隔窗采光要达到户外相同刺激需多花 50~100 倍时间！</div>
+          </div>
+          <div class="warn-card">
+            <div class="warn-title">🕶️ 采光时摘下墨镜</div>
+            <div class="warn-text">墨镜会直接阻断视网膜感光刺激。近视眼镜或隐形眼镜完全正常佩戴，它们会聚焦光线，无损采光效果。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看晨光极简落地清单 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P5: 版式 E 晨光落地行动清单 ==================== -->
+  <section class="poster" id="p5">
+    <header class="header">
+      <div class="header-tag">极简落地打卡</div>
+      <div class="header-vol">05 / 05 · 明早即可启动</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">晨光 4 步极简法则：<br><span>明天早晨即可开始落地</span></h2>
+        <p class="page-desc">零金钱成本、无药物副作用，只需一个极小习惯重塑身体节律。</p>
+      </div>
+
+      <!-- 4步打卡模块 -->
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">01</div>
+          <div class="action-content">
+            <h4>起床即步入户外（5~15 分钟内）</h4>
+            <p>醒后尽快走到阳台、院子或室外，面朝太阳方向自然眨眼，切忌直视刺眼强光。</p>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">02</div>
+          <div class="action-content">
+            <h4>摘除墨镜，保留近视镜/隐形眼镜</h4>
+            <p>不要佩戴深色墨镜阻挡关键波长光子；普通视力矫正镜片能聚焦光线，完全保留即可。</p>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">03</div>
+          <div class="action-content">
+            <h4>阴雨天气翻倍时长（20~30 分钟）</h4>
+            <p>阴雨天更要走出去！云层遮蔽下户外光子量仍显著高于室内顶灯，多逗留一会儿才能触发生物钟阈值。</p>
+          </div>
+        </div>
+
+        <div class="action-item">
+          <div class="action-num">04</div>
+          <div class="action-content">
+            <h4>日出前醒来开亮灯，日出后户外补光</h4>
+            <p>天未亮先打开室内最亮的人造顶灯模拟开机；一旦太阳升起，立刻外出接受哪怕5分钟真实阳光。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部免责声明 -->
+      <div class="banner" style="background: rgba(100, 116, 139, 0.15); border-color: rgba(100, 116, 139, 0.3); color: #cbd5e1; font-size: 24px;">
+        <span class="banner-icon">📋</span>
+        <span>循证健康提示：晨光节律是神经生物学基础调节工具，非医疗处方。有眼疾或光敏病史请遵医嘱。</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>欢迎点赞收藏 · 明早一起迎光对时</span>
+    </footer>
+  </section>
+
+</body>
+</html>

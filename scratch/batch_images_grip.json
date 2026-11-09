@@ -1,0 +1,26 @@
+[
+  {
+    "prompt": "A clean health lifestyle infographic, 16:9 aspect ratio, four visual quadrants: 1. loaded farmer's walk (carrying heavy items with good posture), 2. dead hang from a bar (30 seconds), 3. towel wringing and finger rubber band extension, 4. high-quality protein and magnesium nutrition, elegant Scandinavian layout, emerald and warm gold palette",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-083530/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio, a 65-year-old Asian person in a bright kitchen struggling to twist open a stubborn glass jar lid, looking slightly frustrated, authentic warm lighting, highly detailed 8k",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-083530/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end medical and lifestyle photography, 16:9 aspect ratio, a split contrast composition: left side showing a digital grip dynamometer displaying a low reading in red, right side showing a strong hand holding a dynamometer with a high green reading, crisp lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-083530/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Lifestyle photography, 16:9 aspect ratio, a sharp, vital 68-year-old Asian person happily carrying shopping bags in a sunny morning park, standing tall with great posture and radiating physical vigor, warm golden morning light",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260904-083530/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

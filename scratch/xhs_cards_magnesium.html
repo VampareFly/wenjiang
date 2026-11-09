@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>小红书卡片 - 镁与深睡眠</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #222;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    .card {
+      width: 1080px;
+      height: 1440px;
+      background: #0d131a;
+      color: #f8fafc;
+      padding: 56px 56px 48px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(13, 19, 26, 0) 70%);
+      pointer-events: none;
+    }
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-radius: 20px;
+      color: #38bdf8;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      width: fit-content;
+    }
+    .main-title {
+      font-size: 50px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      margin-bottom: 24px;
+    }
+    .main-title span {
+      color: #38bdf8;
+    }
+    .sub-title {
+      font-size: 28px;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 28px;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .floating-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: rgba(13, 19, 26, 0.85);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 22px;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+    .data-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .data-card {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .data-val {
+      font-size: 38px;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+    .data-label {
+      font-size: 20px;
+      font-weight: 600;
+      color: #f8fafc;
+      margin-bottom: 4px;
+    }
+    .data-desc {
+      font-size: 16px;
+      color: #94a3b8;
+    }
+    .action-bar {
+      background: linear-gradient(90deg, rgba(56, 189, 248, 0.15) 0%, rgba(13, 19, 26, 0.6) 100%);
+      border-left: 4px solid #38bdf8;
+      border-radius: 12px;
+      padding: 18px 22px;
+      font-size: 22px;
+      color: #e2e8f0;
+      line-height: 1.5;
+    }
+    .action-bar strong {
+      color: #38bdf8;
+    }
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 18px;
+      color: #64748b;
+    }
+    .info-box {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .info-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-text {
+      font-size: 22px;
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+    .info-text strong {
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CARD 1: 画报三段流首图 -->
+  <div class="card" id="p1">
+    <div>
+      <div class="tag-badge">💡 斯坦福神经生物学·深睡眠</div>
+      <h1 class="main-title">整夜做梦浅睡易醒？<br>别乱吃褪黑素，大脑可能缺了<span>这颗“镁”</span></h1>
+      <p class="sub-title">明明早早躺下，为什么整夜乱梦频繁惊醒、早起昏昏沉沉？</p>
+      
+      <div class="image-container">
+        <img src="../articles/20260921-132239/cover.png" alt="封面图">
+        <div class="floating-caption">
+          <span>🧠 神经生化机制：GABA 是大脑深睡眠刹车片，镁离子协同关闭思维杂音</span>
+        </div>
+      </div>
+
+      <div class="data-grid">
+        <div class="data-card">
+          <div class="data-val">仅4%</div>
+          <div class="data-label">氧化镁吸收</div>
+          <div class="data-desc">普通镁易致泻难安睡</div>
+        </div>
+        <div class="data-card">
+          <div class="data-val">高效穿透</div>
+          <div class="data-label">血脑屏障</div>
+          <div class="data-desc">苏糖酸镁直达大脑</div>
+        </div>
+        <div class="data-card">
+          <div class="data-val">30分钟</div>
+          <div class="data-label">睡前窗口</div>
+          <div class="data-desc">激活慢波深睡眠</div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        💡 <strong>划重点：</strong>褪黑素只管入睡，维持整夜深睡眠必须靠<strong>苏糖酸镁 / 甘氨酸镁</strong>！
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>@循证健康主理人</span>
+      <span>P1 / 4 · 封面</span>
+    </div>
+  </div>
+
+  <!-- CARD 2: GABA 神经机制 -->
+  <div class="card" id="p2">
+    <div>
+      <div class="tag-badge">🔬 01 | 神经生化真相</div>
+      <h2 class="main-title">褪黑素不是镇静剂<br>大脑深睡眠需要的是<span>GABA抑制递质</span></h2>
+      
+      <div class="image-container" style="height: 480px;">
+        <img src="../articles/20260921-132239/配图1.png" alt="GABA受体机制">
+        <div class="floating-caption">
+          <span>⚡ GABA-A 受体必须与镁结合，才能平息前额叶多梦兴奋</span>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">🛑 大脑的生物刹车片</div>
+        <div class="info-text">
+          GABA 是大脑主要的抑制性神经递质。当它与受体结合时，前额叶皮层思维杂音关闭，脑电波平缓进入<strong>慢波深睡眠</strong>。
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-bottom: 0;">
+        <div class="info-title">⚠️ 为什么现代人普遍缺镁？</div>
+        <div class="info-text">
+          土壤矿物质流失与高压生活导致<strong>超 50% 成人亚临床缺镁</strong>，GABA 受体失活，引发睡眠碎片化。
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>@循证健康主理人</span>
+      <span>P2 / 4 · 机制</span>
+    </div>
+  </div>
+
+  <!-- CARD 3: 常见镁形态对比 -->
+  <div class="card" id="p3">
+    <div>
+      <div class="tag-badge">📊 02 | 镁形态避坑指南</div>
+      <h2 class="main-title">别再买错氧化镁！<br><span>4 种常见镁形态吸收与功效对比</span></h2>
+      
+      <div class="image-container" style="height: 480px;">
+        <img src="../articles/20260921-132239/配图2.png" alt="形态对比图">
+        <div class="floating-caption">
+          <span>🔍 挑选关键：是否能穿透血脑屏障或放松外周肌肉</span>
+        </div>
+      </div>
+
+      <div class="data-grid">
+        <div class="data-card">
+          <div class="data-val" style="font-size: 26px;">苏糖酸镁</div>
+          <div class="data-label">大脑专注</div>
+          <div class="data-desc">穿透血脑屏障·深睡</div>
+        </div>
+        <div class="data-card">
+          <div class="data-val" style="font-size: 26px;">甘氨酸镁</div>
+          <div class="data-label">肌肉放松</div>
+          <div class="data-desc">降低体温·不拉肚</div>
+        </div>
+        <div class="data-card">
+          <div class="data-val" style="font-size: 26px; color: #ef4444;">氧化镁</div>
+          <div class="data-label">避坑不买</div>
+          <div class="data-desc">吸收4%·纯通便</div>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        ⚠️ <strong>选购避坑：</strong>不要买通用复合镁片，优先认准<strong>苏糖酸镁 (Magtein)</strong> 或 <strong>甘氨酸镁</strong>。
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>@循证健康主理人</span>
+      <span>P3 / 4 · 对比</span>
+    </div>
+  </div>
+
+  <!-- CARD 4: 科学补充指南 -->
+  <div class="card" id="p4">
+    <div>
+      <div class="tag-badge">✨ 03 | 极简补充实操</div>
+      <h2 class="main-title">睡前黄金补充窗口<br>与<span>天然富镁食物矩阵</span></h2>
+      
+      <div class="image-container" style="height: 480px;">
+        <img src="../articles/20260921-132239/配图3.png" alt="富镁食物">
+        <div class="floating-caption">
+          <span>🥑 天然食物结合科学补充，全方位重塑深度睡眠</span>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <div class="info-title">📋 斯坦福推荐睡前剂量</div>
+        <div class="info-text">
+          • <strong>苏糖酸镁</strong>：睡前 30-60 分钟补充约 145mg 元素镁（思维活跃多梦首选）；<br>
+          • <strong>甘氨酸镁</strong>：睡前补充 200-400mg（身体紧绷、抽筋疲劳首选）；<br>
+          • <strong>天然饮食</strong>：日常多吃南瓜籽、深绿菠菜、牛油果与 85% 黑巧。
+        </div>
+      </div>
+
+      <div class="action-bar">
+        💬 <strong>读者互动：</strong>大家平时晚上做梦多、容易醒吗？你尝试过哪种助眠方法？评论区聊聊👇
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>@循证健康主理人</span>
+      <span>P4 / 4 · 实操</span>
+    </div>
+  </div>
+
+</body>
+</html>

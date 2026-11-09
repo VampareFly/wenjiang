@@ -1,0 +1,32 @@
+[
+  {
+    "prompt": "A clear biochemical pathway diagram, 16:9 aspect ratio. Showing green tea catechins (EGCG) dual action: on the left, catechins gently inhibiting gastrointestinal lipase to reduce lipid absorption; on the right, stimulating cellular AMPK pathway and mitochondrial beta-oxidation in liver and visceral fat tissues. Elegant minimalist layout, emerald green and warm gold tones, scientific laboratory illustration. All text labels, biochemical pathways, and arrows must be exclusively in Simplified Chinese characters, absolutely NO English words or letters. Clearly label in Chinese: '儿茶素', '抑制脂肪酶', '脂肪氧化', '能量代谢'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-144231/配图2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A clean clinical sports science infographic, 16:9 aspect ratio. Comparing clinical trial parameters after 8-12 weeks of twice-weekly 45-minute moderate cycling: visceral fat area significantly drops (-15%), insulin sensitivity significantly improves (+25%), while total scale weight shows only slight change (-1.5kg). Visualizing that visceral fat loss happens before drastic weight drops. Clean minimalist clinical chart style, forest green and energetic coral orange accents, crisp typography. All text labels, chart legends, and axes must be exclusively in Simplified Chinese characters, absolutely NO English words or letters. Clearly label in Chinese: '内脏脂肪面积', '胰岛素敏感度', '总体重变化', '中度骑行'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-144231/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio. A 35-year-old Asian man sitting down on a living room sofa, looking down at his protruding soft lower belly with frustration and confusion, pinching the side waist while looking at a weighing scale on the floor. Natural warm indoor lighting, authentic emotional expression, cinematic depth of field, 8k resolution. Clean visual, absolutely NO English text, NO English letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-144231/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Premium lifestyle and nutritional photography, 16:9 aspect ratio. Split contrast composition: on the left, excessive restrictive starvation diet represented by an empty white plate with a single sad celery stick; on the right, nutrient-rich vibrant anti-visceral-fat ingredients: deep green matcha tea in ceramic bowl, fresh organic carrots, vibrant broccoli, dark leafy greens, colorful berries. Warm appetizing lighting, wooden table background, crisp editorial quality. All text labels if any must be exclusively in Simplified Chinese characters, absolutely NO English words or letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-144231/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Vibrant healthy lifestyle photography, 16:9 aspect ratio. A fit and energetic 35-year-old Asian individual outdoors on a bike path in a sunny park morning, riding a road bike with a relaxed, confident smile, wearing comfortable cycling gear, flat firm core posture, golden morning sunlight filtering through trees, inspiring and authentic atmosphere. High resolution 8k, photorealistic. Clean visual, absolutely NO English text, NO English letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-144231/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

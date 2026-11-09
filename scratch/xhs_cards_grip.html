@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>双手握力与长寿指标 · 小红书卡片组（居中紧凑优化版）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #f4f6f0;
+      --paper-card: #ffffff;
+      --ink: #14211a;
+      --ink-secondary: #33443a;
+      --muted: #6b7f73;
+      --accent: #205c40;
+      --accent-warm: #c88a35;
+      --line: rgba(20, 33, 26, 0.14);
+      --line-subtle: rgba(20, 33, 26, 0.08);
+      --tag-bg: rgba(32, 92, 64, 0.09);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #333; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(20,33,26,0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line);
+      padding-top: 24px;
+      margin-top: 28px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 21px;
+      font-weight: 700;
+      border-radius: 30px;
+      margin-bottom: 16px;
+    }
+
+    .title-hero {
+      font-family: var(--font-serif);
+      font-size: 64px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .title-section {
+      font-family: var(--font-serif);
+      font-size: 50px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 25px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border-radius: 24px;
+      padding: 34px 40px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 10px 30px rgba(20,33,26,0.04);
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 29px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-desc {
+      font-size: 23px;
+      line-height: 1.65;
+      color: var(--ink-secondary);
+    }
+
+    .highlight {
+      color: var(--accent-warm);
+      font-weight: 800;
+    }
+
+    /* Checklist Group for Card 5 (Grouped & Vertically Centered) */
+    .checklist-group {
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .check-item {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 22px 28px;
+      border: 1.5px solid var(--line-subtle);
+      box-shadow: 0 6px 18px rgba(20,33,26,0.03);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .check-badge {
+      width: 44px;
+      height: 44px;
+      background: rgba(32,92,64,0.12);
+      color: var(--accent);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .check-text-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .check-text-sub {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    /* Grid & Lists */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      flex: 1;
+    }
+    .grid-card {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 30px 32px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 8px 24px rgba(20,33,26,0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 800;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .visual-split {
+      width: 100%;
+      height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 22px;
+      background: #111;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.1);
+    }
+    .visual-split img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .visual-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 18px 26px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      color: #fff;
+      font-size: 21px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Card 01: Cover -->
+  <section class="poster" id="card-01">
+    <div class="header">
+      <span class="brand-tag">NEUROMUSCULAR BIOLOGY & LONGEVITY</span>
+      <span class="page-index">01 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">💡 柳叶刀研究 · 长寿生物指标</div>
+        <h1 class="title-hero">能活多久先看握力？<br>双手是神经衰老晴雨表</h1>
+        <p class="subtitle">拧不开瓶盖不是小毛病！<strong class="highlight">握力是比血压更强力的长寿预测标尺</strong><br>看懂中枢神经与肌肉对话，守住行动力底盘</p>
+      </div>
+
+      <div class="card" style="background: rgba(32,92,64,0.05); border-left: 8px solid var(--accent); padding: 38px 44px; margin-top: 10px;">
+        <div style="font-size: 25px; line-height: 1.75; color: var(--ink-secondary);">
+          ❌ <strong>寿命长短不看体重，看双手抓握力</strong><br>
+          ❌ 握力每降 5kg，全因死亡风险上升 <strong class="highlight">约 16%</strong><br>
+          👉 <strong>激活神经肌肉接头</strong>，重塑全身中枢力量
+        </div>
+      </div>
+
+      <div class="card" style="padding: 28px 36px; background: #ffffff;">
+        <div style="font-size: 22px; color: var(--muted); display: flex; justify-content: space-between; align-items: center;">
+          <span>📌 核心要点：中枢机制 ➔ 柳叶刀数据 ➔ 4 步强化法</span>
+          <span style="color: var(--accent); font-weight: 700;">右滑继续阅读 ➔</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学运动与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">SLIDE TO READ →</span>
+    </div>
+  </section>
+
+  <!-- Card 02: Mechanism (Semi-Editorial Split) -->
+  <section class="poster" id="card-02">
+    <div class="header">
+      <span class="brand-tag">01 · 核心机制</span>
+      <span class="page-index">02 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">握力背后：<br>中枢神经的极速总动员</h2>
+        <p class="subtitle" style="margin-bottom: 18px;">握拳发力需要大脑运动皮层瞬间向神经肌肉接头发送高频信号</p>
+      </div>
+
+      <div class="visual-split">
+        <img src="file:///Users/parkerpan/Desktop/wenjiang/articles/20260904-083530/配图1.png" alt="中枢神经信号募集肌纤维与握力机制">
+        <div class="visual-caption">🔬 微观通路：大脑运动皮层电信号沿脊髓高速传导，通过神经肌肉接头同步募集数万肌纤维</div>
+      </div>
+
+      <div class="card" style="padding: 30px 36px;">
+        <div class="card-desc" style="font-size: 23px; line-height: 1.65;">
+          <strong>握力</strong> 是全身神经系统与骨骼肌线粒体活力的外显显示屏。神经微炎症或突触减少时，最先表现为手指末梢抓握力大幅下滑！
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学运动与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 03: Lancet Data -->
+  <section class="poster" id="card-03">
+    <div class="header">
+      <span class="brand-tag">02 · 柳叶刀数据</span>
+      <span class="page-index">03 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">权威追踪：<br>握力每降 5kg 意味着什么？</h2>
+        <p class="subtitle" style="margin-bottom: 22px;">《柳叶刀》跨越 17 国、追踪 14 万人的标志性研究结论：</p>
+      </div>
+
+      <div class="card" style="margin-bottom: 22px; padding: 36px 40px;">
+        <div class="card-title">📊 1. 全因死亡与心血管风险攀升</div>
+        <div class="card-desc" style="font-size: 23px; line-height: 1.7;">
+          握力每下降 5 公斤，<strong>全因死亡风险增加 16%，心血管事件增加 17%</strong>！预测效力甚至超越了收缩压（高压）。
+        </div>
+      </div>
+
+      <div class="card" style="padding: 36px 40px;">
+        <div class="card-title">🎯 2. 成年人健康握力自测及格线</div>
+        <div class="card-desc" style="font-size: 23px; line-height: 1.7;">
+          👨 <strong>成年男性</strong>：标准握力建议保持在 <strong>≥ 40~45 kg</strong><br>
+          👩 <strong>成年女性</strong>：标准握力建议保持在 <strong>≥ 25~30 kg</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学运动与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 04: 4 Actions -->
+  <section class="poster" id="card-04">
+    <div class="header">
+      <span class="brand-tag">03 · 行动指南</span>
+      <span class="page-index">04 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">强化握力：<br>做好这 4 件事唤醒神经</h2>
+        <p class="subtitle" style="margin-bottom: 22px;">居家低门槛锻炼，守住全身行动力：</p>
+      </div>
+
+      <div class="grid-2" style="margin-bottom: 10px;">
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">1</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">买菜农夫行走</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            双手提适度重物挺胸慢走，等长收缩强化抓握与脊柱核心。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">2</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">单杠悬吊30秒</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            双手挂单杠自然悬吊，给椎间盘减压同时强效刺激小臂肌群。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">3</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">拧毛巾撑手指</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            用力拧干湿毛巾，套橡皮筋向外撑手指，平衡锻炼屈伸肌。
+          </div>
+        </div>
+
+        <div class="grid-card">
+          <div style="display: flex; align-items: center; margin-bottom: 14px;">
+            <span class="step-num">4</span>
+            <span style="font-size: 24px; font-weight: 800; color: var(--accent);">补充优质蛋白</span>
+          </div>
+          <div style="font-size: 21px; line-height: 1.6; color: var(--ink-secondary);">
+            吃够完全蛋白与微量元素镁，为神经肌肉接头提供修复原料。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学运动与抗衰科普</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">NEXT PAGE →</span>
+    </div>
+  </section>
+
+  <!-- Card 05: Checklist (Grouped Together & Vertically Centered) -->
+  <section class="poster" id="card-05">
+    <div class="header">
+      <span class="brand-tag">04 · 落地清单</span>
+      <span class="page-index">05 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <h2 class="title-section">从今天起，<br>科学守护双手硬实力</h2>
+        <p class="subtitle" style="margin-bottom: 0;">多抓一抓、多提一提，唤醒中枢神经活力</p>
+      </div>
+
+      <!-- 4 items grouped together with compact 14px gap, centered vertically via margin: auto 0 -->
+      <div class="checklist-group">
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">1. 买菜购物时主动双手提重物挺胸慢走</div>
+            <div class="check-text-sub">每天坚持 5~10 分钟负重行走，强化全身力学链与抓握力</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">2. 小区散步时顺便单杠悬吊 20~30 秒</div>
+            <div class="check-text-sub">自然重力牵引拉伸肩背，强力唤醒前臂神经肌肉接头</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">3. 洗脸时顺手用力拧干湿毛巾 3~5 次</div>
+            <div class="check-text-sub">利用日常生活细节锻炼手指末梢深度旋转抓握阻力</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">✓</div>
+          <div>
+            <div class="check-text-title">4. 保证每餐摄入掌心大小优质蛋白质</div>
+            <div class="check-text-sub">搭配深绿叶蔬菜补足镁元素，稳固肌纤维合成与神经传导</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Callout Card -->
+      <div class="card" style="text-align: center; padding: 26px 32px; background: #ffffff; border: 1.5px solid var(--accent); margin-top: 0;">
+        <p style="font-size: 26px; font-weight: 800; color: var(--accent); margin-bottom: 6px;">❤️ 觉得有用请【点赞 + 收藏 + 转发给家人】</p>
+        <p style="font-size: 20px; color: var(--muted);">关注【食外】，每天掌握一个硬核靠谱的身体抗衰常识</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>免责声明：科普内容仅供参考，不作为个体化临床诊疗依据。</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 700; color: var(--accent);">食外</span>
+    </div>
+  </section>
+
+</body>
+</html>

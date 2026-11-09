@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>内脏脂肪定向清除指南 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #f4f6f0;
+      --paper-card: #ffffff;
+      --ink: #14211a;
+      --ink-secondary: #2f4337;
+      --muted: #607567;
+      --accent: #1b4931;
+      --accent-warm: #c88a35;
+      --line: rgba(20, 33, 26, 0.14);
+      --line-subtle: rgba(20, 33, 26, 0.08);
+      --tag-bg: rgba(27, 73, 49, 0.09);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #222; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(20,33,26,0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line);
+      padding-top: 24px;
+      margin-top: 28px;
+      font-size: 21px;
+      color: var(--muted);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 22px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 22px;
+      font-weight: 700;
+      border-radius: 30px;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+
+    .title-hero {
+      font-family: var(--font-serif);
+      font-size: 64px;
+      line-height: 1.22;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      margin-bottom: 16px;
+    }
+    .title-section {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 25px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border-radius: 24px;
+      padding: 32px 38px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 10px 30px rgba(20,33,26,0.04);
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-desc {
+      font-size: 24px;
+      line-height: 1.6;
+      color: var(--ink-secondary);
+    }
+
+    .highlight {
+      color: var(--accent-warm);
+      font-weight: 700;
+    }
+    .bold-green {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* P1 Cover Special */
+    .cover-img-box {
+      width: 100%;
+      height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      margin: 16px 0 24px;
+      border: 1px solid var(--line);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+    .cover-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Grid Layouts */
+    .split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    /* Compact action cards */
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+    }
+    .action-item {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 24px 30px;
+      border-left: 6px solid var(--accent);
+      box-shadow: 0 6px 20px rgba(20,33,26,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .action-head {
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .action-tag {
+      font-size: 19px;
+      padding: 4px 12px;
+      border-radius: 12px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .action-body {
+      font-size: 22px;
+      line-height: 1.55;
+      color: var(--ink-secondary);
+    }
+
+    /* Interactive Box */
+    .interactive-box {
+      background: #eef3eb;
+      border-radius: 20px;
+      padding: 22px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px dashed var(--accent);
+      margin-top: 16px;
+    }
+    .interactive-text {
+      font-size: 22px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CARD 01: 杂志大画报封面 -->
+  <div class="poster" id="card-1">
+    <div class="header">
+      <span class="brand-tag">EVIDENCE HEALTH · 循证科普</span>
+      <span class="page-index">01 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">定向减脂 · 生理机制拆解</div>
+        <h1 class="title-hero">小肚子总减不掉？<br>先别急着一日三餐砍半！</h1>
+        <p class="subtitle">为什么四肢都瘦了小腹还在？内脏脂肪的代谢活跃度远超皮下肥肉，选对方法比盲目挨饿快得多。</p>
+      </div>
+
+      <div class="cover-img-box">
+        <img src="cover.png" alt="内脏脂肪代谢激活">
+      </div>
+
+      <div class="card" style="padding:24px 32px; background: #ffffff;">
+        <p class="card-desc" style="font-size:23px; line-height:1.55;">
+          💡 <span class="bold-green">核心真相</span>：内脏脂肪血流极其充沛，对激素信号极度敏感。只要阻断促炎刺激、唤醒氧化通路，它反而是全身<span class="highlight">最容易、最快被调动消耗</span>的脂肪。
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>公众号 / 全平台：食外</span>
+      <span>阅读时长约 3 分钟</span>
+    </div>
+  </div>
+
+  <!-- CARD 02: 双层解剖与误区纠偏 (版式 B) -->
+  <div class="poster" id="card-2">
+    <div class="header">
+      <span class="brand-tag">ANATOMY & METABOLISM</span>
+      <span class="page-index">02 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">腹部脂肪解剖真相</div>
+        <h2 class="title-section">为什么单纯节食，<br>减不掉顽固小肚子？</h2>
+        <p class="subtitle">腹部脂肪分浅深两层，两者的代谢命运与动员法则截然不同：</p>
+      </div>
+
+      <div class="split-grid" style="margin: 12px 0;">
+        <div class="card" style="border-top: 6px solid #a1a1aa;">
+          <div class="card-title" style="color: #52525b;">
+            <span>浅层皮下脂肪</span>
+          </div>
+          <p class="card-desc">
+            • 手指能直接捏起来的松软肥肉<br>
+            • 承担物理缓冲与保温储能功能<br>
+            • 微观血流较缓，代谢侵略性低<br>
+            • 极端节食时易脱水萎缩但极易反弹
+          </p>
+        </div>
+
+        <div class="card" style="border-top: 6px solid var(--accent-warm);">
+          <div class="card-title" style="color: var(--accent-warm);">
+            <span>深层内脏脂肪</span>
+          </div>
+          <p class="card-desc">
+            • 紧紧包裹胃、肝脏与胰腺脏器<br>
+            • 慢性炎症与代谢综合征根源<br>
+            • <span class="highlight">微观血流极其充沛</span>，神经受体密集<br>
+            • 挨饿时触发防御锁死，<span class="bold-green">运动时最先瓦解</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="card" style="background:#f9fbf8; border: 1px solid var(--line);">
+        <div class="card-title">⚠️ 极端砍半热量的致命陷阱</div>
+        <p class="card-desc">
+          过度压缩热量会促使甲状腺活性下调、皮质醇持续飙升，身体判定遭遇能量危机，反而会<span class="highlight">死死锁住深层内脏脂肪</span>，优先分解骨骼肌与水分！
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>向内探索，掌握代谢底层逻辑</span>
+      <span>滑动查看天然多酚 ➔</span>
+    </div>
+  </div>
+
+  <!-- CARD 03: 生化机理与餐盘多酚 (版式 A) -->
+  <div class="poster" id="card-3">
+    <div class="header">
+      <span class="brand-tag">BIOACTIVE POLYPHENOLS</span>
+      <span class="page-index">03 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">餐盘里的天然生化阻击手</div>
+        <h2 class="title-section">两大天然多酚武器：<br>减轻细胞级氧化应激</h2>
+        <p class="subtitle">临床试验反复验证的两个定向干预通道，无需昂贵补剂：</p>
+      </div>
+
+      <div class="card" style="border-left: 6px solid var(--accent); margin-bottom: 16px;">
+        <div class="card-title">🥕 类胡萝卜素：中和自由基与抗炎</div>
+        <p class="card-desc">
+          • <span class="bold-green">天然来源</span>：胡萝卜、彩椒、番茄、南瓜、深绿叶羽衣甘蓝与菠菜。<br>
+          • <span class="bold-green">生化机制</span>：直接清除内脏脂肪细胞过载的活性氧自由基，平抑局部促炎通道。<br>
+          • <span class="highlight">临床证据</span>：日本严格随机双盲对照试验，每日补充天然蔬菜，<span class="bold-green">干预8周后深层内脏脂肪面积显著缩减</span>！
+        </p>
+      </div>
+
+      <div class="card" style="border-left: 6px solid var(--accent-warm);">
+        <div class="card-title">🍵 绿茶儿茶素（EGCG）：双重代谢助推</div>
+        <p class="card-desc">
+          • <span class="bold-green">消化道前端</span>：温和抑制脂肪酶活性，直接降低随餐脂质水解吸收。<br>
+          • <span class="bold-green">细胞线粒体</span>：激活 AMPK 信号，成倍提升脂肪氧化分解速率。<br>
+          • <span class="highlight">临床数据</span>：12周双盲对照试验，每日约 600mg 儿茶素（约2~3杯高纯绿茶/抹茶），内脏脂肪出现显著额外下降。
+        </p>
+      </div>
+
+      <div class="interactive-box">
+        <span class="interactive-text">💡 建议操作：日常以无糖纯绿茶替代所有含果糖饮料！</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>天然食材的力量，来自科学机制</span>
+      <span>滑动查看惊人运动数据 ➔</span>
+    </div>
+  </div>
+
+  <!-- CARD 04: 临床数据与体重秤谎言 (版式 C) -->
+  <div class="poster" id="card-4">
+    <div class="header">
+      <span class="brand-tag">CLINICAL TRIAL EVIDENCE</span>
+      <span class="page-index">04 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">反常识临床试验报告</div>
+        <h2 class="title-section">体重秤一斤没掉，<br>内脏脂肪却减少了48%？</h2>
+        <p class="subtitle">117 项临床试验荟萃分析：饮食擅长减重，运动专精减内脏脂肪！</p>
+      </div>
+
+      <div class="card" style="background:#ffffff; border: 1px solid var(--line); margin: 8px 0;">
+        <div class="card-title">🚴 人体临床干预方案（仅8周）</div>
+        <p class="card-desc">
+          无需高强度冲刺：仅执行 <span class="highlight">每周 2 次、每次 45 分钟中等强度骑行</span>（75% VO2 peak，约 70%~80% 最大心率，微微气喘）。
+        </p>
+      </div>
+
+      <div class="split-grid" style="margin: 10px 0;">
+        <div class="card" style="background:#eef3eb; text-align:center; padding: 26px 16px;">
+          <p style="font-size:22px; color:var(--muted); margin-bottom:6px;">内脏脂肪面积</p>
+          <p style="font-size:52px; font-weight:900; color:var(--accent); line-height:1;">-48%</p>
+          <p style="font-size:18px; color:var(--accent); margin-top:6px; font-weight:700;">近乎腰斩！</p>
+        </div>
+
+        <div class="card" style="background:#fdf6ed; text-align:center; padding: 26px 16px;">
+          <p style="font-size:22px; color:var(--muted); margin-bottom:6px;">胰岛素敏感度</p>
+          <p style="font-size:52px; font-weight:900; color:var(--accent-warm); line-height:1;">+41%</p>
+          <p style="font-size:18px; color:var(--accent-warm); margin-top:6px; font-weight:700;">代谢大幅改善</p>
+        </div>
+      </div>
+
+      <div class="card" style="border-left: 6px solid #e11d48;">
+        <div class="card-title" style="color: #e11d48;">⚖️ 体重秤的巨大滞后性</div>
+        <p class="card-desc">
+          两个月后，受试者站上体重秤，<span class="highlight">总体重几乎毫无变化</span>！因为恶性内脏脂肪被高效燃烧的同时，骨骼肌在充盈糖原、水分并增加线粒体。这是质变，千万别因秤上数字放弃！
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>117项临床试验系统荟萃分析结论</span>
+      <span>滑动查看极简落地清单 ➔</span>
+    </div>
+  </div>
+
+  <!-- CARD 05: 落地清单与打卡打法 (版式 E) -->
+  <div class="poster" id="card-5">
+    <div class="header">
+      <span class="brand-tag">ACTIONABLE CHECKLIST</span>
+      <span class="page-index">05 / 05</span>
+    </div>
+
+    <div class="content-fill">
+      <div>
+        <div class="badge">极简低压力行动打卡</div>
+        <h2 class="title-section">平坦小腹的4大黄金法则</h2>
+        <p class="subtitle">把精力留给有明确生理回报的动作，告别内耗与极端节食：</p>
+      </div>
+
+      <div class="action-stack">
+        <div class="action-item">
+          <div class="action-head">
+            <span>1. 餐盘装满天然彩色蔬菜</span>
+            <span class="action-tag">抗炎多酚</span>
+          </div>
+          <p class="action-body">每餐保证 2~3 种深绿叶菜、胡萝卜、彩椒或番茄，提供充足类胡萝卜素，阻断深层脂质氧化应激。</p>
+        </div>
+
+        <div class="action-item">
+          <div class="action-head">
+            <span>2. 纯绿茶替代所有甜饮</span>
+            <span class="action-tag">抑制吸收</span>
+          </div>
+          <p class="action-body">每天 2~3 杯无糖绿茶或抹茶，摄入足量儿茶素与微量天然咖啡因，持续激活 AMPK 脂肪分解通道。</p>
+        </div>
+
+        <div class="action-item">
+          <div class="action-head">
+            <span>3. 每周 2~3 次中度有氧</span>
+            <span class="action-tag">定向动员</span>
+          </div>
+          <p class="action-body">每次 45 分钟骑行或快走，以“能完整说话但微带喘气”的交谈测试为准，享受剂量依赖的燃脂回报。</p>
+        </div>
+
+        <div class="action-item">
+          <div class="action-head">
+            <span>4. 坚决抛弃极端节食</span>
+            <span class="action-tag">保护代谢</span>
+          </div>
+          <p class="action-body">不随意砍掉一日三餐，避免身体陷入饥饿防御锁死内脏脂肪。给身体时间，静待内部成分良性置换。</p>
+        </div>
+      </div>
+
+      <div class="interactive-box" style="margin-top: auto;">
+        <span class="interactive-text">📌 建议点击收藏，作为全周健康饮食与运动打卡清单！</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>关注「食外」，做自己身体的第一责任人</span>
+      <span>完结 · 感谢阅读</span>
+    </div>
+  </div>
+
+</body>
+</html>

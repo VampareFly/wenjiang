@@ -1,0 +1,40 @@
+{
+  "jobs": 1,
+  "tasks": [
+    {
+      "id": "peitu2",
+      "prompt": "Medical endocrinology and circadian scientific chart, 16:9 aspect ratio. A dual-curve timeline chart on a clean, professional dark navy background (#0f172a). Horizontal X-axis shows night sleep timeline: '23:00', '01:00', '03:00', '05:00', '07:00'. The vertical Y-axis shows glucose and hormone concentration. Two contrasting curves: a smooth, stable cyan curve labeled '正常夜间糖原平稳释放', and a red plunging curve showing nocturnal reactive hypoglycemia dropping between 01:00 and 03:00 labeled '肝糖原匮乏·血糖骤降', which triggers a sharp, high-intensity orange spike surge labeled '肾上腺素代偿脉冲' crossing a horizontal dashed threshold line labeled '惊醒阈值 (大脑被动唤醒)'. All chart labels, axes, and annotations must be 100% in Simplified Chinese characters, absolutely NO English words or letters. Clearly label in Chinese: '夜间深睡期', '凌晨1-3点', '肝糖原耗竭', '肾上腺素暴发脉冲', '惊醒阈值', '代偿升糖反应'. NO sci-fi neon, clean editorial scientific infographic.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260930-085004/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu3",
+      "prompt": "Digestive physiology scientific comparison diagram, 16:9 aspect ratio. Nature Medicine journal diagram style. A dual-column split infographic comparing digestive states on warm parchment paper texture. Left column (soft sage green card): '胆汁充足状态', showing dietary fat droplets being emulsified into tiny micro-micelles, pancreatic enzymes smoothly breaking them down, fat-soluble vitamins (A, D, E, K) efficiently absorbed, releasing gut satiety hormones '胆囊收缩素CCK' to the brain. Right column (soft coral red card): '胆汁匮乏状态', showing large fat droplets failing to emulsify, lingering in the gut, fermenting into bloated gas bubbles labeled '餐后持续腹胀', essential fatty acids malabsorbed, and hypothalamus continually sending '能量匮乏虚假饥饿感'. All text labels, comparison callouts, and annotations must be 100% in Simplified Chinese characters, strictly NO English words, NO English alphabet letters. Clearly label in Chinese: '胆汁充足状态', '胆汁匮乏状态', '微团乳化吸收', '未乳化油脂发酵', '释放饱腹激素', '餐后持续腹胀', '虚假饥饿感未满足'. NO sci-fi glow, clean vector editorial medical illustration.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260930-085004/配图3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao1",
+      "prompt": "High quality realistic lifestyle photography, 16:9 aspect ratio. A young Asian white-collar professional sitting at a dining table after a rich holiday banquet meal, tiredly rubbing the tight muscles of their right shoulder and the right side of their neck with one hand, frowning slightly in discomfort. In the foreground, empty dining plates and cups on the table. Soft, authentic indoor ambient restaurant lighting, editorial documentary photography, natural skin texture, relatable everyday life scene. Clean visual without any English text. NO sci-fi glow, NO neon lighting, NO exaggerated expressions. Absolutely NO English words or letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260930-085004/toutiao-cover-1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "Cinematic realistic lifestyle photography, 16:9 aspect ratio. A dimly lit cozy bedroom in the middle of the night. On the wooden nightstand in the foreground, a digital alarm clock faintly glows with red numbers showing '02:35'. In bed, an Asian person has suddenly awakened, lying on their back with wide-open, alert yet fatigued eyes staring up at the ceiling, capturing the involuntary midnight awakening. Subtle moonlight filtering through window blinds, authentic film texture, atmospheric, relatable sleeplessness. Clean visual without any English text. NO sci-fi glow, NO neon lighting. Absolutely NO English words or letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260930-085004/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao3",
+      "prompt": "Modern organic healthy lifestyle photography, 16:9 aspect ratio. A sunlit, airy modern kitchen island in the morning. On the warm wooden countertop, neatly arranged natural ingredients supporting liver vitality: fresh dark green kale, vibrant broccoli florets, freshly sliced lemons, a clear glass cup of steaming warm green tea, and a bottle of extra virgin olive oil. Warm golden morning sunlight casting gentle shadows, Kinfolk and Monocle magazine editorial aesthetics, fresh, uplifting, wholesome lifestyle. Clean visual without any English text. NO sci-fi glow, NO neon lighting. Absolutely NO English words or letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260930-085004/toutiao-cover-3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}

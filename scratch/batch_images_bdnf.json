@@ -1,0 +1,44 @@
+[
+  {
+    "prompt": "WeChat Official Account article cover, primary crop 2.35:1, wide cinematic aspect ratio. High-tech medical illustration of glowing human brain hippocampus, sparkling neural synaptic networks connecting like constellations, glowing golden neurotransmitter particles representing BDNF, deep obsidian blue and emerald gradient background, futuristic neuroscience aesthetic, 8k, photorealistic cinematic lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/cover.png",
+    "ar": "2.35:1",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A clean scientific medical diagram, 16:9 aspect ratio, showing brain hippocampus cross-section, glowing new neurons growing and extending long dendrites nourished by glowing golden BDNF molecules, clean amber and emerald palette, professional laboratory infographic style",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/配图1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A modern medical infographic, 16:9 aspect ratio, showing the muscle-to-brain biochemical pathway: contracting leg muscles releasing irisin hormone, crossing blood-brain barrier to trigger BDNF surge in hippocampus, clean minimalist typography, warm paper and forest green tones",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/配图2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A clean health lifestyle infographic, 16:9 aspect ratio, four visual quadrants: 1. 20-minute daily brisk walking, 2. overnight intermittent fasting for BHB ketones, 3. antioxidant wild blueberries and extra virgin olive oil, 4. deep restorative slow-wave sleep, elegant Scandinavian layout, emerald and gold palette",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio, a 60-year-old Asian person in a cozy warm living room holding a key ring, looking puzzled and trying to remember something, authentic cinematic lighting, highly detailed 8k",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end food and brain health photography, 16:9 aspect ratio, a split contrast composition: left side showing sugary pastries causing brain fog, right side showing fresh wild blueberries, dark walnuts, and extra virgin olive oil with vibrant healthy glow, crisp lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Lifestyle photography, 16:9 aspect ratio, a sharp energetic 65-year-old Asian person happily reading a book and smiling brightly in a sunlit garden, radiating mental clarity and vitality, warm morning golden hour",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260902-113429/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

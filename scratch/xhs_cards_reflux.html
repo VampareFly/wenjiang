@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="warm-academic">
+<head>
+  <meta charset="utf-8">
+  <title>胃食管反流与睡姿重力学 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #faf7f2;
+      --paper-card: #ffffff;
+      --ink: #1c1917;
+      --ink-secondary: #44403c;
+      --muted: #78716c;
+      --accent: #991b1b;
+      --accent-warm: #c2410c;
+      --line: rgba(28, 25, 23, 0.14);
+      --line-subtle: rgba(28, 25, 23, 0.08);
+      --tag-bg: rgba(153, 27, 27, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #222; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(28, 25, 23, 0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 20px;
+    }
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 6px 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(153, 27, 27, 0.2);
+    }
+    .header-vol {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+    .footer-author {
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-author::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px 0 24px;
+    }
+
+    .title-block { margin-bottom: 20px; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc {
+      font-size: 24px;
+      color: var(--ink-secondary);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 26px 30px;
+      box-shadow: 0 4px 16px rgba(28, 25, 23, 0.04);
+    }
+
+    /* P1 Elements */
+    .cover-badge {
+      display: inline-block;
+      background: var(--ink);
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-mono);
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-card .label {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .banner {
+      background: #fdf2e9;
+      border: 1.5px solid #fed7aa;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 20px;
+      color: #9a3412;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .banner-icon { font-size: 24px; flex-shrink: 0; }
+
+    /* P2 Comparison */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 16px;
+    }
+    .compare-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid var(--line);
+    }
+    .compare-card.wrong {
+      border-color: rgba(153, 27, 27, 0.35);
+      background: #fffafa;
+    }
+    .compare-card.right {
+      border-color: rgba(22, 101, 52, 0.35);
+      background: #f7faf7;
+    }
+    .tag-wrong {
+      display: inline-block;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 19px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .tag-right {
+      display: inline-block;
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 19px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    /* P3 & P4 Action Cards */
+    .action-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .action-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+    .action-badge {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--accent);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .action-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .action-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+    .action-avoid {
+      margin-top: 8px;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* P5 Checklist */
+    .checklist-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+    }
+    .checklist-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .check-badge {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      background: #15803d;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .check-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .check-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== P1: 封面（画报三段流：强制中部大图） ==================== -->
+  <section class="poster" id="p1">
+    <header class="header">
+      <div class="header-tag">睡眠医学 · 起居避坑</div>
+      <div class="header-vol">VOL. 04 · 胃酸反流真相</div>
+    </header>
+
+    <div class="content-fill" style="padding: 20px 0 14px;">
+      <!-- 顶部扎心反问与大标题 -->
+      <div>
+        <div class="cover-badge">夜间烧心自查</div>
+        <h1 style="font-family: var(--font-serif); font-size: 52px; font-weight: 900; line-height: 1.22; letter-spacing: -0.5px; margin-bottom: 8px;">
+          夜间平躺胸口发烫反酸？<br>
+          <span style="color: var(--accent); border-bottom: 5px solid var(--accent);">原来是你睡觉姿势搞反了！</span>
+        </h1>
+        <p style="font-size: 22px; color: var(--ink-secondary); line-height: 1.4;">晚上躺下胸骨后灼烧如火燎？解剖力学揭秘：向右睡正在把胃酸倒入食管！</p>
+      </div>
+
+      <!-- 中部高清核心大图卡片（高度500px，磨砂浮层） -->
+      <div style="margin: 16px 0; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); box-shadow: 0 12px 32px rgba(28,25,23,0.12); position: relative;">
+        <img src="../articles/20260911-142743/toutiao-cover-1.png" style="display: block; width: 100%; height: 500px; object-fit: cover;" />
+        <div style="position: absolute; bottom: 0; inset-inline: 0; background: linear-gradient(transparent, rgba(28,25,23,0.88)); padding: 22px 28px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: #fef08a;">🔬 睡姿重力学真相</div>
+            <div style="font-size: 20px; color: #f1f5f9; margin-top: 4px;">胃大弯偏向左侧 ➔ 向右卧胃酸淹没贲门 ➔ 向左卧物理重力锁酸</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.22); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 18px; font-weight: 600;">
+            重力屏障
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部3组数据卡片与结论横条 -->
+      <div>
+        <div class="cover-stats-grid">
+          <div class="stat-card">
+            <div class="num">3倍</div>
+            <div class="label">右侧卧反酸频率</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">15cm</div>
+            <div class="label">床头抬高落差</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="label">重力自然阻断</div>
+          </div>
+        </div>
+
+        <div class="banner">
+          <span class="banner-icon">💡</span>
+          <span>不用盲目吃药，顺应胃囊左弯生理结构，今晚向左睡就能安稳入眠！</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看胃解剖与左右侧卧对比 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P2: 红绿对撞流（左右侧卧对比） ==================== -->
+  <section class="poster" id="p2">
+    <header class="header">
+      <div class="header-tag">解剖对撞</div>
+      <div class="header-vol">02 / 05 · 右侧卧 vs 左侧卧</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">胃囊不是对称的袋子：<br><span>为什么必须认准“向左睡”？</span></h2>
+        <p class="page-desc">人体胃大弯朝向身体左侧，胃食管阀门偏向右上方，睡姿直接决定重力方向。</p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- 错误姿势：右侧卧 -->
+        <div class="compare-card wrong">
+          <div>
+            <div class="tag-wrong">危险姿势 · 向右侧卧</div>
+            <h3 style="font-size: 26px; font-weight: 700; color: #991b1b; margin-bottom: 16px;">胃酸倒悬淹没阀门</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 20px; color: var(--ink-secondary); line-height: 1.5;">
+              <li>• <strong>解剖位置反转</strong>：胃囊主体倒悬在食管入口之上；</li>
+              <li>• <strong>阀门浸入强酸</strong>：食管下括约肌泡在酸液中，极易松弛；</li>
+              <li>• <strong>酸液顺流倒灌</strong>：重力作用下胃酸长驱直入无保护的食管；</li>
+              <li>• <strong>夜间频繁烧心</strong>：胸口剧烈灼热，甚至半夜呛醒剧烈咳嗽。</li>
+            </ul>
+          </div>
+          <div style="margin-top: 16px; padding: 14px 16px; background: #fee2e2; border-radius: 12px; font-size: 19px; color: #991b1b; font-weight: 600;">
+            ⚠️ 右侧卧让食管入口变成下泄口，反酸风险激增！
+          </div>
+        </div>
+
+        <!-- 正确姿势：左侧卧 -->
+        <div class="compare-card right">
+          <div>
+            <div class="tag-right">黄金睡姿 · 向左侧卧</div>
+            <h3 style="font-size: 26px; font-weight: 700; color: #15803d; margin-bottom: 16px;">胃底低洼天然锁酸</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 20px; color: var(--ink-secondary); line-height: 1.5;">
+              <li>• <strong>胃底处于最低处</strong>：胃囊变成容纳酸液的“安全水池”；</li>
+              <li>• <strong>食管入口居高位</strong>：贲门阀门天然高出胃酸液面之上；</li>
+              <li>• <strong>物理重力屏障</strong>：就算括约肌偶尔微张，酸液也冲不上来；</li>
+              <li>• <strong>助消化防胀气</strong>：顺应肠胃天然蠕动轨迹，整夜平稳深睡。</li>
+            </ul>
+          </div>
+          <div style="margin-top: 16px; padding: 14px 16px; background: #dcfce7; border-radius: 12px; font-size: 19px; color: #15803d; font-weight: 600;">
+            ✅ 向左侧卧利用地球重力，构筑天然防反流屏障！
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 20px 24px; background: #fdfaf6;">
+        <p style="font-size: 21px; color: var(--ink); line-height: 1.5;">
+          <strong>💡 总结</strong>：晚餐吃得油腻或有反酸史的人，翻向左侧睡是零成本、最立竿见影的物理护胃方案！
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看另外两大睡姿误区 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P3: 危险睡姿排雷 ==================== -->
+  <section class="poster" id="p3">
+    <header class="header">
+      <div class="header-tag">睡姿避坑</div>
+      <div class="header-vol">03 / 05 · 平躺与趴睡排雷</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">另外两大睡姿雷区：<br><span>仰卧平躺与俯卧趴睡</span></h2>
+        <p class="page-desc">很多人以为平躺最健康，但对胃酸过多的人来说，完全水平反而抹平了保护重力。</p>
+      </div>
+
+      <div class="action-cards">
+        <div class="action-card">
+          <div class="action-badge">01</div>
+          <div class="action-info">
+            <h4>仰卧平躺（水平无坡度）</h4>
+            <p><strong>力学硬伤</strong>：食管与胃底处于同一水平面，失去高度差。腹腔内的任何胀气或轻微腹压，都能把胃酸水平推向食管。</p>
+            <div class="action-avoid">⚠️ 舌根容易后坠阻塞气道，打鼾并增加反流物误吸风险！</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">02</div>
+          <div class="action-info">
+            <h4>俯卧趴睡（胃部受压上溢）</h4>
+            <p><strong>力学硬伤</strong>：全身自重直接压迫在腹腔胃肠上，外力强行压缩胃容积，如同挤牙膏一样把胃酸挤入食管。</p>
+            <div class="action-avoid">⚠️ 肋骨受压导致深呼吸受阻，颈椎被动扭转90度极易僵痛。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">03</div>
+          <div class="action-info">
+            <h4>只垫高枕头（错误的自救法）</h4>
+            <p><strong>力学硬伤</strong>：只在脑袋下塞两三个枕头，不仅弯折颈椎导致落枕，还会使上腹部弯曲折叠，反向增加胃内压！</p>
+            <div class="action-avoid">⚠️ 抬高必须是上半身整体平缓倾斜，绝不能只折弯脖子。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">🎯</span>
+        <span>平躺没落差、趴睡受外压、高枕伤颈椎，避开这三大睡姿雷区！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看上半身抬高实操 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P4: 上半身抬高进阶 ==================== -->
+  <section class="poster" id="p4">
+    <header class="header">
+      <div class="header-tag">物理进阶</div>
+      <div class="header-vol">04 / 05 · 上半身斜坡抬高</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">无法适应左侧卧？<br><span>巧用15厘米斜坡重力护胃</span></h2>
+        <p class="page-desc">习惯仰睡或左肩受压不耐受人群，可以用物理斜坡重力重塑安全屏障。</p>
+      </div>
+
+      <div class="action-cards">
+        <div class="action-card">
+          <div class="action-badge">01</div>
+          <div class="action-info">
+            <h4>医用楔形斜坡垫（Triangle Wedge）</h4>
+            <p>选用从腰背部平缓过渡到头部的三角楔形垫，保持 15～20 度自然坡度。背部与脊柱均匀受力，食管始终高出胃酸。</p>
+            <div class="action-avoid">✅ 支撑面积大，不压迫颈椎，仰卧侧卧均可自如翻身。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">02</div>
+          <div class="action-info">
+            <h4>床头整体垫高 15～20 厘米</h4>
+            <p>在床头两个床脚下垫入稳固木块或专用的床腿增高垫，整张床形成“头高脚低”的微小坡度，身体无需额外靠枕。</p>
+            <div class="action-avoid">✅ 全身呈一体自然倾角，完全保留日常睡感与翻身自由。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">03</div>
+          <div class="action-info">
+            <h4>左侧卧搭配微斜坡（黄金组合）</h4>
+            <p>将上半身微倾斜抬高与左侧卧姿态相结合，双重物理保险，彻底消除夜间喉咙泛酸、呛咳与深睡眠受扰。</p>
+            <div class="action-avoid">✅ 尤其适合重度反流、食管黏膜敏感或晚餐较晚人群。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">⚡</span>
+        <span>物理重力是无需服药的天然屏障，科学微调坡度，守护整夜食管安全！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看睡前防反流打卡清单 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P5: 睡前防反流微习惯清单 ==================== -->
+  <section class="poster" id="p5">
+    <header class="header">
+      <div class="header-tag">睡前日常</div>
+      <div class="header-vol">05 / 05 · 防反流清单</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">夜间防反流指南：<br><span>4个睡前习惯远离胃灼痛</span></h2>
+        <p class="page-desc">从饮食节点到起居细节，给胃黏膜留足自我修护的时间与空间。</p>
+      </div>
+
+      <div class="checklist-wrap">
+        <div class="checklist-item">
+          <div class="check-badge">01</div>
+          <div class="check-info">
+            <h4>睡前 2.5～3 小时停止进食大餐</h4>
+            <p>给胃排空预留充足时间。胃内食物排空后，卧位时胃内酸液量大幅减少，从源头降低反流压力。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">02</div>
+          <div class="check-info">
+            <h4>晚间戒除高脂宵夜与酒精刺激</h4>
+            <p>油炸、浓肉汤延缓胃排空；酒精与浓咖啡直接降低食管下括约肌闭合张力，让阀门被动漏风。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">03</div>
+          <div class="check-info">
+            <h4>换上宽松睡衣，减小腹内压</h4>
+            <p>紧绷的睡裤松紧带、束腰等会在入睡后持续压迫腹部，增加胃腔外力推挤。睡前务必彻底放松腰腹。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">04</div>
+          <div class="check-info">
+            <h4>入睡首选左侧卧或微坡仰卧</h4>
+            <p>躺下时有意识朝向左侧入眠，顺应人体胃囊天然左倾解剖方位，让重力成为你的天然守护神。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner" style="margin-top: 14px;">
+        <span class="banner-icon">📌</span>
+        <span>收藏本篇睡姿指南，今晚翻向左侧，让疲惫的胃肠安稳睡个好觉！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>长文已同步，欢迎在评论区聊聊你的感受</span>
+    </footer>
+  </section>
+
+</body>
+</html>

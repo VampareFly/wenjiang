@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="warm-academic">
+<head>
+  <meta charset="utf-8">
+  <title>喝水误区与细胞水合指南 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #faf7f2;
+      --paper-card: #ffffff;
+      --ink: #1c1917;
+      --ink-secondary: #44403c;
+      --muted: #78716c;
+      --accent: #991b1b;
+      --accent-warm: #c2410c;
+      --line: rgba(28, 25, 23, 0.14);
+      --line-subtle: rgba(28, 25, 23, 0.08);
+      --tag-bg: rgba(153, 27, 27, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #222; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(28, 25, 23, 0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 20px;
+    }
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 6px 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(153, 27, 27, 0.2);
+    }
+    .header-vol {
+      font-family: var(--font-mono);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      font-size: 19px;
+      color: var(--muted);
+    }
+    .footer-author {
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-author::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 36px 0 28px;
+    }
+
+    .title-block { margin-bottom: 24px; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc {
+      font-size: 23px;
+      color: var(--ink-secondary);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 16px rgba(28, 25, 23, 0.04);
+    }
+
+    /* P1: Cover */
+    .cover-hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      padding: 24px 0 10px;
+    }
+    .cover-badge {
+      display: inline-block;
+      background: var(--ink);
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      margin-bottom: 20px;
+    }
+    .cover-title {
+      font-family: var(--font-serif);
+      font-size: 70px;
+      font-weight: 900;
+      line-height: 1.18;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+    .cover-title em {
+      font-style: normal;
+      color: var(--accent);
+      border-bottom: 6px solid var(--accent);
+      padding-bottom: 4px;
+    }
+    .cover-hook-box {
+      background: #fdf2f2;
+      border-left: 6px solid var(--accent);
+      border-radius: 0 16px 16px 0;
+      padding: 24px 30px;
+      margin-bottom: 30px;
+    }
+    .cover-hook-text {
+      font-size: 27px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.45;
+    }
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 20px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-mono);
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-card .label {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+    .stat-card .desc {
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* P2: Comparison */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 24px;
+    }
+    .compare-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid var(--line);
+    }
+    .compare-card.wrong {
+      border-color: rgba(153, 27, 27, 0.35);
+      background: #fffafa;
+    }
+    .compare-card.right {
+      border-color: rgba(22, 101, 52, 0.35);
+      background: #f7faf7;
+    }
+    .tag-wrong {
+      display: inline-block;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .tag-right {
+      display: inline-block;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .compare-card h3 {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      margin-bottom: 14px;
+      color: var(--ink);
+    }
+    .compare-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .compare-list li {
+      font-size: 20px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      position: relative;
+      padding-left: 24px;
+    }
+    .compare-card.wrong .compare-list li::before {
+      content: "✕";
+      position: absolute;
+      left: 0;
+      color: #dc2626;
+      font-weight: 900;
+    }
+    .compare-card.right .compare-list li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #16a34a;
+      font-weight: 900;
+    }
+
+    /* P3: 4 Grid */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      flex: 1;
+      margin-bottom: 24px;
+    }
+    .grid-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 24px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .grid-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .grid-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+    .grid-item h4 {
+      font-size: 24px;
+      color: var(--ink);
+      font-weight: 700;
+    }
+    .grid-item p {
+      font-size: 19px;
+      color: var(--ink-secondary);
+      line-height: 1.55;
+    }
+    .grid-badge {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 4px 10px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+
+    /* P4: Warning Symptoms */
+    .symptom-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .symptom-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .symptom-num {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--accent);
+      background: var(--tag-bg);
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .symptom-content h4 {
+      font-size: 22px;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .symptom-content p {
+      font-size: 18px;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+
+    /* P5: Checklist */
+    .checklist-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: auto 0;
+    }
+    .checklist-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 22px 28px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+    .check-badge {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--accent);
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .check-body h4 {
+      font-size: 24px;
+      color: var(--ink);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+    .check-body p {
+      font-size: 19px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+
+    /* Highlight Banner */
+    .banner {
+      background: #f7ede2;
+      border: 1.5px dashed rgba(194, 65, 12, 0.4);
+      border-radius: 16px;
+      padding: 20px 24px;
+      font-size: 20px;
+      color: #9a3412;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .banner-icon { font-size: 24px; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+
+    <!-- ==================== P1: 封面（中部配图画报风） ==================== -->
+  <section class="poster" id="p1">
+    <header class="header">
+      <div class="header-tag">日常起居 · 饮水避坑</div>
+      <div class="header-vol">VOL. 02 · 细胞水合真相</div>
+    </header>
+
+    <div class="content-fill" style="padding: 24px 0 16px;">
+      <!-- 顶部大标题与痛点直击 -->
+      <div>
+        <div class="cover-badge" style="margin-bottom: 12px;">日常健康避坑</div>
+        <h1 style="font-family: var(--font-serif); font-size: 54px; font-weight: 900; line-height: 1.22; letter-spacing: -0.5px; margin-bottom: 10px;">
+          每天狂喝水皮肤还很干？<br>
+          <span style="color: var(--accent); border-bottom: 5px solid var(--accent);">你可能把水全排掉了！</span>
+        </h1>
+        <p style="font-size: 21px; color: var(--ink-secondary); line-height: 1.4;">老老实实打卡八杯水，为什么频繁跑厕所、越喝越渴还站起头晕？</p>
+      </div>
+
+      <!-- 中部高清视觉主图卡片 -->
+      <div style="margin: 18px 0; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); box-shadow: 0 12px 32px rgba(28,25,23,0.12); position: relative;">
+        <img src="../articles/20260911-105123/toutiao-cover-3.png" style="display: block; width: 100%; height: 500px; object-fit: cover;" />
+        <div style="position: absolute; bottom: 0; inset-inline: 0; background: linear-gradient(transparent, rgba(28,25,23,0.88)); padding: 22px 28px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: #fef08a;">🌿 细胞水合常识</div>
+            <div style="font-size: 19px; color: #f1f5f9; margin-top: 4px;">足量纯水 ➔ 搭配天然海盐 ➔ 激活细胞渗透压</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.22); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 17px; font-weight: 600;">
+            水盐平衡
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部核心数据与结论 -->
+      <div>
+        <div class="cover-stats-grid" style="margin-bottom: 14px;">
+          <div class="stat-card" style="padding: 14px 12px;">
+            <div class="num" style="font-size: 32px;">80%</div>
+            <div class="label" style="font-size: 17px;">误把灌水当吸收</div>
+          </div>
+          <div class="stat-card" style="padding: 14px 12px;">
+            <div class="num" style="font-size: 32px;">1:3</div>
+            <div class="label" style="font-size: 17px;">糖分锁死水分</div>
+          </div>
+          <div class="stat-card" style="padding: 14px 12px;">
+            <div class="num" style="font-size: 32px;">2:1</div>
+            <div class="label" style="font-size: 17px;">钾钠黄金比例</div>
+          </div>
+        </div>
+
+        <div class="banner" style="padding: 14px 20px; font-size: 18px;">
+          <span class="banner-icon">💡</span>
+          <span>水不是喝进胃里就算数，补足电解质才能真正把水送进深层细胞！</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看细胞水合机制 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P2: 红绿对撞流 ==================== -->
+  <section class="poster" id="p2">
+    <header class="header">
+      <div class="header-tag">机理对撞</div>
+      <div class="header-vol">02 / 05 · 灌水 vs 水合</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">盲目灌纯水 <span>vs</span> 细胞级水合</h2>
+        <p class="page-desc">为什么你喝得越多，身体反而处于“假性脱水”？</p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- 传统误区 -->
+        <div class="compare-card wrong">
+          <div>
+            <span class="tag-wrong">常见认知陷阱</span>
+            <h3>盲目猛灌纯净水</h3>
+            <ul class="compare-list">
+              <li>强迫自己打卡 2~3 升纯净水甚至加仑瓶</li>
+              <li>纯水缺乏矿物离子，稀释血浆中的钠浓度</li>
+              <li>诱发低钠血症，血液渗透压骤然下降</li>
+              <li>肾脏加速促排稀释尿液，喝完半小时就排光</li>
+              <li>细胞内部依然处于极度干渴与无力状态</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 科学真相 -->
+        <div class="compare-card right">
+          <div>
+            <span class="tag-right">生物力学真相</span>
+            <h3>水盐协同细胞水合</h3>
+            <ul class="compare-list">
+              <li>水分子无法凭空穿透细胞膜，靠离子浓度差</li>
+              <li>钠负责维持细胞外液容量与健康血压张力</li>
+              <li>钾维持细胞内部膨胀度与活性代谢</li>
+              <li>钾与钠保持约 2:1 黄金比例，紧锁水分</li>
+              <li>排尿清亮淡黄，细胞真正饱满吸收水分</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">🔑</span>
+        <span>单单猛灌纯水会冲淡电解质，身体为了自保只能加快排尿，越喝越渴！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>下一页：隐形脱水饮品陷阱 ➔</span>
+    </footer>
+  </section>
+
+
+  <!-- ==================== P3: 4 宫格饮品避坑 ==================== -->
+  <section class="poster" id="p3">
+    <header class="header">
+      <div class="header-tag">避坑图鉴</div>
+      <div class="header-vol">03 / 05 · 隐形脱水饮品</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">你以为在解渴？<span>其实正在脱水</span></h2>
+        <p class="page-desc">日常摄入的大量液体，可能正在代谢层面造成水分倒贴：</p>
+      </div>
+
+      <div class="grid-2x2">
+        <div class="grid-item">
+          <div class="grid-header">
+            <span class="grid-icon">☕</span>
+            <h4>咖啡与浓茶</h4>
+          </div>
+          <p>咖啡因具有强利尿活性，抑制肾小管水分重吸收。靠咖啡浓茶代水，排尿量往往远大于饮入量。</p>
+          <span class="grid-badge">利尿促排 · 体液倒贴</span>
+        </div>
+
+        <div class="grid-item">
+          <div class="grid-header">
+            <span class="grid-icon">🥤</span>
+            <h4>含糖饮料与果汁</h4>
+          </div>
+          <p>1 分子葡萄糖结合约 3 分子水储存在糖原中，水分被死死“锁死”，身体深层组织陷入饥渴。</p>
+          <span class="grid-badge">高糖锁水 · 组织缺水</span>
+        </div>
+
+        <div class="grid-item">
+          <div class="grid-header">
+            <span class="grid-icon">🍷</span>
+            <h4>含酒精饮品</h4>
+          </div>
+          <p>酒精强力抑制抗利尿激素 (ADH)，肾脏无节制排出稀释尿液。宿醉晨起头痛即大脑极度脱水。</p>
+          <span class="grid-badge">激素抑制 · 强效脱水</span>
+        </div>
+
+        <div class="grid-item">
+          <div class="grid-header">
+            <span class="grid-icon">🚰</span>
+            <h4>单一无矿纯水</h4>
+          </div>
+          <p>短时间大量狂灌纯水，迅速稀释血液渗透压，引发低钠疲劳，无法真正被细胞吸收利用。</p>
+          <span class="grid-badge">缺乏离子 · 难以锁水</span>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">⚠️</span>
+        <span>记住：咖啡、浓茶与甜饮料的液体量，绝不能计入每日 2~3 升基础纯水配额！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>下一页：警惕身体脱水信号 ➔</span>
+    </footer>
+  </section>
+
+
+  <!-- ==================== P4: 警惕信号与低钠眩晕 ==================== -->
+  <section class="poster" id="p4">
+    <header class="header">
+      <div class="header-tag">身体信号</div>
+      <div class="header-vol">04 / 05 · 低钠与假性脱水</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">身体发出的 <span>4 个隐形缺盐警报</span></h2>
+        <p class="page-desc">水盐不足会导致有效循环血容量下降，出现以下典型表现：</p>
+      </div>
+
+      <div class="symptom-cards">
+        <div class="symptom-card">
+          <div class="symptom-num">01</div>
+          <div class="symptom-content">
+            <h4>久坐猛站起时头晕发黑（体位性低血压）</h4>
+            <p>水盐不足导致全身有效血容量降低，站立时重力使血液滞留，大脑供血供氧瞬间延迟。</p>
+          </div>
+        </div>
+
+        <div class="symptom-card">
+          <div class="symptom-num">02</div>
+          <div class="symptom-content">
+            <h4>刚喝完水半小时就尿急，尿清如自来水</h4>
+            <p>血液中缺乏钠离子维持渗透压，身体为了防止水中毒，加速通过肾脏将过剩纯水排空。</p>
+          </div>
+        </div>
+
+        <div class="symptom-card">
+          <div class="symptom-num">03</div>
+          <div class="symptom-content">
+            <h4>午后莫名头昏沉重、身体倦怠无力</h4>
+            <p>电解质被过度稀释，神经冲动与细胞膜电位传导受阻，整个人昏昏沉沉打不起精神。</p>
+          </div>
+        </div>
+
+        <div class="symptom-card">
+          <div class="symptom-num">04</div>
+          <div class="symptom-content">
+            <h4>强烈的嗜盐渴望（想吃重口味或咸食）</h4>
+            <p>运动出汗、生酮断食或高压下肾上腺疲劳，身体本能发出求盐信号，急需补充钠与矿物质。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">🚨</span>
+        <span>狂喝水还伴随上述症状，先别再猛灌白开水，你的身体真正呼救的是“电解质”！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>下一页：科学补水实操协议 ➔</span>
+    </footer>
+  </section>
+
+
+  <!-- ==================== P5: 落地清单打卡流 ==================== -->
+  <section class="poster" id="p5">
+    <header class="header">
+      <div class="header-tag">行动打卡</div>
+      <div class="header-vol">05 / 05 · 科学水合协议</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">科学水合 <span>4 步落地法</span></h2>
+        <p class="page-desc">今晚躺下、明早起床，试试这几个极简的水盐微调：</p>
+      </div>
+
+      <div class="checklist-wrap">
+        <div class="checklist-item">
+          <div class="check-badge">01</div>
+          <div class="check-body">
+            <h4>建立纯水摄入基准（2~3 升）</h4>
+            <p>健康成年人每日建议摄入 2 到 3 升无糖纯水（8~12 杯），咖啡、茶与含糖饮料不能替代。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">02</div>
+          <div class="check-body">
+            <h4>践行“微咸法则”（加一小撮天然海盐）</h4>
+            <p>晨起温水或随身水壶中加一小撮未精制海盐（约0.5克），瞬间构建利于细胞吸收的等渗环境。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">03</div>
+          <div class="check-body">
+            <h4>搭配钾镁与酸性因子（柠檬汁/苹果醋）</h4>
+            <p>水里挤少许柠檬汁或一小勺苹果醋，饮食多吃深色绿叶菜，维持钾钠 2:1 的黄金吸收比例。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">04</div>
+          <div class="check-body">
+            <h4>学会用尿液色卡对时（清亮淡黄为佳）</h4>
+            <p>透明无色代表纯水过量且缺盐，深琥珀色代表浓缩缺水需多喝，清亮淡黄才是完美水合。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="background:#fff;border-color:var(--accent);display:flex;align-items:center;justify-content:space-between;padding:22px 28px;">
+        <div>
+          <div style="font-size:22px;font-weight:700;color:var(--ink);">关注主页 · 每天一个贴近生活的健康常识</div>
+          <div style="font-size:17px;color:var(--muted);margin-top:4px;">关于特殊场景（生酮、出汗、肾结石防范），主页长文有深度解析。</div>
+        </div>
+        <div style="background:var(--accent);color:#fff;font-size:18px;font-weight:700;padding:10px 20px;border-radius:8px;flex-shrink:0;">
+          收藏照做
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>点赞收藏 · 转发给经常口干的朋友</span>
+    </footer>
+  </section>
+
+</body>
+</html>

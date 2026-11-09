@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>小红书卡片 - 哈佛长寿研究与中秋亲情陪伴</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    .card {
+      width: 1080px;
+      height: 1440px;
+      background: #faf7f2;
+      color: #1c1917;
+      padding: 56px 56px 48px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(185, 28, 28, 0.08) 0%, rgba(250, 247, 242, 0) 70%);
+      pointer-events: none;
+    }
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(185, 28, 28, 0.1);
+      border: 1px solid rgba(185, 28, 28, 0.3);
+      border-radius: 20px;
+      color: #b91c1c;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .main-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #1c1917;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+    }
+    .main-title span {
+      color: #b91c1c;
+    }
+    .sub-title {
+      font-size: 26px;
+      color: #57534e;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 490px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(28, 25, 23, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      margin-bottom: 22px;
+      background: #ffffff;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .image-container.contain-mode img {
+      object-fit: contain;
+      background: #f5f2eb;
+    }
+    .floating-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: rgba(250, 247, 242, 0.94);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(185, 28, 28, 0.2);
+      font-size: 24px;
+      color: #1c1917;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+    .floating-caption .icon {
+      color: #b91c1c;
+      font-size: 26px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .stat-card .num {
+      font-size: 34px;
+      font-weight: 800;
+      color: #b91c1c;
+      margin-bottom: 4px;
+    }
+    .stat-card .label {
+      font-size: 24px;
+      color: #78716c;
+      font-weight: 600;
+    }
+    .action-banner {
+      background: rgba(185, 28, 28, 0.08);
+      border: 1px solid rgba(185, 28, 28, 0.2);
+      border-radius: 14px;
+      padding: 16px 24px;
+      font-size: 24px;
+      color: #991b1b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 24px;
+      color: #78716c;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #1c1917;
+    }
+    .footer-brand .dot {
+      width: 10px;
+      height: 10px;
+      background: #b91c1c;
+      border-radius: 50%;
+    }
+    .info-card-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .info-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1c1917;
+    }
+    .info-card-header .num-tag {
+      width: 32px;
+      height: 32px;
+      background: #b91c1c;
+      color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .info-card-desc {
+      font-size: 24px;
+      color: #57534e;
+      line-height: 1.5;
+    }
+    .info-card-desc strong {
+      color: #b91c1c;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- P1 封面 -->
+  <div class="card" id="p1">
+    <div>
+      <div class="tag-badge">🏮 中秋特辑 · 哈佛长寿研究</div>
+      <div class="main-title">给长辈最好的防衰脑补剂？<br><span>哈佛85年研究</span>：其实是亲情！</div>
+      <div class="sub-title">纵向追踪揭秘：良好人际关系延缓大脑萎缩与心脑衰老</div>
+      
+      <div class="image-container">
+        <img src="../articles/20260923-135908/cover.png" alt="中秋家庭温馨聚会" />
+        <div class="floating-caption">
+          <span class="icon">💡</span>
+          <span>哈佛85年结论：决定晚年大脑与健康的首要因素是亲情联结</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num">85 年</div>
+          <div class="label">跨代纵向追踪</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">724 人</div>
+          <div class="label">终生健康样本</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">降炎症</div>
+          <div class="label">催产素抗压盾</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="action-banner">
+        <span>⚡ 科学关怀：向左滑动查看中秋高质量陪伴指南</span>
+        <span>向左滑动 ➔</span>
+      </div>
+      <div class="footer-bar" style="margin-top: 14px;">
+        <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+        <div>P1 / 04</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 百年队列核心发现 -->
+  <div class="card" id="p2">
+    <div>
+      <div class="tag-badge">📊 百年队列 · 核心发现</div>
+      <div class="main-title">为什么亲情联结能让人<span>更健康长寿</span>？</div>
+      <div class="sub-title">哈佛成人发展研究 85 年追踪得出的重大科学结论</div>
+      
+      <div class="image-container contain-mode" style="height: 480px;">
+        <img src="../articles/20260923-135908/配图1.png" alt="哈佛85年长寿研究机制" />
+      </div>
+
+      <div class="info-card-group">
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">1</div>
+            <div>关系质量远胜财富名望</div>
+          </div>
+          <div class="info-card-desc">50 岁时家庭人际满意度最高的人，80 岁时<strong>身体机能与大脑思维最敏锐</strong>，健康获益超越单纯指标管理。</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">2</div>
+            <div>慢性孤独等同于生理毒素</div>
+          </div>
+          <div class="info-card-desc">长期处于情感孤立的老年人，体内慢性应激持续激活，<strong>大脑神经元萎缩与机能衰退</strong>明显加速。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+      <div>P2 / 04</div>
+    </div>
+  </div>
+
+  <!-- P3 神经内分泌机制 -->
+  <div class="card" id="p3">
+    <div>
+      <div class="tag-badge">🧬 神经内分泌 · 抗炎盾牌</div>
+      <div class="main-title">面对面陪伴如何保护<span>长辈大脑</span>？</div>
+      <div class="sub-title">催产素平抑压力皮质醇，多代交流激活认知储备</div>
+      
+      <div class="image-container contain-mode" style="height: 480px;">
+        <img src="../articles/20260923-135908/配图2.png" alt="亲情内分泌抗炎机制" />
+      </div>
+
+      <div class="info-card-group">
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">1</div>
+            <div>催产素激活天然神经减压阀</div>
+          </div>
+          <div class="info-card-desc">面对面眼神与肢体接触刺激<strong>催产素</strong>释放，提升迷走神经张力，显著抑制慢性皮质醇与系统性炎症（IL-6/CRP）。</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">2</div>
+            <div>深度交流强化大脑认知储备</div>
+          </div>
+          <div class="info-card-desc">多代人对话能高频调动前额叶与海马体，维持神经突触连接，<strong>有效延缓老年记忆力减退与脑萎缩</strong>。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+      <div>P3 / 04</div>
+    </div>
+  </div>
+
+  <!-- P4 中秋陪伴指南 -->
+  <div class="card" id="p4">
+    <div>
+      <div class="tag-badge">📋 中秋实践 · 孝心指南</div>
+      <div class="main-title">中秋回家，给长辈最好的<span>情感营养</span></div>
+      <div class="sub-title">践行 3 个符合脑科学与心理学规律的高质量陪伴习惯</div>
+      
+      <div class="image-container contain-mode" style="height: 430px;">
+        <img src="../articles/20260923-135908/配图3.png" alt="中秋陪伴3步法" />
+      </div>
+
+      <div class="info-card-group" style="gap: 12px;">
+        <div class="info-card" style="padding: 16px 20px;">
+          <div class="info-card-header" style="font-size: 24px;">
+            <div class="num-tag">1</div>
+            <div>放下手机·专注眼神与握手</div>
+          </div>
+          <div class="info-card-desc" style="font-size: 24px;">建立真实的眼神与触觉接触，向长辈大脑传递稳定的<strong>催产素与安全信号</strong>。</div>
+        </div>
+        <div class="info-card" style="padding: 16px 20px;">
+          <div class="info-card-header" style="font-size: 24px;">
+            <div class="num-tag">2</div>
+            <div>耐心倾听·引导回忆往昔故事</div>
+          </div>
+          <div class="info-card-desc" style="font-size: 24px;">请教年轻经历与家族故事，深度激活长辈的<strong>自传体记忆网络与生命活力</strong>。</div>
+        </div>
+        <div class="info-card" style="padding: 16px 20px;">
+          <div class="info-card-header" style="font-size: 24px;">
+            <div class="num-tag">3</div>
+            <div>饭后全家共同赏月散步</div>
+          </div>
+          <div class="info-card-desc" style="font-size: 24px;">利用肌肉收缩<strong>平抑大餐后血糖</strong>，在轻松漫步中增进多代人的温暖联结。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+      <div>P4 / 04</div>
+    </div>
+  </div>
+
+</body>
+</html>

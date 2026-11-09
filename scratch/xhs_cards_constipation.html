@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>肠道机制与自然通畅法 · 小红书卡片组（翡翠纸质动态版式）</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #f4f6f0;
+      --paper-card: #ffffff;
+      --ink: #14211a;
+      --ink-secondary: #33443a;
+      --muted: #6b7f73;
+      --accent: #205c40;
+      --accent-warm: #c88a35;
+      --alert-red: #c2410c;
+      --line: rgba(20, 33, 26, 0.14);
+      --line-subtle: rgba(20, 33, 26, 0.08);
+      --tag-bg: rgba(32, 92, 64, 0.09);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #262c28; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    /* Ambient texture */
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(20,33,26,0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 24px;
+      margin-bottom: 24px;
+    }
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .page-index {
+      font-family: var(--font-mono);
+      font-size: 24px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line);
+      padding-top: 24px;
+      margin-top: 24px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--tag-bg);
+      color: var(--accent);
+      font-size: 21px;
+      font-weight: 700;
+      border-radius: 30px;
+      margin-bottom: 14px;
+    }
+
+    .title-hero {
+      font-family: var(--font-serif);
+      font-size: 60px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+    }
+    .title-section {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      line-height: 1.25;
+      font-weight: 900;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle {
+      font-size: 24px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: var(--paper-card);
+      border-radius: 24px;
+      padding: 30px 36px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 10px 30px rgba(20,33,26,0.04);
+    }
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .card-desc {
+      font-size: 23px;
+      line-height: 1.6;
+      color: var(--ink-secondary);
+    }
+
+    .highlight {
+      color: var(--accent-warm);
+      font-weight: 800;
+    }
+
+    /* P1 Hero Visual Layout */
+    .visual-hero {
+      width: 100%;
+      height: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 20px;
+      background: #111;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.12);
+    }
+    .visual-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .visual-float-tag {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: rgba(20, 33, 26, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 18px 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #ffffff;
+      font-size: 22px;
+      line-height: 1.45;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .stat-card {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 20px 22px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 6px 18px rgba(20,33,26,0.03);
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--font-mono);
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .stat-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .action-tip {
+      background: rgba(32, 92, 64, 0.08);
+      border-left: 5px solid var(--accent);
+      padding: 16px 22px;
+      border-radius: 12px;
+      font-size: 21px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* P2 Contrast Layout */
+    .contrast-box {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1;
+      justify-content: center;
+    }
+    .contrast-item {
+      background: var(--paper-card);
+      border-radius: 22px;
+      padding: 28px 34px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 8px 24px rgba(20,33,26,0.03);
+    }
+    .contrast-wrong {
+      border-left: 6px solid var(--alert-red);
+      background: #fffafa;
+    }
+    .contrast-right {
+      border-left: 6px solid var(--accent);
+      background: #f8fbf9;
+    }
+    .tag-wrong {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(194, 65, 12, 0.12);
+      color: var(--alert-red);
+      font-size: 19px;
+      font-weight: 800;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .tag-right {
+      display: inline-block;
+      padding: 4px 14px;
+      background: rgba(32, 92, 64, 0.12);
+      color: var(--accent);
+      font-size: 19px;
+      font-weight: 800;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .contrast-title {
+      font-size: 27px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    /* P3 Mechanism Layout */
+    .visual-mechanism {
+      width: 100%;
+      height: 480px;
+      border-radius: 22px;
+      overflow: hidden;
+      margin-bottom: 18px;
+      background: #ffffff;
+      border: 1px solid var(--line);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+    }
+    .visual-mechanism img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .mech-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    .mech-card {
+      background: var(--paper-card);
+      border-radius: 18px;
+      padding: 24px 26px;
+      border: 1px solid var(--line-subtle);
+    }
+
+    /* P4 Matrix Layout */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+      margin-bottom: 18px;
+    }
+    .matrix-card {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 26px 28px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 6px 20px rgba(20,33,26,0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .matrix-icon-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* P5 Checklist Layout (Centered) */
+    .checklist-group {
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .check-item {
+      background: var(--paper-card);
+      border-radius: 20px;
+      padding: 22px 28px;
+      border: 1.5px solid var(--line-subtle);
+      box-shadow: 0 6px 18px rgba(20,33,26,0.03);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .check-badge {
+      width: 44px;
+      height: 44px;
+      background: rgba(32,92,64,0.12);
+      color: var(--accent);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .check-text-title {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+    .check-text-sub {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.45;
+    }
+    .cta-card {
+      background: #eef3ed;
+      border: 1.5px dashed var(--accent);
+      border-radius: 20px;
+      padding: 20px 28px;
+      text-align: center;
+      color: var(--accent);
+      font-size: 21px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CARD 1: 画报三段流封面 -->
+  <div class="poster" id="p1">
+    <div class="header">
+      <span class="brand-tag">GUT HEALTH SCIENCE</span>
+      <span class="page-index">01 / 05</span>
+    </div>
+    <div class="content-fill">
+      <div>
+        <span class="badge">循证肠道健康 · 假期自然通畅</span>
+        <h1 class="title-hero">几天不上厕所肚子发胀？<br>真相可能不是单纯缺水！</h1>
+        <p class="subtitle">肠道研究拆解便秘生化机制，别让假性腹泻掩盖了真正的粪块嵌塞</p>
+      </div>
+
+      <!-- 中部视觉核心区 -->
+      <div class="visual-hero">
+        <img src="../articles/20260930-085007/toutiao-cover-1.png" alt="肠道健康与食材">
+        <div class="visual-float-tag">
+          <strong>⚠️ 假性腹泻警示：</strong>稀水便绕过硬粪块排泄，往往是结肠重度嵌塞“堰塞湖”的危险伪装！
+        </div>
+      </div>
+
+      <!-- 底部三列数据柱 -->
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num">80%</div>
+          <div class="stat-label">盲目狂喝水无效</div>
+          <div class="stat-sub">水缺纤维吸附入肾排</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">35°</div>
+          <div class="stat-label">蹲姿力学夹角</div>
+          <div class="stat-sub">完全松弛耻骨直肠肌</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2颗</div>
+          <div class="stat-label">绿奇异果实测</div>
+          <div class="stat-sub">天然酶解温和促动力</div>
+        </div>
+      </div>
+
+      <div class="action-tip">
+        💡 别再盲目猛灌白开水！搞懂肠道动力与水化力学，恢复自发规律蠕动
+      </div>
+    </div>
+    <div class="footer">
+      <span>证据来源：ZOE & Gastroenterology 指南</span>
+      <span>循证健康主理人 · 食外</span>
+    </div>
+  </div>
+
+  <!-- CARD 2: 版式 B 红绿对撞流 / 误区纠偏 -->
+  <div class="poster" id="p2">
+    <div class="header">
+      <span class="brand-tag">DEBUNKING MYTHS</span>
+      <span class="page-index">02 / 05</span>
+    </div>
+    <div class="content-fill">
+      <div>
+        <span class="badge">认知避坑 · 破除伪科普</span>
+        <h2 class="title-section">两大致命误区：<br>为什么你越努力反而越便秘？</h2>
+        <p class="subtitle">搞错大肠生化吸水机制与力学死锁，只会让肠壁越拉越松弛无力</p>
+      </div>
+
+      <div class="contrast-box">
+        <div class="contrast-item contrast-wrong">
+          <span class="tag-wrong">常见致命误区 01</span>
+          <div class="contrast-title">每天猛喝 3000ml 白开水就能冲走便秘？</div>
+          <div class="card-desc">
+            <strong>真相大白：</strong>缺乏水溶性膳食纤维作为“蓄水海绵”，多喝的白开水会在小肠被急速吸收并转运至肾脏排出尿液。结肠远端的干结粪块依然<span class="highlight">“滴水未沾”</span>，无法形成有效水化凝胶膨胀。
+          </div>
+        </div>
+
+        <div class="contrast-item contrast-right">
+          <span class="tag-wrong">常见致命误区 02</span>
+          <div class="contrast-title">突然拉水样稀便，说明肠道彻底通畅了？</div>
+          <div class="card-desc">
+            <strong>假性腹泻警示：</strong>这是典型的<span class="highlight">溢出性假性腹泻（Overflow Diarrhea）</span>！巨大坚硬的粪石嵌塞在结肠中形成“堰塞湖”，上游稀便绕过边缘缝隙漏出，实则是结肠重度嵌塞的极度危险信号。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>机制依据：结肠黏膜水化动力学</span>
+      <span>循证健康主理人 · 食外</span>
+    </div>
+  </div>
+
+  <!-- CARD 3: 版式 A 大图解剖流 / 耻骨直肠肌力学折角 -->
+  <div class="poster" id="p3">
+    <div class="header">
+      <span class="brand-tag">ANATOMICAL BIOMECHANICS</span>
+      <span class="page-index">03 / 05</span>
+    </div>
+    <div class="content-fill">
+      <div>
+        <span class="badge">排便力学 · 角度真相</span>
+        <h2 class="title-section">耻骨直肠肌：<br>坐便姿势如何让排便通道打了结？</h2>
+        <p class="subtitle">直肠与肛管的自然生理夹角，决定了排便阻力大小</p>
+      </div>
+
+      <div class="visual-mechanism">
+        <img src="../articles/20260930-085007/配图2.png" alt="排便力学角度对比图">
+      </div>
+
+      <div class="mech-grid">
+        <div class="mech-card">
+          <div class="card-title" style="color: var(--alert-red);">❌ 90° 传统垂直坐姿</div>
+          <div class="card-desc">
+            耻骨直肠肌处于<strong>收紧牵拉</strong>状态，如同一根折弯的橡胶水管，直肠通道被死死折成 90° 锐角，必须强行屏气使劲，极易引发痔疮与盆底脱垂。
+          </div>
+        </div>
+        <div class="mech-card">
+          <div class="card-title" style="color: var(--accent);">✅ 35° 模拟深蹲坐姿</div>
+          <div class="card-desc">
+            脚下垫 15~20cm 小凳，躯干微前倾，耻骨直肠肌<strong>彻底松弛脱钩</strong>，直肠轴线被彻底拉直成一条通路，大便顺应重力自发自然滑出。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>解剖力学：直肠肛管角（ARA）测量</span>
+      <span>循证健康主理人 · 食外</span>
+    </div>
+  </div>
+
+  <!-- CARD 4: 版式 D 矩阵显微镜流 / 气体发酵与动力麻痹 -->
+  <div class="poster" id="p4">
+    <div class="header">
+      <span class="brand-tag">MICROBIOME & FERMENTATION</span>
+      <span class="page-index">04 / 05</span>
+    </div>
+    <div class="content-fill">
+      <div>
+        <span class="badge">生化微生态 · 动力阻滞</span>
+        <h2 class="title-section">肚子鼓得像皮球？<br>拆解产甲烷菌与动力麻痹</h2>
+        <p class="subtitle">便秘不只是“干燥”，更是肠道气体麻痹与自主神经调节的紊乱</p>
+      </div>
+
+      <div class="grid-2x2">
+        <div class="matrix-card">
+          <div class="matrix-icon-title">💨 产甲烷古菌发酵</div>
+          <div class="card-desc">
+            滞留残渣发酵产生大量<strong>甲烷气体（CH₄）</strong>，直接神经抑制肠道平滑肌，使肠道转运速度再下降 <strong>59%</strong>。
+          </div>
+        </div>
+
+        <div class="matrix-card">
+          <div class="matrix-icon-title">🔄 越滞留越胀气恶性循环</div>
+          <div class="card-desc">
+            粪便滞留越久 ➔ 细菌发酵时间越长 ➔ 甲烷产生越多 ➔ 肠蠕动越慢，最终导致剧烈腹部胀满与放屁费力。
+          </div>
+        </div>
+
+        <div class="matrix-card">
+          <div class="matrix-icon-title">🧠 假期环境应激与神经阻滞</div>
+          <div class="card-desc">
+            出行改变节律，交感神经过度兴奋，<strong>副交感迷走神经被抑制</strong>，肠壁供血与自发推进波被迫“急刹车”。
+          </div>
+        </div>
+
+        <div class="matrix-card">
+          <div class="matrix-icon-title">🌅 唤醒晨间胃结肠反射</div>
+          <div class="card-desc">
+            晨起第一餐进入胃壁时，会激发全天最强劲的<strong>高振幅推进蠕动波（HAPC）</strong>，抓住晨起 20 分钟黄金期。
+          </div>
+        </div>
+      </div>
+
+      <div class="action-tip">
+        ⚠️ 腹胀伴随排便困难时，切勿盲目补充大量粗纤维豆类，需先恢复水化与动力！
+      </div>
+    </div>
+    <div class="footer">
+      <span>微生态机制：肠脑轴与甲烷抑制研究</span>
+      <span>循证健康主理人 · 食外</span>
+    </div>
+  </div>
+
+  <!-- CARD 5: 版式 E 落地清单/打卡流 -->
+  <div class="poster" id="p5">
+    <div class="header">
+      <span class="brand-tag">NATURAL ACTION PROTOCOL</span>
+      <span class="page-index">05 / 05</span>
+    </div>
+    <div class="content-fill">
+      <div>
+        <span class="badge">落地执行 · 循证自救</span>
+        <h2 class="title-section">肠道自然通畅打卡：<br>告别泻药依赖的 4 步方案</h2>
+        <p class="subtitle">利用天然高渗透压与物理力学，重建自发顺畅的排便反射</p>
+      </div>
+
+      <!-- 紧密等距 4 组卡片组（垂直居中） -->
+      <div class="checklist-group">
+        <div class="check-item">
+          <div class="check-badge">01</div>
+          <div>
+            <div class="check-text-title">🥝 每天 2 颗成熟绿奇异果（猕猴桃）</div>
+            <div class="check-text-sub">临床证实通便效果媲美西梅，富含独特放线菌素酶与水溶性果胶，软化硬结且极少引发多余胀气。</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">02</div>
+          <div>
+            <div class="check-text-title">🍇 4~5 颗加州西梅（Prunes）或西梅汁</div>
+            <div class="check-text-sub">富含天然高渗透压山梨糖醇与绿原酸，能主动把肠壁水分“吸入”肠腔，温和刺激结肠蠕动。</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">03</div>
+          <div>
+            <div class="check-text-title">🪑 备一把 15~20cm 如厕脚凳（蹲姿对齐）</div>
+            <div class="check-text-sub">双脚踩凳抬高膝部，身体前倾 35° 拉直直肠轴线；切忌在马桶上玩手机超过 5~10 分钟。</div>
+          </div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-badge">04</div>
+          <div>
+            <div class="check-text-title">💧 阶梯式增加水溶性纤维 + 优质油脂</div>
+            <div class="check-text-sub">车前子壳或燕麦搭配 1 勺特级初榨橄榄油润滑肠道，每日缓慢加量让微生态平稳适应。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-card">
+        📖 公众号搜【食外】回复「便秘」，获取完整食物渗透压与肠道调理指南
+      </div>
+    </div>
+    <div class="footer">
+      <span>建议：严重持续腹痛或便血请务必及时就医</span>
+      <span>循证健康主理人 · 食外</span>
+    </div>
+  </div>
+
+</body>
+</html>

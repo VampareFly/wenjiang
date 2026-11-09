@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>小红书卡片 - 科学解酒与电解质水</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+    .card {
+      width: 1080px;
+      height: 1440px;
+      background: #faf7f2;
+      color: #1c1917;
+      padding: 56px 56px 48px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    /* 纸张质感与微弱墨晕背景 */
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -150px;
+      right: -150px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(194, 65, 12, 0.08) 0%, rgba(250, 247, 242, 0) 70%);
+      pointer-events: none;
+    }
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(194, 65, 12, 0.1);
+      border: 1px solid rgba(194, 65, 12, 0.3);
+      border-radius: 20px;
+      color: #c2410c;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      width: fit-content;
+    }
+    .main-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #1c1917;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+    }
+    .main-title span {
+      color: #c2410c;
+    }
+    .sub-title {
+      font-size: 26px;
+      color: #57534e;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 490px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(28, 25, 23, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      margin-bottom: 22px;
+      background: #ffffff;
+    }
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .image-container.contain-mode img {
+      object-fit: contain;
+      background: #f5f2eb;
+    }
+    .floating-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: rgba(250, 247, 242, 0.94);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(194, 65, 12, 0.2);
+      font-size: 24px;
+      color: #1c1917;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+    }
+    .floating-caption .icon {
+      color: #c2410c;
+      font-size: 26px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 16px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .stat-card .num {
+      font-size: 34px;
+      font-weight: 800;
+      color: #c2410c;
+      margin-bottom: 4px;
+    }
+    .stat-card .label {
+      font-size: 24px;
+      color: #78716c;
+      font-weight: 600;
+    }
+    .action-banner {
+      background: rgba(194, 65, 12, 0.08);
+      border: 1px solid rgba(194, 65, 12, 0.2);
+      border-radius: 14px;
+      padding: 16px 24px;
+      font-size: 24px;
+      color: #9a3412;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      font-size: 24px;
+      color: #78716c;
+    }
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #1c1917;
+    }
+    .footer-brand .dot {
+      width: 10px;
+      height: 10px;
+      background: #c2410c;
+      border-radius: 50%;
+    }
+    .info-card-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .info-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #1c1917;
+    }
+    .info-card-header .num-tag {
+      width: 32px;
+      height: 32px;
+      background: #c2410c;
+      color: #ffffff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+    }
+    .info-card-desc {
+      font-size: 24px;
+      color: #57534e;
+      line-height: 1.5;
+    }
+    .info-card-desc strong {
+      color: #c2410c;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- P1 封面 -->
+  <div class="card" id="p1">
+    <div>
+      <div class="tag-badge">🏮 节日健康 · 循证避坑</div>
+      <div class="main-title">聚餐饮酒后头痛心慌？<br><span>狂喝白开水</span>反而加重脱水！</div>
+      <div class="sub-title">不是身体缺水，而是抗利尿激素被锁死与矿物质排空</div>
+      
+      <div class="image-container">
+        <img src="../articles/20260923-094029/cover.png" alt="解酒电解质水静物" />
+        <div class="floating-caption">
+          <span class="icon">💡</span>
+          <span>假性脱水真相：单纯灌纯水只会进一步稀释细胞电解质</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num">80%</div>
+          <div class="label">常见灌水误区</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">1 : 2</div>
+          <div class="label">水电解质黄金比</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">3 种</div>
+          <div class="label">钠·钾·镁排毒</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="action-banner">
+        <span>⚡ 科学解酒指南：阻断血管反弹与假性脱水</span>
+        <span>向左滑动 ➔</span>
+      </div>
+      <div class="footer-bar" style="margin-top: 14px;">
+        <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+        <div>P1 / 04</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- P2 假性脱水机制 -->
+  <div class="card" id="p2">
+    <div>
+      <div class="tag-badge">🧬 生理机制 · 排水危机</div>
+      <div class="main-title">为什么酒后猛喝水依然<span>口干舌燥</span>？</div>
+      <div class="sub-title">下丘脑内分泌指令受阻，肾脏水通道被迫异常开放</div>
+      
+      <div class="image-container contain-mode" style="height: 480px;">
+        <img src="../articles/20260923-094029/配图1.png" alt="抗利尿激素受阻机制" />
+      </div>
+
+      <div class="info-card-group">
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">1</div>
+            <div>抗利尿激素分泌受阻</div>
+          </div>
+          <div class="info-card-desc">酒精进入体内直接干扰下丘脑指令，肾脏重吸收水分的“阀门”被强制打开，造成水分失控流失。</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">2</div>
+            <div>神经细胞“假性脱水”</div>
+          </div>
+          <div class="info-card-desc">维持神经放电的<strong>钠、钾、镁等电解质</strong>大量流失。猛灌纯水稀释血液，水分子无法进入细胞水合。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+      <div>P2 / 04</div>
+    </div>
+  </div>
+
+  <!-- P3 血管痉挛与伪睡眠 -->
+  <div class="card" id="p3">
+    <div>
+      <div class="tag-badge">🧠 神经风暴 · 睡眠真相</div>
+      <div class="main-title">酒后<span>偏头痛与心慌焦虑</span>从何而来？</div>
+      <div class="sub-title">血流动力学反弹与皮质醇应激打破了神经节律</div>
+      
+      <div class="image-container contain-mode" style="height: 480px;">
+        <img src="../articles/20260923-094029/配图2.png" alt="脑血管痉挛与伪睡眠" />
+      </div>
+
+      <div class="info-card-group">
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">1</div>
+            <div>脑血管反弹性痉挛收缩</div>
+          </div>
+          <div class="info-card-desc">饮酒初期血管舒张；酒精排空时代谢反弹，脑血管出现<strong>剧烈反弹性痉挛</strong>，诱发次日搏动性偏头痛。</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-header">
+            <div class="num-tag">2</div>
+            <div>皮质醇飙升与低质量伪睡眠</div>
+          </div>
+          <div class="info-card-desc">慢波深睡眠被剥夺，同时肾上腺轴异常释放压力荷尔蒙<strong>皮质醇</strong>，导致清晨心慌心悸与酒后焦虑。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+      <div>P3 / 04</div>
+    </div>
+  </div>
+
+  <!-- P4 科学自救方案 -->
+  <div class="card" id="p4">
+    <div>
+      <div class="tag-badge">📋 落地实操 · 科学恢复</div>
+      <div class="main-title">节日饮酒前后，怎样<span>科学自救</span>？</div>
+      <div class="sub-title">1:2 水电解质黄金法则与神经修复策略</div>
+      
+      <div class="image-container contain-mode" style="height: 430px;">
+        <img src="../articles/20260923-094029/配图3.png" alt="科学恢复法则" />
+      </div>
+
+      <div class="info-card-group" style="gap: 12px;">
+        <div class="info-card" style="padding: 16px 20px;">
+          <div class="info-card-header" style="font-size: 24px;">
+            <div class="num-tag">1</div>
+            <div>1:2 水电解质配比</div>
+          </div>
+          <div class="info-card-desc" style="font-size: 24px;">每喝 1 杯酒，补 2 杯<strong>含钠、钾、镁的电解质水</strong>（温水+微量天然海盐与柠檬汁），抵消排泄损耗。</div>
+        </div>
+        <div class="info-card" style="padding: 16px 20px;">
+          <div class="info-card-header" style="font-size: 24px;">
+            <div class="num-tag">2</div>
+            <div>低糖发酵食品护肠，慎用止痛药</div>
+          </div>
+          <div class="info-card-desc" style="font-size: 24px;">不乱吃布洛芬或退热药加重肝负担。可适量吃无糖酸奶或纳豆维持肠道屏障。</div>
+        </div>
+        <div class="info-card" style="padding: 16px 20px;">
+          <div class="info-card-header" style="font-size: 24px;">
+            <div class="num-tag">3</div>
+            <div>次日清晨温和冷水激活</div>
+          </div>
+          <div class="info-card-desc" style="font-size: 24px;">完全清醒后进行 1–3 分钟温和冷水淋浴，刺激多巴胺驱动代谢。（<strong>醉酒状态严禁使用</strong>）。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <div class="footer-brand"><span class="dot"></span>食外 · 循证健康科普</div>
+      <div>P4 / 04</div>
+    </div>
+  </div>
+
+</body>
+</html>

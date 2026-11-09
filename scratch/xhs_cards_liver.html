@@ -1,0 +1,538 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="forest-ink">
+<head>
+  <meta charset="utf-8">
+  <title>肝脏过载的5个隐匿体征 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root {
+      --bg: #f4f6f0;
+      --card-bg: #ffffff;
+      --card-bg-light: #e7ece2;
+      --ink: #1b4931;
+      --ink-dark: #0f291c;
+      --ink-secondary: #355342;
+      --muted: #64748b;
+      --accent: #1b4931;
+      --accent-warm: #c88a35;
+      --accent-alert: #b91c1c;
+      --line: rgba(27, 73, 49, 0.20);
+      --line-subtle: rgba(27, 73, 49, 0.08);
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #dce2d6; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--bg);
+      color: var(--ink-dark);
+      font-family: var(--font-sans);
+      padding: 56px 64px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+    }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+    .header-tag {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      background: var(--card-bg-light);
+      padding: 6px 18px;
+      border-radius: 30px;
+    }
+    .header-vol {
+      font-size: 24px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid var(--line);
+      padding-top: 18px;
+      margin-top: 20px;
+      font-size: 24px;
+      color: var(--muted);
+    }
+    .footer-author {
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+    }
+    .footer-author::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background: var(--accent-warm);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Titles */
+    .title-group { margin-bottom: 16px; }
+    .main-title {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.22;
+      color: var(--ink-dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+    .main-title span.alert { color: var(--accent-alert); }
+    .main-title span.gold { color: var(--accent-warm); }
+    .subtitle {
+      font-size: 26px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+      font-weight: 500;
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 24px 28px;
+      box-shadow: 0 10px 30px rgba(27, 73, 49, 0.06);
+      border: 1px solid var(--line-subtle);
+    }
+
+    /* Pill badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 24px;
+      font-weight: 700;
+      background: var(--card-bg-light);
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .badge.alert { background: #fee2e2; color: #b91c1c; }
+
+    /* P1 Hero */
+    .p1-hero-container {
+      position: relative;
+      width: 100%;
+      height: 490px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 36px rgba(27, 73, 49, 0.12);
+      margin: 12px 0 16px;
+    }
+    .p1-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .p1-hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: linear-gradient(180deg, rgba(15, 41, 28, 0) 0%, rgba(15, 41, 28, 0.88) 100%);
+      color: #ffffff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .p1-hero-caption {
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    /* P1 Stats */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 18px 16px;
+      text-align: center;
+      border: 1px solid var(--line-subtle);
+    }
+    .stat-num {
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .stat-num.alert { color: var(--accent-alert); }
+    .stat-num.gold { color: var(--accent-warm); }
+    .stat-label {
+      font-size: 24px;
+      color: var(--ink-secondary);
+      font-weight: 600;
+    }
+
+    .action-tip {
+      background: var(--ink);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 16px 24px;
+      font-size: 24px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Diagram frame */
+    .diagram-frame {
+      width: 100%;
+      height: 480px;
+      border-radius: 18px;
+      overflow: hidden;
+      margin: 8px 0 16px;
+      border: 1px solid var(--line-subtle);
+      box-shadow: 0 10px 24px rgba(27, 73, 49, 0.08);
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .diagram-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Dual signal split */
+    .dual-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      flex: 1;
+    }
+    .signal-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 20px 22px;
+      border: 1px solid var(--line-subtle);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .signal-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ink-dark);
+      margin-bottom: 8px;
+    }
+    .signal-desc {
+      font-size: 24px;
+      line-height: 1.55;
+      color: var(--ink-secondary);
+    }
+    .signal-tag {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent-warm);
+      margin-top: 10px;
+    }
+
+    /* Check cards */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+    }
+    .check-item {
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 22px 24px;
+      border-left: 6px solid var(--accent);
+      box-shadow: 0 6px 18px rgba(27, 73, 49, 0.05);
+    }
+    .check-item.alert { border-left-color: var(--accent-alert); }
+    .check-item.gold { border-left-color: var(--accent-warm); }
+    .check-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--ink-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .check-desc {
+      font-size: 24px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== P1: 封面画报三段流 ==================== -->
+  <div class="poster" id="p1">
+    <div class="header">
+      <div class="header-tag">长假健康 · 肝胆自查</div>
+      <div class="header-vol">01 / 05</div>
+    </div>
+
+    <div class="content-fill">
+      <div class="title-group">
+        <h1 class="main-title">右肩酸、半夜惊醒、吃饱腹胀？<br><span class="alert">身体这 5 个隐匿信号</span>，是肝脏在求救！</h1>
+        <p class="subtitle">作为一个缺乏痛觉神经的沉默器官，它发出警讯却从不喊痛</p>
+      </div>
+
+      <!-- 核心视觉大图 (方案 A 标准：500px 高度自然光生活质感大图) -->
+      <div class="p1-hero-container">
+        <img class="p1-hero-img" src="../articles/20260930-085004/cover.png" alt="肝脏健康自然质感封面" />
+        <div class="p1-hero-overlay">
+          <div class="p1-hero-caption">肝脏缺乏痛觉纤维 · 仅能通过外周反射与代谢代偿预警</div>
+          <div style="font-size: 24px; color: #fbbf24; font-weight: 700;">循证医学</div>
+        </div>
+      </div>
+
+      <!-- 3组结构化数据柱 -->
+      <div class="stat-row">
+        <div class="stat-card">
+          <div class="stat-num alert">0 处</div>
+          <div class="stat-label">实质内部痛觉感受器</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">C3-C5</div>
+          <div class="stat-label">膈神经右肩反射节段</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num gold">5 大</div>
+          <div class="stat-label">日常可自查过载警讯</div>
+        </div>
+      </div>
+
+      <!-- 底部行动提示 -->
+      <div class="action-tip">
+        <span>国庆聚餐大餐前后，对照自查与科学养护指南</span>
+        <span>向左滑动 ➔</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-author">食外 · 循证健康科普</div>
+      <div class="footer-note">建议收藏 · 聚餐必备自查</div>
+    </div>
+  </div>
+
+
+  <!-- ==================== P2: 信号1与2 神经反射与皮肤 ==================== -->
+  <div class="poster" id="p2">
+    <div class="header">
+      <div class="header-tag">神经反射 · 外周体征</div>
+      <div class="header-vol">02 / 05</div>
+    </div>
+
+    <div class="content-fill">
+      <div class="title-group">
+        <div class="badge alert">信号 01 & 02 · 神经解剖与外溢</div>
+        <h2 class="main-title">右肩发紧、皮肤干痒？<br>大脑误判了<span class="gold">来自右上腹的报警</span></h2>
+        <p class="subtitle">肝胆受压刺激膈神经牵涉痛，胆汁酸盐外溢刺激皮肤末梢</p>
+      </div>
+
+      <!-- 嵌入配图1 -->
+      <div class="diagram-frame">
+        <img src="../articles/20260930-085004/配图1.png" alt="肝脏神经解剖与膈神经牵涉右侧肩颈痛觉投射机制图" />
+      </div>
+
+      <!-- 双分栏解读卡片 -->
+      <div class="dual-grid">
+        <div class="signal-card">
+          <div>
+            <div class="signal-title">① 右肩与右颈反射酸痛</div>
+            <div class="signal-desc">肝包膜张力增大或胆囊排空受阻，刺激膈神经向上投射至颈髓 C3~C5 节段，大脑误判为右肩肩周肌肉酸痛。</div>
+          </div>
+          <div class="signal-tag">✦ 排除拉伤的大餐后酸痛</div>
+        </div>
+
+        <div class="signal-card">
+          <div>
+            <div class="signal-title">② 无皮疹的顽固干痒</div>
+            <div class="signal-desc">胆管排泄迟滞，胆汁酸盐反流入外周血液并沉积于皮下组织，持续刺激末梢 C 神经纤维，夜间加重。</div>
+          </div>
+          <div class="signal-tag">✦ 涂保湿乳液无缓解迹象</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-author">食外 · 循证健康科普</div>
+      <div class="footer-note">向左滑动查看夜间惊醒机制 ➔</div>
+    </div>
+  </div>
+
+
+  <!-- ==================== P3: 信号3 凌晨惊醒 ==================== -->
+  <div class="poster" id="p3">
+    <div class="header">
+      <div class="header-tag">内分泌时序 · 血糖波动</div>
+      <div class="header-vol">03 / 05</div>
+    </div>
+
+    <div class="content-fill">
+      <div class="title-group">
+        <div class="badge">信号 03 · 凌晨 1~3 点突然惊醒</div>
+        <h2 class="main-title">半夜总在固定时间睁眼？<br>是<span class="alert">低血糖与肾上腺素暴发</span></h2>
+        <p class="subtitle">夜间全靠肝糖原平稳输出，肝细胞过载时引发反应性低血糖</p>
+      </div>
+
+      <!-- 嵌入配图2 -->
+      <div class="diagram-frame">
+        <img src="../articles/20260930-085004/配图2.png" alt="夜间肝糖原耗竭与凌晨1至3点肾上腺素代偿升糖惊醒曲线图" />
+      </div>
+
+      <div class="card" style="margin-top: 4px;">
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="font-size: 36px; line-height: 1;">⚡</div>
+          <div>
+            <div style="font-size: 28px; font-weight: 800; color: var(--ink-dark); margin-bottom: 8px;">为什么吃褪黑素不管用？</div>
+            <div style="font-size: 24px; line-height: 1.55; color: var(--ink-secondary);">后半夜低血糖触发交感神经紧急警报，肾上腺髓质暴发性释放肾上腺素与皮质醇。升糖激素直接激活大脑网状结构，迫使你从深度睡眠中瞬间清醒、心慌烦躁。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-author">食外 · 循证健康科普</div>
+      <div class="footer-note">向左滑动查看消化与食欲信号 ➔</div>
+    </div>
+  </div>
+
+
+  <!-- ==================== P4: 信号4与5 腹胀与假性饥饿 ==================== -->
+  <div class="poster" id="p4">
+    <div class="header">
+      <div class="header-tag">消化生理 · 饱腹反馈</div>
+      <div class="header-vol">04 / 05</div>
+    </div>
+
+    <div class="content-fill">
+      <div class="title-group">
+        <div class="badge">信号 04 & 05 · 胆汁乳化障碍</div>
+        <h2 class="main-title">吃饱了胃胀，却还想吃？<br>小心<span class="gold">微观营养匮乏的虚假饥饿</span></h2>
+        <p class="subtitle">缺乏胆汁这瓶天然“洗洁精”，油脂不吸收、小肠异常发酵</p>
+      </div>
+
+      <!-- 嵌入配图3 -->
+      <div class="diagram-frame">
+        <img src="../articles/20260930-085004/配图3.png" alt="胆汁酸乳化脂肪不足引发餐后腹胀与食欲饥饿反馈回路图" />
+      </div>
+
+      <div class="dual-grid">
+        <div class="signal-card">
+          <div>
+            <div class="signal-title">④ 进餐后持续腹胀</div>
+            <div class="signal-desc">缺乏充足胆汁乳化，未消化的大颗粒油脂滞留于小肠远端，被肠道菌群异常发酵产生大量气体。</div>
+          </div>
+          <div class="signal-tag">✦ 仅吃两口带油食物就顶胀</div>
+        </div>
+
+        <div class="signal-card">
+          <div>
+            <div class="signal-title">⑤ 吃撑依然渴望零食</div>
+            <div class="signal-desc">脂溶性维生素与必需脂肪酸萃取失败，小肠无法释放饱腹激素 CCK，大脑深层持续报警“营养饥荒”。</div>
+          </div>
+          <div class="signal-tag">✦ 物理吃饱 vs 细胞微观饥饿</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-author">食外 · 循证健康科普</div>
+      <div class="footer-note">向左滑动获取护肝打卡方案 ➔</div>
+    </div>
+  </div>
+
+
+  <!-- ==================== P5: 落地行动打卡 ==================== -->
+  <div class="poster" id="p5">
+    <div class="header">
+      <div class="header-tag">长假护肝 · 行动清单</div>
+      <div class="header-vol">05 / 05</div>
+    </div>
+
+    <div class="content-fill">
+      <div class="title-group">
+        <div class="badge gold">国庆假期实操 · 4项给肝脏减负法</div>
+        <h2 class="main-title">聚餐大餐前后：<br>如何给超载的代谢中枢“松绑”？</h2>
+        <p class="subtitle">读懂身体警讯不焦虑，用4个极简生活微调守住健康防线</p>
+      </div>
+
+      <div class="checklist">
+        <div class="check-item">
+          <div class="check-title"><span>01</span> 守住睡前 3~4 小时缓冲窗口</div>
+          <div class="check-desc">晚餐尽早结束，避免带着满腹高脂大餐入睡，给夜间肝糖原代谢与胆汁浓缩留出充裕的低负荷时段。</div>
+        </div>
+
+        <div class="check-item gold">
+          <div class="check-title"><span>02</span> 聚餐先垫苦味与十字花科蔬菜</div>
+          <div class="check-desc">先吃羽衣甘蓝、芝麻菜或西兰花，苦味植物化学物能刺激胆囊收缩素 CCK 释放，促进内源性胆汁流动。</div>
+        </div>
+
+        <div class="check-item alert">
+          <div class="check-title"><span>03</span> 警惕隐形游离果糖与高糖甜饮</div>
+          <div class="check-desc">果糖全靠肝脏代谢，是诱发脂肪浸润的元凶。聚餐用柠檬水、淡茶或气泡水替代果汁奶茶与甜酒。</div>
+        </div>
+
+        <div class="check-item">
+          <div class="check-title"><span>04</span> 充足温水搭配微量电解质</div>
+          <div class="check-desc">每日充足水分摄入有助于稀释胆汁浓度、降低胆汁酸盐结晶风险，维持外周微循环渗透通畅。</div>
+        </div>
+      </div>
+
+      <div class="card" style="background: var(--ink); color: #ffffff; margin-top: 12px; border: none;">
+        <div style="font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 6px; color: #fef08a;">
+          💬 国庆聚餐你有过这 5 种不适体征吗？
+        </div>
+        <div style="font-size: 24px; text-align: center; color: #e2e8f0; line-height: 1.45;">
+          在评论区打卡你的长假作息与状态，一起用科学方法守护代谢活力！
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-author">食外 · 循证健康科普</div>
+      <div class="footer-note">点击右上角收藏 · 随时翻看对照</div>
+    </div>
+  </div>
+
+</body>
+</html>

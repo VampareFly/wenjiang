@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>小红书正文排版三种风格样例</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@400;600;700&family=Syne:wght@700;800&display=swap">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #333; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .card-canvas {
+      width: 1080px;
+      height: 1440px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    }
+
+    /* ==========================================================================
+       STYLE A: 翡翠纸质画报 (Forest Ink & Warm Paper)
+       ========================================================================== */
+    #style-a {
+      background: #f4f6f0;
+      color: #14211a;
+      font-family: "Noto Sans SC", sans-serif;
+      padding: 72px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #style-a::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(20,33,26,0.035) 1.5px, transparent 0);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    #style-a .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid rgba(20, 33, 26, 0.12);
+      padding-bottom: 24px;
+    }
+    #style-a .brand-tag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #205c40;
+    }
+    #style-a .page-num {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 22px;
+      color: #6b7f73;
+    }
+    #style-a .title-box {
+      margin-bottom: 36px;
+    }
+    #style-a .pill {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(32, 92, 64, 0.08);
+      color: #205c40;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    #style-a .main-title {
+      font-family: "Noto Serif SC", serif;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #14211a;
+      letter-spacing: -0.5px;
+    }
+    #style-a .subtitle {
+      font-size: 24px;
+      color: #3d5045;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+    #style-a .module-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px 36px;
+      border: 1px solid rgba(20, 33, 26, 0.06);
+      box-shadow: 0 8px 24px rgba(20, 33, 26, 0.03);
+      margin-bottom: 20px;
+    }
+    #style-a .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    #style-a .card-title {
+      font-family: "Noto Serif SC", serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #205c40;
+    }
+    #style-a .card-body {
+      font-size: 22px;
+      line-height: 1.65;
+      color: #3d5045;
+    }
+    #style-a .footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1.5px solid rgba(20, 33, 26, 0.12);
+      padding-top: 24px;
+      font-size: 20px;
+      color: #6b7f73;
+    }
+
+    /* ==========================================================================
+       STYLE B: 瑞士极简高反差 (Swiss High-Contrast Editorial)
+       ========================================================================== */
+    #style-b {
+      background: #0f1012;
+      color: #f5f5f7;
+      font-family: "Noto Sans SC", -apple-system, sans-serif;
+      padding: 72px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #style-b .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid #27282d;
+      padding-bottom: 24px;
+    }
+    #style-b .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ccff00;
+      color: #000;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 20px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+    }
+    #style-b .index-tag {
+      font-family: "Syne", sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #4a4d57;
+    }
+    #style-b .title-box {
+      margin-top: 20px;
+      margin-bottom: 36px;
+    }
+    #style-b .hero-title {
+      font-size: 56px;
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      color: #ffffff;
+    }
+    #style-b .highlight-word {
+      color: #ccff00;
+    }
+    #style-b .swiss-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    #style-b .swiss-card {
+      background: #181a1f;
+      border: 1px solid #282b33;
+      border-radius: 16px;
+      padding: 28px 32px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    #style-b .num-badge {
+      font-family: "Syne", "IBM Plex Mono", monospace;
+      font-size: 32px;
+      font-weight: 800;
+      color: #ccff00;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    #style-b .card-content h3 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    #style-b .card-content p {
+      font-size: 21px;
+      line-height: 1.55;
+      color: #9ea3b0;
+    }
+    #style-b .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid #27282d;
+      padding-top: 24px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 18px;
+      color: #5d616d;
+    }
+
+    /* ==========================================================================
+       STYLE C: 图文融合半画报 (Editorial Visual Split)
+       ========================================================================== */
+    #style-c {
+      background: #ffffff;
+      color: #1a1a1a;
+      font-family: "Noto Sans SC", sans-serif;
+      padding: 60px 60px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    #style-c .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    #style-c .category-tag {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0F4C81;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    #style-c .page-tag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 20px;
+      color: #888;
+    }
+    #style-c .title-wrap {
+      margin-bottom: 20px;
+    }
+    #style-c .main-title {
+      font-size: 48px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #111;
+      letter-spacing: -0.5px;
+    }
+    #style-c .visual-hero {
+      width: 100%;
+      height: 480px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+      background: #111;
+    }
+    #style-c .visual-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    #style-c .visual-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px 24px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: #fff;
+      font-size: 20px;
+      font-weight: 500;
+    }
+    #style-c .takeaways {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #style-c .takeaway-item {
+      background: #f8f9fa;
+      border-left: 5px solid #0F4C81;
+      border-radius: 0 14px 14px 0;
+      padding: 18px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    #style-c .bullet-icon {
+      font-size: 24px;
+      color: #0F4C81;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    #style-c .item-text {
+      font-size: 21px;
+      line-height: 1.5;
+      color: #333;
+    }
+    #style-c .item-text strong {
+      color: #0F4C81;
+      font-weight: 700;
+    }
+    #style-c .footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #eee;
+      padding-top: 20px;
+      font-size: 18px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       STYLE A: 翡翠纸质画报
+       ========================================================================= -->
+  <section class="card-canvas" id="style-a">
+    <div class="header">
+      <span class="brand-tag">方案 A · 翡翠纸质画报 (FOREST INK)</span>
+      <span class="page-num">02 / 05</span>
+    </div>
+
+    <div>
+      <div class="title-box">
+        <span class="pill">💡 机制解析 · 代偿真相</span>
+        <h2 class="main-title">血糖之所以正常<br>是胰岛素在拼命死撑</h2>
+        <p class="subtitle">空腹血糖是代谢健康崩溃前，最后倒下的多米诺骨牌</p>
+      </div>
+
+      <div class="module-card">
+        <div class="card-header">
+          <span style="font-size: 26px;">🔑</span>
+          <h3 class="card-title">什么是“胰岛素抵抗”？</h3>
+        </div>
+        <p class="card-body">
+          细胞长期被高碳水塞满，对胰岛素钥匙“装聋作哑”。为了强行压制血液高糖，胰腺被迫超额狂飙 <strong>5~10 倍胰岛素</strong>去死撑！
+        </p>
+      </div>
+
+      <div class="module-card">
+        <div class="card-header">
+          <span style="font-size: 26px;">⚠️</span>
+          <h3 class="card-title">长达 10~15 年的“隐形潜伏期”</h3>
+        </div>
+        <p class="card-body">
+          在空腹血糖真正超标前，身体早已常年处于高胰岛素状态（100% 锁死燃脂）。直到胰腺彻底累垮，血糖才会断崖式失控！
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学代谢与慢病预防</span>
+      <span style="font-family: 'IBM Plex Mono'; font-weight: 600; color: #205c40;">SLIDE TO READ →</span>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       STYLE B: 瑞士极简高反差
+       ========================================================================= -->
+  <section class="card-canvas" id="style-b">
+    <div class="header">
+      <span class="section-badge">方案 B · 瑞士极简高反差</span>
+      <span class="index-tag">02</span>
+    </div>
+
+    <div>
+      <div class="title-box">
+        <h2 class="hero-title">血糖正常？<br>其实是胰腺在<span class="highlight-word">狂飙死撑</span></h2>
+      </div>
+
+      <div class="swiss-grid">
+        <div class="swiss-card">
+          <div class="num-badge">01</div>
+          <div class="card-content">
+            <h3>胰岛素超额代偿机制</h3>
+            <p>原本 1 个单位胰岛素就能降的糖，现在必须分泌 5~10 个单位。体检单上的血糖“被压正常了”，但胰岛素早已常年爆表。</p>
+          </div>
+        </div>
+
+        <div class="swiss-card">
+          <div class="num-badge">02</div>
+          <div class="card-content">
+            <h3>100% 锁死内脏脂肪燃烧</h3>
+            <p>高胰岛素是人体最霸道的脂肪储存开关。只要血液中胰岛素居高不下，燃脂酶就会被全面抑制，小肚子越积越厚。</p>
+          </div>
+        </div>
+
+        <div class="swiss-card">
+          <div class="num-badge">03</div>
+          <div class="card-content">
+            <h3>10~15 年隐形损伤窗口</h3>
+            <p>不要等血糖红了才干预！高胰岛素会持续侵蚀血管内皮与神经系统，提早给胰腺减负才能真正逆转。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>SWISS EDITORIAL SYSTEM</span>
+      <span>PAGE 02 / 05</span>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       STYLE C: 图文融合半画报
+       ========================================================================= -->
+  <section class="card-canvas" id="style-c">
+    <div class="header">
+      <span class="category-tag">方案 C · 图文融合半画报</span>
+      <span class="page-tag">PAGE 02 / 05</span>
+    </div>
+
+    <div>
+      <div class="title-wrap">
+        <h2 class="main-title">认识隐性高胰岛素代偿</h2>
+      </div>
+
+      <!-- High-res visual area -->
+      <div class="visual-hero">
+        <img src="file:///Users/parkerpan/Desktop/wenjiang/articles/20260831-120830/配图1.png" alt="高胰岛素血症代偿">
+        <div class="visual-caption">🔬 微观代谢图解：胰腺持续分泌超额胰岛素对抗细胞受体迟钝</div>
+      </div>
+
+      <div class="takeaways">
+        <div class="takeaway-item">
+          <span class="bullet-icon">✦</span>
+          <div class="item-text">
+            <strong>空腹血糖是最后倒下的多米诺</strong>：在血糖升高前，身体往往已经历 10~15 年的高胰岛素代偿期。
+          </div>
+        </div>
+
+        <div class="takeaway-item">
+          <span class="bullet-icon">✦</span>
+          <div class="item-text">
+            <strong>燃脂开关被全面锁死</strong>：高胰岛素会强力阻断脂肪分解，导致内脏脂肪堆积与餐后严重犯困。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>食外 · 科学慢病预防</span>
+      <span>3:4 NATIVE SPLIT</span>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -19,6 +19,7 @@ python3 scripts/workflow_state.py context articles/<YYYYMMDD-HHMMSS>
 7. 公众号 HTML 使用 `config/wechat-brand.json` 固定品牌配置；不随机选择排版工具或主题。
 8. 小红书实时搜索只用于关键词、读者问题、标签和发布角度，不得把外部事实写入内容；无法可靠搜索时明确使用常青模式。
 9. 小红书卡片程序检查全部页面并只对首图做一次 AI 视觉复查，不默认逐张读图或重生成整套卡片。
+10. 全域生图纯中文铁律：公众号大封面（`cover.png`）、全部正文插图（`配图1~N.png`）与今日头条专属三图封面（`toutiao-cover-1~3.png`）内部的所有文字标注、指示标签、解剖说明、物体包装（如饮料罐）、流程图解与数据展示，必须 100% 为规范简体中文，严禁出现任何英文单词或英文字母。生图提示词中必须强制约束纯中文并单引号列出具体中文名词。
 
 常用状态命令：
 
@@ -111,7 +112,7 @@ Step 2 必须按三轮生成文章，不能从字幕一次直接输出终稿：
 
 1. **内容初稿轮**：读取 `docs/steps/step2/writing-guide.md` 和 `source.cleaned.txt`，先生成可检查的 `article.plan.md` 写作蓝图，再按蓝图生成事实可靠、结构完整的 `article.draft.md`。只标正文配图位置，不生成正式标题候选列表或配图提示词。
 2. **编辑终稿轮**：读取 `docs/steps/step2/editorial-guide.md`、`docs/steps/step2/title-guide.md`、`docs/steps/step2/ai-humanizer-guide.md`、字幕、`article.plan.md` 和草稿，在同一轮内完成正式标题、导语、真人化、结尾、免责声明和必要的轻关注引导，仍写入 `article.draft.md`。标题候选和评分使用精简格式，只在 `article.plan.md` 保留不超过 250 字的质检记录，不新增独立生成轮次。特殊免责声明或关注引导无法判断时，按需读取 `docs/exceptions/ending-guide.md`。
-3. **独立质检与配图提示词轮**：读取 `docs/steps/step2/final-review-guide.md`，重新用字幕和 `article.plan.md` 审核草稿。事实与高风险表述仍按原规则完整回查；中文可读性先抽查每段首句、最长句和结论句，发现问题后才扩大到对应段落。合格时不得重写全文；有明确问题时只做最小局部修改。独立质检遇到核心指南未覆盖的问题时，按需读取 `docs/exceptions/final-writing-check.md`。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/steps/step2/image-prompt-guide.md` 生成 `cover_prompt.md`。
+3. **独立质检与配图提示词轮**：读取 `docs/steps/step2/final-review-guide.md`，重新用字幕和 `article.plan.md` 审核草稿。事实与高风险表述仍按原规则完整回查；中文可读性先抽查每段首句、最长句和结论句，发现问题后才扩大到对应段落。合格时不得重写全文；有明确问题时只做最小局部修改。独立质检遇到核心指南未覆盖的问题时，按需读取 `docs/exceptions/final-writing-check.md`。通过后原子生成 `article.md` 并删除草稿，再读取 `docs/steps/step2/image-prompt-guide.md` 生成 `cover_prompt.md`（必须严格落实全域生图纯中文约束，单引号指定具体的中文名词，严禁任何英文单词）。
 
 完成后：
 
@@ -148,6 +149,8 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_4
 ### Step 5：生成封面与配图（公众号 + 今日头条三图）
 
 按 `docs/steps/step5/image-generation-guide.md` 检测当前会话是否暴露可调用的原生图片工具，并固定本次生成路径，依次生成公众号封面 (`cover.png`)、正文配图 (`配图1~N.png`) 与今日头条专属三图封面 (`toutiao-cover-1~3.png`)：
+- **全域生图纯中文铁律**：所有生成图片内部文字、标签、解剖术语、包装字样等必须 100% 为规范简体中文，严禁出现任何英文单词；若含英文残留视为不合格，必须重绘纠正；
+- **首选 Gemini，GPT 兜底**：原生生图工具不可用或超额时，自动切换 GPT 兜底；
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_5
@@ -184,7 +187,7 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_7
 
 ### Step 8：生成小红书卡片
 
-按 `docs/steps/step8/xiaohongshu-card-guide.md` 调用 `guizang-social-card-skill`，生成连续编号卡片和 `xiaohongshu-card-check.json`：
+按 `docs/steps/step8/xiaohongshu-card-guide.md` 调用 `guizang-social-card-skill`，生成连续编号卡片和 `xiaohongshu-card-check.json`。**小红书首图（P1）强制含图铁律**：严禁纯文字大字报，统一采用【画报三段流（方案 A 标准）】——顶部扎心大标题 + 中部 480~540px 高清大图（复用机理图或封面大图）+ 底部数据柱/行动条全幅撑满：
 
 ```bash
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_8
@@ -212,7 +215,9 @@ python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_9
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_10
 ```
 
-按 `docs/steps/step10/unified-approval-guide.md`，统一预览 `article.html`、公众号图片、小红书卡片、小红书文案、今日头条长文及微头条。Agent 必须停在这里；初始生成请求不等于上传授权。用户在当前对话明确确认后才运行：
+按 `docs/steps/step10/unified-approval-guide.md`，统一预览 `article.html`、公众号图片、小红书卡片、小红书文案、今日头条长文及微头条。Agent 必须停在这里等待用户确认；初始生成请求不等于上传授权。
+
+用户在当前对话中明确回复确认（如“确认”、“没问题”、“可以存草稿”）后，**Agent 必须立即在后台自动连续执行以下动作，无需用户手动运行任何终端命令**：
 
 ```bash
 python3 scripts/workflow_state.py approve articles/<YYYYMMDD-HHMMSS>
@@ -220,15 +225,17 @@ python3 scripts/workflow_state.py approve articles/<YYYYMMDD-HHMMSS>
 
 用户要求修改时先 `reopen` 对应产出步骤。该命令会重置目标步骤及后续步骤并清除旧确认。
 
-### Step 11：创建微信公众号草稿
+### Step 11：创建微信与今日头条草稿箱（Agent 自动执行）
 
-按 `docs/steps/step11/wechat-guide.md` 执行外部副作用：
+Agent 在后台自动推送到公众号和今日头条草稿箱：
 
 ```bash
 python3 scripts/validate_workflow.py approval articles/<YYYYMMDD-HHMMSS>
 python3 scripts/workflow_state.py start articles/<YYYYMMDD-HHMMSS> step_11
-# 上传成功后写入包含 media_id 的公众号草稿信息.txt
+# 1. 自动上传微信公众号草稿并写入包含 media_id 的公众号草稿信息.txt
+# 2. 自动同步今日头条草稿（长文纯文本 + 微头条附图）：python3 scripts/post_to_toutiao.py articles/<YYYYMMDD-HHMMSS> （长文正文配图与三图封面由用户在后台自行上传）
 python3 scripts/workflow_state.py pass articles/<YYYYMMDD-HHMMSS> step_11
+
 ```
 
 `pass step_11` 确认 `media_id` 后，会更新本篇 `source-map.json` 和项目根目录 `link-registry.json`，再按文件名、目录和 SHA-256 精确删除字幕输入、清空 `links/links.txt`。任一校验失败时保留输入文件并标记 `blocked`。

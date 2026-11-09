@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="warm-academic">
+<head>
+  <meta charset="utf-8">
+  <title>死臀综合征与臀肌唤醒指南 · 小红书卡片组</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+  <style>
+    :root {
+      --paper: #faf7f2;
+      --paper-card: #ffffff;
+      --ink: #1c1917;
+      --ink-secondary: #44403c;
+      --muted: #78716c;
+      --accent: #991b1b;
+      --accent-warm: #c2410c;
+      --line: rgba(28, 25, 23, 0.14);
+      --line-subtle: rgba(28, 25, 23, 0.08);
+      --tag-bg: rgba(153, 27, 27, 0.08);
+      --font-serif: "Noto Serif SC", serif;
+      --font-sans: "Noto Sans SC", -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #222; padding: 40px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
+    .poster {
+      width: 1080px;
+      height: 1440px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      padding: 68px 80px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    }
+
+    .poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(28, 25, 23, 0.04) 1.5px, transparent 0);
+      background-size: 26px 26px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .poster > * { position: relative; z-index: 2; }
+
+    /* Header & Footer */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 20px;
+    }
+    .header-tag {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      background: var(--tag-bg);
+      padding: 6px 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(153, 27, 27, 0.2);
+    }
+    .header-vol {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      font-size: 20px;
+      color: var(--muted);
+    }
+    .footer-author {
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-author::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* Content Area */
+    .content-fill {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 32px 0 24px;
+    }
+
+    .title-block { margin-bottom: 20px; }
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1.25;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+    .page-title span { color: var(--accent); }
+    .page-desc {
+      font-size: 24px;
+      color: var(--ink-secondary);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--paper-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 26px 30px;
+      box-shadow: 0 4px 16px rgba(28, 25, 23, 0.04);
+    }
+
+    /* P1 Elements */
+    .cover-badge {
+      display: inline-block;
+      background: var(--ink);
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      padding: 8px 22px;
+      border-radius: 6px;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+    .cover-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-family: var(--font-mono);
+      font-size: 34px;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-card .label {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+    }
+
+    .banner {
+      background: #fdf2e9;
+      border: 1.5px solid #fed7aa;
+      border-radius: 14px;
+      padding: 16px 22px;
+      font-size: 20px;
+      color: #9a3412;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .banner-icon { font-size: 24px; flex-shrink: 0; }
+
+    /* P2 Comparison */
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-bottom: 16px;
+    }
+    .compare-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 28px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid var(--line);
+    }
+    .compare-card.wrong {
+      border-color: rgba(153, 27, 27, 0.35);
+      background: #fffafa;
+    }
+    .compare-card.right {
+      border-color: rgba(22, 101, 52, 0.35);
+      background: #f7faf7;
+    }
+    .tag-wrong {
+      display: inline-block;
+      background: #fee2e2;
+      color: #991b1b;
+      font-size: 19px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+    .tag-right {
+      display: inline-block;
+      background: #dcfce7;
+      color: #15803d;
+      font-size: 19px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    /* P3 & P4 Action Cards */
+    .action-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 16px;
+    }
+    .action-card {
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+    }
+    .action-badge {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--accent);
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+    .action-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .action-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+    .action-avoid {
+      margin-top: 8px;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* P5 Checklist */
+    .checklist-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+    }
+    .checklist-item {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .check-badge {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      background: #15803d;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+    .check-info h4 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .check-info p {
+      font-size: 20px;
+      color: var(--ink-secondary);
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== P1: 封面（画报三段流：强制中部大图） ==================== -->
+  <section class="poster" id="p1">
+    <header class="header">
+      <div class="header-tag">体态康复 · 办公健康</div>
+      <div class="header-vol">VOL. 03 · 臀肌失忆真相</div>
+    </header>
+
+    <div class="content-fill" style="padding: 20px 0 14px;">
+      <!-- 顶部扎心反问与大标题 -->
+      <div>
+        <div class="cover-badge">久坐族核心痛点</div>
+        <h1 style="font-family: var(--font-serif); font-size: 52px; font-weight: 900; line-height: 1.22; letter-spacing: -0.5px; margin-bottom: 8px;">
+          久坐一天总觉得下背发酸？<br>
+          <span style="color: var(--accent); border-bottom: 5px solid var(--accent);">可能是你的屁股“失忆”了！</span>
+        </h1>
+        <p style="font-size: 22px; color: var(--ink-secondary); line-height: 1.4;">工位静坐8小时站起腰僵背酸？问题不在腰椎，而在身体后侧发动机休眠！</p>
+      </div>
+
+      <!-- 中部高清核心大图卡片（高度500px，磨砂浮层） -->
+      <div style="margin: 16px 0; border-radius: 20px; overflow: hidden; border: 2px solid var(--line); box-shadow: 0 12px 32px rgba(28,25,23,0.12); position: relative;">
+        <img src="../articles/20260911-112825/toutiao-cover-1.png" style="display: block; width: 100%; height: 500px; object-fit: cover;" />
+        <div style="position: absolute; bottom: 0; inset-inline: 0; background: linear-gradient(transparent, rgba(28,25,23,0.88)); padding: 22px 28px; color: #fff; display: flex; justify-content: space-between; align-items: flex-end;">
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: #fef08a;">🔬 死臀综合征力学真相</div>
+            <div style="font-size: 20px; color: #f1f5f9; margin-top: 4px;">臀中肌长期抑制休眠 ➔ 骨盆对侧下坠 ➔ 腰椎与竖脊肌超负荷代偿</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.22); backdrop-filter: blur(8px); padding: 6px 16px; border-radius: 20px; font-size: 18px; font-weight: 600;">
+            代偿恶性循环
+          </div>
+        </div>
+      </div>
+
+      <!-- 底部3组数据卡片与结论横条 -->
+      <div>
+        <div class="cover-stats-grid">
+          <div class="stat-card">
+            <div class="num">6h+</div>
+            <div class="label">日均静坐时长</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">100%</div>
+            <div class="label">下背被动代偿</div>
+          </div>
+          <div class="stat-card">
+            <div class="num">6组</div>
+            <div class="label">渐进唤醒动作</div>
+          </div>
+        </div>
+
+        <div class="banner">
+          <span class="banner-icon">💡</span>
+          <span>缓解腰酸不是拼命揉腰，重新唤醒身体后侧发动机（臀中肌）才是关键！</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看代偿机制与唤醒动作 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P2: 红绿对撞流 ==================== -->
+  <section class="poster" id="p2">
+    <header class="header">
+      <div class="header-tag">机理对撞</div>
+      <div class="header-vol">02 / 05 · 腰酸 vs 臀肌休眠</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">明明是腰在酸，为什么<br><span>祸根却在休眠的臀部？</span></h2>
+        <p class="page-desc">很多人把久坐腰酸归咎于腰部受凉劳损，却忽视了骨盆力学中轴的真正支柱。</p>
+      </div>
+
+      <div class="compare-grid">
+        <!-- 传统误区 -->
+        <div class="compare-card wrong">
+          <div>
+            <div class="tag-wrong">传统误区</div>
+            <h3 style="font-size: 26px; font-weight: 700; color: #991b1b; margin-bottom: 16px;">只盯紧腰部用力揉按</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 20px; color: var(--ink-secondary); line-height: 1.5;">
+              <li>• <strong>表面现象误导</strong>：以为哪里酸痛就是哪里出了毛病，反复捶腰贴膏药；</li>
+              <li>• <strong>忽略承托根基</strong>：把腰酸当成纯粹的腰肌劳损，频繁用护腰带绑紧；</li>
+              <li>• <strong>结果治标不治本</strong>：刚按完稍有放松，一旦回工位坐下一会儿又隐隐发酸；</li>
+              <li>• <strong>运动代偿加剧</strong>：不仅久坐族中招，跑者若臀肌不发力也会引发腰腿痛。</li>
+            </ul>
+          </div>
+          <div style="margin-top: 16px; padding: 14px 16px; background: #fee2e2; border-radius: 12px; font-size: 19px; color: #991b1b; font-weight: 600;">
+            ⚠️ 下背部肌肉整天都在替休眠的臀部扛苦工！
+          </div>
+        </div>
+
+        <!-- 科学真相 -->
+        <div class="compare-card right">
+          <div>
+            <div class="tag-right">生物力学真相</div>
+            <h3 style="font-size: 26px; font-weight: 700; color: #15803d; margin-bottom: 16px;">臀中肌失忆与动力链代偿</h3>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 14px; font-size: 20px; color: var(--ink-secondary); line-height: 1.5;">
+              <li>• <strong>持续神经抑制</strong>：久坐让髋关节持续屈曲，臀中肌被动拉长受压；</li>
+              <li>• <strong>神经信号减弱</strong>：大脑运动皮层对臀中肌的主动募集能力逐渐钝化；</li>
+              <li>• <strong>骨盆对侧下坠</strong>：行走站立时，无力的臀中肌无法托住骨盆；</li>
+              <li>• <strong>腰部超负荷代偿</strong>：竖脊肌和腰方肌被迫硬拉骨盆，导致持续痉挛酸胀。</li>
+            </ul>
+          </div>
+          <div style="margin-top: 16px; padding: 14px 16px; background: #dcfce7; border-radius: 12px; font-size: 19px; color: #15803d; font-weight: 600;">
+            ✅ 重新激活臀中肌神经回路，腰椎压力自然释放！
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding: 20px 24px; background: #fdfaf6;">
+        <p style="font-size: 21px; color: var(--ink); line-height: 1.5;">
+          <strong>💡 总结</strong>：治腰先治臀！打通“大脑-神经-臀中肌”的唤醒信号，骨盆稳定了，腰部才能真正放松。
+        </p>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看垫上唤醒动作 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P3: 垫上3大基础唤醒动作 ==================== -->
+  <section class="poster" id="p3">
+    <header class="header">
+      <div class="header-tag">垫上唤醒</div>
+      <div class="header-vol">03 / 05 · 孤立感知发力</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">垫上低冲击训练：<br><span>重新连线沉睡的臀中肌</span></h2>
+        <p class="page-desc">消除重力对骨盆的过多负担，在侧卧位孤立建立大脑对侧臀肌肉的神经募集能力。</p>
+      </div>
+
+      <div class="action-cards">
+        <div class="action-card">
+          <div class="action-badge">01</div>
+          <div class="action-info">
+            <h4>标准蚌式开合（Clamshell）</h4>
+            <p><strong>姿势细节</strong>：侧卧屈膝90度，脚跟并拢。<strong>骨盆必须严格垂直地面</strong>，仅向上缓慢打开上方膝盖，顶点稍停后慢落。每组 10～15 次。</p>
+            <div class="action-avoid">⚠️ 绝不能向后翻转骨盆借力！新手可背贴墙壁做参考。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">02</div>
+          <div class="action-info">
+            <h4>侧卧直腿侧抬（Side Lying Leg Raise）</h4>
+            <p><strong>发力细节</strong>：侧卧上方腿伸直呈一线。<strong>脚后跟朝上、脚尖微朝下</strong>，腿略向后上方抬起约 30～45 度。每组 10～15 次。</p>
+            <div class="action-avoid">⚠️ 严禁向前侧踢！后踢能精准避开大腿前侧股四头肌借力。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">03</div>
+          <div class="action-info">
+            <h4>侧卧马蹬/脚踏车开合（Side Bicycle）</h4>
+            <p><strong>动作轨迹</strong>：膝盖提至胸前，再平稳向后下方斜向蹬直推出。活动腿全程维持恒定水平高度，避免上下剧烈起伏。每组 10～15 次。</p>
+            <div class="action-avoid">⚠️ 核心收紧，保持髋关节稳定不晃动。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">🎯</span>
+        <span>做完后感觉臀部侧上方有温热酸胀感，说明目标肌肉已被精准叫醒！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看站姿进阶动作 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P4: 站姿进阶功能强化 ==================== -->
+  <section class="poster" id="p4">
+    <header class="header">
+      <div class="header-tag">功能进阶</div>
+      <div class="header-vol">04 / 05 · 站立力学重建</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">站姿功能激活：<br><span>把骨盆稳定带回日常生活</span></h2>
+        <p class="page-desc">学会对抗垂直重力，让臀中肌在动态单腿支撑中主动维持骨盆水平对齐。</p>
+      </div>
+
+      <div class="action-cards">
+        <div class="action-card">
+          <div class="action-badge">04</div>
+          <div class="action-info">
+            <h4>侧支撑骨盆起伏（Side Plank Hip Dips）</h4>
+            <p>手肘位于肩关节正下方，身体呈一条倾斜直线。缓慢匀速下沉侧髋，随后主动收缩侧臀肌群抬回中立位。每侧练习 8～10 次。</p>
+            <div class="action-avoid">⚠️ 动作缓慢有控制，切忌快速下砸损伤肩髋关节。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">05</div>
+          <div class="action-info">
+            <h4>台阶侧骨盆提拉（Standing Hip Hikes）</h4>
+            <p>单脚站在约 5cm 台阶边缘，支撑腿膝微屈但保持基本伸直；另一侧脚悬空自然下坠，依靠支撑侧臀中肌收缩将对侧骨盆水平提拉。每侧 10～15 次。</p>
+            <div class="action-avoid">⚠️ 支撑腿膝盖不要弯曲借力，全靠髋侧肌肉提拉。</div>
+          </div>
+        </div>
+
+        <div class="action-card">
+          <div class="action-badge">06</div>
+          <div class="action-info">
+            <h4>单腿下蹲对侧触碰（Single Leg Squat Reach）</h4>
+            <p>单腿站立微屈，躯干前倾平稳，用对侧手轻触支撑侧膝盖或脚尖外侧；骨盆保持水平中立，下肢力线对齐。每侧 8～10 次。</p>
+            <div class="action-avoid">⚠️ 严格监控骨盆水平，严禁支撑腿膝盖内扣。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner">
+        <span class="banner-icon">⚡</span>
+        <span>阶梯式进阶：从无负重侧卧到单腿动态负重，彻底固化骨盆稳定动力链！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>右滑查看日常防复发清单 ➔</span>
+    </footer>
+  </section>
+
+  <!-- ==================== P5: 日常防复发微习惯与打卡清单 ==================== -->
+  <section class="poster" id="p5">
+    <header class="header">
+      <div class="header-tag">日常防复发</div>
+      <div class="header-vol">05 / 05 · 微习惯清单</div>
+    </header>
+
+    <div class="content-fill">
+      <div class="title-block">
+        <h2 class="page-title">日常久坐自查：<br><span>4个微习惯卸掉下背负担</span></h2>
+        <p class="page-desc">把科学动作融入碎片时间，无需特殊器械，随时激活身体中轴守护力量。</p>
+      </div>
+
+      <div class="checklist-wrap">
+        <div class="checklist-item">
+          <div class="check-badge">01</div>
+          <div class="check-info">
+            <h4>50分钟定时站立微活动</h4>
+            <p>设定番茄钟或手机提醒，每坐 50 分钟起身走动 2 分钟，做 10 次站姿后踢腿或轻微提髋，及时打断神经抑制状态。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">02</div>
+          <div class="check-info">
+            <h4>警惕单侧二郎腿与半瘫坐姿</h4>
+            <p>跷二郎腿会导致骨盆倾斜扭曲，使单侧臀中肌持续被动受拉。确保双侧坐骨均匀接触椅面，膝关节呈自然直角。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">03</div>
+          <div class="check-info">
+            <h4>步态蹬地时有意识收缩臀部</h4>
+            <p>日常走路或爬楼梯时，把注意力集中在后腿落脚蹬地那一瞬，主动感受臀部收紧推进，把训练融入每一步。</p>
+          </div>
+        </div>
+
+        <div class="checklist-item">
+          <div class="check-badge">04</div>
+          <div class="check-info">
+            <h4>睡前5分钟垫上神经重置</h4>
+            <p>睡前在床垫或瑜伽垫上做 2 组蚌式开合与侧卧抬腿，帮助紧绷一整天的下背部彻底卸下代偿负担，安稳入睡。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="banner" style="margin-top: 14px;">
+        <span class="banner-icon">📌</span>
+        <span>收藏本篇清单，每天办公间隙打卡唤醒臀肌，让疲惫的下背真正轻松起来！</span>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span class="footer-author">食外 · 循证健康科普</span>
+      <span>长文已同步，欢迎在评论区聊聊你的感受</span>
+    </footer>
+  </section>
+
+</body>
+</html>

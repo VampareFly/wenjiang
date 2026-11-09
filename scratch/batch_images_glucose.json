@@ -1,0 +1,54 @@
+{
+  "jobs": 4,
+  "tasks": [
+    {
+      "id": "cover_raw",
+      "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. A serene, high-end editorial photograph of healthy metabolic dining. On a warm natural oak dining table bathed in morning sunlight, there is a beautifully partitioned modern ceramic plate: crisp fresh broccoli and kale greens, a tender pan-seared chicken breast, and a small portion of wholesome steamed purple rice. In the soft background blur, an elegant semi-transparent glowing amber-green line traces a smooth, gentle blood sugar wave, conveying balanced energy and clean wellness. Photorealistic, 8k resolution, uncluttered aesthetic. All text labels, signage, or props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/cover_raw.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu1",
+      "prompt": "Medical metabolic infographic, 16:9 aspect ratio. Clear side-by-side comparative chart of continuous glucose monitoring curves on an elegant light minimalist background. Red curve labeled in Simplified Chinese: '先吃米面主食：血糖暴涨暴跌' shows a steep mountain peak with severe crash. Green curve labeled in Simplified Chinese: '先吃蔬菜蛋白：峰值下降73%' shows a gentle, stable wave. Clearly labeled in bold Simplified Chinese: '餐后血糖峰值对比', '消除午后昏睡'. Clean infographic design, all typography strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/配图1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu2",
+      "prompt": "Bio-medical science illustration, 16:9 aspect ratio. Microscopic cross-section of the human small intestine showing dietary fiber action on a clean light medical background. In the intestinal lumen, delicate vegetable fiber strands weave into a protective golden-green permeable mesh layer over the intestinal microvilli, gently filtering and slowing down glowing yellow glucose molecules from rapidly penetrating into the capillary bloodstream, labeled in Simplified Chinese: '膳食纤维黏性屏障', '葡萄糖减速穿透', '小肠微绒毛', '平稳进入血液'. Beautiful 3D bio-render, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu3",
+      "prompt": "Clinical nutrition guide infographic, 16:9 aspect ratio. An aesthetic, structured meal sequencing guide on an elegant warm parchment background. Left section: '胃饥饿素对比' showing Ghrelin rebound after 2.5 hours vs 5 hours suppression, labeled in Simplified Chinese: '胃饥饿素抑制长达5小时'. Right section: '一日三餐进食顺序3步法': Step 1: Icon of fresh green salad, labeled in Simplified Chinese: '第一步：先吃绿叶蔬菜'. Step 2: Icon of fish and eggs, labeled in Simplified Chinese: '第二步：享用优质蛋白'. Step 3: Icon of rice and sweet potato, labeled in Simplified Chinese: '第三步：最后摄入碳水'. Clean Scandinavian wellness layout, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/配图3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao1",
+      "prompt": "Hyper-realistic health editorial photography, 16:9 aspect ratio. A dramatic split-screen visual for health news headline. Left side: an Asian office professional struggling with severe afternoon fatigue and brain fog, slumping over a desk near a half-eaten bowl of noodles. Right side: an energetic colleague smiling with focused clarity beside a balanced plate of fresh greens and protein, accompanied by an artistic smooth glucose curve. Bold, clean Chinese typography with Chinese text: '吃同样一顿饭' and '血糖峰值暴降70%'. Cinematic lighting, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/toutiao-cover-1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "Striking medical educational illustration, 16:9 aspect ratio. An aesthetic 3D anatomical model of the human stomach and small intestine, showing the physical 'sink and pipe' digestion model. Vegetables entering first form a protective mesh layer at the stomach base, preventing glucose flooding. Prominently labeled with bold Chinese text: '先菜后饭' and '纤维物理拦截网'. High contrast, scientific wellness atmosphere, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao3",
+      "prompt": "Bright, clean, uplifting lifestyle flat lay photography, 16:9 aspect ratio. A pristine modern kitchen counter showcasing the 3-step meal sequence ingredients in stylish white porcelain dishes: a vibrant bowl of broccoli and spinach, grilled salmon fillets with lemon, and a small bowl of steamed brown rice. Soft natural morning lighting, labeled cleanly in Simplified Chinese: '进食顺序法则' and '不用节食稳血糖'. Magazine quality, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-152955/toutiao-cover-3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}

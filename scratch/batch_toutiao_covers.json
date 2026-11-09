@@ -1,0 +1,20 @@
+[
+  {
+    "prompt": "Realistic documentary editorial photography, 16:9 aspect ratio. A 30-year-old Asian woman sitting at a modern office desk holding a can of zero-sugar soda clearly labeled in Simplified Chinese \"0糖气泡水\", looking conflicted and hungry while staring at a pastry nearby. Authentic atmospheric office lighting, highly detailed 8k. All text and labels on the drink can, packaging, and desk accessories must be strictly in Simplified Chinese characters. Absolutely NO English words, NO English brand names, NO English alphabet.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end medical and conceptual photography, 16:9 aspect ratio, a split contrast composition: left side showing an iced glass of clear chemical zero-sugar soda with a clear Chinese label \"0卡代糖水\" and a turbulent red hunger wave; right side showing a glowing translucent gut-brain anatomical visualization bathed in calm blue light with pure Simplified Chinese labels \"肠脑轴\" and \"多巴胺失衡\". Crisp professional lighting, 8k. All text labels must be exclusively in Simplified Chinese characters. Absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. High-tech medical visualization of the human gut-brain axis, showing intricate glowing blue and cyan neural fibers of the vagus nerve connecting the brainstem down to glowing neuropod cells in the intestinal epithelium, floating transparent molecular models of artificial sweeteners contrasted with real glucose crystals, deep obsidian and midnight blue background, futuristic neuroscience aesthetic, 8k, photorealistic cinematic lighting. Any text or anatomical labels MUST be exclusively in Simplified Chinese: \"脑干\", \"迷走神经\", \"小肠黏膜\", \"神经突足细胞\", \"人工代糖\", \"葡萄糖\". Absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/scratch/cover_raw.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

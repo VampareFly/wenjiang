@@ -98,11 +98,22 @@ class ValidatorTests(unittest.TestCase):
         self.write("article.md", VALID_ARTICLE)
         self.write(
             "cover_prompt.md",
-            "# 封面图提示词\n\nWeChat Official Account article cover, primary crop 2.35:1\n\n"
+            "# 封面图提示词\n\nWeChat Official Account article cover, primary crop 2.35:1, all text in Simplified Chinese\n\n"
             "## 【配图1：久坐后的身体变化】\n\n"
             "## 【头条封面1：痛点】\n\n## 【头条封面2：反差】\n\n## 【头条封面3：赋能】\n",
         )
         self.assertEqual([], validator.validate_prompts(self.root))
+
+    def test_prompts_require_simplified_chinese(self):
+        self.write("article.md", VALID_ARTICLE)
+        self.write(
+            "cover_prompt.md",
+            "# 封面图提示词\n\nWeChat Official Account article cover, primary crop 2.35:1\n\n"
+            "## 【配图1：久坐后的身体变化】\n\n"
+            "## 【头条封面1：痛点】\n\n## 【头条封面2：反差】\n\n## 【头条封面3：赋能】\n",
+        )
+        errors = validator.validate_prompts(self.root)
+        self.assertTrue(any("全域纯中文生图约束" in err for err in errors))
 
 
     def test_html_requires_relative_image_and_alt(self):
@@ -116,6 +127,44 @@ class ValidatorTests(unittest.TestCase):
             "article.html",
             '<p>正文</p><img src="配图1.png" alt="久坐后的身体变化">',
         )
+        self.assertEqual([], validator.validate_html(self.root))
+
+    def test_html_rejects_non_empty_leaf_attribute(self):
+        self.write("article.md", VALID_ARTICLE)
+        self.write(
+            "article.html",
+            '<p><span leaf="这是正文内容"></span></p><img src="配图1.png" alt="久坐后的身体变化">',
+        )
+        errors = validator.validate_html(self.root)
+        self.assertTrue(any("非空 leaf 属性" in err for err in errors))
+
+    def test_html_rejects_missing_body_text(self):
+        long_md = (
+            "---\ntitle: 测试长文\ndescription: 描述\nauthor: 食外\n---\n\n"
+            + "这是一段用于测试长文章正文完整性的中文文本内容。" * 15
+            + "\n\n【配图1：久坐后的身体变化】\n"
+        )
+        self.write("article.md", long_md)
+        self.write(
+            "article.html",
+            '<p>仅几个字</p><img src="配图1.png" alt="久坐后的身体变化">',
+        )
+        errors = validator.validate_html(self.root)
+        self.assertTrue(any("正文文字严重缺失" in err for err in errors))
+
+    def test_html_accepts_valid_leaf_span_and_text(self):
+        long_md = (
+            "---\ntitle: 测试长文\ndescription: 描述\nauthor: 食外\n---\n\n"
+            + "这是一段用于测试长文章正文完整性的中文文本内容。" * 15
+            + "\n\n【配图1：久坐后的身体变化】\n"
+        )
+        self.write("article.md", long_md)
+        valid_html = (
+            '<p><span leaf="">'
+            + "这是一段用于测试长文章正文完整性的中文文本内容。" * 15
+            + '</span></p><img src="配图1.png" alt="久坐后的身体变化">'
+        )
+        self.write("article.html", valid_html)
         self.assertEqual([], validator.validate_html(self.root))
 
     def test_fix_html_images_replaces_existing_style(self):

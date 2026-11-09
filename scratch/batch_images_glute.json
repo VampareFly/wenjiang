@@ -1,0 +1,54 @@
+{
+  "jobs": 4,
+  "tasks": [
+    {
+      "id": "cover_raw",
+      "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. A serene, high-end editorial photograph of ergonomic wellness and physical rehabilitation. In a minimalist, sunlit modern office with warm wooden floors, an Asian professional stretches gracefully beside an ergonomic desk. In the artistic background, subtle glowing golden-amber anatomical lines highlight the human pelvis, hip, and lumbar spine alignment, conveying posture balance and spinal relief. Clean, elegant, warm cinematic morning light, photorealistic, 8k resolution, completely free of clutter. All text labels, signage, or props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/cover_raw.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu1",
+      "prompt": "Medical biomechanics infographic, 16:9 aspect ratio. A clear anatomical comparison diagram explaining 'Dead Butt Syndrome' and lumbar compensation on a clean light medical background. Left section: '久坐休眠' showing a person sitting at a desk with gluteus medius muscle compressed and grayed out, labeled in Simplified Chinese: '臀中肌休眠', '神经抑制'. Right section: '骨盆倾斜与腰椎代偿' showing standing posture where weak hip causes pelvic tilt drop on the opposite side, forcing the lower back spine and erector spinae to contract painfully under red tension arrows, labeled in Simplified Chinese: '骨盆下坠', '腰椎过度受力', '竖脊肌代偿拉扯'. High aesthetic medical illustration, clean modern typography, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/配图1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu2",
+      "prompt": "Physical therapy exercise guide infographic, 16:9 aspect ratio. Two-panel clean rehabilitation tutorial on a light warm cream background. Left panel: '标准蚌式开合' showing a person lying on their side with knees bent at 90 degrees, feet glued together, hips strictly perpendicular to the floor without rolling back, top knee opening smoothly with glowing amber highlight on gluteus medius, labeled in Simplified Chinese: '蚌式开合', '骨盆垂直地面', '脚跟贴合'. Right panel: '侧卧直腿侧抬' showing side-lying posture with top leg straight, heel pointing slightly upward and toes slightly downward, kicking back-upward, labeled in Simplified Chinese: '侧卧抬腿', '脚跟朝上脚尖朝下', '微向后抬孤立臀肌'. Clear posture arrows, clinical precision, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu3",
+      "prompt": "Functional rehabilitation training infographic, 16:9 aspect ratio. High-end athletic wellness guide showing standing gluteus medius activation exercises on an elegant minimalist studio background. Panel 1: '台阶骨盆提拉' showing a person standing on a small 2-inch step with supporting leg straight, hanging hip dropping and being hiked up horizontally by hip abductor contraction, labeled in Simplified Chinese: '台阶骨盆提拉', '支撑腿伸直', '水平提拉骨盆'. Panel 2: '单腿平衡下蹲' showing single-leg stance, hips perfectly level without tilting, reaching toward opposite knee, labeled in Simplified Chinese: '单腿下蹲触碰', '骨盆水平稳定', '下肢力线对齐'. Clean vector and 3D human form, soft natural lighting, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/配图3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao1",
+      "prompt": "Hyper-realistic health editorial photography, 16:9 aspect ratio. A dramatic visual of office fatigue and posture breakdown. An Asian office worker stands up from a modern workstation, pressing their hand against their aching lower back with a grimace of pain. In an artistic semi-transparent overlay, an anatomical diagram of the pelvis and hips glows, contrasting an inactive cold blue glute muscle against an overloaded hot red lumbar spine. Bold, clean Chinese graphic typography with Chinese text: '久坐腰酸？' and '臀肌失忆真相'. Modern medical aesthetics, cinematic lighting, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/toutiao-cover-1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "Clean athletic medical illustration, 16:9 aspect ratio. An active Asian woman performing a precise clamshell exercise on a sage green yoga mat in a sunlit Pilates studio. Glowing golden energy lines highlight the gluteus medius muscle on the outer hip, showing correct activation without pelvic rotation. Labeled with bold modern Chinese typography: '蚌式开合' and '唤醒沉睡臀肌'. Fresh, inspiring, scientific wellness atmosphere, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao3",
+      "prompt": "High-end functional physical training photography, 16:9 aspect ratio. A trainer demonstrating standing hip hike balance on a wooden aerobic step in a bright Scandinavian-style rehabilitation clinic. Clear horizontal alignment laser-line projection across the hips demonstrating pelvic stability and level posture. Labeled in crisp Simplified Chinese: '骨盆水平对齐' and '卸掉腰椎压力'. Professional health magazine aesthetic, natural light, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-112825/toutiao-cover-3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-08-24T01:40:53+00:00",
+  "updated_at": "2026-11-09T02:32:57+00:00",
   "entries": [
     {
       "url_original": "https://youtu.be/qB2PpDoUh30?si=RS8_k5gylkYajAjH",
@@ -541,6 +541,536 @@
       "media_id": "HbIbdPKCxVEYs2lDI5JYjQWEJkiZ_6AQG5l9IG1QUhe3fXtSCc53-ltH_mNdZ9E_",
       "title": "戒了海鲜啤酒尿酸依然500+？拆解高尿酸与痛风的天然排酸方案",
       "processed_at": "2026-08-24T01:40:53+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=wKD0f2miQio",
+      "url_normalized": "https://youtu.be/wKD0f2miQio",
+      "article_dir": "articles/20260824-162147",
+      "subtitle_file": "#1 Absolute Worst Fatty Liver Advice Your Doctor Gives You.en.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjdYRlwkmTDMagrI_svguLr0E_hMnp0ZnLx59Zow1WUA_",
+      "title": "一口肥肉不碰为何查出脂肪肝？拆解果糖“无声炼油”与逆转方案",
+      "processed_at": "2026-08-25T01:30:50+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=DrEkberg_Mitochondria_Energy",
+      "url_normalized": "https://youtu.be/DrEkberg_Mitochondria_Energy",
+      "article_dir": "articles/20260828-145500",
+      "subtitle_file": "source.txt",
+      "link_file": "source-link.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjTRm93s8xfWuriYwc2rV8m5yPHscQdvXjT0EB1zbeDNP",
+      "title": "明明睡够8小时为何整天乏力？医生指出：线粒体缺乏关键营养素",
+      "processed_at": "2026-08-28T07:45:00+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=DrEkberg_Insulin_Resistance_Normal_Blood_Sugar",
+      "url_normalized": "https://youtu.be/DrEkberg_Insulin_Resistance_Normal_Blood_Sugar",
+      "article_dir": "articles/20260831-120830",
+      "subtitle_file": "source.txt",
+      "link_file": "source-link.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjVu38p57Of7bX1iHo3z_aVKRDdDubHfwz9Hyg3-cRtRL",
+      "title": "空腹血糖正常就没事？医生提醒：出现这3个信号，胰岛素早已超标",
+      "processed_at": "2026-08-31T05:35:14+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/Zt6WaTBnj7E",
+      "url_normalized": "https://youtu.be/Zt6WaTBnj7E",
+      "article_dir": "articles/20260908-144231",
+      "subtitle_file": "youtube_Zt6WaTBnj7E.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjWljN7vtlrj8vrWXjvtRgSVTCLRgNF6azDU7atEbXtQE",
+      "title": null,
+      "processed_at": "2026-09-08T08:07:36+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/wpY1_RxjZQ8",
+      "url_normalized": "https://youtu.be/wpY1_RxjZQ8",
+      "article_dir": "articles/20260909-084424",
+      "subtitle_file": "youtube_wpY1_RxjZQ8.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjU8Pp1AatFu3QFk1zjc8KNIlA3wY-fGWI5RZZHT0AHRK",
+      "title": null,
+      "processed_at": "2026-09-09T02:26:50+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/bC4ZYd5eUEo",
+      "url_normalized": "https://youtu.be/bC4ZYd5eUEo",
+      "article_dir": "articles/20260909-162111",
+      "subtitle_file": "youtube_bC4ZYd5eUEo.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjeNhm2Um9el_C7Jqg4BXgogjd8clt6RJZrefi1upPpRz",
+      "title": null,
+      "processed_at": "2026-09-10T00:29:54+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/zIk9MTX4AC4",
+      "url_normalized": "https://youtu.be/zIk9MTX4AC4",
+      "article_dir": "articles/20260911-084451",
+      "subtitle_file": "youtube_zIk9MTX4AC4.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjW2f2AwWqdcEPpQpvlkB06aURu1d8d0TH49EtTZrEgE9",
+      "title": null,
+      "processed_at": "2026-09-11T01:17:56+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/W084_TFiP4g",
+      "url_normalized": "https://youtu.be/W084_TFiP4g",
+      "article_dir": "articles/20260911-093839",
+      "subtitle_file": "youtube_W084_TFiP4g.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjcHoWIQRAvft36tWyi0cnEEZdHNom7NsPNDKtN_rvKQB",
+      "title": "睡醒总觉得脖子发紧？枕头可能一开始就垫错了位置",
+      "processed_at": "2026-09-11T02:01:55+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/4h75JTMGsAA",
+      "url_normalized": "https://youtu.be/4h75JTMGsAA",
+      "article_dir": "articles/20260911-105123",
+      "subtitle_file": "youtube_4h75JTMGsAA.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjbTCs5PO6cWodbAKRp2pA4wvFdOWdD_pl3EfoQvYURXO",
+      "title": "每天老老实实喝够八杯水，为什么身体还是处于“假性脱水”？",
+      "processed_at": "2026-09-11T03:12:30+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/JjUqDs50wpg",
+      "url_normalized": "https://youtu.be/JjUqDs50wpg",
+      "article_dir": "articles/20260911-112825",
+      "subtitle_file": "youtube_JjUqDs50wpg.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjeVZMnM8L4-SUjdMhBpv6OGBw45a36uIiCibkXY6gEEq",
+      "title": "久坐一天下背发酸？可能是你的臀肌“失忆”了",
+      "processed_at": "2026-09-11T03:46:03+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/qgO6StknhME",
+      "url_normalized": "https://youtu.be/qgO6StknhME",
+      "article_dir": "articles/20260911-142743",
+      "subtitle_file": "youtube_qgO6StknhME.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQ8sH3qXFoGB_Y8xR6n21qZbsWxcML5PpTaJeHnPdHQ9",
+      "title": "总觉得胸口反酸烧心？睡姿重力学：为什么胃不好必须向左侧睡",
+      "processed_at": "2026-09-11T06:50:52+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/HEEUrIQ_3O4",
+      "url_normalized": "https://youtu.be/HEEUrIQ_3O4",
+      "article_dir": "articles/20260911-152955",
+      "subtitle_file": "youtube_HEEUrIQ_3O4.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQmUZ1crbA_SzrtEnAWNN-0kdhw0mj_titmA9Edw3yyP",
+      "title": "吃同样一顿饭血糖下降70%？生物化学家拆解进食顺序法则",
+      "processed_at": "2026-09-11T07:49:30+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/JcsNqgu3F9U",
+      "url_normalized": "https://youtu.be/JcsNqgu3F9U",
+      "article_dir": "articles/20260916-155654",
+      "subtitle_file": "youtube_JcsNqgu3F9U.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjR6fvw1xAoHm4W9ifJGPvHTLPiKs7mTKJ4iNGrGf2sWG",
+      "title": "两周肝脏减脂近50%？临床拆解不挨饿的肝脏排脂法",
+      "processed_at": "2026-09-16T08:20:02+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/pqpAxsloj-g",
+      "url_normalized": "https://youtu.be/pqpAxsloj-g",
+      "article_dir": "articles/20260922-130824",
+      "subtitle_file": "youtube_pqpAxsloj-g.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjU5wmHHKQiAoNKemKQF71qaovkgGYwn_EEh3y5KWwyKm",
+      "title": "不伤膝盖不挨饿，为什么快走是更稳妥的减脂与代谢基石",
+      "processed_at": "2026-09-22T05:47:10+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=M9v18aK09pq",
+      "url_normalized": "https://youtu.be/M9v18aK09pq",
+      "article_dir": "articles/20260921-132239",
+      "subtitle_file": "source.srt",
+      "link_file": "source-link.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjc4xmLHpY7PDbpOVj5vtuApwqnf3IIrZaSGwmcEW82jp",
+      "title": "晚上整夜做梦浅睡易醒？别乱吃褪黑素，大脑可能缺了这颗“镁”",
+      "processed_at": "2026-09-23T01:12:04+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/21sTKlIfd4Y",
+      "url_normalized": "https://youtu.be/21sTKlIfd4Y",
+      "article_dir": "articles/20260923-094029",
+      "subtitle_file": "youtube_21sTKlIfd4Y.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYja4vQXVFEq1fLgzmuCEU0G8QQMwCAaOkO8usKDr0yxTa",
+      "title": "聚餐饮酒后头痛心慌？为什么狂喝纯水反而加重细胞脱水",
+      "processed_at": "2026-09-23T02:31:48+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/gbQFSMayJxk",
+      "url_normalized": "https://youtu.be/gbQFSMayJxk",
+      "article_dir": "articles/20260923-130652",
+      "subtitle_file": "youtube_gbQFSMayJxk.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQjWiq48uzz9tm5sx9NnPEropfBdTpYywsKMHB0fHabC",
+      "title": "住酒店总失眠多梦？神经科学拆解“首夜效应”与核心体温开关",
+      "processed_at": "2026-09-23T05:55:19+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/8KkKuTCFvzI",
+      "url_normalized": "https://youtu.be/8KkKuTCFvzI",
+      "article_dir": "articles/20260923-135908",
+      "subtitle_file": "youtube_8KkKuTCFvzI.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjZYXzlZX_ANsYzMGc5U5k5CYKfVFUd1Tvp-NV7nYqfbD",
+      "title": "常回家陪伴是最好的抗衰补剂？哈佛85年研究：亲情联结保护大脑",
+      "processed_at": "2026-09-23T06:31:40+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/1RH0-ScA-JQ",
+      "url_normalized": "https://youtu.be/1RH0-ScA-JQ",
+      "article_dir": "articles/20260923-150607",
+      "subtitle_file": "youtube_1RH0-ScA-JQ.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQs51gqfLSpWwOz0A2QSibKbPh0qZgI0oKvUI7rb9chx",
+      "title": "假期大吃大喝胖了5斤？生化机制拆解“假胖”与节后排水平胀法",
+      "processed_at": "2026-09-23T07:23:44+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/RTgJSQtvo88",
+      "url_normalized": "https://youtu.be/RTgJSQtvo88",
+      "article_dir": "articles/20260928-151329",
+      "subtitle_file": "youtube_RTgJSQtvo88.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjZHQj3PxoZ13DhxGDpODldG4N7v2kBQdGgvDe70Kn6yk",
+      "title": "周末总想睡到中午，补觉别只盯着时长",
+      "processed_at": "2026-09-28T08:17:27+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/xKvlK7OqZso",
+      "url_normalized": "https://youtu.be/xKvlK7OqZso",
+      "article_dir": "articles/20260928-152209",
+      "subtitle_file": "youtube_xKvlK7OqZso.vtt",
+      "link_file": "links.txt",
+      "media_id": "100000445",
+      "title": "节后脑雾提不起劲？斯坦福神经科学：掌控4种脑内化学物质",
+      "processed_at": "2026-09-28T08:33:26+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/ku3mOcH9pXE",
+      "url_normalized": "https://youtu.be/ku3mOcH9pXE",
+      "article_dir": "articles/20260930-085004",
+      "subtitle_file": "youtube_ku3mOcH9pXE.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjWLH0d3GIIplEPOo8e4VORdzQvq4cT3uHptdnkxqefvQ",
+      "title": null,
+      "processed_at": "2026-09-30T01:19:47+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/-a5ySlyjTHg",
+      "url_normalized": "https://youtu.be/-a5ySlyjTHg",
+      "article_dir": "articles/20260930-085007",
+      "subtitle_file": "youtube_-a5ySlyjTHg.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQ6aAndU1BJNqmELc9lOFFyM0p6ueVPnukBDbUYSgCtN",
+      "title": null,
+      "processed_at": "2026-09-30T01:24:36+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/S_SrHS8FvMM",
+      "url_normalized": "https://youtu.be/S_SrHS8FvMM",
+      "article_dir": "articles/20261006-122051",
+      "subtitle_file": "youtube_S_SrHS8FvMM.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjVoCLchqs7dPR2hpRzOEIJCQhhXnAHlf7ucZIeEU3eMg",
+      "title": null,
+      "processed_at": "2026-10-06T05:12:02+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/MxovSnvSO4E",
+      "url_normalized": "https://youtu.be/MxovSnvSO4E",
+      "article_dir": "articles/20261006-131502",
+      "subtitle_file": "youtube_MxovSnvSO4E.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjSrRKwXb3BWa_nxyItL1UrQCG-i_5HI-m_Cb4BS8-6Fh",
+      "title": null,
+      "processed_at": "2026-10-06T07:14:29+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/u3WQut5MPH8",
+      "url_normalized": "https://youtu.be/u3WQut5MPH8",
+      "article_dir": "articles/20261006-153249",
+      "subtitle_file": "youtube_u3WQut5MPH8.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjbZUAX4ehiBuciJVqITvXEdtE8s9rHbjbw2eyw2KDncC",
+      "title": null,
+      "processed_at": "2026-10-06T07:42:02+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/xEg9b3YPJj0",
+      "url_normalized": "https://youtu.be/xEg9b3YPJj0",
+      "article_dir": "articles/20261007-185145",
+      "subtitle_file": "youtube_xEg9b3YPJj0.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjdgC49YhMYshnj53zg66m1jG32MBgan8fSD1WrdGeIoD",
+      "title": null,
+      "processed_at": "2026-10-07T11:26:55+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/gqfsDpqH1EI",
+      "url_normalized": "https://youtu.be/gqfsDpqH1EI",
+      "article_dir": "articles/20261007-184958",
+      "subtitle_file": "youtube_gqfsDpqH1EI.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQrdXdohnXjCmG8_PqJgUD4PH7WMwAn0-oh67SNBj8qF",
+      "title": null,
+      "processed_at": "2026-10-07T11:37:29+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/RqMWvhvt0DQ",
+      "url_normalized": "https://youtu.be/RqMWvhvt0DQ",
+      "article_dir": "articles/20261012-082905",
+      "subtitle_file": "youtube_RqMWvhvt0DQ.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjahFLXyKzS9LJUjSAkVCqddgnY-t1Zf1Z-KPu5WMmj81",
+      "title": null,
+      "processed_at": "2026-10-12T00:47:18+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/D_UJaEZe9gg",
+      "url_normalized": "https://youtu.be/D_UJaEZe9gg",
+      "article_dir": "articles/20261013-143800",
+      "subtitle_file": "youtube_D_UJaEZe9gg.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYje4cnDvDaOZybAG3FkSkWx2SmZJQt4FGOSkBVjQ8I3H3",
+      "title": "骨头缺钙血管却钙化？研究拆解：维生素K2如何引钙入骨护血管",
+      "processed_at": "2026-10-13T06:51:07+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/wUEl8KrMz14",
+      "url_normalized": "https://youtu.be/wUEl8KrMz14",
+      "article_dir": "articles/20261013-152039",
+      "subtitle_file": "youtube_wUEl8KrMz14.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjbBVTUVhlE6-YsiVZvGXoeaAI-F0IEPE7pMBzDGPXqKR",
+      "title": "坐着办公一整天身体在经历什么？解剖学拆解：久坐的微观损伤",
+      "processed_at": "2026-10-13T07:27:55+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/0dwLdqseOjU",
+      "url_normalized": "https://youtu.be/0dwLdqseOjU",
+      "article_dir": "articles/20261013-154753",
+      "subtitle_file": "youtube_0dwLdqseOjU.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQZomamghkWmHdf-275AyoKWOxjnU18ar-onv0_xGyQ2",
+      "title": "晨练好还是晚练好？12周临床对比：男女最佳运动时间大不同",
+      "processed_at": "2026-10-13T07:54:00+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/3ykJdD-W_n8",
+      "url_normalized": "https://youtu.be/3ykJdD-W_n8",
+      "article_dir": "articles/20261013-155758",
+      "subtitle_file": "youtube_3ykJdD-W_n8.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjU32yKhRaia6B-AJk0Fl_ZP3TkkrKmONMj7HPuDsXp8b",
+      "title": null,
+      "processed_at": "2026-10-13T08:03:55+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/Ibj1k3IZTNU",
+      "url_normalized": "https://youtu.be/Ibj1k3IZTNU",
+      "article_dir": "articles/20261016-104652",
+      "subtitle_file": "youtube_Ibj1k3IZTNU.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjX1epIIhLugSwU6-cH2dPaukyIHG1vwTodU_laz_tTyp",
+      "title": null,
+      "processed_at": "2026-10-16T03:14:15+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/SheA_ABmiDo",
+      "url_normalized": "https://youtu.be/SheA_ABmiDo",
+      "article_dir": "articles/20261019-083147",
+      "subtitle_file": "youtube_SheA_ABmiDo.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjbepNzvT_aOnvWuaUnQnv5vrU75X2glq17X9TuTbcw1m",
+      "title": null,
+      "processed_at": "2026-10-19T00:54:02+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/f6yAY1oZUOA",
+      "url_normalized": "https://youtu.be/f6yAY1oZUOA",
+      "article_dir": "articles/20261019-093438",
+      "subtitle_file": "youtube_f6yAY1oZUOA.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjcIGOdct6ZD_wJZJpDfM7Stc0fwDz4qqVLlUBjNKe-9l",
+      "title": "鼻呼吸多摄取两成氧气，5000人追踪发现肺活量关联长寿",
+      "processed_at": "2026-10-19T01:52:47+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/oLfnPLKsd68",
+      "url_normalized": "https://youtu.be/oLfnPLKsd68",
+      "article_dir": "articles/20261020-101853",
+      "subtitle_file": "youtube_oLfnPLKsd68.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjY53H8Ou49qjNwKLO9SXQKM9HsrlFlKEshB7cA23GL4W",
+      "title": "甜菜缨每杯含钾1300毫克，野生三文鱼与牛油果兼顾低糖补钾",
+      "processed_at": "2026-10-20T02:40:47+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/19aunTn3SfI",
+      "url_normalized": "https://youtu.be/19aunTn3SfI",
+      "article_dir": "articles/20261021-204718",
+      "subtitle_file": "youtube_19aunTn3SfI.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjR_kfzRSvIHaeiIROpa8oCqt3XBYVTPUVRIwg-wnMzw7",
+      "title": "下腹脂肪先长后消遵循全身规律，热量赤字需配合高蛋白守住肌肉",
+      "processed_at": "2026-10-21T13:06:47+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/WDv4AWk0J3U",
+      "url_normalized": "https://youtu.be/WDv4AWk0J3U",
+      "article_dir": "articles/20261022-152956",
+      "subtitle_file": "youtube_WDv4AWk0J3U.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjeA18fqR6cCE7BE-Yf8Ehb1KfAtuzwI_qNOCCx18krFG",
+      "title": null,
+      "processed_at": "2026-10-22T08:04:56+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/3Y2vxKsaK9A",
+      "url_normalized": "https://youtu.be/3Y2vxKsaK9A",
+      "article_dir": "articles/20261023-161838",
+      "subtitle_file": "youtube_3Y2vxKsaK9A.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjf_3wevpETPUX6NTOMpuofBIO-zJdKMaK-hfHdn-qulF",
+      "title": null,
+      "processed_at": "2026-10-23T09:18:53+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/R3gnuGfhh88",
+      "url_normalized": "https://youtu.be/R3gnuGfhh88",
+      "article_dir": "articles/20261026-092009",
+      "subtitle_file": "youtube_R3gnuGfhh88.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjeUv6lddZ2yDg62nG7YOVGalJyclt6AqDZvqh1bwK-ea",
+      "title": null,
+      "processed_at": "2026-10-26T01:33:59+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/SGTF8zYNYqw",
+      "url_normalized": "https://youtu.be/SGTF8zYNYqw",
+      "article_dir": "articles/20261029-084955",
+      "subtitle_file": "youtube_SGTF8zYNYqw.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjXh5YQHy0fImwCbpg4uwSxg41-I6GMXNiSaTkERrK8fG",
+      "title": null,
+      "processed_at": "2026-10-29T01:05:48+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/fEC0fgvOabM",
+      "url_normalized": "https://youtu.be/fEC0fgvOabM",
+      "article_dir": "articles/20261029-082030",
+      "subtitle_file": "youtube_fEC0fgvOabM.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYje_-FakzWSI-8NpAx609a6TTmdUxZenZu209P-kZn-g1",
+      "title": null,
+      "processed_at": "2026-10-29T01:06:39+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/_ZwGXMIsRX8",
+      "url_normalized": "https://youtu.be/_ZwGXMIsRX8",
+      "article_dir": "articles/20261029-113915",
+      "subtitle_file": "youtube__ZwGXMIsRX8.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjc1MDgZ1tzXLpv8iAcA_sCBUO1XP1HWqrD5GcWDxCIVT",
+      "title": "发际线后移发质变细？斯坦福教授拆解毛囊微型化与科学防脱",
+      "processed_at": "2026-10-29T04:08:44+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=p3JLaF_4Tz8",
+      "url_normalized": "https://youtu.be/p3JLaF_4Tz8",
+      "article_dir": "articles/20261102-175900",
+      "subtitle_file": "youtube_p3JLaF_4Tz8.txt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjciLFgFnjAGJmuTvcDYiSDVGuTFmMFz-hQsAGcWQjyOP",
+      "title": "越刷手机越空虚？斯坦福成瘾专家拆解多巴胺天平与动力重置",
+      "processed_at": "2026-11-03T02:13:51+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=ntfcfJ28eiU",
+      "url_normalized": "https://youtu.be/ntfcfJ28eiU",
+      "article_dir": "articles/20261103-101600",
+      "subtitle_file": "youtube_ntfcfJ28eiU.txt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjQnO4-3rE41h2ypzDn3Or-c3h7lKdJY6yXeF770SHbkz",
+      "title": "心慌焦虑时别靠硬扛：两次吸气一次长呼能即时拉慢心率",
+      "processed_at": "2026-11-03T02:39:08+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=-moW9jvvMr4",
+      "url_normalized": "https://youtu.be/-moW9jvvMr4",
+      "article_dir": "articles/20261103-121600",
+      "subtitle_file": "youtube_-moW9jvvMr4.txt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjcZondUhZcFF5HdDZgMB6t9Mo3mzRzVOnGwTGbnNeeI6",
+      "title": "想戒掉坏习惯别靠硬忍：用好奇心给大脑奖赏回路祛魅",
+      "processed_at": "2026-11-03T07:04:42+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=5SGyYOC3OOU",
+      "url_normalized": "https://youtu.be/5SGyYOC3OOU",
+      "article_dir": "articles/20261103-151200",
+      "subtitle_file": "youtube_5SGyYOC3OOU.txt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjf1mD8LhqzH43EEsBTBT7FcZw6O5OgJRkzMEiy5ZyhFD",
+      "title": null,
+      "processed_at": "2026-11-03T07:56:03+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=o3I0mJ2RfU0",
+      "url_normalized": "https://youtu.be/o3I0mJ2RfU0",
+      "article_dir": "articles/20261104-154300",
+      "subtitle_file": "quitting_smoking_timeline.txt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjSzbVqM3xMJTjcrvqF5uSHb1N-iVrbihk2K2-6qEmQk5",
+      "title": null,
+      "processed_at": "2026-11-04T08:07:48+00:00"
+    },
+    {
+      "url_original": "https://www.youtube.com/watch?v=hEiLsMiTF2Q",
+      "url_normalized": "https://youtu.be/hEiLsMiTF2Q",
+      "article_dir": "articles/20261104-161700",
+      "subtitle_file": "eggs_cholesterol_norwitz.txt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjR0jk_doQosEsaE74raQ2QHqjw1DrO2VFyq3G1s3YzmZ",
+      "title": null,
+      "processed_at": "2026-11-05T10:52:43+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/0xMc1CJkZIo",
+      "url_normalized": "https://youtu.be/0xMc1CJkZIo",
+      "article_dir": "articles/20261106-134343",
+      "subtitle_file": "youtube_0xMc1CJkZIo.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjbs1VRGmi19qttE_XlmzW3NLfLL7jfj_bDKhJQ8PaCRW",
+      "title": null,
+      "processed_at": "2026-11-06T06:48:41+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/PctECZdenuc",
+      "url_normalized": "https://youtu.be/PctECZdenuc",
+      "article_dir": "articles/20261106-145903",
+      "subtitle_file": "youtube_PctECZdenuc.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjd8sftwoB4fvtD4NjZ9Gs3GTsVcmiUceRYpZlXzyqUgl",
+      "title": null,
+      "processed_at": "2026-11-06T10:13:43+00:00"
+    },
+    {
+      "url_original": "https://youtu.be/jXTY8WwohF0",
+      "url_normalized": "https://youtu.be/jXTY8WwohF0",
+      "article_dir": "articles/20261109-101535",
+      "subtitle_file": "youtube_jXTY8WwohF0.vtt",
+      "link_file": "links.txt",
+      "media_id": "HbIbdPKCxVEYs2lDI5JYjXC0rqxuWhuvDNUJUnCzgpvu6NUS8u-RZkt9O93ce7kb",
+      "title": null,
+      "processed_at": "2026-11-09T02:32:57+00:00"
     }
   ]
 }

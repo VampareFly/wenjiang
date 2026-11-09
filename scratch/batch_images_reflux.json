@@ -1,0 +1,54 @@
+{
+  "jobs": 4,
+  "tasks": [
+    {
+      "id": "cover_raw",
+      "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. A serene, high-end editorial photograph of peaceful night sleep and physiological comfort. In a softly lit minimalist master bedroom, an Asian professional sleeps comfortably on their left side on a premium mattress, bathed in warm amber nightstand light. In the soft background blur, an elegant semi-transparent anatomical outline of the human stomach and esophagus glows gently, showing gastric acid resting safely at the bottom without any reflux, conveying deep relief and tranquil sleep. Photorealistic, 8k resolution, clean composition, completely free of clutter. All text labels, signage, or props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/cover_raw.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu1",
+      "prompt": "Medical biomechanics infographic, 16:9 aspect ratio. Clear side-by-side anatomical comparison diagram explaining acid reflux mechanics and gravity on a clean light medical background. Left side: '向右侧卧' showing stomach positioned above esophagus junction, with gastric acid submerging the lower esophageal sphincter and rising upward indicated by red warning arrows, labeled in Simplified Chinese: '向右侧卧：酸液倒灌', '括约肌受浸泡', '反流灼烧'. Right side: '向左侧卧' showing stomach cavity pooling acid below the junction with gravity barrier, labeled in Simplified Chinese: '向左侧卧：重力锁酸', '贲门阀门居高', '物理阻断'. Modern medical illustration, clean typography, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/配图1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu2",
+      "prompt": "Medical posture comparison infographic, 16:9 aspect ratio. Explaining two hazardous sleeping postures for acid reflux on a light cream background. Top panel: '仰卧平躺' showing horizontal alignment where stomach acid easily leaks into esophagus, plus tongue falling back obstructing airway, labeled in Simplified Chinese: '平躺：无重力落差', '舌根后坠打鼾'. Bottom panel: '俯卧趴睡' showing heavy external body pressure compressing abdominal organs, forcing gastric contents upward into esophagus, labeled in Simplified Chinese: '趴睡：腹腔受压', '挤压胃囊上溢', '颈椎过度扭曲'. Clear clinical arrows, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu3",
+      "prompt": "Ergonomic sleep health guide infographic, 16:9 aspect ratio. High-end lifestyle wellness graphic showing anti-reflux sleep adjustments on a warm neutral background. Main diagram illustrates a person lying on an ergonomic wedge pillow with upper torso elevated by 15-20 cm (6-8 inches) at a gentle 15-degree incline, creating a natural gravity gradient that keeps stomach acid down, labeled in Simplified Chinese: '上半身整体抬高15-20厘米', '斜坡楔形垫', '天然重力屏障'. Insets at bottom with clean lifestyle icons: labeled in Simplified Chinese: '睡前三小时空腹', '避免紧身束腰'. Beautiful Scandinavian editorial aesthetic, all text strictly in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/配图3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao1",
+      "prompt": "Hyper-realistic medical editorial photography, 16:9 aspect ratio. A dramatic split-screen visual for health news headline. Left side: an Asian adult lying on a bed at night, pressing their chest near the sternum with an expression of burning discomfort and heartburn. Right side: an artistic 3D anatomical visualization of the stomach and esophagus, contrasting a fiery red burning reflux stream against a soothing cool blue locked stomach. Bold, clean Chinese graphic typography with Chinese text: '半夜反酸烧心？' and '睡姿重力学真相'. Modern cinematic lighting, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/toutiao-cover-1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "Dramatic medical science illustration, 16:9 aspect ratio. A stark anatomical comparison showing why right side sleeping causes acid reflux. Stylized 3D human torso showing stomach acid spilling from the stomach into the esophagus under gravity like an overturned flask. Prominently labeled with bold Chinese text: '右侧睡倒灌' and '食管括约肌松弛'. Dark clinical background with neon amber and red bio-luminescent highlights, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao3",
+      "prompt": "Bright, clean, uplifting lifestyle interior photography, 16:9 aspect ratio. A modern serene master bedroom setup for anti-reflux sleep. An elegant bed fitted with a gentle incline wedge pillow supporting a restful sleeper on their left side. On the bedside table is a glass of pure water and a notepad. Soft morning sunlight streaming through sheer curtains. Labeled cleanly in Simplified Chinese: '左侧卧物理锁酸' and '抬高床头15厘米'. Magazine quality, 16:9 aspect ratio, strictly pure Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-142743/toutiao-cover-3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}

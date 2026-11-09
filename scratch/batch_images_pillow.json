@@ -1,0 +1,44 @@
+[
+  {
+    "prompt": "WeChat Official Account article cover, 16:9 layout. Minimalist modern Scandinavian bedroom setting with soft warm morning sunlight streaming across a comfortable neatly-made bed. On the bed, two plush supportive ergonomic pillows and a rolled towel are gracefully arranged on linen bedding. In the background, an elegant abstract geometric diagram subtly shows the smooth natural curved line of a healthy human spine. Calming muted beige, sage green, and warm cream color palette. Hyper-realistic photography, high-end lifestyle wellness editorial feel, clean visual without any English text. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/cover_raw.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Medical biomechanics infographic, 16:9 aspect ratio. Clear side-by-side comparison diagram of human spine alignment during sleep. Upper section shows wrong posture: head placed at the edge of thick pillow, head pushed forward causing forward head posture, neck hanging unsupported with red warning strain points. Lower section shows correct posture: pillow pulled down between shoulder blades supporting neck and thoracic spine, head aligned naturally with spine, and a second support pillow under knees. Clean vector scientific illustration, sage green and slate grey palette, clear anatomical indicators. All text labels, diagram annotations, captions, and descriptions MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '错误：枕头仅垫头部', '正确：枕头支撑颈椎与胸椎', '膝下辅助枕', '中立位'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/配图1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Educational physical rehabilitation diagram, 16:9 aspect ratio. Horizontal anatomical view of a person sleeping on their side. Demonstrating the three-dimensional biomechanics of side sleeping: pillow height perfectly matching shoulder-to-neck distance so the cervical spine and thoracic spine form a straight horizontal line perpendicular to the shoulder. Between the knees, a supportive pillow is positioned to keep thighs parallel and pelvis neutral, preventing pelvic twisting and lumbar strain. Clean technical illustration style, emerald green, warm amber, and charcoal grey. All text labels, diagram annotations, captions, and descriptions MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '枕高匹配肩颈距离', '头颈胸呈水平线', '两膝夹枕维持骨盆中立', '腰椎平直'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/配图2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Clinical ergonomic guide illustration, 16:9 aspect ratio. Two-part practical comparison chart. Left side shows an ergonomic contoured memory foam cervical pillow with distinct high and low lobes, clearly explaining: use lower lobe for back sleeping, use higher lobe for side sleeping. Right side illustrates the DIY rolled towel method: a standard rolled cotton towel placed precisely under the cervical neck curve to gently support the natural arch while the head rests naturally. Modern clean medical textbook style, soft neutral lighting. All text labels, diagram annotations, captions, and descriptions MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '低侧：仰睡托颈', '高侧：侧睡填补肩宽', '毛巾卷托颈法', '自然生理曲度'.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Hyper-realistic lifestyle photography, 16:9 aspect ratio. A tired modern Asian professional sitting on the edge of a bed in early morning light, wearing comfortable linen pajamas, reaching one hand back to gently massage a stiff, painful neck and sore shoulder with an expression of fatigue. Messy pillows on the bed behind them. Cinematic realistic lighting, documentary mood, authentic emotional resonance, clean visual without any English text. All text labels and props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Cinematic split-screen photographic comparison, 16:9 aspect ratio. Left side shows an improper sleeping setup: an overly thick high pillow forcing a sleeping person's neck into extreme bent forward posture, causing visible neck muscle tension. Right side shows an ideal ergonomic setup: a properly positioned contoured pillow supporting the neck and mid back, body in serene perfect alignment with relaxed facial expression. High contrast warm and cool studio lighting, sharp detail, clean visual without any English text. All text labels and packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Uplifting lifestyle photography, 16:9 aspect ratio. A cheerful, healthy Asian individual standing by a bright bedroom window in golden morning sunshine, stretching both arms upwards with a refreshed and energetic posture, completely relieved from neck and back tension. A well-organized, cozy bed with neatly arranged pillows in the soft-focus background. High dynamic range, natural warmth, inspiring health vitality, clean visual without any English text. All signage, background elements, and props MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters.",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260911-093839/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

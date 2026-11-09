@@ -1,0 +1,26 @@
+[
+  {
+    "prompt": "A clean health lifestyle infographic, 16:9 aspect ratio, four visual quadrants: 1. 14-day palate reset to recalibrate sweet thresholds, 2. unsweetened sparkling water with fresh lemon slices, 3. cold-brewed herbal and green teas, 4. real whole foods with fiber and protein, elegant Scandinavian layout, midnight cyan and warm gold palette",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio, a 30-year-old Asian woman sitting at an office desk holding a can of zero-sugar soda, looking conflicted and hungry while craving a chocolate pastry nearby, authentic atmospheric lighting, highly detailed 8k",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end medical and conceptual photography, 16:9 aspect ratio, a split contrast composition: left side showing an iced glass of clear chemical zero-sugar soda with a chaotic red hunger wave, right side showing a glowing translucent brain-gut anatomical visualization bathed in calm blue light, crisp lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Lifestyle photography, 16:9 aspect ratio, an energetic, healthy Asian person smiling happily in a bright airy modern kitchen, drinking fresh sparkling water garnished with fresh mint and lemon slices, radiant vitality, crisp natural morning light",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260908-090705/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

@@ -21,6 +21,9 @@ WHITESPACE_RE = re.compile(r"[ \t]+")
 WEBVTT_SKIP_BLOCKS = {"NOTE", "STYLE", "REGION"}
 
 
+INLINE_TAG_RE = re.compile(r"<[^>]+>")
+
+
 def is_timecode_line(line: str) -> bool:
     return bool(TIMECODE_RE.match(line.strip()))
 
@@ -33,6 +36,7 @@ def normalize_caption_line(line: str) -> str:
     text = line.strip().lstrip("\ufeff")
     text = html.unescape(text)
     text = HTML_TAG_RE.sub("", text)
+    text = INLINE_TAG_RE.sub("", text)
     text = WHITESPACE_RE.sub(" ", text)
     return text.strip()
 
@@ -62,6 +66,9 @@ def clean_subtitle_text(source: str) -> str:
             continue
 
         if upper == "WEBVTT" or upper.startswith("WEBVTT "):
+            continue
+
+        if upper.startswith(("KIND:", "LANGUAGE:")):
             continue
 
         first_word = upper.split(maxsplit=1)[0]

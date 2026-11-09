@@ -1,0 +1,44 @@
+[
+  {
+    "prompt": "WeChat Official Account article cover, primary crop 2.35:1, wide cinematic aspect ratio. High-tech biochemical medical visualization of glowing collagen triple helix fibers, showing half of the fibers soft and flexible with radiant youthful glow, and the other half cross-linked and hardened by golden crystalline sugar molecules representing AGEs (Advanced Glycation End-products), deep obsidian and emerald gradient background, scientific aesthetic, 8k, photorealistic cinematic lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/cover.png",
+    "ar": "2.35:1",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A clean scientific medical infographic, 16:9 aspect ratio, showing the step-by-step glycation cascade: excess glucose molecules binding to flexible skin collagen fibers, forming rigid cross-linked AGEs meshes and triggering cellular RAGE inflammation receptors, clean amber and emerald palette, professional laboratory diagram style",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/配图1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A clear culinary science infographic, 16:9 aspect ratio, split comparison: left side showing high-heat deep frying and charred barbecue generating thousands of dietary AGEs units, right side showing low-temperature steaming and lemon/vinegar marinade reducing AGEs by 50%, clean minimalist layout, warm paper and forest green tones",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/配图2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "A clean health lifestyle infographic, 16:9 aspect ratio, four visual quadrants: 1. moist heat cooking (steaming and gentle stewing), 2. lemon juice and vinegar acidic marinade, 3. vegetable-first eating sequence for blood sugar stability, 4. polyphenol-rich green tea and berries, elegant Scandinavian layout, emerald and warm gold palette",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/配图3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Realistic documentary photography, 16:9 aspect ratio, a 48-year-old Asian woman in a soft morning light looking at her facial skin in a vanity mirror, noticing sallow skin tone and subtle loss of firmness, authentic cinematic lighting, highly detailed 8k",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/toutiao-cover-1.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "High-end culinary photography, 16:9 aspect ratio, a split contrast composition: left side showing dark crispy fried chicken and charred grilled meat, right side showing a fresh steamed whole fish with lemon slices and vibrant green broccoli, crisp professional studio lighting",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/toutiao-cover-2.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  },
+  {
+    "prompt": "Lifestyle photography, 16:9 aspect ratio, an energetic, radiant 52-year-old Asian woman smiling confidently while enjoying a cup of freshly brewed green tea in a sunlit kitchen, glowing smooth skin and vibrant vitality, warm natural light",
+    "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260903-091727/toutiao-cover-3.png",
+    "ar": "16:9",
+    "provider": "codex-cli"
+  }
+]

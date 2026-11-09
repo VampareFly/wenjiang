@@ -1,0 +1,54 @@
+{
+  "jobs": 4,
+  "tasks": [
+    {
+      "id": "cover_raw",
+      "prompt": "WeChat Official Account article cover, 16:9 aspect ratio. A serene, high-end medical scientific editorial illustration showing human liver lipid metabolism and cellular rejuvenation. In a refined modern aesthetic, the 3D anatomical silhouette of a healthy reddish-amber human liver is highlighted with radiant soft emerald and gold bioluminescent glow. Floating microscopic lipid droplets are shown actively dissolving and clearing away into clean energetic streams, symbolizing rapid liver fat reduction. Educational medical infographic style, elegant dark slate background, warm paper texture, sophisticated scientific lighting. All text labels, signage, or captions MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '肝脏脂质代谢', '两周减脂近50%'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/cover_raw.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu1",
+      "prompt": "Medical metabolic infographic, 16:9 aspect ratio. Clear side-by-side comparative clinical trial chart of 14-day carbohydrate-restriction intervention outcomes on an elegant light minimalist beige background. Left side shows '干预前 (第1天)': a stylized human liver saturated with heavy yellow lipid droplets, marked with '肝脏重度脂肪浸润'. Right side shows '干预14天后': the liver looks remarkably revitalized, reddish and clean, with '肝脏脂肪暴跌 -43.8%'. In the center panel, a contrast block highlights: '平均体重仅降 1.8%', '腰围基本未变', with an arrow pointing to '优先清空内脏与肝脏脂肪'. Professional medical journal illustration style, clean beige paper background, jade green and warm coral accents. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '干预前 (第1天)', '干预14天后', '肝脏脂肪暴跌 -43.8%', '平均体重仅降 1.8%', '腰围基本未变', '内脏脂肪优先消耗'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/配图1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu2",
+      "prompt": "Bio-medical science illustration, 16:9 aspect ratio. A biomedical pathway diagram illustrating dual biochemical mechanisms inside liver hepatocytes. Top half shows the shut-down of De Novo Lipogenesis: an incoming flow of carbohydrates and fructose marked with a large red cross, with text '从头脂肪合成 (DNL) 骤降 79.8%'. Bottom half shows the activation of fatty acid oxidation: active glowing mitochondria inside the liver cell burning long-chain fatty acids into energy, marked with '脂肪酸氧化激增近 5 倍', '线粒体燃脂引擎全开'. Clean isometric medical diagram, crisp typography, forest green and warm amber lighting on cream-colored textured paper. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '从头脂肪合成 DNL', '转化率骤降 79.8%', '脂肪酸氧化激增近 5 倍', '线粒体代谢能量释放', '胰岛素敏感度恢复'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/配图2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "peitu3",
+      "prompt": "Scientific biology diagram, 16:9 aspect ratio. An aesthetic scientific diagram illustrating the gut-liver axis communication and microbiome remodeling. On the left, a magnified section of the intestinal lumen shows rich beneficial probiotics flourishing, labeled '94种肠道菌群丰度重塑', '产叶酸益生菌群爆发增长'. A golden biochemical stream representing circulating Folate (叶酸) travels through the portal vein towards the right liver section, labeled '门静脉转运活性叶酸'. Inside the liver, the influx of folate supports lipid clearance and cools down inflammation, labeled '加速肝脂转运清除', '扑灭肝内无菌性炎症'. Educational biology textbook aesthetics, emerald green, warm gold and soft porcelain blue palette. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '肠-肝轴代谢对话', '94种菌群1天重构', '产叶酸菌群爆发增长', '门静脉转运活性叶酸', '加速肝脂转运清除', '扑灭肝内慢性炎症'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/配图3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao1",
+      "prompt": "Hyper-realistic health editorial photography, 16:9 aspect ratio. An urban Asian adult in their 30s sitting at a contemporary home desk in dim evening light, looking down with deep concern and anxiety at an official medical checkup report paper showing red stamps. On the desk nearby sits a bathroom digital scale and a measuring tape, illustrating the frustration of dieting and measuring without seeing immediate weight drops. Cinematic natural lighting, authentic emotional resonance, photorealistic textures. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label on the medical paper in Simplified Chinese: '体检报告单: 轻度脂肪肝'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/toutiao-cover-1.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao2",
+      "prompt": "A high-contrast split-screen editorial food photography in 16:9 aspect ratio. On the left side under harsh lighting: ultra-processed refined food that feeds fatty liver, featuring sugary bubble tea, sweet glazed donuts, refined white noodles, and sugary syrup bottles, with a subtle warning overlay '精制糖与果糖陷阱'. On the right side under warm appetizing natural window light: real nutrient-dense food supporting liver detox, featuring crisp dark leafy cruciferous vegetables, fresh broccoli, farm eggs, wild salmon, and healthy avocados, labeled '低碳与优质蛋白减负餐'. Photorealistic, mouth-watering editorial quality. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '精制糖与果糖', '从头脂肪合成', '深绿蔬菜与优质蛋白', '肝脏减负排脂'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/toutiao-cover-2.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    },
+    {
+      "id": "toutiao3",
+      "prompt": "A vibrant and uplifting 16:9 photograph of a healthy, energetic Asian adult jogging briskly on a sunny park trail in early morning golden light, looking fit, focused, and revitalized. In the subtle translucent overlay beside them, an aesthetic scientific glowing diagram reveals a healthy lean liver with high-energy mitochondrial burning indicators and improved metabolic vitality. Beautiful sun flares, joyful atmosphere, high-end editorial health photography. All text labels, diagram annotations, captions, and product packaging MUST be exclusively in Simplified Chinese characters, absolutely NO English words, NO English alphabet letters. Clearly label in Simplified Chinese: '两周肝脏减脂近50%', '代谢全面激活'.",
+      "image": "/Users/parkerpan/Desktop/wenjiang/articles/20260916-155654/toutiao-cover-3.png",
+      "ar": "16:9",
+      "provider": "codex-cli"
+    }
+  ]
+}
